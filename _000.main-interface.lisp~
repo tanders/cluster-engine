@@ -84,7 +84,7 @@ Ex. (group-list '(1 2 3 4) '(1 2 3) 'circular)  => ((1) (2 3) (4 1 2))
 (defun cluster-conv-nil-rests (list)
   (let* ((list-pairs (butlast list))
          (time-sigs (car (last list)))
-         (grouped-pairs (group-list list-pairs 2 'linear)))
+         (grouped-pairs (pw::group-list list-pairs 2 'linear)))
     (append (loop for i in grouped-pairs
               append (cluster-convert-one-rtm-pitch-pair i)) (list time-sigs))))
 

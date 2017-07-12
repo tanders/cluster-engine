@@ -74,10 +74,10 @@
 ;; (declaim (optimize ((debug 3) (speed 3) (safety 1))))
 ;; at the top of each file after in-package
 
-(defsystem :cluster-engine
-  :version "0.1543"
+(defsystem cluster-engine
+  :version "non-pwgl 0.157"
   :author "Orjan Sandred"
-  :description "This is not a public release - use this on your own risk.
+  :description "This is not a public release - use this at your own risk.
 
 This library provides a constraint system that uses several search engines that run in parallel to solve a musical constraint problem. Any number of engines can run in parallel (however the interface limits the user to maximum 21 engines). Variables in different engines can be constrained, and the engines can trigger backtracking in dependant engines to find a solution. 
 
@@ -85,44 +85,48 @@ This system is experimental: Any found solution is always valid, however in some
 
 THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 "
-  :default-component-class ccl::pwgl-source-file
+  ;; :default-component-class ccl::pwgl-source-file
   :serial t
   :components
-  ((:file "cluster-engine_sources/package")
-   (:file "cluster-engine_sources/000.box-ptr-for-orjan")
-   (:file "cluster-engine_sources/01.domain")
-   (:file "cluster-engine_sources/02.engine")
-   (:file "cluster-engine_sources/03.Fwd-rules")
-   (:file "cluster-engine_sources/04.Backtrack-rules")
-   (:file "cluster-engine_sources/05a.rules-interface-1engine")
-   (:file "cluster-engine_sources/05b.rules-interface-2engines") ;pitch and rhythm
-   (:file "cluster-engine_sources/05c.rules-interface-2engines") ;rhythm and rhythm
-   (:file "cluster-engine_sources/05d.rules-interface-2engines") ;hierarchy and metric rules
-   (:file "cluster-engine_sources/05e.rules-interface-2engines") ;metric rules and duration
-   (:file "cluster-engine_sources/05f.rules-interface-3engines") ;meter note
-   (:file "cluster-engine_sources/05g.rules-interface-any-n-engines") ;flexible number of layers, r-pitch-pitch
-   (:file "cluster-engine_sources/05h.rules-higher-level") ;"ready made" rules
-   (:file "cluster-engine_sources/05i.rules-stop-search")
-   (:file "cluster-engine_sources/05n.rules-interface-nn-engines")
-   (:file "cluster-engine_sources/05.rules-interface")
-   (:file "cluster-engine_sources/06.heuristic-rules-interface")
-   (:file "cluster-engine_sources/06a.heuristic-rules-interface-1engine")
-   (:file "cluster-engine_sources/06b.heuristic-rules-interface-2engines")
-   (:file "cluster-engine_sources/06c.heuristic-rules-interface-2engines")
-   (:file "cluster-engine_sources/06d.heuristic-rules-interface-2engines")
-   (:file "cluster-engine_sources/06e.heuristic-rules-interface-2engines")
-   (:file "cluster-engine_sources/06f.heuristic-rules-interface-3engines")
-   (:file "cluster-engine_sources/06g.heuristic-rules-interface-any-n-engines")
-   (:file "cluster-engine_sources/07.backjumping")
-   (:file "cluster-engine_sources/08.decode")
-   (:file "cluster-engine_sources/09.utilities")
-   (:file "cluster-engine_sources/09b.markov-tools")
-   (:file "cluster-engine_sources/09c.cluster-energy-profile")
-   (:file "cluster-engine_sources/10.PWGL-interface")
-   (:file "cluster-engine_sources/11.simple-tree")
-   (:file "cluster-engine_sources/12.debug-tools")
-   (:file "cluster-engine_sources/13.convert-pmc-rules")
-   (:file "cluster-engine_sources/14.back-compability")
-
-   (:file "cluster-engine_sources/00.menu")
+  ((:file "package")
+   (:file "from-studio-flat")
+   ;; (:file "000.box-ptr-for-orjan") ; likely obsolete 
+   (:file "01.domain")
+   (:file "02.engine")
+   (:file "03.Fwd-rules")
+   (:file "04.Backtrack-rules")
+   (:file "05.rules-interface")
+   (:file "05a.rules-interface-1engine")
+   (:file "05b.rules-interface-2engines") ;pitch and rhythm
+   (:file "05c.rules-interface-2engines") ;rhythm and rhythm
+   (:file "05d.rules-interface-2engines") ;hierarchy and metric rules
+   (:file "05e.rules-interface-2engines") ;metric rules and duration
+   (:file "05f.rules-interface-3engines") ;meter note
+   (:file "05g.rules-interface-any-n-engines") ;flexible number of layers, r-pitch-pitch
+   (:file "05h.rules-higher-level") ;"ready made" rules
+   (:file "05i.rules-stop-search")
+   (:file "05n.rules-interface-nn-engines")
+   (:file "06.heuristic-rules-interface")
+   (:file "06a.heuristic-rules-interface-1engine")
+   (:file "06b.heuristic-rules-interface-2engines")
+   (:file "06c.heuristic-rules-interface-2engines")
+   (:file "06d.heuristic-rules-interface-2engines")
+   (:file "06e.heuristic-rules-interface-2engines")
+   (:file "06f.heuristic-rules-interface-3engines")
+   (:file "06g.heuristic-rules-interface-any-n-engines")
+   (:file "07.backjumping")
+   (:file "08.decode")
+   (:file "09.utilities")
+   (:file "09b.markov-tools")
+   (:file "09c.cluster-energy-profile")
+   ;; (:file "10.PWGL-interface")
+   ;; (:file "11.simple-tree")
+   (:file "12.debug-tools")
+   (:file "13.convert-pmc-rules")
+   ;; (:file "14.back-compability")
+   ;; (:file "00.menu")
+   ;; Files added after moving away from PWGL
+   (:file "_000.main-interface")
+   ;;; TMP comment -- dependency on two PW functions
+   ;; (:file "_001.gen_domains")
 ))

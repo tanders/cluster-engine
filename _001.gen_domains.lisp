@@ -1,5 +1,21 @@
 (in-package :cluster-engine)
 
+(defun mat-trans (lists)
+  "Matrix transformation.
+   (mat-trans '((a1 a2 a3) (b1 b2 b3) (c1 c2 c3) ...))
+   => ((a1 b1 c1 ...) (a2 b2 c2 ...) (a3 b3 c3 ...))"
+  (apply #'mapcar #'(lambda (&rest all) all) 
+	 lists))
+
+;;; TODO: make sure that args are the same
+(defun arithmeric-series (factor offset length)
+  (let (result)
+    (reverse
+     (dotimes (i length result)
+       (push (+ (* i factor) offset)
+             result)))))
+
+
 ; pitch values  (& chords ?)
 ; (arithm-ser + mapcar list)
 ; including controls with chord-editors (range / modes-gammes façon Jacopo)
