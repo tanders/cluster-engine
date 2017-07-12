@@ -1,5 +1,7 @@
 (defpackage cluster-engine
-  (:use :common-lisp
-	; :sb-ext
-	))
+  #+SBCL
+  (:use :common-lisp :sb-ext)
+  #-SBCL
+  (:use :common-lisp)
+  (:nicknames :ce))
 
