@@ -2771,11 +2771,11 @@ on the candidate).
                                        ((= *bktr-nm1v* 2)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
-                                              collect (rule-three-engines2 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engin)))
+                                              collect (rule-three-engines2 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine)))
                                        ((= *bktr-nm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
-                                              collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engin))))
+                                              collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))))
                                  )
                                 ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenote-mode :normal))
                                  (cond ((= *bktr-nm1v* 1)
@@ -2785,11 +2785,11 @@ on the candidate).
                                        ((= *bktr-nm1v* 2)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
-                                              collect (rule-three-engines2 (rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engin)))
+                                              collect (rule-three-engines2 (rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine)))
                                        ((= *bktr-nm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
-                                              collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engin))))
+                                              collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))))
                                  )
                                 ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
                                  (cond ((= *bktr-nm1v* 1)
@@ -2799,11 +2799,11 @@ on the candidate).
                                        ((= *bktr-nm1v* 2)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
-                                              collect (rule-three-engines2 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engin)))
+                                              collect (rule-three-engines2 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine)))
                                        ((= *bktr-nm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
-                                              collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engin))))
+                                              collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))))
                                  )
                                 ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
                                  (cond ((= *bktr-nm1v* 1)
@@ -2813,11 +2813,11 @@ on the candidate).
                                        ((= *bktr-nm1v* 2)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
-                                              collect (rule-three-engines2 (rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engin)))
+                                              collect (rule-three-engines2 (rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine)))
                                        ((= *bktr-nm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
-                                              collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engin))))
+                                              collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))))
                                  )
                                 (t (error "Not yet implemented"))
                                 )
