@@ -1,5 +1,0 @@
-# Compiled files
-*.clufasl
-
-# System files
-.DS_Store
