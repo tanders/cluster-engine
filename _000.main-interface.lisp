@@ -33,6 +33,45 @@
 (defun function-lambda-list (fn)
   (sb-kernel:%simple-fun-arglist fn))
 
+;; from OM
+(defun repeat-n  (self n) 
+"Repeats <n> times the evaluation of <self> and collects the <n> results into a list.
+
+Ex. (repeat-n (+ 1 1) 4) ==> (2 2 2 2)"
+  (let (rep)
+    (loop for i from 1 to n do
+          (push self rep))
+    (reverse rep)))
+
+;; from OM
+(defmethod group-list ((list list) (segmentation list) mode)
+   "Segments a <list> in successives sublists which lengths are successive values of the list <segmentation>.
+ <mode> indicates if <list> is to be read in a circular way.
+
+Ex. (group-list '(1 2 3 4) '(1 3) 'linear)  => ((1) (2 3 4))
+Ex. (group-list '(1 2 3 4) '(1 2 3) 'linear)  => ((1) (2 3) (4))
+Ex. (group-list '(1 2 3 4) '(1 2 3) 'circular)  => ((1) (2 3) (4 1 2))
+"
+ 
+   (let ((list2 list) (res nil))
+     (catch 'gl
+      (loop for segment in segmentation
+            while (or list2 (eq mode 'circular))
+            do (push (loop for i from 1 to segment
+                           when (null list2)
+                           do (case mode
+                                (linear (push sublist res) (throw 'gl 0))
+                                (circular (setf list2 list)))
+                           end
+                           collect (pop list2) into sublist
+                           finally (return sublist))
+                              res))
+     )
+     (nreverse res)
+     ))
+(defmethod group-list ((list list) (segmentation number) mode)
+    (group-list list (repeat-n segmentation (ceiling (length list) segmentation)) 'linear))
+
 
 (defun cluster-convert-one-rtm-pitch-pair (list)
   (let* ((rtm (car list))
@@ -45,7 +84,7 @@
 (defun cluster-conv-nil-rests (list)
   (let* ((list-pairs (butlast list))
          (time-sigs (car (last list)))
-         (grouped-pairs (pw::group-list list-pairs 2 'linear)))
+         (grouped-pairs (group-list list-pairs 2 'linear)))
     (append (loop for i in grouped-pairs
               append (cluster-convert-one-rtm-pitch-pair i)) (list time-sigs))))
 

@@ -90,7 +90,7 @@ THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED OR IMPLIED WAR
   :components
   ((:file "package")
    (:file "from-studio-flat")
-   ;; (:file "000.box-ptr-for-orjan")
+   ;; (:file "000.box-ptr-for-orjan") ; likely obsolete 
    (:file "01.domain")
    (:file "02.engine")
    (:file "03.Fwd-rules")
