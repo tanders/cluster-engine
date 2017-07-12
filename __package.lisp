@@ -57,7 +57,7 @@
 
 #|
 ;;;;;; PW and Co.
-<<<<<<< HEAD
+
 ;(load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/iter.lisp")
 ;(load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/pw-common-language.lisp")
 ;(load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/pw_profile_functions.lisp")
@@ -66,7 +66,6 @@
 (load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/pw-common-language.lisp")
 (load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/pw_profile_functions.lisp")
 |#
->>>>>>> 4b3cd5240847af5c5abc784e4f233f965a9b41e0
 
 ;;;;;; gen-domains
 (load-local "_001.gen_domains")
