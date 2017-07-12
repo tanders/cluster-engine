@@ -88,7 +88,8 @@
 ;;;;;;;;;;; (for some reason save-lisp-and-die doesn't understand the ~/ address...)
 ; 
 ;(save-lisp-and-die "/Users/orjansandred/Dropbox/cluster-to-Max-Orjan/cluster19.core")
-(save-lisp-and-die "/Users/julienvincenot/Dropbox/cluster-to-Max-Orjan/new-approach/cluster.core")
+;(save-lisp-and-die "/Users/julienvincenot/Dropbox/cluster-to-Max-Orjan/new-approach/cluster.core")
+(save-lisp-and-die "/Users/julienvincenot/Desktop")
 
 ;;;;;;;;;;;
 
