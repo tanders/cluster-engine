@@ -42,9 +42,9 @@
 (load "_000.main-interface.lisp")
 
 ;;;;;; PW and Co.
-;(load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/iter.lisp")
-;(load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/pw-common-language.lisp")
-;(load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/pw_profile_functions.lisp")
+(load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/iter.lisp")
+(load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/pw-common-language.lisp")
+(load "~/Dropbox/cluster-to-Max-Orjan/other-libraries/pw_profile_functions.lisp")
 
 ;;;;;; gen-domains
 (load "_001.gen_domains.lisp")
@@ -54,7 +54,8 @@
 ;;;;;;;;;;; (for some reason save-lisp-and-die doesn't understand the ~/ address...)
 ; 
 ;(save-lisp-and-die "/Users/orjansandred/Dropbox/cluster-to-Max-Orjan/cluster19.core")
-(save-lisp-and-die "/Users/julienvincenot/Dropbox/cluster-to-Max-Orjan/new-approach/cluster.core")
+;(save-lisp-and-die "/Users/julienvincenot/Dropbox/cluster-to-Max-Orjan/new-approach/cluster.core")
+ (save-lisp-and-die "/Users/julienvincenot/Desktop/cluster-test.core")
 
 ;;;;;;;;;;;
 
