@@ -81,7 +81,7 @@ Countvalue cannot be higher than the endpoint of the list."
 (defun find-index-for-position-in-durationseq (position vlinear-solution vsolution-for-backjump engine)
   "Returns the index (counted from 0) for the variable where the duration at the position exists.
 A duration HAS to exist at the position."
-  (declare (type array vsolution-for-backjump vlinear-position))
+  (declare (type array vsolution-for-backjump vlinear-solution))
   (declare (type fixnum position engine))
 ;first get timepoint
 ;then find index
@@ -146,8 +146,8 @@ If iled-notecounts is nil (i.e. a rest), backjump will not be set. This is a sim
   (loop for voicenr in list-voicenrs
         for failed-notecount in failed-notecounts
         do (progn 
-             (declare (type fixnum voicenr)) 
-             (declare (type list failed-notecount))
+             #-CCL (declare (type fixnum voicenr)) 
+             #-CCL (declare (type list failed-notecount))
              (when failed-notecount ;if there is no notecound (i.e. if it is a rest) don't set any backjump index. Not ethat it would be better to actually set it from timepoint in this case.
                (progn
                  (setf (aref vbackjump-indexes (1+ (* 2 voicenr))) ;pitch-engine

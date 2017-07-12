@@ -1,7 +1,54 @@
 (in-package cluster-engine)
 
+#|
+;; from https://stackoverflow.com/questions/15465138/find-functions-arity-in-common-lisp
+(defun arglist (fn)
+  "Return the signature of the function."
+  #+allegro (excl:arglist fn)
+  #+clisp (sys::arglist fn)
+  #+(or cmu scl)
+  (let ((f (coerce fn 'function)))
+    (typecase f
+      (STANDARD-GENERIC-FUNCTION (pcl:generic-function-lambda-list f))
+      (EVAL:INTERPRETED-FUNCTION (eval:interpreted-function-arglist f))
+      (FUNCTION (values (read-from-string (kernel:%function-arglist f))))))
+  #+cormanlisp (ccl:function-lambda-list
+                (typecase fn (symbol (fdefinition fn)) (t fn)))
+  #+gcl (let ((fn (etypecase fn
+                    (symbol fn)
+                    (function (si:compiled-function-name fn)))))
+          (get fn 'si:debug))
+  #+lispworks (lw:function-lambda-list fn)
+  #+lucid (lcl:arglist fn)
+  #+sbcl (sb-introspect:function-lambda-list fn)
+  #-(or allegro clisp cmu cormanlisp gcl lispworks lucid sbcl scl)
+  (error 'not-implemented :proc (list 'arglist fn)))
+|#
+
+#+CCL
+(defun function-lambda-list (fn)
+  (ccl:arglist fn))
+
+#+SBCL
 (defun function-lambda-list (fn)
   (sb-kernel:%simple-fun-arglist fn))
+
+
+(defun cluster-convert-one-rtm-pitch-pair (list)
+  (let* ((rtm (car list))
+         (pitch (second list))
+         (res-pitch ()))
+    (loop for i in rtm
+      if (< i 0) do (push nil res-pitch) else do (push (pop pitch) res-pitch))
+    (list rtm (nreverse res-pitch))))
+
+(defun cluster-conv-nil-rests (list)
+  (let* ((list-pairs (butlast list))
+         (time-sigs (car (last list)))
+         (grouped-pairs (pw::group-list list-pairs 2 'linear)))
+    (append (loop for i in grouped-pairs
+              append (cluster-convert-one-rtm-pitch-pair i)) (list time-sigs))))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

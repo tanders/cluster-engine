@@ -1,7 +1,38 @@
 (in-package cluster-engine)
 
+#|
+;; from https://stackoverflow.com/questions/15465138/find-functions-arity-in-common-lisp
+(defun arglist (fn)
+  "Return the signature of the function."
+  #+allegro (excl:arglist fn)
+  #+clisp (sys::arglist fn)
+  #+(or cmu scl)
+  (let ((f (coerce fn 'function)))
+    (typecase f
+      (STANDARD-GENERIC-FUNCTION (pcl:generic-function-lambda-list f))
+      (EVAL:INTERPRETED-FUNCTION (eval:interpreted-function-arglist f))
+      (FUNCTION (values (read-from-string (kernel:%function-arglist f))))))
+  #+cormanlisp (ccl:function-lambda-list
+                (typecase fn (symbol (fdefinition fn)) (t fn)))
+  #+gcl (let ((fn (etypecase fn
+                    (symbol fn)
+                    (function (si:compiled-function-name fn)))))
+          (get fn 'si:debug))
+  #+lispworks (lw:function-lambda-list fn)
+  #+lucid (lcl:arglist fn)
+  #+sbcl (sb-introspect:function-lambda-list fn)
+  #-(or allegro clisp cmu cormanlisp gcl lispworks lucid sbcl scl)
+  (error 'not-implemented :proc (list 'arglist fn)))
+|#
+
+#+CCL
+(defun function-lambda-list (fn)
+  (arglist fn))
+
+#+SBCL
 (defun function-lambda-list (fn)
   (sb-kernel:%simple-fun-arglist fn))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -13,7 +44,7 @@
                       debug?
                       rules
                       metric-domain
-                      &rest list-of-domains)
+                      list-of-domains)
   "
 The Cluster Engine - the main function.
 Pitch domains cannot exist without at least one duration in the rhythm domain.

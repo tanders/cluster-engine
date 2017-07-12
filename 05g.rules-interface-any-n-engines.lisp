@@ -13,17 +13,17 @@
   (append (cdr list) (list (car list))))
 
 
-(defun left-rotate-and-collect (list)
-  (declare (type list list l))
+(defun left-rotate-and-collect (list)  
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (length list)
           do (setf l (left-rotate l))
           collect l)))
 
 
-(defun collect-and-left-rotate (list)
-  (declare (type list list l))
+(defun collect-and-left-rotate (list)  
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (length list)
           collect l
           do (setf l (left-rotate l)))))
@@ -80,27 +80,27 @@ This sort is NOT destructive."
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun left-rotate-sort-odd-and-collect (list)
   "Left rotate = prefer NEXT engine
-Sort odd = prefer pitch engines"
-  (declare (type list list l))
+Sort odd = prefer pitch engines"  
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (length list)
           do (setf l (left-rotate l))
           collect (sort-odd-first l))))
 
 (defun left-rotate-sort-even-and-collect (list)
   "Left rotate = prefer NEXT engine
-Sort even = prefer rhythm engines"
-  (declare (type list list l))
+Sort even = prefer rhythm engines"  
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (length list)
           do (setf l (left-rotate l))
           collect (sort-even-first l))))
 
 (defun collect-sort-odd-and-left-rotate (list)
   "Collect = prefer this voice
-Sort odd = prefer pitch engines"
-  (declare (type list list l))
+Sort odd = prefer pitch engines"  
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (length list)
           collect (sort-odd-first l)
           do (setf l (left-rotate l)))))
@@ -109,9 +109,9 @@ Sort odd = prefer pitch engines"
   "Collect = prefer this voice 
 Sort odd = prefer rhythm engines
 (exception: pitch engine will prefer rhythm engine in next voice)
-"
-  (declare (type list list l))
+"  
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (length list)
           collect (sort-even-first l)
           do (setf l (left-rotate l)))))
@@ -121,9 +121,9 @@ Sort odd = prefer rhythm engines
   "Left rotate = prefer NEXT engine
 Sort odd = prefer pitch engines
 Add metric = add metric engine as the lowest priority,
-and also create a sublist for the metric engine."
-  (declare (type list list l))
+and also create a sublist for the metric engine."  
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (1+ (length list)) ;the 1+ will give an extra loop for the metric engine
           do (setf l (left-rotate l))
           collect (append (sort-odd-first l) (list metric-engine)))))
@@ -132,9 +132,9 @@ and also create a sublist for the metric engine."
   "Left rotate = prefer NEXT engine
 Sort even = prefer rhythm engines
 Add metric = add metric engine as the lowest priority,
-and also create a sublist for the metric engine."
-  (declare (type list list l))
+and also create a sublist for the metric engine."  
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (1+ (length list)) ;the 1+ will give an extra loop for the metric engine
           do (setf l (left-rotate l))
           collect (append (sort-even-first l) (list metric-engine)))))
@@ -143,9 +143,9 @@ and also create a sublist for the metric engine."
   "Collect = prefer this voice
 Sort odd = prefer pitch engines
 Add metric = add metric engine as the lowest priority,
-and also create a sublist for the metric engine."
-  (declare (type list list l))
+and also create a sublist for the metric engine." 
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (1+ (length list)) ;the 1+ will give an extra loop for the metric engine
           collect (append (sort-odd-first l) (list metric-engine))
           do (setf l (left-rotate l)))))
@@ -156,9 +156,9 @@ Sort odd = prefer rhythm engines
 (exception: pitch engine will prefer rhythm engine in next voice)
 Add metric = add metric engine as the lowest priority,
 and also create a sublist for the metric engine.
-"
-  (declare (type list list l))
+"  
   (let ((l list))
+    (declare (type list list l))
     (loop for n from 1 to (1+ (length list)) ;the 1+ will give an extra loop for the metric engine
           collect (append (sort-even-first l) (list metric-engine))
           do (setf l (left-rotate l)))))
@@ -339,7 +339,7 @@ Metric engine has lowest priority.
   "Returns a list with the timepoints for the last event in each voice that has both pitch and rhythm value. Both rhythm and pitch engine for the voice must exist."
   (declare (type list list-voicenrs))
   (declare (type array vlinear-solution))
-  (declare (type fixnum voicenrs))
+  #-CCL (declare (type fixnum voicenrs)) 
   (loop for voicenrs in list-voicenrs
         collect (get-offset-timepoint-at-notecount-include-final-rest (* 2 voicenrs) vlinear-solution 
                                                                       (min 
@@ -363,7 +363,7 @@ Returns nil if one voice doesn't have events with dur/pitch yet."
   "Collects all timepoints from the voices, sorts them and removes duplicates."
   (declare (type list list-voicenrs))
   (declare (type array vlinear-solution))
-  (declare (type fixnum voicenr))
+  #-CCL (declare (type fixnum voicenr)) 
   (remove-duplicates
    (sort 
     (apply 'append
@@ -395,13 +395,14 @@ If duration is not assigned, nil will be returned. Also works for he metric engi
 
 (defun get-pitches-to-notecounts (list-voicenrs notecounts-all-voice vlinear-solution)
   "This function looks up teh correcponding pitches at notecounts in one or several voices."
-  (declare (type list list-voicenrs notecounts-all-voice notecounts))
+  #-CCL (declare (type list list-voicenrs notecounts-all-voice notecounts))
+  #+CCL (declare (type list list-voicenrs notecounts-all-voice))
   (declare (type array vlinear-solution))
-  (declare (type fixnum voicenr notecount))
-    (loop for voicenr in list-voicenrs
-          for notecounts in notecounts-all-voice
-        collect (loop for notecount in notecounts
-                      collect (if notecount (get-pitch-at-pitchcount (+ 1 (* 2 voicenr)) vlinear-solution notecount) nil))))
+  #-CCL (declare (type fixnum voicenr notecount))
+  (loop for voicenr in list-voicenrs
+    for notecounts in notecounts-all-voice
+    collect (loop for notecount in notecounts
+              collect (if notecount (get-pitch-at-pitchcount (+ 1 (* 2 voicenr)) vlinear-solution notecount) nil))))
 
 
 
@@ -694,7 +695,6 @@ This is to combine simultaneous notecounts at one timepoint for n voices (some o
 Gracenotes are given as a list of notecounts (last notecount is the main note). The function groups individual slices
 for each gracenote (they are grouped with the main notes in the other voices)."
   (declare (type list all-voices-notecount))
-
   (let ((basenotes-this-timepoint (loop for one-voice-notecount in all-voices-notecount
                                         collect (if (listp one-voice-notecount) 
                                                     (if (equal one-voice-notecount '(nil)) '(nil) (car (last one-voice-notecount))) ;this is changed
@@ -705,7 +705,7 @@ for each gracenote (they are grouped with the main notes in the other voices)."
                                  for n from 0
                                  collect (when (listp one-voice-notecount) 
                                          (progn
-                                             (declare (type t one-voice-notecount))
+                                             #-CCL (declare (type t one-voice-notecount))
                                              (loop for gracenote in (butlast one-voice-notecount)
                                                    collect (let ((this-slice (copy-list basenotes-this-timepoint)))
                                                              (declare (type list this-slice))
@@ -787,11 +787,9 @@ This function also includs the notecounts for grace notes."
   "Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
-
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
           '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
-
 
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -826,7 +824,7 @@ This function also includs the notecounts for grace notes."
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2))) ;REMOVE NIL
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                         '(return nil)
@@ -883,7 +881,7 @@ This function also includs the notecounts for grace notes."
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2)))
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
@@ -940,7 +938,7 @@ This function also includs the notecounts for grace notes."
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2)))
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                         '(return nil)
@@ -1003,7 +1001,7 @@ This function also includs the notecounts for grace notes."
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2)))
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
@@ -1736,7 +1734,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2))) ;REMOVE NIL
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
@@ -1812,7 +1810,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2)))
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
@@ -1883,7 +1881,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2)))
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
@@ -1958,7 +1956,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2)))
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
@@ -2035,7 +2033,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2))) ;REMOVE NIL
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
@@ -2113,7 +2111,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2)))
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
@@ -2186,7 +2184,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2)))
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
@@ -2263,7 +2261,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
                                       ;backjump routine here
                                                         (list 'let '((failed-notecounts (nth n groups-of-simultaneous-notecounts-all-voices2)))
-                                                              (declare (type list failed-notecounts))
+                                                              '(declare (type list failed-notecounts))
                                                               (list 'set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices 
                                                                     'failed-notecounts (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                               '(return nil)
