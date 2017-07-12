@@ -1,8 +1,7 @@
 (in-package cluster-engine)
 
 (defclass heuristic-rule ()
-  ((layer :type array :initform nil :reader get-heuristic-rule :writer set-heuristic-rule)))
-
+  ((layer :type array :initform (make-array 1) :reader get-heuristic-rule :writer set-heuristic-rule)))
 
 (defun make-heuristic-rule-instance (hrule-vector)
   (let ((this-instance (make-instance 'heuristic-rule)))

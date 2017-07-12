@@ -5,10 +5,6 @@
 ;the class is only used to distinguish rules from heuristic rules
  
 (defclass rule ()
-  ((layer :type array :initform nil :reader get-rule :writer set-rule)))
-
-#+CCL
-(defclass rule ()
   ((layer :type array :initform (make-array 1) :reader get-rule :writer set-rule)))
 
 (defun compile-if-not-compiled (name expr)
