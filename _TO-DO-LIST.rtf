@@ -14,14 +14,25 @@ and Orjan.Sandred@umanitoba.ca.\
 \f1\fs38 \cf0 \expnd0\expndtw0\kerning0
 Known issues :\
 \
+- BE CAREFUL : keywords in menus for some inputs\
+   do not raise errors in case of mistakes \
+   (offset-dur instead of 
+\b \expnd0\expndtw0\kerning0
+offset_dur
+\b0 \expnd0\expndtw0\kerning0
+ for instance)\
+   we might think eventually to correct that in \
+   the interface between pwgl rules and pure-lisp rules\
+\
 - finish to check every tutorials from PWGL in pure code mode\
+\
 - add a third option to "output" input in cluster-engine function\
 	=> :score / : list / + :list-with-nil-rests (for bach)\
 	=> reintroduce this in the general interface \
 		(same sources for pwgl / sbcl(max) / ccl(opusmodus) )\
 \
-When used within the version in Max: \
-put every bach.roll/score in realtime mode \
+- for bach interface : \
+	put every bach.roll/score in realtime mode in the tutorials\
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720
 
