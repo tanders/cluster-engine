@@ -523,16 +523,6 @@ on the candidate).
 
 
 
-
-
-
-
-
-(ClusterEngine  10 t nil nil '((4 4)) '((1/4) (1/8)  (1/16))  nil)
-
-(ClusterEngine  10 t nil (R-RHYTHMS-ONE-VOICE #'(lambda (x y) (= x y)) 0 :durations) '((4 4)) '((1/4) (1/8)  (1/16))  nil)
-
-
 ;;;;;;;;;;;;;;;;;; MY-VERSION ;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun R-rhythms-one-voice (rule    ;;;; nil

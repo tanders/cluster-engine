@@ -85,7 +85,7 @@ This system is experimental: Any found solution is always valid, however in some
 
 THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 "
-  ;; :default-component-class ccl::pwgl-source-file
+  #+LISPWORKS :default-component-class #+LISPWORKS ccl::pwgl-source-file
   :serial t
   :components
   ((:file "sources/package")
@@ -119,14 +119,15 @@ THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED OR IMPLIED WAR
    (:file "sources/09.utilities")
    (:file "sources/09b.markov-tools")
    (:file "sources/09c.cluster-energy-profile")
-   ;; (:file "sources/10.PWGL-interface")
-   ;; (:file "sources/11.simple-tree")
+   #+LISPWORKS (:file "sources/10.PWGL-interface")
+   #+LISPWORKS (:file "sources/11.simple-tree")
    (:file "sources/12.debug-tools")
    (:file "sources/13.convert-pmc-rules")
    ;; (:file "sources/14.back-compability")
-   ;; (:file "sources/00.menu")
+   #+LISPWORKS (:file "sources/00.menu")
    ;; Files added after moving away from PWGL
-   (:file "sources/_000.main-interface")
+   #-LISPWORKS (:file "sources/_000.main-interface")
    ;;; TMP comment -- dependency on two PW functions
    ;; (:file "sources/_001.gen_domains")
+   (:file "sources/export")
 ))
