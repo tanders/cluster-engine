@@ -14,6 +14,10 @@ and Orjan.Sandred@umanitoba.ca.\
 \f1\fs38 \cf0 \expnd0\expndtw0\kerning0
 Known issues :\
 \
+- r-note-meter fails when :d_offs_m_n + :beats + :incl-rests + :normal\
+	see test file 7e.lisp \
+	(4/4 bars should always be C maj scale or else F# maj scale\
+\
 - BE CAREFUL : keywords in menus for some inputs\
    do not raise errors in case of mistakes \
    (offset-dur instead of 
@@ -34,13 +38,11 @@ offset_dur
 - for bach interface : \
 	put every bach.roll/score in realtime mode in the tutorials\
 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720
 
-\b \cf0 \expnd0\expndtw0\kerning0
+\b \expnd0\expndtw0\kerning0
 r-pitch-pitch\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720
 
-\b0 \cf0 \expnd0\expndtw0\kerning0
+\b0 \expnd0\expndtw0\kerning0
 \
 heur-switch:\
  :beat\
