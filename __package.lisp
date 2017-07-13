@@ -16,7 +16,7 @@
 (defun load-local (lisp-file-name)
   "Loads a lisp file in the directory of this file."
   (load 
-   (make-pathname :directory *current-directory*
+   (make-pathname :directory (append *current-directory* '("sources"))
                   :name lisp-file-name
                   :type "lisp")))
 

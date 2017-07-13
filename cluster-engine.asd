@@ -88,45 +88,45 @@ THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED OR IMPLIED WAR
   ;; :default-component-class ccl::pwgl-source-file
   :serial t
   :components
-  ((:file "package")
-   (:file "from-studio-flat")
-   ;; (:file "000.box-ptr-for-orjan") ; likely obsolete 
-   (:file "01.domain")
-   (:file "02.engine")
-   (:file "03.Fwd-rules")
-   (:file "04.Backtrack-rules")
-   (:file "05.rules-interface")
-   (:file "05a.rules-interface-1engine")
-   (:file "05b.rules-interface-2engines") ;pitch and rhythm
-   (:file "05c.rules-interface-2engines") ;rhythm and rhythm
-   (:file "05d.rules-interface-2engines") ;hierarchy and metric rules
-   (:file "05e.rules-interface-2engines") ;metric rules and duration
-   (:file "05f.rules-interface-3engines") ;meter note
-   (:file "05g.rules-interface-any-n-engines") ;flexible number of layers, r-pitch-pitch
-   (:file "05h.rules-higher-level") ;"ready made" rules
-   (:file "05i.rules-stop-search")
-   (:file "05n.rules-interface-nn-engines")
-   (:file "06.heuristic-rules-interface")
-   (:file "06a.heuristic-rules-interface-1engine")
-   (:file "06b.heuristic-rules-interface-2engines")
-   (:file "06c.heuristic-rules-interface-2engines")
-   (:file "06d.heuristic-rules-interface-2engines")
-   (:file "06e.heuristic-rules-interface-2engines")
-   (:file "06f.heuristic-rules-interface-3engines")
-   (:file "06g.heuristic-rules-interface-any-n-engines")
-   (:file "07.backjumping")
-   (:file "08.decode")
-   (:file "09.utilities")
-   (:file "09b.markov-tools")
-   (:file "09c.cluster-energy-profile")
-   ;; (:file "10.PWGL-interface")
-   ;; (:file "11.simple-tree")
-   (:file "12.debug-tools")
-   (:file "13.convert-pmc-rules")
-   ;; (:file "14.back-compability")
-   ;; (:file "00.menu")
+  ((:file "sources/package")
+   (:file "sources/from-studio-flat")
+   ;; (:file "sources/000.box-ptr-for-orjan") ; likely obsolete 
+   (:file "sources/01.domain")
+   (:file "sources/02.engine")
+   (:file "sources/03.Fwd-rules")
+   (:file "sources/04.Backtrack-rules")
+   (:file "sources/05.rules-interface")
+   (:file "sources/05a.rules-interface-1engine")
+   (:file "sources/05b.rules-interface-2engines") ;pitch and rhythm
+   (:file "sources/05c.rules-interface-2engines") ;rhythm and rhythm
+   (:file "sources/05d.rules-interface-2engines") ;hierarchy and metric rules
+   (:file "sources/05e.rules-interface-2engines") ;metric rules and duration
+   (:file "sources/05f.rules-interface-3engines") ;meter note
+   (:file "sources/05g.rules-interface-any-n-engines") ;flexible number of layers, r-pitch-pitch
+   (:file "sources/05h.rules-higher-level") ;"ready made" rules
+   (:file "sources/05i.rules-stop-search")
+   (:file "sources/05n.rules-interface-nn-engines")
+   (:file "sources/06.heuristic-rules-interface")
+   (:file "sources/06a.heuristic-rules-interface-1engine")
+   (:file "sources/06b.heuristic-rules-interface-2engines")
+   (:file "sources/06c.heuristic-rules-interface-2engines")
+   (:file "sources/06d.heuristic-rules-interface-2engines")
+   (:file "sources/06e.heuristic-rules-interface-2engines")
+   (:file "sources/06f.heuristic-rules-interface-3engines")
+   (:file "sources/06g.heuristic-rules-interface-any-n-engines")
+   (:file "sources/07.backjumping")
+   (:file "sources/08.decode")
+   (:file "sources/09.utilities")
+   (:file "sources/09b.markov-tools")
+   (:file "sources/09c.cluster-energy-profile")
+   ;; (:file "sources/10.PWGL-interface")
+   ;; (:file "sources/11.simple-tree")
+   (:file "sources/12.debug-tools")
+   (:file "sources/13.convert-pmc-rules")
+   ;; (:file "sources/14.back-compability")
+   ;; (:file "sources/00.menu")
    ;; Files added after moving away from PWGL
-   (:file "_000.main-interface")
+   (:file "sources/_000.main-interface")
    ;;; TMP comment -- dependency on two PW functions
-   ;; (:file "_001.gen_domains")
+   ;; (:file "sources/_001.gen_domains")
 ))
