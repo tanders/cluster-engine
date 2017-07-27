@@ -295,7 +295,7 @@ Metric engine has lowest priority.
     (when (/=  no-of-args (length list-with-engine-nrs)) (error "The number of arguments in the R-list-all-events does not correspond to the number of inputs to the logic statement."))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
           'vsolution 'engine 'vsolution-for-backjump 'vbackjump-indexes ;this is just to take away error message for unused variables
@@ -338,7 +338,7 @@ Metric engine has lowest priority.
 (defun collect-common-endtime-each-voice (list-voicenrs vlinear-solution)
   "Returns a list with the timepoints for the last event in each voice that has both pitch and rhythm value. Both rhythm and pitch engine for the voice must exist."
   (declare (type list list-voicenrs))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
   #-CCL (declare (type fixnum voicenrs)) 
   (loop for voicenrs in list-voicenrs
         collect (get-offset-timepoint-at-notecount-include-final-rest (* 2 voicenrs) vlinear-solution 
@@ -351,7 +351,7 @@ Metric engine has lowest priority.
   "Returns the earliest timepoint in all voices (an endpoint needs to have both rhythm and pitch defined). 
 Returns nil if one voice doesn't have events with dur/pitch yet."
   (declare (type list list-voicenrs))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
   (let ((list-voices-endtimepoints (collect-common-endtime-each-voice list-voicenrs vlinear-solution)))
     (declare (type list list-voices-endtimepoints))
     (when (not (p-test-if-all-elements-are-true list-voices-endtimepoints)) (return-from earliest-endtime-all-voices nil))
@@ -362,7 +362,7 @@ Returns nil if one voice doesn't have events with dur/pitch yet."
 (defun get-all-timepoints-for-rhythm (list-voicenrs vlinear-solution)
   "Collects all timepoints from the voices, sorts them and removes duplicates."
   (declare (type list list-voicenrs))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
   #-CCL (declare (type fixnum voicenr)) 
   (remove-duplicates
    (sort 
@@ -375,7 +375,7 @@ Returns nil if one voice doesn't have events with dur/pitch yet."
 (defun get-start-time-this-variable (engine vindex vsolution vlinear-solution)
   "Get the start time for the event at the current index. If it is a pitch event, get the time for the corresponding duration.
 If duration is not assigned, nil will be returned. Also works for he metric engine."
-  (declare (type array vindex vsolution vlinear-solution))
+  (declare (type vector vindex vsolution vlinear-solution))
   (declare (type fixnum engine))
   (if (evenp engine) 
       ;rhythmengine or metric engine
@@ -388,7 +388,7 @@ If duration is not assigned, nil will be returned. Also works for he metric engi
 (defun get-notecount-at-timepoints-all-rhythmengines (list-voicenrs vlinear-solution timepoints)
   "Get lists with the notecounts at the timepoints in all rhythm engines that correspond to the voices in list-voicenrs."
   (declare (type list list-voicenrs timepoints))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
   (loop for voicenr in list-voicenrs
         collect (get-notecount-at-timepoints (* 2 voicenr) vlinear-solution timepoints)))
 
@@ -396,8 +396,7 @@ If duration is not assigned, nil will be returned. Also works for he metric engi
 (defun get-pitches-to-notecounts (list-voicenrs notecounts-all-voice vlinear-solution)
   "This function looks up teh correcponding pitches at notecounts in one or several voices."
   #-CCL (declare (type list list-voicenrs notecounts-all-voice notecounts))
-  #+CCL (declare (type list list-voicenrs notecounts-all-voice))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
   #-CCL (declare (type fixnum voicenr notecount))
   (loop for voicenr in list-voicenrs
     for notecounts in notecounts-all-voice
@@ -412,7 +411,7 @@ If duration is not assigned, nil will be returned. Also works for he metric engi
 No metric engine."
   (declare (type number failed-timepoint))
   (declare (type list list-voicenrs))
-  (declare (type array vbackjump-indexes vsolution-for-backjump vlinear-solution))
+  (declare (type vector vbackjump-indexes vsolution-for-backjump vlinear-solution))
 
     ;If the metric engine fails, the note that is linked to the position will be determed. The timepoint will be for the note that exist at the timepoint.
 
@@ -435,7 +434,7 @@ No metric engine."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -473,7 +472,7 @@ No metric engine."
 
                                       ;backjump routine here
                                                         (list 'let '((failed-timepoint (nth n filtered-timepoints)))
-                                                              '(declare (type number failed-timepoint))  ;;;;;;;;
+                                                              '(declare (type number failed-timepoint))  
                                                               (list 'set-vbackjump-indexes-from-failed-timepoint-duration-pitch-in-voices 
                                                                     'failed-timepoint (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                           
@@ -493,7 +492,7 @@ The rule is checked at the onsets of the first voice in the list."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -549,7 +548,7 @@ The rule is checked at the onsets of the first voice in the list."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -587,7 +586,7 @@ The rule is checked at the onsets of the first voice in the list."
 
                                       ;backjump routine here
                                                         (list 'let '((failed-timepoint (nth n filtered-timepoints)))
-                                                              '(declare (type number failed-timepoint)) ;;;;;;;;
+                                                              '(declare (type number failed-timepoint)) 
                                                               (list 'set-vbackjump-indexes-from-failed-timepoint-duration-pitch-in-voices 
                                                                     'failed-timepoint (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                           
@@ -607,7 +606,7 @@ The rule is checked at the onsets of the first voice in the list."
   (declare (type number failed-timepoint))
   (declare (type list list-voicenrs))
   (declare (type fixnum metric-engine))
-  (declare (type array vbackjump-indexes vsolution-for-backjump vlinear-solution))
+  (declare (type vector vbackjump-indexes vsolution-for-backjump vlinear-solution))
 
     ;If the metric engine fails, the note that is linked to the position will be determed. The timepoint will be for the note that exist at the timepoint.
 
@@ -632,7 +631,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats"
   (let ((no-of-args (length (function-lambda-list simple-rule))))  
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
           (list 'let (list '(metric-engine (1- (array-dimension vindex 0)))
@@ -669,7 +668,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats"
 
                                       ;backjump routine here
                                                         (list 'let '((failed-timepoint (nth n filtered-timepoints)))
-                                                              '(declare (type number failed-timepoint)) ;;;;;;;;
+                                                              '(declare (type number failed-timepoint)) 
                                                               (list 'set-vbackjump-indexes-from-failed-timepoint-meter-duration-pitch-in-voices 
                                                                     'failed-timepoint 'metric-engine (list 'quote list-voicenrs) 'vbackjump-indexes 'vsolution-for-backjump 'vlinear-solution)
                                                           
@@ -746,7 +745,7 @@ outputs notecounts for chord slices. Grace notes are included and distributed on
 
 This function should also work for heuristic rules. Only index is checked via vsolution - it should be the same for all candidates."
   (declare (type list list-voicenrs timepoints))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
 
   (loop for voicenr in list-voicenrs
         collect (let ((max-notecount-pitchengine (get-current-index-total-notecount (1+ (* 2 voicenr)) vindex vsolution))
@@ -764,7 +763,7 @@ This function should also work for heuristic rules. Only index is checked via vs
   "Get lists with the notecounts at the timepoints in all rhythm engines that correspond to the voices in list-voicenrs.
 This function also includs the notecounts for grace notes."
   (declare (type list list-voicenrs timepoints))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
   (loop for voicenr in list-voicenrs
         collect (get-notecount-at-timepoints-include-gracenotes (* 2 voicenr) vlinear-solution timepoints)))
 
@@ -772,7 +771,7 @@ This function also includs the notecounts for grace notes."
 (defun get-pitches-for-slices-of-notecounts (list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution)
   "This function looks up teh correcponding pitches at notecounts in harmonic slices."
   (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices notecount-slice))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
   (declare (type fixnum voicenr notecount))
     (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
         collect (loop for voicenr in list-voicenrs
@@ -788,7 +787,7 @@ This function also includs the notecounts for grace notes."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
@@ -845,7 +844,7 @@ This function also includs the notecounts for grace notes."
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -903,7 +902,7 @@ This function also includs the notecounts for grace notes."
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -961,7 +960,7 @@ This function also includs the notecounts for grace notes."
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -1028,7 +1027,7 @@ The rule should be compiled before used."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -1105,7 +1104,7 @@ The rule should be compiled before used."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -1178,7 +1177,7 @@ The rule should be compiled before used."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -1256,7 +1255,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
   (let ((no-of-args (length (function-lambda-list simple-rule))))  
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
           (list 'let (list '(metric-engine (1- (array-dimension vindex 0)))
@@ -1331,7 +1330,7 @@ The rule should be compiled before used."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -1413,7 +1412,7 @@ The rule should be compiled before used."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -1488,7 +1487,7 @@ The rule should be compiled before used."
   (let ((no-of-args (length (function-lambda-list simple-rule))))
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
           (list 'let (list (list 'endtime-common-onsets (list 'earliest-endtime-all-voices (list 'quote list-voicenrs) 'vlinear-solution)))
                 '(declare (type t endtime-common-onsets))
@@ -1567,7 +1566,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
   (let ((no-of-args (length (function-lambda-list simple-rule))))  
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
           (list 'let (list '(metric-engine (1- (array-dimension vindex 0)))
@@ -1655,7 +1654,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 (defun get-durations-for-slices-of-notecounts (list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution)
   "This function looks up teh correcponding pitches at notecounts in harmonic slices."
   (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices notecount-slice))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
   (declare (type fixnum voicenr notecount))
     (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
         collect (loop for voicenr in list-voicenrs
@@ -1666,7 +1665,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 (defun get-timepoints-for-slices-of-notecounts (list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution)
   "This function looks up teh correcponding pitches at notecounts in harmonic slices."
   (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices notecount-slice))
-  (declare (type array vlinear-solution))
+  (declare (type vector vlinear-solution))
   (declare (type fixnum voicenr notecount))
     (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
         collect (loop for voicenr in list-voicenrs
@@ -1681,7 +1680,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -1755,7 +1754,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -1831,7 +1830,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -1902,7 +1901,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -1978,7 +1977,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -2054,7 +2053,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -2132,7 +2131,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -2205,7 +2204,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
 
     (list 'lambda '(vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes engine)
-          '(declare (type array vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
+          '(declare (type vector vsolution vlinear-solution vindex vsolution-for-backjump vbackjump-indexes))
           '(declare (type fixnum engine))
 
 
@@ -2307,6 +2306,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
     ))
 
 
+;changed subset to accept floatingpoint numbers (for microtonal rules) - Sept 2015. This function might not be used anymore.
 (defun test-match-chord-any-position-p (model chord-to-test)
   (declare (type list model chord-to-test))
 
@@ -2314,10 +2314,11 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
         (test-chord (analyze-chordposition (remove nil chord-to-test))))
     (declare (type list allowed-chord-positions test-chord))
     (loop for one-allowed-position in allowed-chord-positions 
-          do (when (subsetp test-chord one-allowed-position) (return t))
+          do (when (subsetp test-chord one-allowed-position :test '=) (return t))
           finally (return nil))))
 
 
+;changed subset to accept floatingpoint numbers (for microtonal rules) - Sept 2015
 (defun test-match-chord-any-position2-p (allowed-chord-positions chord-to-test)
   "For efficiency reasons this functions does not include the all-chord-positions function in the test (this can be done once and then reused)"
   (declare (type list allowed-chord-positions chord-to-test))
@@ -2325,7 +2326,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
   (let ((test-chord (analyze-chordposition (remove nil chord-to-test))))
     (declare (type list test-chord))
     (loop for one-allowed-position in allowed-chord-positions 
-          do (when (subsetp test-chord one-allowed-position) (return t))
+          do (when (subsetp test-chord one-allowed-position :test '=) (return t))
           finally (return nil))))
 
 ;Combine voices into sub-rules - find all combinations of voices
@@ -2378,8 +2379,8 @@ efficient search."
 ;;;;;;;;;THIS IS TEMPORARY - OLD STUFF - MAYBE BACKWARD COMPABILITY
 
 
-#|
-
+#+LISPWORKS
+(progn
 (system::PWGLDef R-pitch-pitch-all-new ((rule nil)
                                         (list-voices '(0 1)))
     "This rule always prefer to backtrack the rhythm engine."
@@ -2439,5 +2440,4 @@ efficient search."
       ; -1 is the flag to be replaced with the number for the metric engine
       (funcall backtrack-route (rule-5-engines-pitch-and-pitch-on-beat rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1)
 )))
-
-|#
+)
