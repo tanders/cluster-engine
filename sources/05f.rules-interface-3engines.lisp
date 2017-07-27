@@ -601,7 +601,7 @@ Grace notes are inluded.
 
                                         '(declare (type list onsets-plus-preceding-for-extra-args-engine1 events-plus-preceding-for-extra-args-matching-onsets  
                                                         beats-metric-engine2 engine1-timepoints-to-check matching-or-following-timepoints))
-                                        '(declare (type number this-cell-starttime end-time-engine2))
+                                        '(declare (type number this-cell-starttime))
                                         '(declare (type fixnum total-pitchcount))
 
                                         '(when (not beats-metric-engine2) (return-from this-rule t))

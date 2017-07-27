@@ -14,9 +14,15 @@ and Orjan.Sandred@umanitoba.ca.\
 \f1\fs38 \cf0 \expnd0\expndtw0\kerning0
 Known issues :\
 \
-- r-note-meter fails when :d_offs_m_n + :beats + :incl-rests + :normal\
+
+\i\b \expnd0\expndtw0\kerning0
+- [solved] r-note-meter fails when :d_offs_m_n + :beats + :incl-rests + :normal\
 	see test file 7e.lisp \
 	(4/4 bars should always be C maj scale or else F# maj scale\
+
+\i0\b0 \expnd0\expndtw0\kerning0
+\
+- finish to check every tutorials from PWGL in pure code mode\
 \
 - BE CAREFUL : keywords in menus for some inputs\
    do not raise errors in case of mistakes \
@@ -27,8 +33,6 @@ offset_dur
  for instance)\
    we might think eventually to correct that in \
    the interface between pwgl rules and pure-lisp rules\
-\
-- finish to check every tutorials from PWGL in pure code mode\
 \
 - add a third option to "output" input in cluster-engine function\
 	=> :score / : list / + :list-with-nil-rests (for bach)\
