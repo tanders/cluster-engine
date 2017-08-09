@@ -25,7 +25,7 @@
   (error 'not-implemented :proc (list 'arglist fn)))
 |#
 
-#+CCL
+#+clozure ; opusmodus
 (defun function-lambda-list (fn)
   (ccl:arglist fn))
 
