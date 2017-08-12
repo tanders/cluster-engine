@@ -108,3 +108,56 @@
 
 
 
+;; heuristic -- quasi profile with input-mode :all-pitches raising pitches (when max domain value is reached then start from scratch)
+(preview-cluster-engine-score
+ (ce::clusterengine 
+  20 t nil 
+  (cr::HR-pitches-one-voice 
+   #'(lambda (pitches) 
+       (if (and (>= (length pitches) 2)
+                (< (first (last pitches 2)) 
+                   (second (last pitches 2))))      
+         100
+         0))
+   0
+   :all-pitches)
+  '((4 4)) 
+  '(((1/4))
+    ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79))))
+ )
+
+;; same as above, but this time with rests
+(preview-cluster-engine-score
+ (ce::clusterengine 
+  20 t nil 
+  (ce::HR-pitches-one-voice 
+   #'(lambda (pitches) 
+       (if (and (>= (length pitches) 2)
+                (< (first (last pitches 2)) 
+                   (second (last pitches 2))))      
+         100
+         0))
+   0
+   :all-pitches)
+  '((4 4)) 
+  '(((1/4 1/4 -1/4 1/4 1/4))
+    ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79)))))
+
+
+;; version with input-mode :pitches
+(preview-cluster-engine-score
+ (ce::clusterengine 
+  20 t nil 
+  (ce::HR-pitches-one-voice 
+   #'(lambda (pitch1 pitch2) 
+       (if (< pitch1 pitch2)
+         100
+         0))
+   0
+   :pitches)
+  '((4 4)) 
+  '(((1/4 1/4 -1/4 1/4 1/4))
+    ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79))))
+ )
+
+
