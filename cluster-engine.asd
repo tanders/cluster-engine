@@ -76,7 +76,7 @@
 
 (defsystem cluster-engine
   :version "0.158"
-  :author "Orjan Sandred"
+  :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torsten.anders@beds.ac.uk>"
   :description "This is not an official release - use this at your own risk.
 
 This library provides a constraint system that uses several search engines that run in parallel to solve a musical constraint problem. Any number of engines can run in parallel (however the interface limits the user to maximum 21 engines). Variables in different engines can be constrained, and the engines can trigger backtracking in dependant engines to find a solution. 
