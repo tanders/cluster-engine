@@ -14,7 +14,7 @@
 
 
 (preview-cluster-engine-score
- (ce::ClusterEngine 
+ (ce::clusterengine 
   10 t nil 
   ;; all rhythmic values are equal
   (ce::R-rhythms-one-voice #'(lambda (x y) (= x y)) 0 :durations)
@@ -26,7 +26,7 @@
 
 ;; Cluster Engine tutorial 5f 
 (preview-cluster-engine-score
- (ce::ClusterEngine 
+ (ce::clusterengine 
   20 t nil
   (ce::R-rhythms-one-voice-at-timepoints 
    #'(lambda (x) (equal x '(0 1/4))) 
@@ -38,7 +38,7 @@
 
 ;; Cluster Engine tutorial 7c
 (preview-cluster-engine-score
- (ce::ClusterEngine 
+ (ce::clusterengine 
   10 t t 
   (append 
    (ce::R-metric-hierarchy 0 :durations) 
@@ -52,7 +52,7 @@
 
 ;; Cluster Engine tutorial 8a 
 (preview-cluster-engine-score
- (ce::ClusterEngine 
+ (ce::clusterengine 
   12 t nil 
   (append 
    (ce::R-pitches-one-voice 
@@ -73,7 +73,7 @@
 
 ;; r-pitch-pitch 1st-beat
 (preview-cluster-engine-score
- (ce::ClusterEngine 
+ (ce::clusterengine 
   12 t nil 	
   (ce::R-pitch-pitch 
    #'(lambda (x) 
