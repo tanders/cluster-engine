@@ -75,7 +75,7 @@
 ;; at the top of each file after in-package
 
 (defsystem cluster-engine
-  :version "non-pwgl 0.157"
+  :version "0.158"
   :author "Orjan Sandred"
   :description "This is not an official release - use this at your own risk.
 
