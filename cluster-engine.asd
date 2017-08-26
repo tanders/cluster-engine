@@ -77,7 +77,7 @@
 (defsystem cluster-engine
   :version "non-pwgl 0.157"
   :author "Orjan Sandred"
-  :description "This is not a public release - use this at your own risk.
+  :description "This is not an official release - use this at your own risk.
 
 This library provides a constraint system that uses several search engines that run in parallel to solve a musical constraint problem. Any number of engines can run in parallel (however the interface limits the user to maximum 21 engines). Variables in different engines can be constrained, and the engines can trigger backtracking in dependant engines to find a solution. 
 
@@ -85,7 +85,7 @@ This system is experimental: Any found solution is always valid, however in some
 
 THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 "
-  #+LISPWORKS :default-component-class #+LISPWORKS ccl::pwgl-source-file
+  #+PWGL :default-component-class #+PWGL ccl::pwgl-source-file
   :serial t
   :components
   ((:file "sources/package")
@@ -119,14 +119,14 @@ THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED OR IMPLIED WAR
    (:file "sources/09.utilities")
    (:file "sources/09b.markov-tools")
    (:file "sources/09c.cluster-energy-profile")
-   #+LISPWORKS (:file "sources/10.PWGL-interface")
-   #+LISPWORKS (:file "sources/11.simple-tree")
+   #+PWGL (:file "sources/10.PWGL-interface")
+   #+PWGL (:file "sources/11.simple-tree")
    (:file "sources/12.debug-tools")
    (:file "sources/13.convert-pmc-rules")
    ;; (:file "sources/14.back-compability")
-   #+LISPWORKS (:file "sources/00.menu")
+   #+PWGL (:file "sources/00.menu")
    ;; Files added after moving away from PWGL
-   #-LISPWORKS (:file "sources/_000.main-interface")
+   #-PWGL (:file "sources/_000.main-interface")
    ;;; TMP comment -- dependency on two PW functions
    ;; (:file "sources/_001.gen_domains")
    (:file "sources/export")

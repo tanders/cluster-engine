@@ -44,7 +44,7 @@
 
 ;;;;;PWGL box below
 
-#+LISPWORKS
+#+PWGL
 (progn 
   (defclass PWGL-box-CLUSTERdebug (ccl::PWGL-box) ())
 

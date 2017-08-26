@@ -2379,7 +2379,7 @@ efficient search."
 ;;;;;;;;;THIS IS TEMPORARY - OLD STUFF - MAYBE BACKWARD COMPABILITY
 
 
-#+LISPWORKS
+#+PWGL
 (progn
 (system::PWGLDef R-pitch-pitch-all-new ((rule nil)
                                         (list-voices '(0 1)))
