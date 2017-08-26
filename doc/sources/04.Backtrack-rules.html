@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+04.Backtrack-rules</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="03.Fwd-rules.html">
+Prev:&nbsp;03.Fwd-rules</a>
+<br/>
+<a href="05.rules-interface.html">
+Next:&nbsp;05.rules-interface</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+04.Backtrack-rules</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+04.Backtrack-rules
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="04.Backtrack-rules.html#_g180214">
+backtrack-rule1</a>
+</td>
+<td class="summary">
+vindex vbacktrack-engine nr-of-engines default-engine-order vnumber-of-candidates</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="04.Backtrack-rules.html#_g180215">
+backtrack-rule2</a>
+</td>
+<td class="summary">
+vindex vbacktrack-engine nr-of-engines default-engine-order vnumber-of-candidates</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="04.Backtrack-rules.html#_g180216">
+backtrack-rule3</a>
+</td>
+<td class="summary">
+vindex vbacktrack-engine nr-of-engines default-engine-order vnumber-of-candidates</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="04.Backtrack-rules.html#_g180217">
+backtrackroute-from-failed-rules1</a>
+</td>
+<td class="summary">
+vbacktrack-engine nr-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="04.Backtrack-rules.html#_g180218">
+backtrackroute-from-failed-rules2</a>
+</td>
+<td class="summary">
+vbacktrack-engine vnumber-of-candidates nr-of-engines</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180214">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+backtrack-rule1&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vindex vbacktrack-engine nr-of-engines default-engine-order vnumber-of-candidates</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule uses the backtrack route from the rules to determine which engine to backtrack. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180215">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+backtrack-rule2&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vindex vbacktrack-engine nr-of-engines default-engine-order vnumber-of-candidates</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule uses the backtrack route from the rules to determine which engine to backtrack. 
+ The engine with the highest index will be backtracked. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180216">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+backtrack-rule3&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vindex vbacktrack-engine nr-of-engines default-engine-order vnumber-of-candidates</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule uses the backtack route from the rules to determine which engine to backtrack. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180217">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+backtrackroute-from-failed-rules1&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vbacktrack-engine nr-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This functions analyzes the vbacktrack-engine array, and checks which backtrack route is proposed most times. 
+ All 1st preferencse are analyzed and sorted first, then all 2nd preferences, then all lower order preferences 
+ (as one final group). If the current engine exist in a preference level, it is always put as the most prefered 
+ backtrack route. 
+ </p>
+<p>
+The output is a list with the engine numbers in the order of which they are prefered as backtrack options. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180218">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+backtrackroute-from-failed-rules2&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vbacktrack-engine vnumber-of-candidates nr-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is similar to backtrackroute-from-failed-rules1, but it balances the engines according to 
+ number of candidates in their domain: If there are many candidates, the test-rule gave it a higher weigth 
+ since it was tested more times. This function divides its weight by the number of candidates to compensate. 
+ </p>
+<p>
+The function analyzes the vbacktrack-engine array, and checks which backtrack route is proposed most times. 
+ All 1st preferencse are analyzed and sorted first, then all 2nd preferences, then all lower order preferences 
+ (as one final group). If the current engine exist in a preference level, it is always put as the most prefered 
+ backtrack route. 
+ </p>
+<p>
+The output is a list with the engine numbers in the order of which they are prefered as backtrack options. 
+ </p>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

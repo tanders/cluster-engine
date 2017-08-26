@@ -1,0 +1,1176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+13.convert-pmc-rules</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="12.debug-tools.html">
+Prev:&nbsp;12.debug-tools</a>
+<br/>
+<a href="_000.main-interface.html">
+Next:&nbsp;_000.main-interface</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+13.convert-pmc-rules</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+13.convert-pmc-rules
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180978">
+convert-jbs-rule-to-lambda-include-l-and-index</a>
+</td>
+<td class="summary">
+rule</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180976">
+convert-pmc-rule-to-lambda</a>
+</td>
+<td class="summary">
+code</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180977">
+convert-pmc-rule-to-lambda-include-l-and-index</a>
+</td>
+<td class="summary">
+code</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180988">
+index-pmcheuristicrule-1-pitchengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180989">
+index-pmcheuristicrule-1-rhythmengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180984">
+index-pmcrule-1-pitchengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180985">
+index-pmcrule-1-rhythmengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180980">
+item-in-tree?</a>
+</td>
+<td class="summary">
+item tree</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g181002">
+jbs-get-indexrule-indexes</a>
+</td>
+<td class="summary">
+jbsrule</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180996">
+jbs-heuristic-pitch-rule</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180999">
+jbs-heuristicrhythm-rule</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g181000">
+jbs-index-rule?</a>
+</td>
+<td class="summary">
+jbsrule</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180994">
+jbs-pitch-rule</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180997">
+jbs-rhythm-rule</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180995">
+jbs-true-false-pitch-rule</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180998">
+jbs-true-false-rhythm-rule</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g181001">
+jbs-wildcard-rule?</a>
+</td>
+<td class="summary">
+jbsrule</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g181003">
+pmc-get-indexrule-indexes</a>
+</td>
+<td class="summary">
+rule</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g181005">
+pmc-insert-stop-heuristic-rule-at-length</a>
+</td>
+<td class="summary">
+rule max-length</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g181004">
+pmc-insert-stop-rule-at-length</a>
+</td>
+<td class="summary">
+rule max-length</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180990">
+pmc-pitch-rule</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180991">
+pmc-pitch-rules</a>
+</td>
+<td class="summary">
+rules engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180992">
+pmc-rhythm-rule</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180993">
+pmc-rhythm-rules</a>
+</td>
+<td class="summary">
+rules engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180987">
+pmcheuristicrule-1-engine-durations</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180986">
+pmcheuristicrule-1-engine-pitches</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180983">
+pmcrule-1-engine-durations</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180982">
+pmcrule-1-engine-pitches</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180981">
+polyengine-ify-a-symbol</a>
+</td>
+<td class="summary">
+tree symbol</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g181008">
+rewrite-any-rule-with-stop</a>
+</td>
+<td class="summary">
+rule stop-nth</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g181007">
+rewrite-heuristic-rule-with-stop</a>
+</td>
+<td class="summary">
+rule stop-nth</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g181006">
+rewrite-rule-with-stop</a>
+</td>
+<td class="summary">
+rule stop-nth</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="13.convert-pmc-rules.html#_g180979">
+substitute-in-tree</a>
+</td>
+<td class="summary">
+newitem olditem tree</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180976">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+convert-pmc-rule-to-lambda&nbsp;&nbsp;</td>
+<td class="lambda-list">
+code</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180977">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+convert-pmc-rule-to-lambda-include-l-and-index&nbsp;&nbsp;</td>
+<td class="lambda-list">
+code</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180978">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+convert-jbs-rule-to-lambda-include-l-and-index&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This conversion works for both true/false and heuristic rules. '(cur-slen) is not supported. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180979">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+substitute-in-tree&nbsp;&nbsp;</td>
+<td class="lambda-list">
+newitem olditem tree</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180980">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+item-in-tree?&nbsp;&nbsp;</td>
+<td class="lambda-list">
+item tree</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Returns T if item exist somewhere in tree (on any level). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180981">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+polyengine-ify-a-symbol&nbsp;&nbsp;</td>
+<td class="lambda-list">
+tree symbol</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Puts symbols into the cluster-engine package. This solves package-problem with the m symbol 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180982">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmcrule-1-engine-pitches&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for pitches in one engine. The simple-rule is a special format where the two last arguments passes the temporary solution and current index. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180983">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmcrule-1-engine-durations&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for durations in one engine. It includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180984">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-pmcrule-1-pitchengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The simple-rule is a special format where the two last arguments passes the temporary solution and current index. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180985">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-pmcrule-1-rhythmengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180986">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmcheuristicrule-1-engine-pitches&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for pitches in one engine. The simple-rule is a special format where the two last arguments passes the temporary solution and current index to the rule. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180987">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmcheuristicrule-1-engine-durations&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for durations in one engine. It includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180988">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-pmcheuristicrule-1-pitchengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The simple-rule is a special format where the two last arguments passes the temporary solution and current index. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180989">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-pmcheuristicrule-1-rhythmengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180990">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmc-pitch-rule&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180991">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmc-pitch-rules&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rules engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180992">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmc-rhythm-rule&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180993">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmc-rhythm-rules&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rules engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180994">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+jbs-pitch-rule&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180995">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+jbs-true-false-pitch-rule&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180996">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+jbs-heuristic-pitch-rule&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180997">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+jbs-rhythm-rule&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180998">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+jbs-true-false-rhythm-rule&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180999">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+jbs-heuristicrhythm-rule&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181000">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+jbs-index-rule?&nbsp;&nbsp;</td>
+<td class="lambda-list">
+jbsrule</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This seems pretty complex because the jbs-constraints library typically leaves the '* also for the index rules. It also has to check that the items are symbols not to potentially crach rthe program. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181001">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+jbs-wildcard-rule?&nbsp;&nbsp;</td>
+<td class="lambda-list">
+jbsrule</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Since the jbs-constraint library often saves the '* even in the index rules, this is not a sure test. Only test this AFTER the jbs-index-rule? failed. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181002">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+jbs-get-indexrule-indexes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+jbsrule</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+It also converts indexes to be counted from 0, not 1. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181003">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmc-get-indexrule-indexes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181004">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmc-insert-stop-rule-at-length&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule max-length</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function inserts a stop point in a pmc formated rule (or a jbs formated rule). 
+ Max-length is the nth value (counting from 1 - as in PMC) where the rule is checked. After 
+ this point the rule is bypassed. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181005">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+pmc-insert-stop-heuristic-rule-at-length&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule max-length</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function inserts a stop point in a pmc formated rule (or a jbs formated rule). 
+ Max-length is the nth value (counting from 1 - as in PMC) where the rule is checked. After 
+ this point the rule is bypassed. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181006">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rewrite-rule-with-stop&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule stop-nth</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rewrites a rule and relplaces '(cur-slen) with stop-nth. The rule 
+ will not be checked after this point. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181007">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rewrite-heuristic-rule-with-stop&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule stop-nth</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rewrites a rule and relplaces '(cur-slen) with stop-nth. The rule 
+ will not be checked after this point. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181008">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rewrite-any-rule-with-stop&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule stop-nth</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

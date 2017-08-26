@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+05d.rules-interface-2engines</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="05c.rules-interface-2engines.html">
+Prev:&nbsp;05c.rules-interface-2engines</a>
+<br/>
+<a href="05e.rules-interface-2engines.html">
+Next:&nbsp;05e.rules-interface-2engines</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+05d.rules-interface-2engines</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+05d.rules-interface-2engines
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05d.rules-interface-2engines.html#_g180336">
+combine-hierarchical-structures</a>
+</td>
+<td class="summary">
+engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05d.rules-interface-2engines.html#_g180338">
+create-all-hierarchical-pairs</a>
+</td>
+<td class="summary">
+all-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05d.rules-interface-2engines.html#_g180337">
+create-several-hierarchical-rule-combinations</a>
+</td>
+<td class="summary">
+all-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05d.rules-interface-2engines.html#_g180342">
+rule-2-engines-metric-grid-rhythm-hierarchy</a>
+</td>
+<td class="summary">
+rhythm-engine1</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05d.rules-interface-2engines.html#_g180343">
+rule-2-engines-metric-grid-rhythm-hierarchy-include-rests</a>
+</td>
+<td class="summary">
+rhythm-engine1</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05d.rules-interface-2engines.html#_g180339">
+rule-2-engines-rhythmic-hierarchy</a>
+</td>
+<td class="summary">
+rhythm-engine1 rhythm-engine2</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05d.rules-interface-2engines.html#_g180341">
+rule-2-engines-rhythmic-hierarchy-cellstart-e1</a>
+</td>
+<td class="summary">
+rhythm-engine1 rhythm-engine2</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05d.rules-interface-2engines.html#_g180340">
+rule-2-engines-rhythmic-hierarchy-incl-rests</a>
+</td>
+<td class="summary">
+rhythm-engine1 rhythm-engine2</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180336">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+combine-hierarchical-structures&nbsp;&nbsp;</td>
+<td class="lambda-list">
+engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function creates all necessary cobinations of engine pairs for a hierarchical structure that may contain more than 2 engines. 
+ The list contain engines where the order in the list shos how they are linked hierarchically. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180337">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+create-several-hierarchical-rule-combinations&nbsp;&nbsp;</td>
+<td class="lambda-list">
+all-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This combines all hierarchical combinations if the input list has sublists (i.e. more than one hierarchical structure) 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180338">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+create-all-hierarchical-pairs&nbsp;&nbsp;</td>
+<td class="lambda-list">
+all-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is the master function to use in the rule interface. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180339">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-2-engines-rhythmic-hierarchy&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1 rhythm-engine2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for hierarchy between durations in two layers. The onsets from the 1st engine are used 
+ for inputpoints (rests and gracenotes are removed and ignored). Rests are not allowed on hierarchical points 
+ in engine2. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180340">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-2-engines-rhythmic-hierarchy-incl-rests&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1 rhythm-engine2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for hierarchy between durations in two layers. The onsets from the 1st engine are used 
+ for inputpoints (rests and gracenotes are removed and ignored). Rests are not allowed on hierarchical points 
+ in engine2. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180341">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-2-engines-rhythmic-hierarchy-cellstart-e1&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1 rhythm-engine2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for hierarchy between cells and durations in two layers. The onsets for the CELLS from 
+ the 1st engine are used as inputpoints (rests and gracenotes are removed and ignored). Rests are not allowed 
+ on hierarchical points in engine2. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180342">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-2-engines-metric-grid-rhythm-hierarchy&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for metric hierarchy, i.e. how durations (including gracenotes) are positioned within the metric structure. 
+ The allowed positions are defined within the metric domain. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180343">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-2-engines-metric-grid-rhythm-hierarchy-include-rests&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for metric hierarchy, i.e. how durations and rests are positioned within the metric structure. 
+ This rule is more efficient than rule-2-engines-metric-grid-rhythm-hierarchy since also endpoints for duratins and rests 
+ can be used to check the rule. In this way, problems might be detected one step earlier, and some backtracking can be avoided. 
+ If rests are not used in the domain, this rule is to prefer for this reason. 
+ </p>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

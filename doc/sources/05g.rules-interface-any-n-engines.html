@@ -1,0 +1,2952 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+05g.rules-interface-any-n-engines</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="05f.rules-interface-3engines.html">
+Prev:&nbsp;05f.rules-interface-3engines</a>
+<br/>
+<a href="05h.rules-higher-level.html">
+Next:&nbsp;05h.rules-higher-level</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+05g.rules-interface-any-n-engines</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+05g.rules-interface-any-n-engines
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180445">
+all-chord-positions</a>
+</td>
+<td class="summary">
+chord</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180446">
+all-chords-positions</a>
+</td>
+<td class="summary">
+chords</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180447">
+analyze-chordposition</a>
+</td>
+<td class="summary">
+pitchlist</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180378">
+collect-and-left-rotate</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180404">
+collect-common-endtime-each-voice</a>
+</td>
+<td class="summary">
+list-voicenrs vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180386">
+collect-sort-even-and-left-rotate</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180390">
+collect-sort-even-and-left-rotate-add-meter</a>
+</td>
+<td class="summary">
+list metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180385">
+collect-sort-odd-and-left-rotate</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180389">
+collect-sort-odd-and-left-rotate-add-meter</a>
+</td>
+<td class="summary">
+list metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180453">
+combine-all-any-list-length</a>
+</td>
+<td class="summary">
+items</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180452">
+combine-any-with-any-n</a>
+</td>
+<td class="summary">
+items nr-of-items</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180451">
+combine-any-with-any2</a>
+</td>
+<td class="summary">
+items</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180450">
+combine-first-with-any</a>
+</td>
+<td class="summary">
+items</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180416">
+combine-n-voices-notecount-with-gracenotes-at-one-timepoint-keep-rests</a>
+</td>
+<td class="summary">
+all-voices-notecount</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180417">
+combine-n-voices-notecounts-include-gracenotes-remove-nil-keep-rests</a>
+</td>
+<td class="summary">
+list-notecounts-all-voice</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180405">
+earliest-endtime-all-voices</a>
+</td>
+<td class="summary">
+list-voicenrs vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180406">
+get-all-timepoints-for-rhythm</a>
+</td>
+<td class="summary">
+list-voicenrs vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180434">
+get-durations-for-slices-of-notecounts</a>
+</td>
+<td class="summary">
+list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180408">
+get-notecount-at-timepoints-all-rhythmengines</a>
+</td>
+<td class="summary">
+list-voicenrs vlinear-solution timepoints</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180419">
+get-notecount-at-timepoints-include-gracenotes-all-rhythmengines</a>
+</td>
+<td class="summary">
+list-voicenrs vlinear-solution timepoints</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180418">
+get-notecount-at-timepoints-include-gracenotes-all-rhythmengines-mark-notassigned-pitches-mark-rest</a>
+</td>
+<td class="summary">
+list-voicenrs vindex vsolution vlinear-solution timepoints</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180420">
+get-pitches-for-slices-of-notecounts</a>
+</td>
+<td class="summary">
+list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180409">
+get-pitches-to-notecounts</a>
+</td>
+<td class="summary">
+list-voicenrs notecounts-all-voice vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180407">
+get-start-time-this-variable</a>
+</td>
+<td class="summary">
+engine vindex vsolution vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180435">
+get-timepoints-for-slices-of-notecounts</a>
+</td>
+<td class="summary">
+list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180376">
+left-rotate</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180377">
+left-rotate-and-collect</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180384">
+left-rotate-sort-even-and-collect</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180388">
+left-rotate-sort-even-and-collect-add-metric</a>
+</td>
+<td class="summary">
+list metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180383">
+left-rotate-sort-odd-and-collect</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180387">
+left-rotate-sort-odd-and-collect-add-metric</a>
+</td>
+<td class="summary">
+list metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180444">
+next-chord-position</a>
+</td>
+<td class="summary">
+chord</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180433">
+replace-notecount-by-timepoint</a>
+</td>
+<td class="summary">
+all-voices-notecountgroups timepoints</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180402">
+rule-all-durations-in-n-voices1</a>
+</td>
+<td class="summary">
+simple-rule list-with-voice-numbers</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180403">
+rule-all-durations-in-n-voices2</a>
+</td>
+<td class="summary">
+simple-rule list-with-voice-numbers</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180400">
+rule-all-pitches-in-n-voices1</a>
+</td>
+<td class="summary">
+simple-rule list-with-voice-numbers</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180401">
+rule-all-pitches-in-n-voices2</a>
+</td>
+<td class="summary">
+simple-rule list-with-voice-numbers</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180399">
+rule-n-engines-all-elements</a>
+</td>
+<td class="summary">
+simple-rule list-with-engine-nrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180411">
+rule-n-engines-pitch-and-pitch</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180412">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180422">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180437">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-and-offset</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180441">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-offset-and-timepoint</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180426">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-and-offset</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180430">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-offset-and-timepoint</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180413">
+rule-n-engines-pitch-and-pitch-at-timepoints</a>
+</td>
+<td class="summary">
+simple-rule timepoints list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180423">
+rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes</a>
+</td>
+<td class="summary">
+simple-rule timepoints list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180438">
+rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-and-offset</a>
+</td>
+<td class="summary">
+simple-rule timepoints list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180442">
+rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-offset-and-timepoint</a>
+</td>
+<td class="summary">
+simple-rule timepoints list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180427">
+rule-n-engines-pitch-and-pitch-at-timepoints-with-durations-and-offset</a>
+</td>
+<td class="summary">
+simple-rule timepoints list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180431">
+rule-n-engines-pitch-and-pitch-at-timepoints-with-durations-offset-and-timepoint</a>
+</td>
+<td class="summary">
+simple-rule timepoints list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180421">
+rule-n-engines-pitch-and-pitch-include-gracenotes</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180424">
+rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs fn-beat</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180439">
+rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs fn-beat</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180443">
+rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs fn-beat</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180436">
+rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-and-offset</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180440">
+rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-offset-and-timepoint</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180415">
+rule-n-engines-pitch-and-pitch-on-beat</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs fn-beat</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180428">
+rule-n-engines-pitch-and-pitch-on-beat-with-durations-and-offset</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs fn-beat</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180432">
+rule-n-engines-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs fn-beat</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180425">
+rule-n-engines-pitch-and-pitch-with-durations-and-offset</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180429">
+rule-n-engines-pitch-and-pitch-with-durations-offset-and-timepoint</a>
+</td>
+<td class="summary">
+simple-rule list-voicenrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180395">
+rule-n-engines-with-meter3</a>
+</td>
+<td class="summary">
+rule list-with-pitch-rhythm-engine-nrs metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180396">
+rule-n-engines-with-meter4</a>
+</td>
+<td class="summary">
+rule list-with-pitch-rhythm-engine-nrs metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180397">
+rule-n-engines-with-meter5</a>
+</td>
+<td class="summary">
+rule list-with-pitch-rhythm-engine-nrs metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180398">
+rule-n-engines-with-meter6</a>
+</td>
+<td class="summary">
+rule list-with-pitch-rhythm-engine-nrs metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180379">
+rule-n-engines1</a>
+</td>
+<td class="summary">
+rule list-with-engine-nrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180380">
+rule-n-engines2</a>
+</td>
+<td class="summary">
+rule list-with-engine-nrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180391">
+rule-n-engines3</a>
+</td>
+<td class="summary">
+rule list-with-engine-nrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180392">
+rule-n-engines4</a>
+</td>
+<td class="summary">
+rule list-with-engine-nrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180393">
+rule-n-engines5</a>
+</td>
+<td class="summary">
+rule list-with-engine-nrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180394">
+rule-n-engines6</a>
+</td>
+<td class="summary">
+rule list-with-engine-nrs</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180410">
+set-vbackjump-indexes-from-failed-timepoint-duration-pitch-in-voices</a>
+</td>
+<td class="summary">
+failed-timepoint list-voicenrs vbackjump-indexes vsolution-for-backjump vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180414">
+set-vbackjump-indexes-from-failed-timepoint-meter-duration-pitch-in-voices</a>
+</td>
+<td class="summary">
+failed-timepoint metric-engine list-voicenrs vbackjump-indexes vsolution-for-backjump vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180382">
+sort-even-first</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180381">
+sort-odd-first</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180448">
+test-match-chord-any-position-p</a>
+</td>
+<td class="summary">
+model chord-to-test</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05g.rules-interface-any-n-engines.html#_g180449">
+test-match-chord-any-position2-p</a>
+</td>
+<td class="summary">
+allowed-chord-positions chord-to-test</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180376">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+left-rotate&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180377">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+left-rotate-and-collect&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180378">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+collect-and-left-rotate&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180379">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines1&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-engine-nrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers backtrack in the SAME engine. 
+ The second preference is to backtrack the next engine. 
+ Etc. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180380">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines2&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-engine-nrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers backtrack in the NEXT engine in the list. 
+ The second preference is to backtrack the engine following the next. 
+ Etc. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180381">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+sort-odd-first&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is to put pitch engines before rhythm engines. No other order is affected. 
+ This sort is NOT destructive. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180382">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+sort-even-first&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is to put rhythm engines before pitch engines. No other order is affected. 
+ This sort is NOT destructive. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180383">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+left-rotate-sort-odd-and-collect&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Left rotate = prefer NEXT engine 
+ Sort odd = prefer pitch engines 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180384">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+left-rotate-sort-even-and-collect&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Left rotate = prefer NEXT engine 
+ Sort even = prefer rhythm engines 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180385">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+collect-sort-odd-and-left-rotate&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Collect = prefer this voice 
+ Sort odd = prefer pitch engines 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180386">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+collect-sort-even-and-left-rotate&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Collect = prefer this voice 
+ Sort odd = prefer rhythm engines 
+ (exception: pitch engine will prefer rhythm engine in next voice) 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180387">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+left-rotate-sort-odd-and-collect-add-metric&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Left rotate = prefer NEXT engine 
+ Sort odd = prefer pitch engines 
+ Add metric = add metric engine as the lowest priority, 
+ and also create a sublist for the metric engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180388">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+left-rotate-sort-even-and-collect-add-metric&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Left rotate = prefer NEXT engine 
+ Sort even = prefer rhythm engines 
+ Add metric = add metric engine as the lowest priority, 
+ and also create a sublist for the metric engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180389">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+collect-sort-odd-and-left-rotate-add-meter&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Collect = prefer this voice 
+ Sort odd = prefer pitch engines 
+ Add metric = add metric engine as the lowest priority, 
+ and also create a sublist for the metric engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180390">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+collect-sort-even-and-left-rotate-add-meter&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Collect = prefer this voice 
+ Sort odd = prefer rhythm engines 
+ (exception: pitch engine will prefer rhythm engine in next voice) 
+ Add metric = add metric engine as the lowest priority, 
+ and also create a sublist for the metric engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180391">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines3&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-engine-nrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers backtrack in the NEXT pitch engine in the list. 
+ After all pitch engines, it prefers to backtrack the next rhythm engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180392">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines4&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-engine-nrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers backtrack in the NEXT rhythm engine in the list. 
+ After all rhythm engines, it prefers to backtrack the next pitch engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180393">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines5&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-engine-nrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers to backtrack the current engine if it is a pitch engine. 
+ Then it prefers all other pitch engines (starting with the next in the list). 
+ After all pitch engines, it prefers to backtrack the next rhythm engine. 
+ If the current engine is a rhythm engine, it prefers the corresponding pitch engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180394">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines6&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-engine-nrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers to backtrack the current engine if it is a rhythm engine. 
+ Then it prefers all other rhythm engines (starting with the next in the list). 
+ After all rhythm engines, it prefers to backtrack the next pitch engine in the list. 
+ If the current engine is a pitch engine, it prefers the next rhythm engine. (This is 
+ just simpler to code than to prefer the same rhythm engine. If you are picky, you might 
+ want to change this.) 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180395">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-with-meter3&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-pitch-rhythm-engine-nrs metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers backtrack in the NEXT pitch engine in the list. 
+ After all pitch engines, it prefers to backtrack the next rhythm engine. 
+ Metric engine has lowest priority. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180396">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-with-meter4&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-pitch-rhythm-engine-nrs metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers backtrack in the NEXT rhythm engine in the list. 
+ After all rhythm engines, it prefers to backtrack the next pitch engine. 
+ Metric engine has lowest priority. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180397">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-with-meter5&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-pitch-rhythm-engine-nrs metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers to backtrack the current engine if it is a pitch engine. 
+ Then it prefers all other pitch engines (starting with the next in the list). 
+ After all pitch engines, it prefers to backtrack the next rhythm engine. 
+ If the current engine is a rhythm engine, it prefers the corresponding pitch engine. 
+ Metric engine has lowest priority. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180398">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-with-meter6&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-with-pitch-rhythm-engine-nrs metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is for any number of engines. 
+ It prefers to backtrack the current engine if it is a rhythm engine. 
+ Then it prefers all other rhythm engines (starting with the next in the list). 
+ After all rhythm engines, it prefers to backtrack the next pitch engine in the list. 
+ If the current engine is a pitch engine, it prefers the next rhythm engine. (This is 
+ just simpler to code than to prefer the same rhythm engine. If you are picky, you might 
+ want to change this.) 
+ Metric engine has lowest priority. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180399">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-all-elements&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-with-engine-nrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule to access all events in any number of engines. The rule should have one input per engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180400">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-all-pitches-in-n-voices1&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-with-voice-numbers</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+It rule prefers backtracking in the SAME engine in the list. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180401">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-all-pitches-in-n-voices2&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-with-voice-numbers</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+It rule prefers backtracking in the NEXT engine in the list. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180402">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-all-durations-in-n-voices1&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-with-voice-numbers</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+It rule prefers backtracking in the SAME engine in the list. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180403">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-all-durations-in-n-voices2&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-with-voice-numbers</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+It rule prefers backtracking in the NEXT engine in the list. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180404">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+collect-common-endtime-each-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Returns a list with the timepoints for the last event in each voice that has both pitch and rhythm value. Both rhythm and pitch engine for the voice must exist. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180405">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+earliest-endtime-all-voices&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Returns the earliest timepoint in all voices (an endpoint needs to have both rhythm and pitch defined). 
+ Returns nil if one voice doesn't have events with dur/pitch yet. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180406">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-all-timepoints-for-rhythm&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Collects all timepoints from the voices, sorts them and removes duplicates. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180407">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-start-time-this-variable&nbsp;&nbsp;</td>
+<td class="lambda-list">
+engine vindex vsolution vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Get the start time for the event at the current index. If it is a pitch event, get the time for the corresponding duration. 
+ If duration is not assigned, nil will be returned. Also works for he metric engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180408">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-notecount-at-timepoints-all-rhythmengines&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs vlinear-solution timepoints</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Get lists with the notecounts at the timepoints in all rhythm engines that correspond to the voices in list-voicenrs. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180409">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-pitches-to-notecounts&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs notecounts-all-voice vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function looks up teh correcponding pitches at notecounts in one or several voices. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180410">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-timepoint-duration-pitch-in-voices&nbsp;&nbsp;</td>
+<td class="lambda-list">
+failed-timepoint list-voicenrs vbackjump-indexes vsolution-for-backjump vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is a general function all type of engines - to use this function, the engines for both picth and duration must exist in each voice. 
+ No metric engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180411">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180412">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ The rule is checked at the onsets of the first voice in the list. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180413">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-timepoints&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule timepoints list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180414">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-timepoint-meter-duration-pitch-in-voices&nbsp;&nbsp;</td>
+<td class="lambda-list">
+failed-timepoint metric-engine list-voicenrs vbackjump-indexes vsolution-for-backjump vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is a general function all type of engines - to use this function, the engines for both picth and duration must exist in each voice, as well as the metric engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180415">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-on-beat&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs fn-beat</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Beside the engines associated with the voices in teh voice list, this rule will also access the metric engine. 
+ fn-beat is either 'get-all-beats or 'get-1st-down-beats 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180416">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+combine-n-voices-notecount-with-gracenotes-at-one-timepoint-keep-rests&nbsp;&nbsp;</td>
+<td class="lambda-list">
+all-voices-notecount</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This version is able to keep nils that represent rests. Rests are input as '(nil) and output as listed nil. 
+ This is necessary to avoid confusion with not assigned pitches (that will be nil and then removed). 
+ </p>
+<p>
+This is to combine simultaneous notecounts at one timepoint for n voices (some or all might include gracenotes). 
+ Gracenotes are given as a list of notecounts (last notecount is the main note). The function groups individual slices 
+ for each gracenote (they are grouped with the main notes in the other voices). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180417">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+combine-n-voices-notecounts-include-gracenotes-remove-nil-keep-rests&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-notecounts-all-voice</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This version is able to keep nils that represent rests (rests are listed nils). Not assigned pitches are removed. 
+ </p>
+<p>
+Subsets with nil are removed. This is to make gracenotes behave correctly (in combination with get-notecount-at-timepoints-include-gracenotes-all-rhythmengines-mark-notassigned-pitches). 
+ </p>
+<p>
+This function takes a list with sublists - each sublist representing one voice. Gracenotes are 
+ grouped into sublists in teh sublists. The position for the notecounts in the voice lists 
+ should be synchronized so that notecounts at the same position are simultaneous. The function 
+ outputs notecounts for chord slices. Grace notes are included and distributed one in each slice. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180418">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-notecount-at-timepoints-include-gracenotes-all-rhythmengines-mark-notassigned-pitches-mark-rest&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs vindex vsolution vlinear-solution timepoints</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is to make gracenotes work correctly. Not assigned pitches will be marked with nil - not assigned gracenots will be removed. 
+ </p>
+<p>
+This function should also work for heuristic rules. Only index is checked via vsolution - it should be the same for all candidates. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180419">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-notecount-at-timepoints-include-gracenotes-all-rhythmengines&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs vlinear-solution timepoints</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Get lists with the notecounts at the timepoints in all rhythm engines that correspond to the voices in list-voicenrs. 
+ This function also includs the notecounts for grace notes. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180420">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-pitches-for-slices-of-notecounts&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function looks up teh correcponding pitches at notecounts in harmonic slices. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180421">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-include-gracenotes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180422">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180423">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule timepoints list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180424">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs fn-beat</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180425">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-with-durations-and-offset&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. Duration and offsets to the timepoint the rule sis checked are indicated. 
+ Format '((pitch dur offest) (pitch dur offest) ...) 
+ The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180426">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-and-offset&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. Duration and offsets to the timepoint the rule sis checked are indicated. 
+ Format '((pitch dur offest) (pitch dur offest) ...) 
+ The rule is checked at the onsets of the first voice in the list. 
+ </p>
+<p>
+The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180427">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-timepoints-with-durations-and-offset&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule timepoints list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. Duration and offsets to the timepoint the rule sis checked are indicated. 
+ Format '((pitch dur offest) (pitch dur offest) ...) 
+ </p>
+<p>
+The rule is only checked at the specified timepoints. 
+ The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180428">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-on-beat-with-durations-and-offset&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs fn-beat</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Beside the engines associated with the voices in teh voice list, this rule will also access the metric engine. 
+ </p>
+<p>
+Duration and offsets to the timepoint the rule sis checked are indicated. 
+ Format '((pitch dur offest) (pitch dur offest) ...) 
+ </p>
+<p>
+fn-beat is either 'get-all-beats or 'get-1st-down-beats 
+ </p>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180429">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-with-durations-offset-and-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. Duration and offsets to the timepoint the rule is checked are indicated, 
+ and also the absolute time for when the rule is checked. 
+ Format '((pitch dur offest) (pitch dur offest) ... timepoint) 
+ The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180430">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-offset-and-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. Duration and offsets to the timepoint the rule sis checked are indicated. 
+ Format '((pitch dur offest) (pitch dur offest) ...) 
+ The rule is checked at the onsets of the first voice in the list. 
+ </p>
+<p>
+The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180431">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-timepoints-with-durations-offset-and-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule timepoints list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. Duration and offsets to the timepoint the rule sis checked are indicated. 
+ Format '((pitch dur offest) (pitch dur offest) ...) 
+ </p>
+<p>
+The rule is only checked at the specified timepoints. 
+ The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180432">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs fn-beat</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Beside the engines associated with the voices in teh voice list, this rule will also access the metric engine. 
+ </p>
+<p>
+Duration and offsets to the timepoint the rule sis checked are indicated. 
+ Format '((pitch dur offest) (pitch dur offest) ...) 
+ </p>
+<p>
+fn-beat is either 'get-all-beats or 'get-1st-down-beats 
+ </p>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180433">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+replace-notecount-by-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+all-voices-notecountgroups timepoints</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function is to understand the matching of timepoints to notecounts in the rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-and-offset function. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180434">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-durations-for-slices-of-notecounts&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function looks up teh correcponding pitches at notecounts in harmonic slices. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180435">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-timepoints-for-slices-of-notecounts&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This function looks up teh correcponding pitches at notecounts in harmonic slices. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180436">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-and-offset&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180437">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-and-offset&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180438">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-and-offset&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule timepoints list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180439">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs fn-beat</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180440">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-offset-and-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180441">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-offset-and-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180442">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-offset-and-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule timepoints list-voicenrs</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180443">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule list-voicenrs fn-beat</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180444">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+next-chord-position&nbsp;&nbsp;</td>
+<td class="lambda-list">
+chord</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180445">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+all-chord-positions&nbsp;&nbsp;</td>
+<td class="lambda-list">
+chord</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180446">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+all-chords-positions&nbsp;&nbsp;</td>
+<td class="lambda-list">
+chords</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This differs from all-chord-positions in the way it can handle a list of allowed chords (i.e. more than one). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180447">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+analyze-chordposition&nbsp;&nbsp;</td>
+<td class="lambda-list">
+pitchlist</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180448">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+test-match-chord-any-position-p&nbsp;&nbsp;</td>
+<td class="lambda-list">
+model chord-to-test</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180449">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+test-match-chord-any-position2-p&nbsp;&nbsp;</td>
+<td class="lambda-list">
+allowed-chord-positions chord-to-test</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+For efficiency reasons this functions does not include the all-chord-positions function in the test (this can be done once and then reused) 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180450">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+combine-first-with-any&nbsp;&nbsp;</td>
+<td class="lambda-list">
+items</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180451">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+combine-any-with-any2&nbsp;&nbsp;</td>
+<td class="lambda-list">
+items</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Two items 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180452">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+combine-any-with-any-n&nbsp;&nbsp;</td>
+<td class="lambda-list">
+items nr-of-items</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Lists will have N items in the answer. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180453">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+combine-all-any-list-length&nbsp;&nbsp;</td>
+<td class="lambda-list">
+items</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Returns all combinations of items, including of any length of the list (excluding single items). 
+ This is used for chprd rules to determione what voices need to be restricted by rules for 
+ efficient search. 
+ </p>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

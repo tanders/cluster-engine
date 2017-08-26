@@ -1,0 +1,1265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+06a.heuristic-rules-interface-1engine</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="06.heuristic-rules-interface.html">
+Prev:&nbsp;06.heuristic-rules-interface</a>
+<br/>
+<a href="06b.heuristic-rules-interface-2engines.html">
+Next:&nbsp;06b.heuristic-rules-interface-2engines</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+06a.heuristic-rules-interface-1engine</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+06a.heuristic-rules-interface-1engine
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180508">
+average</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180521">
+heuristic-rule-1-engine-all-elements</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180536">
+heuristic-rule-1-engine-all-timesigns</a>
+</td>
+<td class="summary">
+simple-rule</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180513">
+heuristic-rule-1-engine-cells</a>
+</td>
+<td class="summary">
+simple-rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180529">
+heuristic-rule-1-engine-durations</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180531">
+heuristic-rule-1-engine-durations-with-total-duration</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180519">
+heuristic-rule-1-engine-pitchcells-with-index</a>
+</td>
+<td class="summary">
+simple-rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180517">
+heuristic-rule-1-engine-pitchcells-with-pitchcount</a>
+</td>
+<td class="summary">
+simple-rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180509">
+heuristic-rule-1-engine-pitches</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180511">
+heuristic-rule-1-engine-pitches-with-pitchcount</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180515">
+heuristic-rule-1-engine-rhythmcells-with-starttime</a>
+</td>
+<td class="summary">
+simple-rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180534">
+heuristic-rule-1-engine-timesigns</a>
+</td>
+<td class="summary">
+simple-rule</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180540">
+heuristic-rule-one-engine</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180522">
+heuristic-switch-rule-1-engine-all-elements</a>
+</td>
+<td class="summary">
+simple-rule this-engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180535">
+heuristic-switch-rule-1-engine-all-timesigns</a>
+</td>
+<td class="summary">
+simple-rule weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180514">
+heuristic-switch-rule-1-engine-cells</a>
+</td>
+<td class="summary">
+simple-rule engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180530">
+heuristic-switch-rule-1-engine-durations</a>
+</td>
+<td class="summary">
+simple-rule this-engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180532">
+heuristic-switch-rule-1-engine-durations-with-total-duration</a>
+</td>
+<td class="summary">
+simple-rule this-engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180520">
+heuristic-switch-rule-1-engine-pitchcells-with-index</a>
+</td>
+<td class="summary">
+simple-rule engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180518">
+heuristic-switch-rule-1-engine-pitchcells-with-pitchcount</a>
+</td>
+<td class="summary">
+simple-rule engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180510">
+heuristic-switch-rule-1-engine-pitches</a>
+</td>
+<td class="summary">
+simple-rule this-engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180512">
+heuristic-switch-rule-1-engine-pitches-with-pitchcount</a>
+</td>
+<td class="summary">
+simple-rule this-engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180516">
+heuristic-switch-rule-1-engine-rhythmcells-with-starttime</a>
+</td>
+<td class="summary">
+simple-rule engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180533">
+heuristic-switch-rule-1-engine-timesigns</a>
+</td>
+<td class="summary">
+simple-rule weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180539">
+heuristic-switch-rule-only-m-motifs</a>
+</td>
+<td class="summary">
+this-engine weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180527">
+index-heuristic-rule-1-engine-cells</a>
+</td>
+<td class="summary">
+simple-rule engine indexes</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180523">
+index-heuristic-rule-1-pitchengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180525">
+index-heuristic-rule-1-rhythmengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180538">
+index-heuristic-rule-timesigns</a>
+</td>
+<td class="summary">
+simple-rule indexes</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180528">
+index-heuristic-switch-rule-1-engine-cells</a>
+</td>
+<td class="summary">
+simple-rule engine indexes weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180524">
+index-heuristic-switch-rule-1-pitchengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180526">
+index-heuristic-switch-rule-1-rhythmengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06a.heuristic-rules-interface-1engine.html#_g180537">
+index-heuristic-switch-rule-timesigns</a>
+</td>
+<td class="summary">
+simple-rule indexes weight</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180508">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+average&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+The function outputs the average of all numbers in the input list. 
+ If the list is empty, 0 will be returned. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180509">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-pitches&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for pitches in one engine. 
+ Format: (lambda (vsolution vlinear-solution vindex engine nth) (rule)). 
+ Outputs the average weight for the current variable (average if it is 
+ looped over several variables. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180510">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-pitches&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for pitches in one engine. 
+ A heuritsic switch rule outputs the weight if it is true, otherwise it outputs zero. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180511">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-pitches-with-pitchcount&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for pitches in one engine. Pitch-count is also indicated: '(pitch pitch-count). 
+ Format: (lambda (vsolution vlinear-solution vindex engine nth) (rule)). 
+ Outputs the average weight for the current variable (average if it is 
+ looped over several variables. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180512">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-pitches-with-pitchcount&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for pitches in one engine. Pitch-count is also indicated: '(pitch pitch-count). 
+ A heuritsic switch rule outputs the weight if it is true, otherwise it outputs zero. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180513">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-cells&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180514">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-cells&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ A heuritsic switch rule outputs the weight if it is true, otherwise it outputs zero. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180515">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-rhythmcells-with-starttime&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for rhythm motifs with start time of motifs indicated. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180516">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-rhythmcells-with-starttime&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for rhythm motifs with start time of motifs indicated. 
+ The rule should be compiled before used. 
+ A heuritsic switch rule outputs the weight if it is true, otherwise it outputs zero. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180517">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-pitchcells-with-pitchcount&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for pitch motifs. Pitchcount is indicated: '((pitchcell) (pitchcount)) 
+ The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180518">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-pitchcells-with-pitchcount&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for for pitch motifs. Pitchcount is indicated: '((pitchcell) (pitchcount)). The rule should be compiled before used. 
+ A heuritsic switch rule outputs the weight if it is true, otherwise it outputs zero. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180519">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-pitchcells-with-index&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for pitch motifs. Index is indicated: '((pitchcell) index) 
+ The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180520">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-pitchcells-with-index&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for pitch motifs. Index is indicated: '((pitchcell) index) 
+ The rule should be compiled before used. 
+ A heuritsic switch rule outputs the weight if it is true, otherwise it outputs zero. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180521">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-all-elements&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for a list of all durations or pitches in one engine. It includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180522">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-all-elements&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for a list of all durations or pitches in one engine. It includes rests as negative durations. 
+ A heuritsic switch rule outputs the weight if it is true, otherwise it outputs zero. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180523">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-heuristic-rule-1-pitchengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic index rule for pitch. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180524">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-heuristic-switch-rule-1-pitchengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic index rule for pitch. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180525">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-heuristic-rule-1-rhythmengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic index rule for rhythm. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180526">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-heuristic-switch-rule-1-rhythmengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180527">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-heuristic-rule-1-engine-cells&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine indexes</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180528">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-heuristic-switch-rule-1-engine-cells&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine indexes weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180529">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-durations&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for durations in one engine. It includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180530">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-durations&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for durations in one engine. It includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180531">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-durations-with-total-duration&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic rule for durations in one engine with the start time for the duration indicated. 
+ The rule includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180532">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-durations-with-total-duration&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for durations in one engine with the start time for the duration indicated. 
+ The rule includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180533">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-timesigns&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for time signatures. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180534">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-timesigns&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for time signatures. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180535">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-1-engine-all-timesigns&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for a list of all time signatures. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180536">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-1-engine-all-timesigns&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for a list of all time signatures. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180537">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-heuristic-switch-rule-timesigns&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule indexes weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch index rule for time signatures. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180538">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-heuristic-rule-timesigns&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule indexes</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic index rule for time signatures. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180539">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-only-m-motifs&nbsp;&nbsp;</td>
+<td class="lambda-list">
+this-engine weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for pitches in one engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180540">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-rule-one-engine&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Wraps a rule in a small array together with information regarding what engine it is valid for, and its backtracking route. 
+ </p>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

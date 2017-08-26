@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+05i.rules-stop-search</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="05h.rules-higher-level.html">
+Prev:&nbsp;05h.rules-higher-level</a>
+<br/>
+<a href="05n.rules-interface-nn-engines.html">
+Next:&nbsp;05n.rules-interface-nn-engines</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+05i.rules-stop-search</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+05i.rules-stop-search
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05i.rules-stop-search.html#_g180471">
+set-stopflag-at-index</a>
+</td>
+<td class="summary">
+index engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05i.rules-stop-search.html#_g180474">
+stoprule</a>
+</td>
+<td class="summary">
+engines stoptime</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05i.rules-stop-search.html#_g180472">
+stoprule-index-or</a>
+</td>
+<td class="summary">
+engines stopindex</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05i.rules-stop-search.html#_g180473">
+stoprule-n-engines-at-index-or</a>
+</td>
+<td class="summary">
+stopindex</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05i.rules-stop-search.html#_g180469">
+stoprule-n-rhythmengine-all-at-timepoint-and</a>
+</td>
+<td class="summary">
+engines stoptime flag-for-metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05i.rules-stop-search.html#_g180467">
+stoprule-n-rhythmengine-all-at-timepoint-or</a>
+</td>
+<td class="summary">
+engines stoptime flag-for-metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05i.rules-stop-search.html#_g180470">
+stoprule-time-and</a>
+</td>
+<td class="summary">
+engines stoptime flag-for-metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05i.rules-stop-search.html#_g180468">
+stoprule-time-or</a>
+</td>
+<td class="summary">
+engines stoptime flag-for-metric-engine</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180467">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+stoprule-n-rhythmengine-all-at-timepoint-or&nbsp;&nbsp;</td>
+<td class="lambda-list">
+engines stoptime flag-for-metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for stoptime in n engines. The engines have to be a rhythm engines. The rule checks if the START TIME of the variables have reached the stoptime. 
+ The search stops when the strattime for variables in all specified engines include or have passed the given timepoint. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180468">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+stoprule-time-or&nbsp;&nbsp;</td>
+<td class="lambda-list">
+engines stoptime flag-for-metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180469">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+stoprule-n-rhythmengine-all-at-timepoint-and&nbsp;&nbsp;</td>
+<td class="lambda-list">
+engines stoptime flag-for-metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for stoptime in n engines. The engines have to be a rhythm engines. The rule checks if the START TIME of the variables have reached the stoptime. 
+ The search stops when the strattime for variables in all specified engines include or have passed the given timepoint. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180470">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+stoprule-time-and&nbsp;&nbsp;</td>
+<td class="lambda-list">
+engines stoptime flag-for-metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180471">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-stopflag-at-index&nbsp;&nbsp;</td>
+<td class="lambda-list">
+index engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180472">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+stoprule-index-or&nbsp;&nbsp;</td>
+<td class="lambda-list">
+engines stopindex</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180473">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+stoprule-n-engines-at-index-or&nbsp;&nbsp;</td>
+<td class="lambda-list">
+stopindex</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for stopindex in the engine the rule is checked. The rule checks if the index of the variables have reached the stopindex. 
+ The search stops when the index include or have passed the given stopindex. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180474">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+stoprule&nbsp;&nbsp;</td>
+<td class="lambda-list">
+engines stoptime</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

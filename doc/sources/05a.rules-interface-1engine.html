@@ -1,0 +1,811 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+05a.rules-interface-1engine</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="05.rules-interface.html">
+Prev:&nbsp;05.rules-interface</a>
+<br/>
+<a href="05b.rules-interface-2engines.html">
+Next:&nbsp;05b.rules-interface-2engines</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+05a.rules-interface-1engine</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+05a.rules-interface-1engine
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180279">
+index-rule-1-engine-cells</a>
+</td>
+<td class="summary">
+simple-rule engine indexes</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180288">
+index-rule-1-pitchengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180292">
+index-rule-1-rhythmengine-nth</a>
+</td>
+<td class="summary">
+simple-rule engine nths</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180295">
+index-rule-timesigns</a>
+</td>
+<td class="summary">
+simple-rule indexes</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180297">
+make-rule-instance</a>
+</td>
+<td class="summary">
+rule-vector</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180289">
+rule-1-engine-all-elements</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180294">
+rule-1-engine-all-timesigns</a>
+</td>
+<td class="summary">
+simple-rule</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180278">
+rule-1-engine-cells</a>
+</td>
+<td class="summary">
+simple-rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180283">
+rule-1-engine-cells-at-timepoints</a>
+</td>
+<td class="summary">
+simple-rule engine timepoints</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180284">
+rule-1-engine-cells-end-at-timepoints</a>
+</td>
+<td class="summary">
+simple-rule engine timepoints</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180290">
+rule-1-engine-durations</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180291">
+rule-1-engine-durations-with-total-duration</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180282">
+rule-1-engine-pitchcells-with-index</a>
+</td>
+<td class="summary">
+simple-rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180281">
+rule-1-engine-pitchcells-with-pitchcount</a>
+</td>
+<td class="summary">
+simple-rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180286">
+rule-1-engine-pitches</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180287">
+rule-1-engine-pitches-with-pitchcount</a>
+</td>
+<td class="summary">
+simple-rule this-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180285">
+rule-1-engine-rhythm-at-timepoints</a>
+</td>
+<td class="summary">
+simple-rule engine timepoints</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180280">
+rule-1-engine-rhythmcells-with-starttime</a>
+</td>
+<td class="summary">
+simple-rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180293">
+rule-1-engine-timesigns</a>
+</td>
+<td class="summary">
+simple-rule</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180298">
+rule-one-engine</a>
+</td>
+<td class="summary">
+rule engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05a.rules-interface-1engine.html#_g180296">
+rule-only-m-motifs</a>
+</td>
+<td class="summary">
+this-engine</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180278">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-cells&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180279">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-rule-1-engine-cells&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine indexes</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180280">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-rhythmcells-with-starttime&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm motifs with start time of motifs indicated. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180281">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-pitchcells-with-pitchcount&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for pitch motifs. Pitchcount is indicated: '((pitchcell) (pitchcount)) 
+ The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180282">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-pitchcells-with-index&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for pitch motifs. The index is indicated: '((pitchcell) index) 
+ The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180283">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-cells-at-timepoints&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine timepoints</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm motifs which startpoint exist at a given timepoint. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180284">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-cells-end-at-timepoints&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine timepoints</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm motifs which endpoint exist at a given timepoint. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180285">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-rhythm-at-timepoints&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine timepoints</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm that exist at a give time point. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180286">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-pitches&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for pitches in one engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180287">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-pitches-with-pitchcount&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for pitches in one engine. Pitch-count is also indicated: '(pitch pitch-count). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180288">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-rule-1-pitchengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180289">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-all-elements&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for a list of all durations or pitches in one engine. It includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180290">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-durations&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for durations in one engine. It includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180291">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-durations-with-total-duration&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for durations in one engine with the start time for the duration indicated. 
+ The rule includes rests as negative durations. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180292">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-rule-1-rhythmengine-nth&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule engine nths</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180293">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-timesigns&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for time signatures. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180294">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-1-engine-all-timesigns&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for a list of all time signatures. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180295">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+index-rule-timesigns&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule indexes</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for rhythm or pitch motifs. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180296">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-only-m-motifs&nbsp;&nbsp;</td>
+<td class="lambda-list">
+this-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for pitches in one engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180297">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+make-rule-instance&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule-vector</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180298">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-one-engine&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Wraps a rule in a small array together with information regarding what engine it is valid for, and its backtracking route. 
+ </p>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

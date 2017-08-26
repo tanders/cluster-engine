@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+07.backjumping</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="06g.heuristic-rules-interface-any-n-engines.html">
+Prev:&nbsp;06g.heuristic-rules-interface-any-n-engines</a>
+<br/>
+<a href="08.decode.html">
+Next:&nbsp;08.decode</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+07.backjumping</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+07.backjumping
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180716">
+convert-one-vsolution-&gt;linear-and-backjump</a>
+</td>
+<td class="summary">
+vsolution vindex vlinear-solution vsolution-for-backjump engine nr-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180715">
+convert-vsolution-&gt;linear-and-backjump</a>
+</td>
+<td class="summary">
+vsolution vindex vlinear-solution vsolution-for-backjump vflag-changed-engine nr-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180720">
+find-index-before-timepoint</a>
+</td>
+<td class="summary">
+timepoint vsolution-for-backjump engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180717">
+find-index-for-countvalue</a>
+</td>
+<td class="summary">
+countvalue vsolution-for-backjump engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180718">
+find-index-for-position-in-durationseq</a>
+</td>
+<td class="summary">
+position vlinear-solution vsolution-for-backjump engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180719">
+find-index-for-timepoint</a>
+</td>
+<td class="summary">
+timepoint vsolution-for-backjump engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180713">
+get-one-engine-index-first-counts</a>
+</td>
+<td class="summary">
+vsolution vindex engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180714">
+get-one-engine-index-first-onsets</a>
+</td>
+<td class="summary">
+vsolution vindex engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180721">
+reset-vbackjump-indexes</a>
+</td>
+<td class="summary">
+vbackjump-indexes nr-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180724">
+set-vbackjump-indexes-from-failed-count-pitch</a>
+</td>
+<td class="summary">
+failed-countvalue pitch-engine vbackjump-indexes vsolution-for-backjump</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180722">
+set-vbackjump-indexes-from-failed-count-pitch-duration</a>
+</td>
+<td class="summary">
+failed-countvalue engine rhythm-engine pitch-engine vbackjump-indexes vsolution-for-backjump</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180723">
+set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices</a>
+</td>
+<td class="summary">
+failed-notecounts list-voicenrs vbackjump-indexes vsolution-for-backjump vlinear-solution</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180726">
+set-vbackjump-indexes-from-failed-nth-duration</a>
+</td>
+<td class="summary">
+nth rhythm-engine vlinear-solution vbackjump-indexes vsolution-for-backjump</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180727">
+set-vbackjump-indexes-from-failed-timepoint-duration</a>
+</td>
+<td class="summary">
+failed-timepoint engine rhythm-engine1 rhythm-engine2 vbackjump-indexes vsolution-for-backjump</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180728">
+set-vbackjump-indexes-from-failed-timepoint-duration-duration</a>
+</td>
+<td class="summary">
+failed-timepoint engine rhythm-engine1 rhythm-engine2 vbackjump-indexes vsolution-for-backjump</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180725">
+set-vbackjump-indexes-from-failed-timepoint-duration1</a>
+</td>
+<td class="summary">
+failed-timepoint rhythm-engine vbackjump-indexes vsolution-for-backjump</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="07.backjumping.html#_g180729">
+set-vbackjump-indexes-from-failed-timepoint-meter-duration-pitch</a>
+</td>
+<td class="summary">
+failed-timepoint engine metric-engine1 rhythm-engine2 pitch-engine3 vbackjump-indexes vsolution-for-backjump vlinear-solution</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180713">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-one-engine-index-first-counts&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180714">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-one-engine-index-first-onsets&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180715">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+convert-vsolution-&gt;linear-and-backjump&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vlinear-solution vsolution-for-backjump vflag-changed-engine nr-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180716">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+convert-one-vsolution-&gt;linear-and-backjump&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vlinear-solution vsolution-for-backjump engine nr-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This only sets the vlinear-solutin and vsolution-for-backjump for ONE engine. It is intended for setting the information after the 
+ heuristic rules have been checked (the backjump info needs to be attached to the current engine since the heuristic loop don't use backjump 
+ when checking the heuristic rules). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180717">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+find-index-for-countvalue&nbsp;&nbsp;</td>
+<td class="lambda-list">
+countvalue vsolution-for-backjump engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Returns the index (counted from 0) for the variable where the countvalue (counted from 1) exist. 
+ Countvalue cannot be higher than the endpoint of the list. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180718">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+find-index-for-position-in-durationseq&nbsp;&nbsp;</td>
+<td class="lambda-list">
+position vlinear-solution vsolution-for-backjump engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Returns the index (counted from 0) for the variable where the duration at the position exists. 
+ A duration HAS to exist at the position. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180719">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+find-index-for-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+timepoint vsolution-for-backjump engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Timepoint cannot be after endpoint of the list. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180720">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+find-index-before-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+timepoint vsolution-for-backjump engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Timepoint cannot be after endpoint of the list. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180721">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+reset-vbackjump-indexes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vbackjump-indexes nr-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180722">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-count-pitch-duration&nbsp;&nbsp;</td>
+<td class="lambda-list">
+failed-countvalue engine rhythm-engine pitch-engine vbackjump-indexes vsolution-for-backjump</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is designed for the pitch-duration in one voice. Also used in pitch-pitch (4 engines). 
+ Engine is the engine that failed. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180723">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-notecount-duration-pitch-in-voices&nbsp;&nbsp;</td>
+<td class="lambda-list">
+failed-notecounts list-voicenrs vbackjump-indexes vsolution-for-backjump vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is a general function all type of engines - to use this function, the engines for both pitch and duration must exist in each voice. 
+ No metric engine. 
+ </p>
+<p>
+If iled-notecounts is nil (i.e. a rest), backjump will not be set. This is a simplified slution to these cases. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180724">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-count-pitch&nbsp;&nbsp;</td>
+<td class="lambda-list">
+failed-countvalue pitch-engine vbackjump-indexes vsolution-for-backjump</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is designed for only one pitch engine. Failed-countvalue is from the engine that failed. The pitch engine will be considered failed at the same countvalue. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180725">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-timepoint-duration1&nbsp;&nbsp;</td>
+<td class="lambda-list">
+failed-timepoint rhythm-engine vbackjump-indexes vsolution-for-backjump</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is designed for only one rhythm engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180726">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-nth-duration&nbsp;&nbsp;</td>
+<td class="lambda-list">
+nth rhythm-engine vlinear-solution vbackjump-indexes vsolution-for-backjump</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is designed for the pitch-duration-include-rest - special case for failed pitch. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180727">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-timepoint-duration&nbsp;&nbsp;</td>
+<td class="lambda-list">
+failed-timepoint engine rhythm-engine1 rhythm-engine2 vbackjump-indexes vsolution-for-backjump</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is designed for durations in two voice. Engine is the engine that failed. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180728">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-timepoint-duration-duration&nbsp;&nbsp;</td>
+<td class="lambda-list">
+failed-timepoint engine rhythm-engine1 rhythm-engine2 vbackjump-indexes vsolution-for-backjump</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is designed for durations in two voice. Engine is the engine where the backjump will be planned. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180729">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-vbackjump-indexes-from-failed-timepoint-meter-duration-pitch&nbsp;&nbsp;</td>
+<td class="lambda-list">
+failed-timepoint engine metric-engine1 rhythm-engine2 pitch-engine3 vbackjump-indexes vsolution-for-backjump vlinear-solution</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is designed for note and meter, i.e. 3 engines. Engine is the engine that failed. 
+ </p>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

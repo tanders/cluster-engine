@@ -1,0 +1,4520 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+_000.main-interface</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="13.convert-pmc-rules.html">
+Prev:&nbsp;13.convert-pmc-rules</a>
+<br/>
+<a href="export.html">
+Next:&nbsp;export</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+_000.main-interface</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+_000.main-interface
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Method summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181020">
+flat-rule-list</a>
+</td>
+<td class="summary">
+(rules list)</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181021">
+flat-rule-list</a>
+</td>
+<td class="summary">
+(rules vector)</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181022">
+flat-rule-list</a>
+</td>
+<td class="summary">
+(rules rule)</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181023">
+flat-rule-list</a>
+</td>
+<td class="summary">
+(rules heuristic-rule)</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181012">
+group-list</a>
+</td>
+<td class="summary">
+(list list) (segmentation list) mode</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181013">
+group-list</a>
+</td>
+<td class="summary">
+(list list) (segmentation number) mode</td>
+</tr>
+</table>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181063">
+apply-and</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181064">
+apply-minus</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181015">
+cluster-conv-nil-rests</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181014">
+cluster-convert-one-rtm-pitch-pair</a>
+</td>
+<td class="summary">
+list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181016">
+clusterengine</a>
+</td>
+<td class="summary">
+no-of-variables rnd? debug? rules metric-domain list-of-domains</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181010">
+function-lambda-list</a>
+</td>
+<td class="summary">
+fn</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181049">
+hr-duration-meter</a>
+</td>
+<td class="summary">
+rule voices format metric-structure rest-mode gracenote-mode</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181034">
+hr-index-pitches-one-voice</a>
+</td>
+<td class="summary">
+rule positions voice input-mode</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181043">
+hr-index-rhythm-pitch-one-voice</a>
+</td>
+<td class="summary">
+rule positions voices input-mode</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181032">
+hr-index-rhythms-one-voice</a>
+</td>
+<td class="summary">
+rule positions voice ruletype</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181036">
+hr-index-time-signatures</a>
+</td>
+<td class="summary">
+rule indexes</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181053">
+hr-list-all-events</a>
+</td>
+<td class="summary">
+rule voices parameter</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181050">
+hr-meter-duration</a>
+</td>
+<td class="summary">
+rule voices format metric-structure</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181055">
+hr-pitch-pitch</a>
+</td>
+<td class="summary">
+rule list-voices timepoints input-mode gracenotes?</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181033">
+hr-pitches-one-voice</a>
+</td>
+<td class="summary">
+rule voices input-mode</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181041">
+hr-rhythm-pitch-one-voice</a>
+</td>
+<td class="summary">
+rule voices input-mode gracenotes?</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181045">
+hr-rhythm-rhythm</a>
+</td>
+<td class="summary">
+rule voice1 voice2 input-mode1 input-mode2 input-filter</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181031">
+hr-rhythms-one-voice</a>
+</td>
+<td class="summary">
+rule voices ruletype</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181035">
+hr-time-signatures</a>
+</td>
+<td class="summary">
+rule input-mode</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181017">
+metric-domain</a>
+</td>
+<td class="summary">
+timesign1 tuplets1 alt-beatlength1 <em>&amp;optional</em> timesign2 tuplets2 alt-beatlength2 timesign3 tuplets3 alt-beatlength3 timesign4 tuplets4 alt-beatlength4 timesign5 tuplets5 alt-beatlength5 timesign6 tuplets6 alt-beatlength6 timesign7 tuplets7 alt-beatlength7 timesign8 tuplets8 alt-beatlength8</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181018">
+preferences</a>
+</td>
+<td class="summary">
+backjump? max-nr-of-loops bktr-rp1v bktr-rr2v bktr-rh2v bktr-rmh2v bktr-dm1v bktr-nm1v bktr-md1v bktr-mn1v bktr-ppnv bktr-lenv</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181058">
+r-canon</a>
+</td>
+<td class="summary">
+voices parameter offset interval</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181056">
+r-chords</a>
+</td>
+<td class="summary">
+list-voices model timepoints input-mode gracenotes? <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181027">
+r-index-pitches-one-voice</a>
+</td>
+<td class="summary">
+rule positions voices input-mode <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181042">
+r-index-rhythm-pitch-one-voice</a>
+</td>
+<td class="summary">
+rule positions voices input-mode <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181025">
+r-index-rhythms-one-voice</a>
+</td>
+<td class="summary">
+rule positions voices input-mode <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181029">
+r-index-time-signatures</a>
+</td>
+<td class="summary">
+rule indexes <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181038">
+r-jbs-one-voice</a>
+</td>
+<td class="summary">
+jbsrule0 ruletype0 voice0 <em>&amp;optional</em> jbsrule1 ruletype1 voice1 jbsrule2 ruletype2 voice2 jbsrule3 ruletype3 voice3 jbsrule4 ruletype4 voice4 jbsrule5 ruletype5 voice5 jbsrule6 ruletype6 voice6 jbsrule7 ruletype7 voice7 jbsrule8 ruletype8 voice8 jbsrule9 ruletype9 voice9</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181052">
+r-list-all-events</a>
+</td>
+<td class="summary">
+rule voices parameter <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181057">
+r-mel-interval-one-voice</a>
+</td>
+<td class="summary">
+voices gracenotes? segments? match-dur durations match-pitch intervals <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181051">
+r-meter-note</a>
+</td>
+<td class="summary">
+rule voices metric-structure input-mode1 input-mode2 <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181047">
+r-metric-hierarchy</a>
+</td>
+<td class="summary">
+voices rule-mode <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181048">
+r-note-meter</a>
+</td>
+<td class="summary">
+rule voices format metric-structure rest-mode gracenote-mode <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181030">
+r-only-m-motifs</a>
+</td>
+<td class="summary">
+voices <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181054">
+r-pitch-pitch</a>
+</td>
+<td class="summary">
+rule list-all-voices timepoints input-mode gracenotes? format <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181065">
+r-pitch-pitch-all-include-gracenotes</a>
+</td>
+<td class="summary">
+rule voice1 voice2</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181066">
+r-pitch-pitch-on-beat-include-gracenotes</a>
+</td>
+<td class="summary">
+rule voice1 voice2</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181026">
+r-pitches-one-voice</a>
+</td>
+<td class="summary">
+rule voices input-mode <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181039">
+r-pmc-one-voice</a>
+</td>
+<td class="summary">
+pmcrules0 ruletype0 voice0 <em>&amp;optional</em> pmcrules1 ruletype1 voice1 pmcrules2 ruletype2 voice2 pmcrules3 ruletype3 voice3 pmcrules4 ruletype4 voice4 pmcrules5 ruletype5 voice5 pmcrules6 ruletype6 voice6 pmcrules7 ruletype7 voice7 pmcrules8 ruletype8 voice8 pmcrules9 ruletype9 voice9</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181062">
+r-predefine-meter</a>
+</td>
+<td class="summary">
+timesig-list</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181046">
+r-rhythm-hierarchy</a>
+</td>
+<td class="summary">
+voices rule-mode <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181040">
+r-rhythm-pitch-one-voice</a>
+</td>
+<td class="summary">
+rule voices input-mode gracenotes? <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181044">
+r-rhythm-rhythm</a>
+</td>
+<td class="summary">
+rule voice1 voice2 input-mode1 input-mode2 input-filter <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181024">
+r-rhythms-one-voice</a>
+</td>
+<td class="summary">
+rule voices input-mode <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181059">
+r-rhythms-one-voice-at-timepoints</a>
+</td>
+<td class="summary">
+rule voice timepoints input-mode</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181028">
+r-time-signatures</a>
+</td>
+<td class="summary">
+rule input-mode <em>&amp;optional</em> rule-type weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181011">
+repeat-n</a>
+</td>
+<td class="summary">
+self n</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181019">
+rules-&gt;cluster</a>
+</td>
+<td class="summary">
+<em>&amp;rest</em> rules</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181037">
+set-end</a>
+</td>
+<td class="summary">
+rule end-point</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181061">
+stop-rule-index</a>
+</td>
+<td class="summary">
+voices stopindex input-mode parameters</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="_000.main-interface.html#_g181060">
+stop-rule-time</a>
+</td>
+<td class="summary">
+voices stoptime input-mode</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181012">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+group-list&nbsp;&nbsp;</td>
+<td class="lambda-list">
+(list list) (segmentation list) mode</td>
+<td class="symbol-type">
+&nbsp;[Method]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Segments a &lt;list&gt; in successives sublists which lengths are successive values of the list &lt;segmentation&gt;. 
+ </p>
+<p>
+&lt;mode&gt; indicates if &lt;list&gt; is to be read in a circular way. 
+ </p>
+<p>
+Ex. (group-list '(1 2 3 4) '(1 3) 'linear) =&gt; ((1) (2 3 4)) 
+ Ex. (group-list '(1 2 3 4) '(1 2 3) 'linear) =&gt; ((1) (2 3) (4)) 
+ Ex. (group-list '(1 2 3 4) '(1 2 3) 'circular) =&gt; ((1) (2 3) (4 1 2)) 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181013">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+group-list&nbsp;&nbsp;</td>
+<td class="lambda-list">
+(list list) (segmentation number) mode</td>
+<td class="symbol-type">
+&nbsp;[Method]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181020">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+flat-rule-list&nbsp;&nbsp;</td>
+<td class="lambda-list">
+(rules list)</td>
+<td class="symbol-type">
+&nbsp;[Method]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181021">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+flat-rule-list&nbsp;&nbsp;</td>
+<td class="lambda-list">
+(rules vector)</td>
+<td class="symbol-type">
+&nbsp;[Method]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181022">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+flat-rule-list&nbsp;&nbsp;</td>
+<td class="lambda-list">
+(rules rule)</td>
+<td class="symbol-type">
+&nbsp;[Method]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181023">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+flat-rule-list&nbsp;&nbsp;</td>
+<td class="lambda-list">
+(rules heuristic-rule)</td>
+<td class="symbol-type">
+&nbsp;[Method]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181010">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+function-lambda-list&nbsp;&nbsp;</td>
+<td class="lambda-list">
+fn</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181011">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+repeat-n&nbsp;&nbsp;</td>
+<td class="lambda-list">
+self n</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Repeats &lt;n&gt; times the evaluation of &lt;self&gt; and collects the &lt;n&gt; results into a list. 
+ </p>
+<p>
+Ex. (repeat-n (+ 1 1) 4) ==&gt; (2 2 2 2) 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181014">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+cluster-convert-one-rtm-pitch-pair&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181015">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+cluster-conv-nil-rests&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181016">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+clusterengine&nbsp;&nbsp;</td>
+<td class="lambda-list">
+no-of-variables rnd? debug? rules metric-domain list-of-domains</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+The Cluster Engine - the main function. 
+ Pitch domains cannot exist without at least one duration in the rhythm domain. 
+ Domains with only one value will not use up any time in the search process. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181017">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+metric-domain&nbsp;&nbsp;</td>
+<td class="lambda-list">
+timesign1 tuplets1 alt-beatlength1 <em>&amp;optional</em> timesign2 tuplets2 alt-beatlength2 timesign3 tuplets3 alt-beatlength3 timesign4 tuplets4 alt-beatlength4 timesign5 tuplets5 alt-beatlength5 timesign6 tuplets6 alt-beatlength6 timesign7 tuplets7 alt-beatlength7 timesign8 tuplets8 alt-beatlength8</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This box sets the metric domain in more detail than just a list of possible time signatures. 
+ </p>
+<p>
+&lt;tuplets&gt; is a list of allowed subdivisions of the beat. This setting only has an effect if 
+ using the rule r-metric-hierarchy. 
+ </p>
+<p>
+&lt;alt-beatlength&gt; allows the user to define another beat length than the time 
+ signature indicates. This will affect rules that consrain events located on 
+ beats: 
+ </p>
+<ul>
+<li>
+<p>
+nil: If this input is nil, the default beat length for a time signature 
+ will be used (i.e. the time signature '(4 4) will have the beat length 
+ 1/4, the time signature '(6 8) will have the beat length 1/8, etc. 
+ </p>
+</li>
+<li>
+<p>
+[a fraction]: If this input is a fraction, it will be used as the beat 
+ length. For example, if the time signature is '(6 8), the fraction 
+ 3/8 will give replace the default beat length 1/8. The subdivision of 
+ beats (the tuplets input) will relate to the alternative beat length. 
+ </p>
+</li>
+<li>
+<p>
+[a list]: If this input is a list, it will define an arbitrary beat 
+ division of the measure. For example, if the time signature is 
+ '(9 8), the list '(3/8 2/8 2/8 2/8) will distribute the beats 
+ accordingly. NOTE: the sum of the beats have to add up to the length 
+ of a measure. The subdivision of beats (the tuplets input) will 
+ relate to the default beat length. 
+ 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181018">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+preferences&nbsp;&nbsp;</td>
+<td class="lambda-list">
+backjump? max-nr-of-loops bktr-rp1v bktr-rr2v bktr-rh2v bktr-rmh2v bktr-dm1v bktr-nm1v bktr-md1v bktr-mn1v bktr-ppnv bktr-lenv</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+By evaluating this box you may change some default settings of the 
+ system. The box should not be connected to other boxes. Note that you 
+ need to evaluate this box every time you restart PWGL or after you 
+ change a setting to change the preferences. 
+ </p>
+<p>
+&lt;backjump?&gt; Backjumping speeds up backtracking by jumping 
+ directly to the variable that caused a failed ruletest instead of 
+ step-by-step backtracking. The speed difference vary from no 
+ difference to a huge difference. The way backjumping is used in this 
+ system, it should not cause the system to miss possible solutions. It 
+ is strongly recommended to keep backjumping on. 
+ </p>
+<p>
+&lt;max-nr-of-loops&gt; is the maximum search loops the engine will do before stopping. 
+ --- 
+ </p>
+<p>
+The following variables sets what engine a failed rule prefers to 
+ backtrack. If the prefered engine cannot be backtracked, the system 
+ will make another choice based on lower priorities. Note that if 
+ more than one rule fails, the choice will be based on the most 
+ frequently proposed engine to backtrack. 
+ </p>
+<p>
+The default settings can be found by opening a new preference box. 
+ </p>
+<p>
+&lt;bktr-rp1v&gt; r-rhyth-pitch-one-vocie 
+ </p>
+<ul>
+<li>
+<p>
+self (default): backtrack the engine (rhythm or pitch) where the failed variable was found. 
+ </p>
+</li>
+<li>
+<p>
+other: backtrack the engine (rhythm or pitch) that is associated with the enginewhere the failed variable was found. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;bktr-rr2v&gt; r-rhythm-rhythm 
+ </p>
+<ul>
+<li>
+<p>
+self: backtrack the engine (voice 1 or 2) where the failed varialbe was found. 
+ </p>
+</li>
+<li>
+<p>
+other (default): backtrack the engine (voice 1 or 2) that is associated with the engine where the failed variable was found. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;bktr-rh2v&gt; r-rhythm-hierarchy 
+ </p>
+<ul>
+<li>
+<p>
+self: backtrack the engine (voice 1 or 2) where the failed variable was found. 
+ </p>
+</li>
+<li>
+<p>
+other (default): backtrack the engine (voice 1 or 2) that is associated with the engine where the failed variable was found. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;bktr-rmh2v&gt; r-metric-hierarchy 
+ </p>
+<ul>
+<li>
+<p>
+rhythm (default): backtrack the rhythm engine 
+ </p>
+</li>
+<li>
+<p>
+meter: backtrack the metric engine. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;bktr-dm1v&gt; r-note-meter if pitch information is NOT asked for 
+ </p>
+<ul>
+<li>
+<p>
+rhythm (default): backtrack the rhythm engine 
+ </p>
+</li>
+<li>
+<p>
+meter: backtrack the metric engine. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;bktr-nm1v&gt; r-note-meter if pitch information is asked for 
+ </p>
+<ul>
+<li>
+<p>
+self (default): backtrack the engine (rhythm, pitch or meter) where the failed variable was found. 
+ </p>
+</li>
+<li>
+<p>
+rhythm/pitch: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the rhythm engine. 
+ </p>
+</li>
+<li>
+<p>
+pitch/rhythm: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the pitch engine. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;bktr-md1v&gt; r-meter-note if pitch information is NOT asked for 
+ </p>
+<ul>
+<li>
+<p>
+rhythm (default): backtrack the rhythm engine 
+ </p>
+</li>
+<li>
+<p>
+meter: backtrack the metric engine. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;bktr-mn1v&gt; r-meter-note if pitch information is asked for 
+ </p>
+<ul>
+<li>
+<p>
+self (default): backtrack the engine (rhythm, pitch or meter) where the failed variable was found. 
+ </p>
+</li>
+<li>
+<p>
+rhythm/pitch: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the rhythm engine. 
+ </p>
+</li>
+<li>
+<p>
+pitch/rhythm: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the pitch engine. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;bktr-ppnv&gt; r-pitch-pitch 
+ </p>
+<ul>
+<li>
+<p>
+next-pitch (default): backtrack the pitch engine after the engine where the failed variable was found (the order is defined by the voice input). 
+ </p>
+</li>
+<li>
+<p>
+next-rhythm: backtrack the pitch engine after the engine where the failed variable was found (the order is defined by the voice input). 
+ </p>
+</li>
+<li>
+<p>
+current-pitch: if the failed variable is in a pitch engine, backtrack the same engine. If it is in a rhythm engine, backtrack the associated pitch engine. 
+ </p>
+</li>
+<li>
+<p>
+current-rhythm: if the failed variable is in a rhythm engine, backtrack the same engine. If it is in a pitch engine, backtrack the associated rhythm engine. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;bktr-leNv&gt; r-list-all-events 
+ </p>
+<ul>
+<li>
+<p>
+next: backtrack the engine after the engine where the failed variable was found (the order is defined by the voice input). 
+ </p>
+</li>
+<li>
+<p>
+self: backtrack the engine where the failed variable was found. 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181019">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rules-&gt;cluster&nbsp;&nbsp;</td>
+<td class="lambda-list">
+<em>&amp;rest</em> rules</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Use this box to collect all rules before inputting them to the Cluster engine. 
+ It is possible to input the output of this box to a second Rules-&gt;Cluster box (to help 
+ organizing your rules in groups). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181024">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-rhythms-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices input-mode <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. If there are more than one 
+ input to the function, they will receive consecutive durations (or 
+ consecutive motifs depending on the input-mode). 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+ It is possible to give a list of several voice numbers: The rule will then 
+ be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+durations: The rule will receive individual durations, one for each input. 
+ </p>
+</li>
+<li>
+<p>
+dur/time: As above, but the start-time of the duration will be indicated. 
+ </p>
+<p>
+Format: '(duration start-time), Ex. '(1/4 9/4) 
+ </p>
+</li>
+<li>
+<p>
+motifs: The rule will receive motifs, one (consecutive) motif for each 
+ input. A motif is a collection of durations that are grouped in 
+ a list. Motifs are designed in the domain and cannot be 
+ redesignedby the engine. Note that a motif may be a single 
+ duration (a list with one duration-ratio) if it is defined as 
+ such in the domain. 
+ </p>
+</li>
+<li>
+<p>
+motif/time: As the previous selection, but with the start-time of the 
+ first event in the motif added. Format: '(motif start-time) 
+ Ex. '((1/4 -1/8) 9/8) 
+ </p>
+</li>
+<li>
+<p>
+all-durations: All durations in the voice that are assigned at the time 
+ the rule is checked are given as a list of duration ratios. 
+ The list will thus become longer and longer during the 
+ search. The rule can only have ONE input in this mode. 
+ [Backtracking: This rule will trigger backtracking in its own engine.] 
+ </p>
+</li>
+</ul>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181025">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-index-rhythms-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule positions voices input-mode <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. The function should have as many 
+ inputs as there are positions given in the &lt;positions&gt; list. 
+ </p>
+<p>
+&lt;positions&gt; is a list of positions where the logic statement is applied. 
+ Positions are counted from 0. Every position in this list corresponds to 
+ an input in the rule. See also input-mode below. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+ It is possible to give a list of several voice numbers: The rule will then 
+ be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+index-for-cell: The rule will receive motifs as lists of duration 
+ ratios. The positions given above refer to the index 
+ number for the motifs in the solution. Each input 
+ will receive one corresponding motif. 
+ </p>
+</li>
+<li>
+<p>
+position-for-duration: The rule will receive individual 
+ durations, one for each given position. 
+ The positions refer to the position 
+ of the individual duraions in the solution. 
+ Rests are included. 
+ </p>
+</li>
+</ul>
+<p>
+[Backtracking: This rule will trigger backtracking in its own engine.] 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181026">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-pitches-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices input-mode <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. If there are more than one 
+ input to the function, they will receive consecutive pitches (or 
+ consecutive motifs depending on the input-mode). 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+ It is possible to give a list of several voice numbers: The rule will then 
+ be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+pitches: The rule will receive individual pitches, one for each input. 
+ </p>
+</li>
+<li>
+<p>
+pitch/nth: As above, but the position of the pitch is also indicated. 
+ </p>
+<p>
+Format: '(pitch nth) Ex. '(60 3). 
+ </p>
+</li>
+<li>
+<p>
+motifs: The rule will receive (consecutive) motifs, one motif for each 
+ input. A motif is a collection of pitches that are grouped in 
+ a list. Motifs are designed in the domain and cannot be redesigned 
+ by the engine. Note that a motif may be a single pitch (a list 
+ with one MIDI note number) if it is defined as such in the domain. 
+ </p>
+</li>
+<li>
+<p>
+motif/nth: As above, but the position of the pitches is also indicated. 
+ </p>
+<p>
+Format: '((pitch-motif) (nth-list)) Ex. '((60 64) (3 4)). 
+ </p>
+</li>
+<li>
+<p>
+motif/index: As motifs, but the index of the variable is also indicated. 
+ </p>
+<p>
+Format: '((pitch-motif) index) Ex. '((60 64) 2). 
+ </p>
+</li>
+<li>
+<p>
+all-pitches: All pitches in the voice that are assigned at the time the 
+ rule is checked are given as a list of MIDI note numbers. 
+ The list will thus become longer and longer during the 
+ search. The rule can only have ONE input in this mode. 
+ </p>
+</li>
+</ul>
+<p>
+[Backtracking: This rule will trigger backtracking in its own engine.] 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181027">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-index-pitches-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule positions voices input-mode <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. The function should have as many 
+ inputs as there are positions given in the &lt;positions&gt; list. 
+ </p>
+<p>
+&lt;positions&gt; is a list of positions where the logic statement is applied. 
+ Positions are counted from 0. Every position in this list corresponds to 
+ an input in the rule. See also input-mode below. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+ It is possible to give a list of several voice numbers: The rule will then 
+ be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+index-for-cell: The rule will receive motifs as lists of MIDI note 
+ numbers The positions given above refer to the index 
+ number for the motifs in the solution. Each input 
+ will receive one corresponding motif. 
+ </p>
+</li>
+<li>
+<p>
+position-for-pitches: The rule will receive individual 
+ pitches, one for each given position. 
+ The positions refer to the position 
+ of the individual duraions in the solution. 
+ </p>
+</li>
+</ul>
+<p>
+[Backtracking: This rule will trigger backtracking in its own engine.] 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181028">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-time-signatures&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule input-mode <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. If there are more than one 
+ input to the function, they will receive consecutive time signatures. 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+timesigns: The rule will receive individual time signatures, one for 
+ each input. Ex. '(4 4) 
+ </p>
+</li>
+<li>
+<p>
+all-timesigns: All time signatures in the score that are assigned at the 
+ time the rule is checked are given as a list of time 
+ signatures. The list will thus become longer and longer 
+ during the search. The rule can only have ONE input in 
+ this mode. Ex. '((4 4) (6 8)) 
+ [Backtracking: This rule will trigger backtracking in its own engine.] 
+ </p>
+</li>
+</ul>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181029">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-index-time-signatures&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule indexes <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. The function should have as many 
+ inputs as there are positions given in the &lt;positions&gt; list. 
+ </p>
+<p>
+&lt;indexes&gt; is a list of positions where the logic statement is applied. 
+ Indexes are counted from 0. Every position in this list corresponds to 
+ an input in the rule. 
+ </p>
+<p>
+[Backtracking: This rule will trigger backtracking in its own engine.] 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181030">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-only-m-motifs&nbsp;&nbsp;</td>
+<td class="lambda-list">
+voices <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule will force the system to only pick transposable pitch 
+ motifs (motifs defined as melodic intervals and flagged with the 
+ letter m). The first variable in a voice is an exception: this 
+ variable always has to be a pitch defined as a MIDI note value. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+ It is possible to give a list of several voice numbers: The rule will then 
+ be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+[Backtracking: This rule will trigger backtracking in its own engine.] 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181031">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-rhythms-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices ruletype</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rule for durations in one voice. 
+ </p>
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. If there are 
+ more than one input to the function, it will receive consecutive 
+ pitches or consecutive motifs depending on the input-mode (see below). 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic 
+ rule affects. It is possible to give a list of several voice numbers: 
+ The rule will then be applied to every voice in the list (independant 
+ of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+durations: The rule will receive individual pitches, one for each input. 
+ </p>
+</li>
+<li>
+<p>
+dur/time: As above, but the start time of the duration will be indicated. 
+ </p>
+<p>
+Format: '(duration start-time), Ex. '(1/4 9/4) 
+ </p>
+</li>
+<li>
+<p>
+motifs: The rule will receive (consecutive) motifs, one motif for each 
+ input. A motif is a collection of durations that are grouped in 
+ a list. Motifs are designed in the domain and cannot be 
+ redesignedby the engine. Note that a motif may be a single 
+ duration (a list with one duration ratio) if it is defined as 
+ such in the domain. 
+ </p>
+</li>
+<li>
+<p>
+motif/time: As the previous selection, but with the start time of the 
+ first event in the motif added. Format: '(motif start-time) 
+ Ex. '((1/4 -1/8) 9/8) 
+ </p>
+</li>
+<li>
+<p>
+all-durations: All durations in the voice that are assigned at the time 
+ the rule is checked are given as a list of duration ratios. 
+ The list will thus become longer and longer during the 
+ search. The rule can only have ONE input in this mode. 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181032">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-index-rhythms-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule positions voice ruletype</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic index rule for durations in one voice. 
+ </p>
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. The function 
+ should have as many inputs as there are positions given in the 
+ &lt;positions&gt; list. 
+ </p>
+<p>
+&lt;positions&gt; is a list of positions where the heuristic rule is applied. 
+ Positions are counted from 0. Every position in this list corresponds to 
+ an input in the rule. See also input-mode below. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic 
+ rule affects. It is possible to give a list of several voice numbers: 
+ The rule will then be applied to every voice in the list (independant 
+ of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the heuristic rule will 
+ receive in its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+index-for-cell: The rule will receive motifs as lists of duration 
+ ratios. The positions given above refer to the index 
+ number for the motifs in the solution. Each input 
+ will receive one corresponding motif. 
+ </p>
+</li>
+<li>
+<p>
+position-for-duration: The rule will receive individual 
+ durations, one for each given position. 
+ The positions refer to the position 
+ of the individual duraions in the solution. 
+ Rests are included. 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181033">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-pitches-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices input-mode</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rule for pitches in one voice. 
+ </p>
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. If there are more 
+ than one input to the function, it will receive consecutive pitches 
+ or consecutive motifs depending on the input-mode (see below). 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic 
+ rule affects. It is possible to give a list of several voice numbers: 
+ The rule will then be applied to every voice in the list (independant 
+ of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+pitches The rule will receive individual pitches, one for each input. 
+ </p>
+</li>
+<li>
+<p>
+pitch/nth: As above, but the position of the pitch is also indicated. 
+ </p>
+<p>
+Format: '(pitch nth) Ex. '(60 3). 
+ </p>
+</li>
+<li>
+<p>
+motifs: The rule will receive (consecutive) motifs, one motif for each 
+ input. A motif is a collection of pitches that are grouped in 
+ a list. Motifs are designed in the domain and cannot be redesigned 
+ by the engine. Note that a motif may be a single pitch (a list 
+ with one MIDI note number) if it is defined as such in the domain. 
+ </p>
+</li>
+<li>
+<p>
+motif/nth: As above, but the position of the pitches is also indicated. 
+ </p>
+<p>
+Format: '((pitch-motif) (nth-list)) Ex. '((60 64) (3 4)). 
+ </p>
+</li>
+<li>
+<p>
+motif/index: As motifs, but the index of the variable is also indicated. 
+ </p>
+<p>
+Format: '((pitch-motif) index) Ex. '((60 64) 2). 
+ </p>
+</li>
+<li>
+<p>
+all-pitches: All pitches in the voice that are assigned at the time the 
+ rule is checked are given as a list of MIDI note numbers. 
+ The list will thus become longer and longer during the 
+ search. The rule can only have ONE input in this mode. 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181034">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-index-pitches-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule positions voice input-mode</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic index rule for pitches in one voice. 
+ </p>
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. The function 
+ should have as many inputs as there are positions given in the 
+ &lt;positions&gt; list. 
+ </p>
+<p>
+&lt;positions&gt; is a list of positions where the heuristic rule is applied. 
+ Positions are counted from 0. Every position in this list corresponds to 
+ an input in the rule. See also input-mode below. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic 
+ rule affects. It is possible to give a list of several voice numbers: 
+ The rule will then be applied to every voice in the list (independant 
+ of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+index-for-cell: The rule will receive motifs as lists of MIDI note 
+ numbers The positions given above refer to the index 
+ number for the motifs in the solution. Each input 
+ will receive one corresponding motif. 
+ </p>
+</li>
+<li>
+<p>
+position-for-pitches: The rule will receive individual 
+ pitches, one for each given position. 
+ The positions refer to the position 
+ of the individual duraions in the solution. 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181035">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-time-signatures&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule input-mode</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. If there are 
+ more than one input to the function, they will receive consecutive 
+ time signatures. 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+timesigns: The rule will receive individual time signatures, one for 
+ each input. Ex. '(4 4) 
+ </p>
+</li>
+<li>
+<p>
+all-timesigns: All time signatures in the score that are assigned at the 
+ time the rule is checked are given as a list of time 
+ signatures. The list will thus become longer and longer 
+ during the search. The rule can only have ONE input in 
+ this mode. Ex. '((4 4) (6 8)) 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181036">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-index-time-signatures&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule indexes</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. The function 
+ should have as many inputs as there are positions given in the 
+ &lt;indexes&gt; list. 
+ </p>
+<p>
+&lt;indexes&gt; is a list of positions where the logic statement is applied. 
+ Indexes are counted from 0. Every position in this list corresponds to 
+ an input in the rule. See also input-mode below. 
+ </p>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181037">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+set-end&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule end-point</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This box will set the endpoint for a jbs or a pmc rule. The rule should 
+ pass through this box before going into the r-jbs-one-voice box (or the 
+ r-pmc-one-voice box). The end point is the position (i.e. not the index) for 
+ the last value in a voice where the rule is checked. It also replaces 
+ the '(cur-slen) expression by the end point. 
+ </p>
+<p>
+Note that the first value has the position 1 (this is compatible with 
+ how index numbers are counted in the PMC engine). 
+ </p>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181038">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-jbs-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+jbsrule0 ruletype0 voice0 <em>&amp;optional</em> jbsrule1 ruletype1 voice1 jbsrule2 ruletype2 voice2 jbsrule3 ruletype3 voice3 jbsrule4 ruletype4 voice4 jbsrule5 ruletype5 voice5 jbsrule6 ruletype6 voice6 jbsrule7 ruletype7 voice7 jbsrule8 ruletype8 voice8 jbsrule9 ruletype9 voice9</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This box makes it possible to use rules from the JBS-constraint library. 
+ The box can handle both true/false rules and heuristic rules. 
+ </p>
+<p>
+Rules that use the (cur-slen) function are not supported (it is possible 
+ to use these rules by letting them pass the set-end box). 
+ </p>
+<p>
+The voice input can be a list with all voices that the rule should affect. 
+ </p>
+<p>
+Score-PMC-rules are NOT supported. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181039">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-pmc-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+pmcrules0 ruletype0 voice0 <em>&amp;optional</em> pmcrules1 ruletype1 voice1 pmcrules2 ruletype2 voice2 pmcrules3 ruletype3 voice3 pmcrules4 ruletype4 voice4 pmcrules5 ruletype5 voice5 pmcrules6 ruletype6 voice6 pmcrules7 ruletype7 voice7 pmcrules8 ruletype8 voice8 pmcrules9 ruletype9 voice9</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This box makes it possible to use PMC formated rules with the Poly-engine. The box expects a list of rules (for 
+ example from a text box). The following PMC related variables and functions are supported: 
+ L, RL, LEN, (cur-index) 
+ </p>
+<p>
+Both wildcard rules and index rules are possible to use. Wildcard rules are expected to use variables 
+ in order. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181040">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-rhythm-pitch-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices input-mode gracenotes? <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule for rhythm-pitch pairs in one voice. 
+ </p>
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. Each input will receive a list 
+ with a duration-pitch pair, one list for each input (for example '(1/4 60)). 
+ Rests will have the pitch nil indicated (for example '(-1/8 nil)).If there 
+ is more than one input to the function, they will receive consecutive 
+ rhythm-pitch pairs. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+ It is possible to give a list of several voice numbers: The rule will then 
+ be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+rhythm/pitch: The rule will receive rhythm-pitch pairs excluding (i.e. 
+ skipping) rests. 
+ </p>
+</li>
+<li>
+<p>
+include-rests: The rule will receive rhythm-pitch pairs including rests. 
+ </p>
+</li>
+<li>
+<p>
+rhythm/pitch-segments: For rules with one input, this setting is 
+ identical to the rhythm/pitch setting. For rules with 
+ more than one input, the rule will receive consecutive 
+ pitch/rhythm pairs between rests. The rule does not 
+ check rhythm/pitch pairs that are divided by a rest. 
+ This setting is good for rules that are only valid 
+ within a phrase. 
+ </p>
+</li>
+<li>
+<p>
+rhythm/time/pitch: The rule will receive rhythm-pitch pairs excluding (i.e. 
+ skipping) rests including the inormation about the 
+ absolute onset time: 
+ Format '(duration timepoint pitch) 
+ </p>
+</li>
+<li>
+<p>
+rhythm/pitch-list-ALL: The rule receives a list with all duraion-pitch 
+ pair upto the point where the rule is checked. Rests are 
+ included in the list. The rule should only have one input. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;gracenotes?&gt; gives the option to leave out grace notes when checking the 
+ rule: 
+ </p>
+<ul>
+<li>
+<p>
+normal: Grace notes are included and checked by the rule. Note: if 
+ grace notes are not used in the domain, this setting will create 
+ faster rules. 
+ </p>
+</li>
+<li>
+<p>
+exclude-gracenotes: Grace notes are removed and not seen by the rule. 
+ </p>
+</li>
+</ul>
+<p>
+[Backtracking: By default this rule will trigger backtracking in its own 
+ engine. If this is not possible, it will trigger backtracking 
+ in the other engine.] 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181041">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-rhythm-pitch-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices input-mode gracenotes?</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rule for rhythm-pitch pairs in one voice. 
+ </p>
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. Each input will 
+ receive a list with a duration-pitch pair, one list for each input (for 
+ example '(1/4 60)). Rests will have the pitch nil indicated (for example 
+ '(-1/8 nil)).If there is more than one input to the function, they will 
+ receive consecutive rhythm-pitch pairs. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic rule 
+ affects. It is possible to give a list of several voice numbers: The rule 
+ will then be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+rhythm/pitch: The heuristic rule will receive rhythm-pitch pairs 
+ excluding (i.e. skipping) rests. 
+ </p>
+</li>
+<li>
+<p>
+include-rests: The heuristic rule will receive rhythm-pitch pairs 
+ including rests. 
+ </p>
+</li>
+<li>
+<p>
+rhythm/pitch-segments: For heuristic rules with one input, this setting 
+ is identical to the rhythm/pitch setting. For 
+ heuristic rules with more than one input, the rule 
+ will receive consecutive pitch/rhythm pairs between 
+ rests. The heuristic rule does not check 
+ rhythm/pitch pairs that are divided by a rest. This 
+ setting is good for heuristic rules that are only 
+ valid within a phrase. 
+ </p>
+</li>
+<li>
+<p>
+rhythm/time/pitch: The heuristic rule will receive rhythm-pitch pairs 
+ excluding (i.e.skipping) rests including the inormation 
+ about the absolute onset time: 
+ Format '(duration timepoint pitch) 
+ </p>
+</li>
+<li>
+<p>
+rhythm/pitch-list-ALL: 
+ </p>
+</li>
+</ul>
+<p>
+&lt;gracenotes?&gt; gives the option to leave out grace notes when checking the 
+ heuristic rule: 
+ </p>
+<ul>
+<li>
+<p>
+normal: Grace notes are included and checked by the heuristic rule. Note: 
+ if grace notes are not used in the domain, this setting will 
+ create faster heuristic rules. 
+ </p>
+</li>
+<li>
+<p>
+exclude-gracenotes: Grace notes are removed and not seen by the heuristic 
+ rule. 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181042">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-index-rhythm-pitch-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule positions voices input-mode <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Index rule for rhythm-pitch pairs in one voice. 
+ </p>
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. Each input will receive a list 
+ with a duration-pitch pair, one list for each input (for example '(1/4 60)). 
+ Rests will have the pitch nil indicated (for example '(-1/8 nil)). The 
+ function should have as many inputs as there are positions given in the 
+ &lt;positions&gt; list. 
+ </p>
+<p>
+&lt;positions&gt; is a list of positions where the heuristic rule is applied. 
+ Positions are counted from 0. Every position in this list corresponds to 
+ an input in the rule. See more under input-mode below. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+ It is possible to give a list of several voice numbers: The rule will then 
+ be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+nth-note: Positions refer to the notes in the voice, excluding (i.e. not 
+ counting) rests. Notes are counted from 0. 
+ </p>
+</li>
+<li>
+<p>
+nth-duration-incl-rests: Positions refer to the durations in the voice, 
+ including rests. Durations are counted from 0. 
+ </p>
+</li>
+</ul>
+<p>
+[Backtracking: By default this rule will trigger backtracking in its own 
+ engine. If this is not possible, it will trigger backtracking 
+ in the other engine.] 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181043">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-index-rhythm-pitch-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule positions voices input-mode</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic index rule for rhythm-pitch pairs in one voice. 
+ </p>
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. Each input will 
+ receive a list with a duration-pitch pair, one list for each input 
+ (for example '(1/4 60)). Rests will have the pitch nil indicated 
+ (for example '(-1/8 nil)). The function should have as many inputs 
+ as there are positions given in the &lt;positions&gt; list. 
+ </p>
+<p>
+&lt;positions&gt; is a list of positions where the heuristic rule is applied. 
+ Positions are counted from 0. Every position in this list corresponds to 
+ an input in the rule. See more under input-mode below. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic rule 
+ affects. It is possible to give a list of several voice numbers: The rule 
+ will then be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+&lt;input-mode&gt; determines what type of variables the rule will receive in 
+ its inputs: 
+ </p>
+<ul>
+<li>
+<p>
+rhythm/pitch: The rule will receive rhythm-pitch pairs excluding (i.e. 
+ skipping) rests. 
+ </p>
+</li>
+<li>
+<p>
+include-rests: The rule will receive rhythm-pitch pairs including rests. 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181044">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-rhythm-rhythm&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voice1 voice2 input-mode1 input-mode2 input-filter <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule for the relation between durations in two voices. 
+ </p>
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. Each input will receive a list 
+ with information regarding a timepoint in the score. If the rule has 
+ more than one input it will receive information for consecutive timepoints. 
+ If the input-mode2 is set to list, the rule can only have one input. 
+ The exact information and format of the list depends on the selected input 
+ mode (see below). 
+ </p>
+<p>
+&lt;voice1&gt; and &lt;voice2&gt; are the numbers for the voices (starting at 0) that 
+ the rule affects. 
+ </p>
+<p>
+&lt;input-mode1&gt; determines what format for the variables: 
+ </p>
+<ul>
+<li>
+<p>
+d1_offset: The rule will receive a list with a duration in voice 1 and 
+ the offset to the event in voice 2 that exist at the onset 
+ for the duration in voice 1. Rests and grace notes in voice 1 
+ are ignored. Grace notes are ignored in voice 2, but rests are 
+ included. Format: '(duration offset), example: '(1/2 -1/8). 
+ </p>
+</li>
+<li>
+<p>
+d1_offset_d2: Identical to d1_offset but also returns the duration (or 
+ rest) in voice 2. Format: '(duration1 offset duration2), 
+ example: '(1/2 -1/8 1/4). 
+ </p>
+</li>
+</ul>
+<p>
+&lt;input-mode2&gt; 
+ </p>
+<ul>
+<li>
+<p>
+norm: This setting is the normal behaviour of the box. An input receives 
+ the information for one time point. More than one input it 
+ will receive information for consecutive timepoints. 
+ </p>
+</li>
+<li>
+<p>
+list: The rule must have exactly one input. The input will receive a 
+ list of all time points that are known when the rule is 
+ checked. If any of the break-at-rest settings are used, the 
+ rule will check each segment at a time. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;input-filter&gt; determines what information the rule will receive: 
+ </p>
+<ul>
+<li>
+<p>
+at-durations-v1: The rule will receive informaton for all durations 
+ (grace notes and rests excluded) in voice 1. 
+ </p>
+</li>
+<li>
+<p>
+at-events-v1: The rule will receive informaton for all events 
+ (grace notes excluded) in voice 1. Rests are included. 
+ </p>
+</li>
+<li>
+<p>
+break-at-rest-v1: This will only differ from the above setting for 
+ rules with more than one input. The rule will not not 
+ check durations that are separated by a rest in voice 1. 
+ If the list setting is chosen above, the list will be 
+ segmented at rests in voice 1. 
+ </p>
+</li>
+<li>
+<p>
+break-at-rest-v1-v2: The rule will not check points where voice 1 or 
+ voice 2 (or both) have a rest. If the rule has more than 
+ one input, it will not check timepoints that are separated 
+ by a rest in voice 1 or timepoints that have rests in voice 2. 
+ If the list setting is chosen above, the list will be 
+ segmented at rests in voice 1 or 2. 
+ </p>
+</li>
+</ul>
+<p>
+The latter 2 settings are useful for rules that are only valid within 
+ a phrase. 
+ </p>
+<p>
+[Backtracking: By default this rule will trigger backtracking in the other 
+ engine than the engine that failed. If this is not possible, 
+ it will trigger backtracking in its own engine.] 
+ </p>
+<p>
+A word on efficiency: 
+ The most efficient input mode is the d1_offset (if the input-filter is set 
+ to at-durations-v1): the system is able to check this type of rule earlier than rules 
+ with other input modes. This is due to that it can consider the last endpoint 
+ as a new onset, without knowing the duration for this new event. 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181045">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-rhythm-rhythm&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voice1 voice2 input-mode1 input-mode2 input-filter</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rule for the relation between durations in two voices. 
+ </p>
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+NOTE that this heuristic rule will have most effect on durations: offsets 
+ will be very little affected (if any at all). 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. Each input will 
+ receive a list with information regarding a timepoint in the score. If the 
+ rule has more than one input it will receive information for consecutive 
+ timepoints. If the input-mode2 is set to list, the rule can only have one 
+ input. The exact information and format of the list depends on the 
+ selected input mode (see below). 
+ </p>
+<p>
+&lt;voice1&gt; and &lt;voice2&gt; are the numbers for the voices (starting at 0) that 
+ the rule affects. 
+ </p>
+<p>
+&lt;input-mode1&gt; determines what format for the variables: 
+ </p>
+<ul>
+<li>
+<p>
+d1_offset: The rule will receive a list with a duration in voice 1 and 
+ the offset to the event in voice 2 that exist at the onset 
+ for the duration in voice 1. Rests and grace notes in voice 1 
+ are ignored. Grace notes are ignored in voice 2, but rests are 
+ included. Format: '(duration offset), example: '(1/2 -1/8). 
+ </p>
+</li>
+<li>
+<p>
+d1_offset_d2: Identical to d1_offset but also returns the duration (or 
+ rest) in voice 2. Format: '(duration1 offset duration2), 
+ example: '(1/2 -1/8 1/4). 
+ </p>
+</li>
+</ul>
+<p>
+&lt;input-mode2&gt; 
+ </p>
+<ul>
+<li>
+<p>
+norm: This setting is the normal behaviour of the box. An input receives 
+ the information for one time point. More than one input it 
+ will receive information for consecutive timepoints. 
+ </p>
+</li>
+<li>
+<p>
+list: The rule must have exactly one input. The input will receive a 
+ list of all time points that are known when the rule is 
+ checked. If any of the break-at-rest settings are used, the 
+ rule will check each segment at a time. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;input-filter&gt; determines what information the rule will receive: 
+ </p>
+<ul>
+<li>
+<p>
+at-durations-v1: The rule will receive informaton for all durations 
+ (grace notes and rests excluded) in voice 1. 
+ </p>
+</li>
+<li>
+<p>
+break-at-rest-v1: This will only differ from the above setting for 
+ rules with more than one input. The rule will not not 
+ check durations that are separated by a rest in voice 1. 
+ If the list setting is chosen above, the list will be 
+ segmented at rests in voice 1. 
+ </p>
+</li>
+<li>
+<p>
+break-at-rest-v1-v2: The rule will not check points where voice 1 or 
+ voice 2 (or both) have a rest. If the rule has more than 
+ one input, it will not check timepoints that are separated 
+ by a rest in voice 1 or timepoints that have rests in voice 2. 
+ If the list setting is chosen above, the list will be 
+ segmented at rests in voice 1 or 2. 
+ </p>
+</li>
+</ul>
+<p>
+The latter 2 settings are useful for rules that are only valid within 
+ a phrase. 
+ </p>
+<p>
+[Backtracking: By default this rule will trigger backtracking in the other 
+ engine than the engine that failed. If this is not possible, 
+ it will trigger backtracking in its own engine.] 
+ </p>
+<p>
+A word on efficiency: 
+ The most efficient input mode is the d1_offset (if the input-filter is set 
+ to at-durations-v1): the system is able to check this type of rule earlier than 
+ rules with other input modes. This is due to that it can consider the last endpoint 
+ as a new onset, without knowing the duration for this new event. This setting 
+ will have more of an impact than other settings. Other input modes will only have 
+ an effect for durations (not offsets). 
+ </p>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181046">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-rhythm-hierarchy&nbsp;&nbsp;</td>
+<td class="lambda-list">
+voices rule-mode <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule for a hierarchic relation between onsets in two or more voices. 
+ </p>
+<p>
+&lt;voices&gt; is a list of voice numbers (counted from 0) where the order of 
+ the voices determines the hierarchical relationship (the first voice 
+ being the most fundamental). It is also possible to define several 
+ (independant) relationship by using sublists for each hierarchic 
+ structure. 
+ </p>
+<p>
+&lt;rule-mode&gt; 
+ </p>
+<ul>
+<li>
+<p>
+dur-&gt;dur: The rule only affects durations. Rests will be ignored 
+ in the higher voice in the hierarchy, and not be considered 
+ valid onset points in the lower voice. 
+ </p>
+</li>
+<li>
+<p>
+include-rests: The rule will also include the onset points for rests 
+ in both voices. 
+ </p>
+</li>
+<li>
+<p>
+cells-&gt;durations: As dur-&gt;dur, but the onsets in higher voice in the 
+ hierarchy will be taken from the onsets for a rhythmic 
+ motif (as it is defined in the domain). 
+ </p>
+</li>
+</ul>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181047">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-metric-hierarchy&nbsp;&nbsp;</td>
+<td class="lambda-list">
+voices rule-mode <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule for metric hierarchy: the onsets of events will bve forced to line 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule 
+ affects. A list of numbers indicate that the rule is valid for every 
+ voice in the list. 
+ </p>
+<p>
+&lt;rule-mode&gt; 
+ </p>
+<ul>
+<li>
+<p>
+durations: The rule only affects durations (including grace notes). 
+ Endpoints of durations are not affected. 
+ </p>
+</li>
+<li>
+<p>
+include-rests: The rule affects all events (including rests). Also 
+ endpoints of events will be affected. 
+ </p>
+</li>
+</ul>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181048">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-note-meter&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices format metric-structure rest-mode gracenote-mode <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule for the metric position of notes and rests. The rule checks all 
+ events in one voice. 
+ </p>
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. Each input will receive the 
+ information on regarding an events offset to its beat or the first beat of 
+ its measure. If the rule has more than one input it will receive information 
+ for consecutive events. The exact information and format of an input depends 
+ on settings (see below). 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule 
+ affects. A list of numbers indicate that the rule is valid for every 
+ voice in the list. 
+ </p>
+<p>
+&lt;format&gt; sets how the information for an input is formated. 
+ </p>
+<ul>
+<li>
+<p>
+offs: An input will receive the offset to the following beat 
+ (i.e. the duration until the following beat). Offset 0 
+ indicates that the event is synchronized with the beat. 
+ If the duration of an event is not necessary to know, this 
+ setting should be chosen. 
+ </p>
+</li>
+<li>
+<p>
+d_offs: An input will receive a list with the duration of the 
+ event and the offset to the following beat (i.e. the duration 
+ until the following beat). Offset 0 indicates that the event 
+ is synchronized with the beat. Example: '(1/4 -1/8) 
+ </p>
+</li>
+<li>
+<p>
+d_offs_m: An input will receive a list with the duration of the 
+ event, the offset to the following beat (i.e. the duration 
+ until the following beat) and the time signature. 
+ The time signature is given for the measure where the events 
+ onset exist (it may be sustained into another measure). 
+ ONLY ISE THIS SETTING IF YOU NEED TO KNOW THE TIME SIGNATURE. 
+ Example: '(1/4 -1/8 (3 4)) 
+ </p>
+</li>
+<li>
+<p>
+d_offs_m_n: An input will receive a list with the duration of the 
+ event, the offset to the following beat (i.e. the duration 
+ until the following beat), the time signature and the pitch. 
+ The time signature is given for the measure where the events 
+ onset exist (it may be sustained into another measure). 
+ ONLY ISE THIS SETTING IF YOU NEED TO KNOW THE PITCH. 
+ Example: '(1/4 -1/8 (3 4) 60) 
+ </p>
+</li>
+</ul>
+<p>
+&lt;metric-structure&gt; 
+ </p>
+<ul>
+<li>
+<p>
+beats: The offsets will relate to the following beat. 
+ </p>
+</li>
+<li>
+<p>
+1st-beat: The offset will relate to the following 1st beat in the 
+ next measure. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;rest-mode&gt; 
+ </p>
+<ul>
+<li>
+<p>
+incl.rests: The rule will be checked for durations and rests (rests are 
+ indicated as negative durations). If rests are not included 
+ in the domain, this setting should be chosen. 
+ </p>
+</li>
+<li>
+<p>
+durations: The rule will not be checked for rests (if the rule has 
+ more than one input, rests will be skipped). 
+ </p>
+</li>
+</ul>
+<p>
+&lt;gracenote-mode&gt; 
+ </p>
+<ul>
+<li>
+<p>
+normal: The rule will include grace notes as separate events. If 
+ grace notes are not included in the domain, this setting 
+ should be chosen. 
+ </p>
+</li>
+<li>
+<p>
+excl-gracenotes: The rule will not be checkes for grace notes (if 
+ the rule has more than one input, grace notes will be 
+ skipped). 
+ </p>
+</li>
+</ul>
+<p>
+Efficiency: The most efficient setting is &lt;offs&gt;, &lt;incl.rests&gt;, since 
+ it the rule can assume that an offset always is a new onset and it can 
+ check the rule before the next event is assigned. Least efficient is the 
+ &lt;d_offs_m&gt; setting, since the rule cannot be checked until the time 
+ signature is known for a metric point. 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181049">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-duration-meter&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices format metric-structure rest-mode gracenote-mode</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rule for the metric position of durations and rests. The rule 
+ checks all events in one voice. 
+ </p>
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. Each input will 
+ receive the information on regarding an events offset to its beat or the 
+ first beat of its measure. If the rule has more than one input it will 
+ receive information for consecutive events. The exact information and 
+ format of an input depends on settings (see below). 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule 
+ affects. A list of numbers indicate that the rule is valid for every 
+ voice in the list. 
+ </p>
+<p>
+&lt;format&gt; sets how the information for an input is formated. 
+ </p>
+<ul>
+<li>
+<p>
+dur_offset: An input will receive a list with the duration of the 
+ event and the offset to the following beat (i.e. the duration 
+ until the following beat). Offset 0 indicates that the event 
+ is synchronized with the beat. Example: '(1/4 -1/8) 
+ </p>
+</li>
+<li>
+<p>
+offset: An input will receive the offset to the following beat 
+ (i.e. the duration until the following beat). Offset 0 
+ indicates that the event is synchronized with the beat. 
+ If the duration of an event is not necessary to know, this 
+ setting should be chosen. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;metric-structure&gt; 
+ </p>
+<ul>
+<li>
+<p>
+beats: The offsets will relate to the following beat. 
+ </p>
+</li>
+<li>
+<p>
+1st-beat: The offset will relate to the following 1st beat in the 
+ next measure. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;rest-mode&gt; 
+ </p>
+<ul>
+<li>
+<p>
+incl.rests: The rule will be checked for durations and rests (rests are 
+ indicated as negative durations). If rests are not included 
+ in the domain, this setting should be chosen. 
+ </p>
+</li>
+<li>
+<p>
+durations: The rule will not be checked for rests (if the rule has 
+ more than one input, rests will be skipped). 
+ </p>
+</li>
+</ul>
+<p>
+&lt;gracenote-mode&gt; 
+ </p>
+<ul>
+<li>
+<p>
+normal: The rule will include grace notes as separate events. If 
+ grace notes are not included in the domain, this setting 
+ should be chosen. 
+ </p>
+</li>
+<li>
+<p>
+excl-gracenotes: The rule will not be checkes for grace notes (if 
+ the rule has more than one input, grace notes will be 
+ skipped). 
+ </p>
+</li>
+</ul>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181050">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-meter-duration&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices format metric-structure</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rule for durations and rests at metric timepoints. The heuristic 
+ rule will affect all metric timepoints (see the setting for the metric 
+ structure). Grace notes are ignored by the rule. 
+ </p>
+<p>
+Heuristic rules sort the candidates locally according to weights. 
+ The true/false rules will test candidates that receive high weights by 
+ the heuristic rules before other candidates (and in this way give them 
+ higher priority). A heuristic rule can never fail a candidate, nor 
+ can it trigger backtracking of an engine. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. Each input will 
+ receive the information on regarding the offset to the onset for the 
+ event that coinside with a metric time point (i.e. every beat or only 
+ the first beat of every measure). If the rule has more than one input 
+ it will receive information for consecutive metric timepoints The exact 
+ information and format of an input depends on settings (see below). 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule 
+ affects. A list of numbers indicate that the rule is valid for every 
+ voice in the list. 
+ </p>
+<p>
+&lt;format&gt; sets how the information for an input is formated. 
+ </p>
+<ul>
+<li>
+<p>
+offset: An input will receive the offset to the onset for the 
+ event that coinside with the metric timepoint. Offset 0 
+ indicates that the event is synchronized with the beat. 
+ If the duration of an event is not necessary to know, this 
+ setting should be chosen. 
+ </p>
+</li>
+<li>
+<p>
+offset_dur: An input will receive a list with the duration of the 
+ event and its offset to the beat that is checked beat. 
+ Offset 0 indicates that the event is synchronized with 
+ the beat. Example: '(-1/8 1/4) 
+ </p>
+</li>
+<li>
+<p>
+list-all-offsets: The rule should only have one input. It will receive 
+ a list of all offsets (as described above) upto the 
+ point where the rule is checked. 
+ </p>
+</li>
+<li>
+<p>
+list-all-offs_dur: The rule should only have one input. It will receive 
+ a list of all offset-duration pairs (as described above) 
+ upto the point where trhe rule is checked. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;metric-structure&gt; 
+ </p>
+<ul>
+<li>
+<p>
+beats: The rule will be applied at every beat. 
+ </p>
+</li>
+<li>
+<p>
+1st-beat: The rule will be applied at the first beat of every measure. 
+ </p>
+</li>
+</ul>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181051">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-meter-note&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices metric-structure input-mode1 input-mode2 <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule for notes at metric timepoints. The rule will check 
+ all metric timepoints (see the setting for the metric structure). 
+ Grace notes are ignored by the rule. 
+ </p>
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. Each input will receive the 
+ information on regarding the offset to the onset for the note that 
+ coinside with a metric time point (i.e. every beat or only the first 
+ beat of every measure). If the rule has more than one input it will 
+ receive information for consecutive metric timepoints. The exact 
+ information and format of an input depends on settings (see below). 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule 
+ affects. A list of numbers indicate that the rule is valid for every 
+ voice in the list. 
+ </p>
+<p>
+&lt;input-mode1&gt; sets how the information for an input is formated. 
+ </p>
+<ul>
+<li>
+<p>
+offset: An input will receive the offset to the onset for the 
+ event that coinside with the metric timepoint. Offset 0 
+ indicates that the event is synchronized with the beat. 
+ If the duration of a note is not necessary to know, this 
+ setting should be chosen. Example: '(-1/8) 
+ </p>
+</li>
+<li>
+<p>
+offset_dur: An input will receive a list with the duration of the 
+ event and its offset to the beat that is checked. 
+ Offset 0 indicates that the event is synchronized with 
+ the beat. If the pitch of a note is not necessary to 
+ know, this setting should be chosen. Example: '(-1/8 1/4) 
+ </p>
+</li>
+<li>
+<p>
+offset_dur_pitch: An input will receive a list with the duration and 
+ pitch of the note and its offset to the beat that is 
+ checked. Offset 0 indicates that the note is synchronized 
+ with the beat. Example: '(-1/8 1/4 60) 
+ </p>
+</li>
+<li>
+<p>
+offset_dur_pitch_meter: As the previous option, but also accesses the 
+ time signature. Example: '(-1/8 1/4 60 (3 4)) 
+ </p>
+</li>
+<li>
+<p>
+offset_motif: An input will receive the offset to the onset for the 
+ rhytm motif that coinside with the metric timepoint. Offset 
+ 0 indicates that the motif is synchronized with the beat. 
+ The motif will also be accessed. If the meter is not 
+ necessary to know, use this mode (and noot the following). 
+ Example: '(-1/8 (1/8 1/16 1/16)) 
+ </p>
+</li>
+<li>
+<p>
+offset_motif_meter: As the previous input mode, but also the time 
+ signature will be accessed. 
+ Example: '(-1/8 (1/8 1/16 1/16) (3 4)) 
+ </p>
+</li>
+</ul>
+<p>
+&lt;input-mode2&gt; 
+ </p>
+<ul>
+<li>
+<p>
+norm: This setting is the normal behaviour of the box. An input receives 
+ the information for one time point. More than one input 
+ will receive information for consecutive timepoints. 
+ </p>
+</li>
+<li>
+<p>
+list: The rule must have exactly one input. The input will receive a 
+ list of all time points that are known when the rule is 
+ checked. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;metric-structure&gt; 
+ </p>
+<ul>
+<li>
+<p>
+beats: The rule will be applied at every beat. 
+ </p>
+</li>
+<li>
+<p>
+1st-beat: The rule will be applied at the first beat of every measure. 
+ </p>
+</li>
+</ul>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181052">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-list-all-events&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices parameter <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule that accesses lists with ALL pitches or durations in any number of voices. 
+ </p>
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. Each input will receive a list 
+ with all events in the corresponding voice. The logic statement must have 
+ the same number of inputs as the number of voices it accesses. 
+ </p>
+<p>
+&lt;voices&gt; is a list with the numbers for the voices (starting at 0) that 
+ the rule affects. Any number of voices can be accessed by the rule, 
+ however for efficiency reasons it is advised to rather split the rule 
+ into several simpler rules (that only access a few number of voices) if possible. 
+ If voices are given as a list of lists, each sublist will be considered 
+ an individual rule. 
+ </p>
+<p>
+&lt;parameter&gt; determines if the rule will access pitches or durations: 
+ </p>
+<p>
+[Backtracking: By default this rule will trigger backtracking in the 
+ engine following the one that failed. If this is not 
+ possible, it will trigger backtracking in its own engine. 
+ The order of the engines is the same as in the &lt;voices&gt; 
+ input.] 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181053">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-list-all-events&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voices parameter</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rule that accesses lists with ALL pitches or durations in any number of voices. 
+ </p>
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. Each input will receive a list 
+ with all events in the corresponding voice. The logic statement must have 
+ the same number of inputs as the number of voices it accesses. 
+ </p>
+<p>
+&lt;voices&gt; is a list with the numbers for the voices (starting at 0) that 
+ the rule affects. Any number of voices can be accessed by the rule, 
+ however for efficiency reasons it is advised to rather split the rule 
+ into several simpler rules (that only access a few number of voices) if possible. 
+ If voices are given as a list of lists, each sublist will be considered 
+ an individual heuristic rule. 
+ </p>
+<p>
+&lt;parameter&gt; determines if the rule will access pitches or durations: 
+ </p>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181054">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-pitch-pitch&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-all-voices timepoints input-mode gracenotes? format <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule that accesses simultaneous pitches in 2 or more voices. 
+ </p>
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. Each input will receive a list 
+ with simultaneous pitches (optional with duration and offsets). If the 
+ rule has more than one input it will receive information for consecutive 
+ events (the positions of the events are determined by the input-mode 
+ setting). 
+ </p>
+<p>
+&lt;list-of-voices&gt; is a list with the numbers of the voices (starting at 0) that 
+ the rule accesses. Any number of voices can be accessed by the rule. It is also 
+ possible to give a list of lists of voices: all sublists will generate a 
+ separate rule. All voices must have a pitch and rhythm domain. For efficiency 
+ reasons it is advised to rather split the rule into several simpler rules 
+ (that only access a few number of voices) if possible. This will make it 
+ possible to find failed candidates sooner, and to be more precise about what 
+ caused backtracking. 
+ </p>
+<p>
+&lt;timepoints&gt; This input is only considered if the input-mode is 
+ at-timepoints. This is a list of absolute timepoints 
+ (starting at 0) where the rue will be checked. 
+ Ex. (0 5/4 9/4) 
+ </p>
+<p>
+&lt;input-mode&gt; sets at what time points the rule will be checked. 
+ </p>
+<ul>
+<li>
+<p>
+all: The rule will be checked at every harmonic slice. 
+ </p>
+<p>
+Every time any voice has a new note event, the rule 
+ will be checked. 
+ </p>
+</li>
+<li>
+<p>
+beat: The rule will be checked at metric beats. 
+ </p>
+</li>
+<li>
+<p>
+1st-beat: The rule will be checked at the first [down] beat 
+ in every measure. 
+ </p>
+</li>
+<li>
+<p>
+1st-voice: The rule will be checked at the onset of every new note 
+ in the first voice in the list-of-voices. 
+ </p>
+</li>
+<li>
+<p>
+at-timepoints: The rule will be checked at the timepoints in the 
+ timepoints input. 
+ &lt;gracenotes?&gt; 
+ </p>
+</li>
+<li>
+<p>
+no_grace: Pitches that relate to grace notes will be ignored. 
+ </p>
+</li>
+<li>
+<p>
+gracenotes: Grace notes are also checked by the rule: 
+ they are related to the regular notes in the other 
+ voices. 
+ 
+ &lt;format&gt; sets the format an input on the abstraction will receive. Note 
+ that rests will be indicated as nil (without the specification of teh exact 
+ duration of the rest). 
+ </p>
+</li>
+<li>
+<p>
+pitch: Each input receives a list with simultaneous pitches. 
+ </p>
+<p>
+Each pitch belongs to the corresponding voice indicated 
+ in the &lt;list-voices&gt; input. Ex. '(67 60) 
+ </p>
+</li>
+<li>
+<p>
+p_d_offs: Each input receives a list of lists. Each sublist represent 
+ a corresponding voice indicated in the &lt;list-voices&gt; input. 
+ A sublist contains the information about an events pitch, 
+ duration and offset between the events onset and the time 
+ point the rule was checked (this is determined by the 
+ &lt;input-mode&gt; setting). Offsets are either 0 or a negative 
+ distance. Ex. '((67 1/4 0) (60 1/4 -1/8)). 
+ </p>
+</li>
+<li>
+<p>
+p_d_offs+timepoint: Each input receives a list of lists. Each sublist 
+ represent a corresponding voice indicated in the &lt;list-voices&gt; 
+ input. In addition, the time point for when the rule is 
+ checked is added as a final value (note that this value 
+ is not in a sublist). A sublist contains the information 
+ about an events pitch, duration and offset between the 
+ events onset and the time point the rule was checked (this 
+ is determined by the &lt;input-mode&gt; setting). Offsets are 
+ either 0 or a negative distance. 
+ Ex. '((67 1/4 0) (60 1/4 -1/8) 5/4). 
+ </p>
+</li>
+</ul>
+<p>
+list-all-voices can include any number of voices. All voices must have a pitch 
+ and rhythm domain. 
+ </p>
+<p>
+DO NOT use this rule to restrict rests in relation to other rests: use instead 
+ the r-rhythm-rhythm. 
+ </p>
+<p>
+Optional inputs: 
+ By expanding the box it is possible to use the rule as a heuristic switch 
+ rule. A heuristic switch rule is still using a logic statement (that 
+ outputs true or false), but the effect of the rule is different: If the rule 
+ is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+ If it is false, a weight of 0 will be passed. A candidate that receive a 
+ high weight will have a higher priority for being picked when the true/false 
+ rules are checked. A heuristic rule can never fail a candidate, nor can it 
+ trigger backtracking of the engine. Heuristic rules only sort the 
+ candidates locally before the strict rules are applied. Depending on the 
+ context, heuristic rules might have more or less of an effect. 
+ </p>
+<p>
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+ latter don't output true or false, but a weight that might vary depending 
+ on the candidate). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181055">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+hr-pitch-pitch&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule list-voices timepoints input-mode gracenotes?</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Heuristic rule that accesses simultaneous pitches in 2 or more voices. 
+ </p>
+<p>
+&lt;rule&gt; is a function that outputs a numerical weight. Each input will 
+ receive a list with simultaneous pitches. If the rule has more than one 
+ input it will receive information for consecutive events (the positions 
+ of the events are determined by the input-mode setting). 
+ </p>
+<p>
+&lt;list-of-voices&gt; is a list with the numbers of the voices (starting at 0) that 
+ the rule accesses. Any number of voices can be accessed by the rule. 
+ All voices must have a pitch and rhythm domain. For efficiency reasons it 
+ is advised to rather split the rule into several simpler rules (that only 
+ access a few number of voices) if possible. This will make it possible to 
+ find failed candidates sooner, and to be more precise about what caused 
+ backtracking. 
+ </p>
+<p>
+&lt;timepoints&gt; This input is only considered if the input-mode is 
+ at-timepoints. This is a list of absolute timepoints 
+ (starting at 0) where the rue will be checked. 
+ Ex. (0 5/4 9/4) 
+ </p>
+<p>
+&lt;input-mode&gt; sets at what time points the rule will be checked. 
+ </p>
+<ul>
+<li>
+<p>
+all: The rule will be checked at every harmonic slice. 
+ </p>
+<p>
+Every time any voice has a new note event, the rule 
+ will be checked. 
+ </p>
+</li>
+<li>
+<p>
+beat: The rule will be checked at metric beats. 
+ </p>
+</li>
+<li>
+<p>
+1st-beat: The rule will be checked at the first [down] beat 
+ in every measure. 
+ </p>
+</li>
+<li>
+<p>
+1st-voice: The rule will be checked at the onset of every new note 
+ in the first voice in the list-of-voices. 
+ </p>
+</li>
+<li>
+<p>
+at-timepoints: The rule will be checked at the timepoints in the 
+ timepoints input. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;gracenotes?&gt; 
+ </p>
+<ul>
+<li>
+<p>
+exclud-gracenotese: Pitches that relate to grace notes will be ignored. 
+ </p>
+</li>
+<li>
+<p>
+include-gracenotes: Grace notes are also checked by the rule: 
+ they are related to the regular notes in the other 
+ voices. 
+ 
+ </p>
+</li>
+</ul>
+<p>
+list-of-voices can include any number of voices. All voices must have a pitch 
+ and rhythm domain. 
+ </p>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181056">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-chords&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list-voices model timepoints input-mode gracenotes? <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule restrics possible chord formations between voices. 
+ </p>
+<p>
+&lt;list-of-voices&gt; is a list with the numbers of the voices (starting at 0) that 
+ the rule accesses. Any number of voices can be accessed by the rule. 
+ If more tan 2 voices are accessed, the rule will split up into several 
+ rules to more efficient find a solution. 
+ </p>
+<p>
+&lt;model&gt; is a chord or a list of chords. A chord is expressed as intervals from a 
+ bass note. The rule will only allow the chords (and all their inversions) from this 
+ list. Chords in the solution do not need to be complete (i.e. some notes may be missing). 
+ Pitches may exist in any octave. 
+ </p>
+<p>
+&lt;timepoints&gt; This input is only considered if the input-mode is 
+ at-timepoints. This is a list of absolute timepoints 
+ (starting at 0) where the rue will be checked. 
+ Ex. (0 5/4 9/4) 
+ </p>
+<p>
+&lt;input-mode&gt; sets at what time points the rule will be checked. 
+ </p>
+<ul>
+<li>
+<p>
+all: The rule will be checked at every harmonic slice. 
+ </p>
+<p>
+Every time any voice has a new note event, the rule 
+ will be checked. 
+ </p>
+</li>
+<li>
+<p>
+beat: The rule will be checked at metric beats. 
+ </p>
+</li>
+<li>
+<p>
+1st-beat: The rule will be checked at the first [down] beat 
+ in every measure. 
+ </p>
+</li>
+<li>
+<p>
+1st-voice: The rule will be checked at the onset of every new note 
+ in the first voice in the list-of-voices. 
+ </p>
+</li>
+<li>
+<p>
+at-timepoints: The rule will be checked at the timepoints in the 
+ timepoints input. 
+ </p>
+</li>
+</ul>
+<p>
+[Backtracking behaves the same as fro the R-pitch-pitch rule.] 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181057">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-mel-interval-one-voice&nbsp;&nbsp;</td>
+<td class="lambda-list">
+voices gracenotes? segments? match-dur durations match-pitch intervals <em>&amp;optional</em> rule-type weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Restricts what melodic intervals are allowed from an event with a specific duration. 
+ </p>
+<p>
+If the duration the melodic interval start at is 
+ =: identical to a value 
+ member: member of a list of values 
+ longer-than: longer than a value 
+ shorter-than: shorter than a value 
+ </p>
+<p>
+then the melodic interval has to be 
+ =: equal to an interval 
+ member: member of a list of intervals 
+ smaller-than: smaller than an interval 
+ larger-than: larger than an interval 
+ </p>
+<p>
+[The prefered back route will be the same as for R-rhythm-pitch-one-voice.] 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181058">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-canon&nbsp;&nbsp;</td>
+<td class="lambda-list">
+voices parameter offset interval</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule for canon between two voices. 
+ </p>
+<p>
+&lt;voices&gt; is a list with the number of the two voice (starting at 0) for 
+ the canon. It is possible to give a list with sublists: The rule will then 
+ be applied to every voice-pair in the list (independant of each other). 
+ </p>
+<p>
+&lt;parameter&gt; 
+ </p>
+<ul>
+<li>
+<p>
+rhythm: The canon is only for rhythm. 
+ </p>
+</li>
+<li>
+<p>
+rhythm&amp;pitch: The canon is both for rhythm and pitch 
+ </p>
+</li>
+<li>
+<p>
+pitch: The canon is only for rhythm. 
+ </p>
+</li>
+</ul>
+<p>
+&lt;offset&gt; This is the duration before the 2nd voice starts (note value). 
+ &lt;interval&gt; This is the pitch interval between the fux and the comes. 
+ </p>
+<p>
+Note that the use of grace notes immediately preceeding rests (duration 0 before negative duration) or rhythm cells ending with a grace note is not very efficient in this rule (any result will however be correct). 
+ </p>
+<p>
+[Backtracking: This voice backtracks as the r-list-all-events rule]. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181059">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-rhythms-one-voice-at-timepoints&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voice timepoints input-mode</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Rule for rhythms that exist at timepoints in one voice. 
+ </p>
+<p>
+&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+ function has to be either true or false. .If there are more than one 
+ input to the function, they will receive the information for consecutive 
+ timepoints. 
+ </p>
+<p>
+&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+ It is possible to give a list of several voice numbers: The rule will then 
+ be applied to every voice in the list (independant of each other). 
+ </p>
+<p>
+&lt;timepoints&gt; is a list of timepoints (starting from 0) counted from the 
+ beginning of the score where the rule will be checked. For example 
+ the timepoint 15/4 will be 15 quarter notes from the beginning of the 
+ score. 
+ </p>
+<p>
+&lt;input-mode&gt; 
+ </p>
+<ul>
+<li>
+<p>
+motifs-start: The start time for motifs will be compared to the given 
+ timepoint. An input receives the as 
+ '(offset-to-timepoint (motif)). Offset is the duration 
+ between the startingpoint of the motif and given timepoint. 
+ Ex. (-1/4 (1/8 -1/8 1/16 1/16)) 
+ </p>
+</li>
+<li>
+<p>
+motifs-end: The end time for motifs will be compared to the given 
+ timepoint. An input receives the as 
+ '(offset-to-timepoint (motif)). Offset is the duration 
+ between the endingpoint of the motif and given timepoint. 
+ Ex. (1/8 (1/8 -1/8 1/16 1/16)) 
+ </p>
+</li>
+<li>
+<p>
+dur-start: The start time for durations and rests will be compared to 
+ the given timepoint. An input receives the as 
+ '(offset-to-timepoint duration). Offset is the duration 
+ between the startingpoint of the event and given timepoint. 
+ Ex. (-1/16 1/4) 
+ </p>
+</li>
+</ul>
+<p>
+This rule always prefer to backtrack the rhythm engine that it belongs to. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181060">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+stop-rule-time&nbsp;&nbsp;</td>
+<td class="lambda-list">
+voices stoptime input-mode</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule will not affect the choice of musical parameters (it will always be true), but it will stop the search when a time point has been reached. The solution found when the time point is reached will be returned as a valid solution. 
+ </p>
+<p>
+The rule compares the START TIME of motifs to the stoptime (i.e. the end time or the time point for durations inside motifs of a motif is not checked). The stop will happen when a duration reaches the stop time. 
+ </p>
+<p>
+&lt;voices&gt; is one or a list of voices that will be checked. 
+ </p>
+<p>
+&lt;stoptime&gt; is a timepoint in the score, counting from 0, where the search will stop (ex. the time point 5/2 is 2 whole notes + 1 half note into the score). The stoptime has to be reached in all given voices. Note that the rule ignors the pitch information. 
+ </p>
+<p>
+&lt;input-mode&gt; 
+ </p>
+<p>
+</p>
+<ul>
+<li>
+<p>
+OR: The search will stop when one of the voices in the given list reached the stop time. The metric structure will be ignored. 
+ </p>
+</li>
+<li>
+<p>
+AND: The search will stop when all the voices in the given list reached the stop time. The metric structure will be ignored. 
+ </p>
+</li>
+<li>
+<p>
+meter: The start time for the measures will determine the stop. 
+ </p>
+</li>
+</ul>
+<p>
+Note that if the system has not assigned a meter for durations, they will not be displayed in the score. 
+ </p>
+<p>
+</p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181061">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+stop-rule-index&nbsp;&nbsp;</td>
+<td class="lambda-list">
+voices stopindex input-mode parameters</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule will not affect the choice of musical parameters (it will always be true), but it will stop the search when an index has been reached. The solution found when the index is reached will be returned as a valid solution. 
+ </p>
+<p>
+&lt;voices&gt; is one or a list of voices that will be checked. 
+ </p>
+<p>
+&lt;stopindex&gt; is an index in the score, counting from 0, where the search will stop. 
+ </p>
+<p>
+&lt;input-mode&gt; 
+ </p>
+<p>
+</p>
+<ul>
+<li>
+<p>
+OR: The search will stop when one of the voices in the given list reached the stop time. The metric structure will be ignored. 
+ </p>
+</li>
+</ul>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181062">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-predefine-meter&nbsp;&nbsp;</td>
+<td class="lambda-list">
+timesig-list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule predefines the time signature to follow a given sequence. 
+ WARNING: This rule will preset the sequence of time signature and 
+ will not allow the system to backtrack them. 
+ </p>
+<p>
+It the given list of time signatures is shorted than what is needed 
+ in the solution, the remaining time signatures will be picked 
+ randomly. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181063">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+apply-and&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Test that all values in a list are true. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181064">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+apply-minus&nbsp;&nbsp;</td>
+<td class="lambda-list">
+list</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Test that all values in a list are true. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181065">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-pitch-pitch-all-include-gracenotes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voice1 voice2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule always prefer to backtrack the rhythm engine. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g181066">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+r-pitch-pitch-on-beat-include-gracenotes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule voice1 voice2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This rule always prefer to backtrack the rhythm engine. 
+ </p>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

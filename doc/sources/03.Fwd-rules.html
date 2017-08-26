@@ -1,0 +1,617 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+03.Fwd-rules</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="02.engine.html">
+Prev:&nbsp;02.engine</a>
+<br/>
+<a href="04.Backtrack-rules.html">
+Next:&nbsp;04.Backtrack-rules</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+03.Fwd-rules</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+03.Fwd-rules
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180206">
+find-pitch-engine-with-missing-pitches</a>
+</td>
+<td class="summary">
+vsolution vindex vdefault-engine-order</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180207">
+find-shortest-rhythm-engine</a>
+</td>
+<td class="summary">
+min-voice-length all-voices-total-length vdefault-engine-order</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180199">
+fwd-rule-indep</a>
+</td>
+<td class="summary">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180198">
+fwd-rule1</a>
+</td>
+<td class="summary">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180200">
+fwd-rule2</a>
+</td>
+<td class="summary">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180201">
+fwd-rule3</a>
+</td>
+<td class="summary">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180202">
+fwd-rule4</a>
+</td>
+<td class="summary">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180203">
+fwd-rule5</a>
+</td>
+<td class="summary">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180204">
+fwd-rule6</a>
+</td>
+<td class="summary">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180205">
+fwd-rule6b</a>
+</td>
+<td class="summary">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180211">
+get-longest-timebased-engine</a>
+</td>
+<td class="summary">
+vsolution vindex vdefault-engine-order</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180212">
+get-shortest-timebased-engine</a>
+</td>
+<td class="summary">
+vsolution vindex vdefault-engine-order</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180208">
+get-total-duration-all-rhythm-engines</a>
+</td>
+<td class="summary">
+vsolution vindex vdefault-engine-order</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180209">
+get-total-notecount-all-rhythm-engines</a>
+</td>
+<td class="summary">
+vsolution vindex vdefault-engine-order</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="03.Fwd-rules.html#_g180210">
+get-total-pitchcount-all-pitch-engines</a>
+</td>
+<td class="summary">
+vsolution vindex vdefault-engine-order</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180198">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+fwd-rule1&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Very simple: shortest index next, in order of default order 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180199">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+fwd-rule-indep&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Backtrack route is poped just to keep the list short. This could be removed. 
+ </p>
+<p>
+1. Metric structure has to be longest. 
+ 2. Fill out pitches (for durations without pitches) in all voices - start with the voice with highest priority. 
+ 3. Search for rhythm in the voice that is most behind. If two or more are equal, the default search order determines 
+ which voice to search next. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180200">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+fwd-rule2&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+If there is a backtrack routed, forward that engine (and pop the list). 
+ </p>
+<p>
+1. Metric structure has to be longest. 
+ 2. Fill out pitches (for durations without pitches) in all voices - start with the voice with highest priority. 
+ 3. Search for rhythm in the voice that is most behind. If two or more are equal, the default search order determines 
+ which voice to search next. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180201">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+fwd-rule3&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This forward rule takes the index of the backtracked index into consideration. 
+ If backtrack route is not at index, make a free choice. 
+ </p>
+<p>
+1. Metric structure has to be longest. 
+ 2. Fill out pitches (for durations without pitches) in all voices - start with the voice with highest priority. 
+ 3. Search for rhythm in the voice that is most behind. If two or more are equal, the default search order determines 
+ which voice to search next. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180202">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+fwd-rule4&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This forward rule takes the index of the backtracked index into consideration. 
+ If backtrack engine is not at index, backtrack engine without poping it (i.e. step forward this 
+ engine and assign variables until index has caught up). 
+ </p>
+<p>
+1. Metric structure has to be longest. 
+ 2. Fill out pitches (for durations without pitches) in all voices - start with the voice with highest priority. 
+ 3. Search for rhythm in the voice that is most behind. If two or more are equal, the default search order determines 
+ which voice to search next. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180203">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+fwd-rule5&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This forward rule takes the COUNT VALUE of the backtracked index into consideration. 
+ If the backtracked engine is not at the count value, backtrack that engine without poping it (to catch up). 
+ The metric layer considers index instead of count value. 
+ </p>
+<p>
+Count value has the problem that rests are not counted in rhythm engines. Rests could slip trhough the system 
+ and cause the engine to only generate rests for a backtracked engine. 
+ </p>
+<p>
+1. Metric structure has to be longest. 
+ 2. Fill out pitches (for durations without pitches) in all voices - start with the voice with highest priority. 
+ 3. Search for rhythm in the voice that is most behind. If two or more are equal, the default search order determines 
+ which voice to search next. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180204">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+fwd-rule6&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This forward rule takes the COUNT VALUE AND TIME POINT of the backtracked index into consideration. 
+ If the backtracked engine is not at the count value (pitch engine) or time point (rhythm engine/metric engine), 
+ backtrack that engine without poping it (to catch up). 
+ </p>
+<p>
+1. Metric structure has to be longest. 
+ 2. Fill out pitches (for durations without pitches) in all voices - start with the voice with highest priority. 
+ 3. Search for rhythm in the voice that is most behind. If two or more are equal, the default search order determines 
+ which voice to search next. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180205">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+fwd-rule6b&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Identical to fwd-rule6 but: 
+ If the backtracked engine is not at the count value (pitch engine) or time point (rhythm engine/metric engine), 
+ backtrack according to general rules. 
+ </p>
+<p>
+1. Metric structure has to be longest. 
+ 2. Fill out pitches (for durations without pitches) in all voices - start with the voice with highest priority. 
+ 3. Search for rhythm in the voice that is most behind. If two or more are equal, the default search order determines 
+ which voice to search next. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180206">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+find-pitch-engine-with-missing-pitches&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vdefault-engine-order</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180207">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+find-shortest-rhythm-engine&nbsp;&nbsp;</td>
+<td class="lambda-list">
+min-voice-length all-voices-total-length vdefault-engine-order</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180208">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-total-duration-all-rhythm-engines&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vdefault-engine-order</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180209">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-total-notecount-all-rhythm-engines&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vdefault-engine-order</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180210">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-total-pitchcount-all-pitch-engines&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vdefault-engine-order</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180211">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-longest-timebased-engine&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vdefault-engine-order</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180212">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+get-shortest-timebased-engine&nbsp;&nbsp;</td>
+<td class="lambda-list">
+vsolution vindex vdefault-engine-order</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

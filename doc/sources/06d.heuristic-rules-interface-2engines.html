@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+06d.heuristic-rules-interface-2engines</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="06c.heuristic-rules-interface-2engines.html">
+Prev:&nbsp;06c.heuristic-rules-interface-2engines</a>
+<br/>
+<a href="06e.heuristic-rules-interface-2engines.html">
+Next:&nbsp;06e.heuristic-rules-interface-2engines</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+06d.heuristic-rules-interface-2engines</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+06d.heuristic-rules-interface-2engines
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06d.heuristic-rules-interface-2engines.html#_g180596">
+heuristic-switch-rule-2-engines-metric-grid-rhythm-hierarchy</a>
+</td>
+<td class="summary">
+rhythm-engine1 weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06d.heuristic-rules-interface-2engines.html#_g180597">
+heuristic-switch-rule-2-engines-metric-grid-rhythm-hierarchy-include-rests</a>
+</td>
+<td class="summary">
+rhythm-engine1 weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06d.heuristic-rules-interface-2engines.html#_g180593">
+heuristic-switch-rule-2-engines-rhythmic-hierarchy</a>
+</td>
+<td class="summary">
+rhythm-engine1 rhythm-engine2 weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06d.heuristic-rules-interface-2engines.html#_g180595">
+heuristic-switch-rule-2-engines-rhythmic-hierarchy-cellstart-e1</a>
+</td>
+<td class="summary">
+rhythm-engine1 rhythm-engine2 weight</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="06d.heuristic-rules-interface-2engines.html#_g180594">
+heuristic-switch-rule-2-engines-rhythmic-hierarchy-incl-rests</a>
+</td>
+<td class="summary">
+rhythm-engine1 rhythm-engine2 weight</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180593">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-2-engines-rhythmic-hierarchy&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1 rhythm-engine2 weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for hierarchy between durations in two layers. The onsets from the 1st engine are used 
+ for inputpoints (rests and gracenotes are removed and ignored). Rests are not prefered on hierarchical points 
+ in engine2. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180594">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-2-engines-rhythmic-hierarchy-incl-rests&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1 rhythm-engine2 weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for hierarchy between durations in two layers. The onsets from the 1st engine are used 
+ for inputpoints (rests and gracenotes are removed and ignored). Rests are not allowed on hierarchical points 
+ in engine2. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180595">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-2-engines-rhythmic-hierarchy-cellstart-e1&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1 rhythm-engine2 weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for hierarchy between cells and durations in two layers. The onsets for the CELLS from 
+ the 1st engine are used as inputpoints (rests and gracenotes are removed and ignored). Rests are not prefered 
+ on hierarchical points in engine2. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180596">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-2-engines-metric-grid-rhythm-hierarchy&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1 weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for metric hierarchy, i.e. how durations (including gracenotes) are positioned within the metric structure. 
+ The allowed positions are defined within the metric domain. 
+ The effect of this heuriostic rule will typically be small, since the endpoints of durations are not chekced: a new event will 
+ only be checked afetr its startpoint is knows. If rhythm candidates have more than one duration, it will be able to affect 
+ all durations but the last. 
+ </p>
+<p>
+Consider using the heuristic-switch-rule-2-engines-metric-grid-rhythm-hierarchy-include-rests instead. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180597">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+heuristic-switch-rule-2-engines-metric-grid-rhythm-hierarchy-include-rests&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rhythm-engine1 weight</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a heuristic switch rule for metric hierarchy, i.e. how durations and rests are positioned within the metric structure. 
+ This rule is more efficient than rule-2-engines-metric-grid-rhythm-hierarchy since also endpoints for duratins and rests 
+ can be used to check the rule. 
+ If rests are not used in the domain, this rule is to prefer for this reason. 
+ </p>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../cludg.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>
+05n.rules-interface-nn-engines</title>
+</head>
+<body>
+<div id="navbar">
+<table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+<colgroup span="3">
+<col width="0*"/>
+<col width="0*"/>
+<col width="1*"/>
+</colgroup>
+<tr>
+<td align="left" valign="baseline">
+<a href="05i.rules-stop-search.html">
+Prev:&nbsp;05i.rules-stop-search</a>
+<br/>
+<a href="06.heuristic-rules-interface.html">
+Next:&nbsp;06.heuristic-rules-interface</a>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td align="left" valign="baseline">
+<span class="upchain">
+<b>
+05n.rules-interface-nn-engines</b>
+<br/>
+<a href="../index.html">
+Index</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="cludg-doc-body">
+<h2>
+05n.rules-interface-nn-engines
+</h2>
+<table style="width: 100%;" class="summary-table">
+<tr class="table-heading-color">
+<th class="summary" colspan="2">
+Function summary</th>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180479">
+combine-two-voices-notecount-at-one-timepoint</a>
+</td>
+<td class="summary">
+a b</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180481">
+combine-two-voices-notecounts-include-gracenotes</a>
+</td>
+<td class="summary">
+notecounts-1st-voice notecounts-2nd-voice</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180480">
+nil-or-numberp</a>
+</td>
+<td class="summary">
+a</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180478">
+old-rule-4-engines-pitch-and-pitch</a>
+</td>
+<td class="summary">
+simple-rule rhythm-engine1 pitch-engine1 rhythm-engine2 pitch-engine2</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180486">
+old-rule-5-engines-pitch-and-pitch-on-beat</a>
+</td>
+<td class="summary">
+simple-rule rhythm-engine1 pitch-engine1 rhythm-engine2 pitch-engine2</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180482">
+rule-4-engines-pitch-and-pitch-include-gracenotes</a>
+</td>
+<td class="summary">
+simple-rule rhythm-engine1 pitch-engine1 rhythm-engine2 pitch-engine2</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180487">
+rule-5-engines-pitch-and-pitch-include-gracenotes-on-beat</a>
+</td>
+<td class="summary">
+simple-rule rhythm-engine1 pitch-engine1 rhythm-engine2 pitch-engine2</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180488">
+rule-five-engines-pitch-pitch</a>
+</td>
+<td class="summary">
+rule rhythmengine1 pitchengine1 rhythmengine2 pitchengine2 metric-engine</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180483">
+rule-four-engines</a>
+</td>
+<td class="summary">
+rule engine1 engine2 engine3 engine4</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180484">
+rule-four-engines-pitch-pitch</a>
+</td>
+<td class="summary">
+rule rhythmengine1 pitchengine1 rhythmengine2 pitchengine2</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180476">
+rule-three-engines</a>
+</td>
+<td class="summary">
+rule engine1 engine2 engine3</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180485">
+shift-start-before-timepoint-in-list</a>
+</td>
+<td class="summary">
+start-point list offset</td>
+</tr>
+<tr class="table-row-color">
+<td class="summary-name">
+<a href="05n.rules-interface-nn-engines.html#_g180477">
+shift-start-point-in-list</a>
+</td>
+<td class="summary">
+start-point list offset</td>
+</tr>
+</table>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180476">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-three-engines&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine1 engine2 engine3</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is for rhythm, pitch and meter in the same voice 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180477">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+shift-start-point-in-list&nbsp;&nbsp;</td>
+<td class="lambda-list">
+start-point list offset</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+The objective is to move offset-steps before the startime in the list. 
+ Starttime must exist in the list. If the offset is larger is to before the start point, the start point will be given. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180478">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+old-rule-4-engines-pitch-and-pitch&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule rhythm-engine1 pitch-engine1 rhythm-engine2 pitch-engine2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180479">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+combine-two-voices-notecount-at-one-timepoint&nbsp;&nbsp;</td>
+<td class="lambda-list">
+a b</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is to combine simultaneous notecounts for two voices (that both might include gracenotes). 
+ Gracenotes are notecounts in a list (last notecount is the main note). 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180480">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+nil-or-numberp&nbsp;&nbsp;</td>
+<td class="lambda-list">
+a</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180481">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+combine-two-voices-notecounts-include-gracenotes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+notecounts-1st-voice notecounts-2nd-voice</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180482">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-4-engines-pitch-and-pitch-include-gracenotes&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule rhythm-engine1 pitch-engine1 rhythm-engine2 pitch-engine2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180483">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-four-engines&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule engine1 engine2 engine3 engine4</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is for rhythm, pitch and meter in the same voice 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180484">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-four-engines-pitch-pitch&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule rhythmengine1 pitchengine1 rhythmengine2 pitchengine2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is for rhythm, pitch and meter in the same voice 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180485">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+shift-start-before-timepoint-in-list&nbsp;&nbsp;</td>
+<td class="lambda-list">
+start-point list offset</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+The objective is to move offset-steps before the start point in the list. 
+ Starttime does not have to exist in the list. If the offset is larger is to before the start point, the start point will be given. 
+ If gracenotes are included, they will be considered before start-point (i.e. this is probably a not desured side effect for rhythm, 
+ but it workd for metric structures such as beats or metric grid) 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180486">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+old-rule-5-engines-pitch-and-pitch-on-beat&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule rhythm-engine1 pitch-engine1 rhythm-engine2 pitch-engine2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches on 1st beat in measures. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180487">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-5-engines-pitch-and-pitch-include-gracenotes-on-beat&nbsp;&nbsp;</td>
+<td class="lambda-list">
+simple-rule rhythm-engine1 pitch-engine1 rhythm-engine2 pitch-engine2</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+Formats a rule for simultaneous pitches. Rests are kept as nil. The rule should be compiled before used. 
+ </p>
+</div>
+</div>
+<div class="defun">
+<div class="defunsignatures">
+<a id="_g180488">
+</a>
+<table cellpadding="0" cellspacing="0" width="100%">
+<colgroup span="3">
+<col width="0*"/>
+<col width="1*"/>
+<col width="0*"/>
+</colgroup>
+<tbody>
+<tr>
+<td class="symbol-name">
+rule-five-engines-pitch-pitch&nbsp;&nbsp;</td>
+<td class="lambda-list">
+rule rhythmengine1 pitchengine1 rhythmengine2 pitchengine2 metric-engine</td>
+<td class="symbol-type">
+&nbsp;[Function]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="doc-body">
+<p>
+This is for rhythm, pitch and meter in the same voice 
+ </p>
+</div>
+</div>
+</div>
+<div class="cludg-footer">
+Generated by&nbsp;<a href="mailto:ihatchondo@common-lisp.net" lang="en">
+CLDOC</a>
+- 2017-08-26 22:24:56</div>
+</body>
+</html>

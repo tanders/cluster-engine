@@ -100,29 +100,28 @@ The output is automatically translated into a notated score in PWGL, and can be 
 The above constraint problem does not include any musical rules. Without a detailed discussion, in the following a polyphonic example with a few rules is shown (example 8a translated from the PWGL tutorial into plain Common Lisp). Here, the first rule forces both voices to create 12-tone rows. Rule 2 constrains all harmonic intervals between both voices to consonant intervals or 3, 4, 7, 8 or 9 semitones. Finally, the last rule forbids any voice crossings. A possible result is shown below the code.
 
 #+begin_src lisp :tangle yes    
-(preview-cluster-engine-score
- (ce::clusterengine 
-  12 t nil 
-  (append 
-   ;; rule 1
-   (ce::r-pitches-one-voice #'(lambda (x) 
-				(not (member (mod (car (last x)) 12)
-					     (mapcar #'(lambda (a) (mod a 12)) (butlast x)))))
-			    '(0 1) :all-pitches)
-   ;; rule 2
-   (ce::r-pitch-pitch #'(lambda (x) 
-			  (member (mod (ce::apply-minus x) 12) '(3 4 7 8 9)))
-		      '(0 1) '(0) :all :no_grace :pitch)
-   ;; rule 3
-   (ce::R-pitch-pitch #'(lambda (x) (>= (first x) (second x)) )
-		      '(0 1) '(0) :all :no_grace :pitch)) 
-  '((4 4)) 
-  '(;; domains of rhythmic values and pitches of voice 1
-    ((1/4)) 
-    ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79))
-    ;; domains of rhythmic values and pitches of voice 2
-    ((1/4)) 
-    ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79)))))
+(ce::clusterengine 
+ 12 t nil 
+ (append 
+  ;; rule 1
+  (ce::r-pitches-one-voice #'(lambda (x) 
+			       (not (member (mod (car (last x)) 12)
+					    (mapcar #'(lambda (a) (mod a 12)) (butlast x)))))
+			   '(0 1) :all-pitches)
+  ;; rule 2
+  (ce::r-pitch-pitch #'(lambda (x) 
+			 (member (mod (ce::apply-minus x) 12) '(3 4 7 8 9)))
+		     '(0 1) '(0) :all :no_grace :pitch)
+  ;; rule 3
+  (ce::R-pitch-pitch #'(lambda (x) (>= (first x) (second x)) )
+		     '(0 1) '(0) :all :no_grace :pitch)) 
+ '((4 4)) 
+ '(;; domains of rhythmic values and pitches of voice 1
+   ((1/4)) 
+   ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79))
+   ;; domains of rhythmic values and pitches of voice 2
+   ((1/4)) 
+   ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79))))
 #+end_src
 
 [[file:graphics/polyphonic-solution.jpg]]
