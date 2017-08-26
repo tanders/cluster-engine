@@ -124,7 +124,7 @@ The above constraint problem does not include any musical rules. Without a detai
    ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79))))
 #+end_src
 
-[[file:graphics/polyphonic-solution.jpg]]
+[[file:doc/polyphonic-solution.jpg]]
 
 
 For further information refer to the PWGL tutorial for now. Pretty much all PWGL boxes have their equivalent Common Lisp function/macro with the same arguments. An exception is the function =clusterengine= itself, where domains of rhythmic values and pitches are defined in Common Lisp as shown above. 
