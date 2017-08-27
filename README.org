@@ -41,7 +41,7 @@ $ git clone https://github.com/tanders/cluster-engine.git
 
 ** Updating your software
 
-   You can update your software later at the terminal in the following way.
+   If there are [[https://github.com/tanders/cluster-engine/commits/master][changes]], you can update your software later at the terminal in the following way.
 
 #+begin_src bash :tangle yes
 $ cd ~/common-lisp/cluster-engine
