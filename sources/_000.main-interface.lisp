@@ -100,11 +100,11 @@ Ex. (group-list '(1 2 3 4) '(1 2 3) 'circular)  => ((1) (2 3) (4 1 2))
                       rules
                       metric-domain
                       list-of-domains)
-  "
-The Cluster Engine - the main function.
-Pitch domains cannot exist without at least one duration in the rhythm domain.
-Domains with only one value will not use up any time in the search process.
-"
+  "The Cluster Engine - the main function of this library. 
+
+Pitch domains cannot exist without at least one duration in the rhythm domain. Domains with only one value will not use up any time in the search process.
+
+See the PWGL tutorials of this library for a detailed discussion of this function."
   
 (cluster-conv-nil-rests
 
@@ -163,8 +163,6 @@ Domains with only one value will not use up any time in the search process.
                                ((equal fwd-rule :fwd-rule6B)
                                 'fwd-rule6B)
                                (t nil))))
-
-
 
 
       (setf *always-lock-meter?* nil)  ;;;added july 2012

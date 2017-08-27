@@ -18,7 +18,7 @@
 
 (ql:quickload :cl-gendoc)
 
-(gendoc:gendoc (:output-filename "/Users/torsten/common-lisp/cluster-engine/doc/docs.html"
+(gendoc:gendoc (:output-filename "/Users/torsten/common-lisp/cluster-engine/doc/index.html"
                 :css "simple.css")
   (:mdf "/Users/torsten/common-lisp/cluster-engine/doc/README.md")
   (:apiref :cluster-engine)

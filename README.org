@@ -1,12 +1,12 @@
 * Cluster Engine
 
-Cluster Engine is a constraint solver for solving polyphonic constraint satisfaction problems where both the pitch and the rhythmic structure can be restricted by an arbitrary number of constraints (rules), and a constraint solver then searches for a solution that is consistent with all constraints. This library supports user-defined rules, and highly flexible ways to control which aspects of the resulting score are controlled by certain rules. For example, you can independently control with compositional rules the melody and harmony of the music you generate. 
+Cluster Engine is a constraint solver for solving polyphonic constraint satisfaction problems where both the pitch and the rhythmic structure can be restricted by an arbitrary number of constraints (rules), and the solver then searches for a solution that is consistent with all constraints. This library supports user-defined rules, and highly flexible ways to control which aspects of the resulting score are controlled by certain rules. For example, you can independently control with compositional rules the melody and harmony of the music you generate. 
 
 Cluster Engine is the successor of PWMC (Sandred, 2010). It was originally developed as a library for the free composition environment [[http://www2.siba.fi/pwgl][PWGL]]. 
 
-The present version still runs in PWGL, but also on plain Common Lisp in order to make it useable within [[http://opusmodus.com][Opusmodus]] and a -- via a SBCL interface -- in the music and media programming environment Max (Vincenot, 2017).
+The present version still runs in PWGL, but also on plain Common Lisp in order to make it useable within [[http://opusmodus.com][Opusmodus]] and -- via a [[http://www.sbcl.org][SBCL]] interface -- in the music and media programming environment [[https://cycling74.com/products/max][Max]] (Vincenot, 2017).
 
-Cluster Engine has been tested on PWGL (based on Lispworks), SBCL and Opusmodus (Clozure CL).
+Cluster Engine has been successfully tested on PWGL (based on Lispworks), SBCL and Opusmodus ([[http://ccl.clozure.com][Clozure CL]]).
 
 
 ** References 
@@ -25,7 +25,7 @@ Vincenot, J. (2017) LISP in Max: Exploratory Computer-Aided Composition in Real-
 
 ** Common Lisp
 
-   This section explain how to Cluster Engine as a plain Common Lisp library (e.g., to be used by Opusmodus). We are using git for the installation. Even though this is a bit more involved at first, it allows for convenient updates later, and you can even contribute to the development. 
+   This section explain how to install Cluster Engine as a plain Common Lisp library (e.g., to be used by Opusmodus). We are using git for the installation. Even though this is a bit more involved at first, it allows for convenient updates later, and you can even contribute to the development. 
 
    Install [[https://git-scm.com][git]] (if you have not done already). Also, you should register at [[https://github.com][GitHub]].
     
@@ -68,7 +68,7 @@ $ git pull
 (require :cluster-engine)
 #+end_src  
  
-The library should now be loaded, and you solve musical constraint satisfaction problems. The first example below is an "empty" problem without any constraints yet. The function =clusterengine= is the constraint solver. Its first three arguments specify the number of variables (quasi notes) per voice (10 in this example), whether or not to randomise the solution (T) and whether to use additional debugging features (nil).  After a list of constraints (empty) the function expects specifications for various domains. These specifications support a mini language for flexibility, the specifications below are very simple. Only a single time signature is allowed (all bars are in 3/4); the single voice can consist of quarter notes and eighth notes; and possible pitches are middle C and C# (MIDI note numbers 60 and 61).  
+The library should now be loaded, and you can solve musical constraint satisfaction problems. The first example below is an "empty" problem without any constraints yet. The function =clusterengine= is the constraint solver. Its first three arguments specify the number of variables (quasi notes) per voice (=10= in this example), whether or not to randomise the solution (=T=) and whether to use additional debugging features (=nil=).  After a list of constraints (empty in this first example) the function expects specifications for various domains. These specifications support a mini language for flexibility, the specifications below are very simple. Only a single time signature is allowed (all bars are in 3/4 time); the single voice can consist of quarter notes and eighth notes; and possible pitches are middle C and C# (MIDI note numbers 60 and 61).  
 
 #+begin_src lisp :tangle yes   
 (ce::clusterengine 
@@ -91,7 +91,7 @@ The library should now be loaded, and you solve musical constraint satisfaction 
  ((3 4) (3 4) (3 4)))
 #+end_src
 
-The output is automatically translated into a notated score in PWGL, and can be translated into a OpusModus score with the function =cluster-engine-score=, which in turn can be translated into a notated score with =preview-score= -- both functions provided by the library [[https://github.com/tanders/tot][tot]].
+The output is automatically translated into a notated score in PWGL, and can be translated into an OpusModus score with the function =cluster-engine-score=, which in turn can be translated into a notated score with =preview-score= -- both functions provided by the library [[https://github.com/tanders/tot][tot]].
 
 #+begin_src lisp :tangle yes    
 (:|1| ((q c4 e cs4 c4 cs4 cs4 tie) (e cs4 c4 c4 c4 c4 cs4)))
