@@ -25,7 +25,7 @@
   (error 'not-implemented :proc (list 'arglist fn)))
 |#
 
-#+opusmodus
+#+CCL
 (defun function-lambda-list (fn)
   (ccl:arglist fn))
 
