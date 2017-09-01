@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; ClusterEngine Library version 0.1542
-;;; Copyright (c) 2013, Örjan Sandred.  All rights reserved.
+;;; ClusterEngine Library
+;;; Copyright (c) 2017, Örjan Sandred.  All rights reserved.
 ;;;
 ;;; This is an experimental library, and a work in progress
 ;;;
@@ -63,7 +63,9 @@
 ;;; version 0.155 (St Sauveur December 31 2014)
 ;;;    The domain can now include chords defined as interval relations. The FIRST pitch in teh definition will be considered having an intervalic relation to preceedingand following pitch.
 ;;;    Ex. The chords '(0 3 4) and '(2 3 4) are both minor triads, but the first starts at the same pitch as the previous event, while the second example starts a major second higher.
-
+;;;
+;;;    Since 2017 released via GitHub (https://github.com/tanders/cluster-engine) with a version git history since then
+;;;
 
 (in-package :asdf)
 
@@ -74,17 +76,40 @@
 ;; (declaim (optimize ((debug 3) (speed 3) (safety 1))))
 ;; at the top of each file after in-package
 
+
 (defsystem cluster-engine
   :version "0.158"
   :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torsten.anders@beds.ac.uk>"
+  :licence "Simplified BSD License"
   :description "This is not an official release - use this at your own risk.
 
 This library provides a constraint system that uses several search engines that run in parallel to solve a musical constraint problem. Any number of engines can run in parallel (however the interface limits the user to maximum 21 engines). Variables in different engines can be constrained, and the engines can trigger backtracking in dependant engines to find a solution. 
 
 This system is experimental: Any found solution is always valid, however in some cases the system might not be able to find a solution even if there is one. Typically it is  enough to try again to find a valid solution. 
 
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR 'AS IS' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-"
+
+Copyright (c) 2013, Örjan Sandred
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
   #+PWGL :default-component-class #+PWGL ccl::pwgl-source-file
   :serial t
   :components
