@@ -16,7 +16,9 @@
     "Cluster Engine")
 |#
 
+;;;
 ;;; using the API generator cl-gendoc
+;;;
 
 (ql:quickload :cl-gendoc)
 
@@ -27,8 +29,19 @@
   )
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Alternative: using the more flexible API generator Codex (https://github.com/CommonDoc/codex)
+;;;
 
-;;; using the more flexible API generator Codex (https://github.com/CommonDoc/codex)
+;; Codex installed with Quicklisp
+;; Quick hack -- should be in a setup file
+#-quicklisp
+(let ((quicklisp-init
+       (merge-pathnames "quicklisp/setup.lisp"
+                        (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
 
 ;; (ql:quickload :codex)
 (require :codex)

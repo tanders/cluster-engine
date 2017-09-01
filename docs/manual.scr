@@ -21,8 +21,10 @@ Some example code:
 @begin(section)
 @title(Reference)
 
-  COMMENT: This documentation was created with Codex, and it still shows some problems, because the doc strings of the functions documented below are not using a supported markup. As a result, @b(even linebreaks are stripped off the result). 
-  
+  COMMENT: This documentation was created with Codex. The formatting still needs to be updated with Scriba format (incl. two line breaks for every paragraph break).
+
+  Consider alternative: get Markdown support for Codex (both doc files and docstrings).
+
 
   @begin(section)
   @title(Main Interface)

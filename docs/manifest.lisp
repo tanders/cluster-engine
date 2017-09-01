@@ -3,6 +3,6 @@
  :documents ((:title "Cluster Engine"
               :authors ("Orjan Sandred <Orjan.Sandred@umanitoba.ca>")
               :output-format (:type :multi-html
-			      :template :minima-edit ; :minima ; :gamma ;
+			      :template :minima ; :gamma ; :minima-edit
 			      )
               :sources ("manual.scr"))))

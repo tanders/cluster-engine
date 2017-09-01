@@ -229,7 +229,7 @@ footer .info {
     display: inline-block;
     margin-left: 15px;
     margin-top: 0;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 /* Style */
@@ -242,7 +242,7 @@ footer .info {
 
 .codex-name {
     font-weight: bold;
-    font-size: 22px;
+    font-size: 16px;
 }
 
 /* Documentation node colors */
