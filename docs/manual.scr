@@ -1,0 +1,50 @@
+@begin(section)
+@title(Overview)
+
+Temporary placeholder for actual documentation later.
+
+Some example code:
+
+@begin[lang=lisp](code)
+(ce::clusterengine 
+ 10 t nil           ; settings
+ nil                ; no constraints
+ '((3 4))           ; metric domain
+ ;; domain of rhythmic values and pitches for one voice
+ '(((1/4) (1/8))   
+   ((60) (61))))
+@end(code)
+
+
+@end(section)
+
+@begin(section)
+@title(Reference)
+
+  COMMENT: This documentation was created with Codex, and it still shows some problems, because the doc strings of the functions documented below are not using a supported markup. As a result, @b(even linebreaks are stripped off the result). 
+  
+
+  @begin(section)
+  @title(Main Interface)
+
+  @cl:with-package[name="cluster-engine"](
+    @cl:doc(function clusterengine)
+    @cl:doc(function rules->cluster)
+  )
+
+  @end(section)
+
+
+  @begin(section)
+  @title(Rules on One Engine)
+
+  @cl:with-package[name="cluster-engine"](
+    @cl:doc(function R-rhythms-one-voice)
+    @cl:doc(function R-index-rhythms-one-voice)
+    @cl:doc(function R-pitches-one-voice) 
+    @cl:doc(function R-index-pitches-one-voice)
+  )
+
+  @end(section)
+
+@end(section)

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  Reference &ndash; Cluster Engine
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+  <style>
+   /* Highlight the current top-level TOC item, and hide the TOC of all other items */
+
+   .toc a[data-node="reference"] {
+       color: #AD3108;
+   }
+
+   .toc ol {
+       display: none;
+   }
+
+   .toc > ol {
+       display: block;
+   }
+
+   .toc li a[data-node="reference"] + ol {
+       display: block;
+   }
+
+   .toc li a[data-node="reference"] + ol li {
+       font-size: 16px;
+       margin: 0 10px;
+   }
+
+   .toc li a[active] + ol li:first-child {
+       margin-top: 5px;
+   }
+  </style>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">Cluster Engine » Reference</h1>
+  <article id="article" data-section="reference">
+    <aside>
+      <ol class="toc"><li><a href="overview.html" data-node="overview">Overview</a></li><li><a href="reference.html" data-node="reference">Reference</a><ol><li><a href="reference.html#main-interface" data-node="main-interface">Main Interface</a></li><li><a href="reference.html#rules-on-one-engine" data-node="rules-on-one-engine">Rules on One Engine</a><ol><li><a href="optional-inputs-.html" data-node="optional-inputs-">Optional inputs:</a></li></ol></li></ol></li></ol>
+    </aside>
+    <main class="codex-section">
+      <p>  COMMENT: This documentation was created with Codex, and it still shows some problems, because the doc strings of the functions documented below are not using a supported markup. As a result, <b>even linebreaks are stripped off the result</b>. 
+  </p><p>  </p><h1 id="main-interface">Main Interface</h1><p>  
+    <div class="codex-doc-node codex-operator codex-function"><code class="codex-name">clusterengine</code><code class="codex-lambda-list">(no-of-variables rnd? debug? rules metric-domain list-of-domains)</code><div class="codex-docstring"><p>The Cluster Engine - the main function of this library. </p><p>Pitch domains cannot exist without at least one duration in the rhythm domain. Domains with only one value will not use up any time in the search process.</p><p>See the PWGL tutorials of this library for a detailed discussion of this function.</p></div></div>
+    <div class="codex-doc-node codex-operator codex-function"><code class="codex-name">rules-&gt;cluster</code><code class="codex-lambda-list">(&amp;rest rules)</code><div class="codex-docstring">Use this box to collect all rules before inputting them to the Cluster engine.
+It is possible to input the output of this box to a second Rules-&gt;Cluster box (to help
+organizing your rules in groups).</div></div>
+  </p><p>  </p><p>
+  </p><h1 id="rules-on-one-engine">Rules on One Engine</h1><p>  
+    <div class="codex-doc-node codex-operator codex-function"><code class="codex-name">r-rhythms-one-voice</code><code class="codex-lambda-list">(rule voices input-mode &amp;optional (rule-type true/false) (weight 1))</code><div class="codex-docstring"><p><code class="codex-param">rule</code> is a logic statement in he form of a function. The output of the 
+function has to be either true or false. If there are more than one 
+input to the function, they will receive consecutive durations (or 
+consecutive motifs depending on the input-mode). </p><p>
+<code class="codex-param">voices</code> is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).</p><p>
+<code class="codex-param">input-mode</code> determines what type of variables the rule will receive in 
+its inputs:
+ - durations: The rule will receive individual durations, one for each input.
+ - dur/time: As above, but the start-time of the duration will be indicated.
+             Format: '(duration start-time), Ex. '(1/4 9/4)
+ - motifs: The rule will receive motifs, one (consecutive) motif for each 
+           input. A motif is a collection of durations that are grouped in 
+           a list. Motifs are designed in the domain and cannot be 
+           redesignedby the engine. Note that a motif may be a single 
+           duration (a list with one duration-ratio) if it is defined as 
+           such in the domain.
+ - motif/time: As the previous selection, but with the start-time of the 
+               first event in the motif added. Format: '(motif start-time)
+               Ex. '((1/4 -1/8) 9/8)
+ - all-durations: All durations in the voice that are assigned at the time 
+                the rule is checked are given as a list of duration ratios.  
+                The list will thus become longer and longer during the 
+                search. The rule can only have ONE input in this mode.
+[Backtracking: This rule will trigger backtracking in its own engine.]</p><p>
+</p><h2 id="optional-inputs-">Optional inputs:</h2><p>
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. </p><p>Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).
+</p><p>
+</p></div></div>
+    <div class="codex-doc-node codex-operator codex-function"><code class="codex-name">r-index-rhythms-one-voice</code><code class="codex-lambda-list">(rule positions voices input-mode &amp;optional rule-type weight)</code><div class="codex-docstring"><p>&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+function has to be either true or false. The function should have as many 
+inputs as there are positions given in the &lt;positions&gt; list.</p><p>&lt;positions&gt; is a list of positions where the logic statement is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.</p><p>&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).</p><p>&lt;input-mode&gt; determines what type of variables the rule will receive in 
+its inputs:
+ - index-for-cell: The rule will receive motifs as lists of duration 
+                   ratios. The positions given above refer to the index
+                   number for the motifs in the solution. Each input 
+                   will receive one corresponding motif.
+ - position-for-duration: The rule will receive individual
+                          durations, one for each given position.
+                          The positions refer to the position
+                          of the individual duraions in the solution.
+                          Rests are included.</p><p>[Backtracking: This rule will trigger backtracking in its own engine.]</p><p>
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. </p><p>Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).</p></div></div>
+    <div class="codex-doc-node codex-operator codex-function"><code class="codex-name">r-pitches-one-voice</code><code class="codex-lambda-list">(rule voices input-mode &amp;optional rule-type weight)</code><div class="codex-docstring"><p>&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+function has to be either true or false. If there are more than one 
+input to the function, they will receive consecutive pitches (or 
+consecutive motifs depending on the input-mode). </p><p>&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).</p><p>&lt;input-mode&gt; determines what type of variables the rule will receive in 
+its inputs:
+ - pitches: The rule will receive individual  pitches, one for each input.
+ - pitch/nth: As above, but the position of the pitch is also indicated.
+              Format: '(pitch nth) Ex. '(60 3).
+ - motifs: The rule will receive (consecutive) motifs, one motif for each 
+           input. A motif is a collection of pitches that are grouped in 
+           a list. Motifs are designed in the domain and cannot be redesigned
+           by the engine. Note that a motif may be a single pitch (a list 
+           with one MIDI note number) if it is defined as such in the domain.
+ - motif/nth: As above, but the position of the pitches is also indicated.
+              Format: '((pitch-motif)(nth-list)) Ex. '((60 64)(3 4)).
+ - motif/index: As motifs, but the index of the variable is also indicated.
+                Format: '((pitch-motif) index) Ex. '((60 64) 2).
+ - all-pitches: All pitches in the voice that are assigned at the time the  
+                rule is checked are given as a list of MIDI note numbers.  
+                The list will thus become longer and longer during the 
+                search. The rule can only have ONE input in this mode.</p><p>[Backtracking: This rule will trigger backtracking in its own engine.]</p><p>
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. </p><p>Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).
+</p></div></div> 
+    <div class="codex-doc-node codex-operator codex-function"><code class="codex-name">r-index-pitches-one-voice</code><code class="codex-lambda-list">(rule positions voices input-mode &amp;optional rule-type weight)</code><div class="codex-docstring"><p>&lt;rule&gt; is a logic statement in he form of a function. The output of the 
+function has to be either true or false. The function should have as many 
+inputs as there are positions given in the &lt;positions&gt; list.</p><p>&lt;positions&gt; is a list of positions where the logic statement is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.</p><p>&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).</p><p>&lt;input-mode&gt; determines what type of variables the rule will receive in 
+its inputs:
+ - index-for-cell: The rule will receive motifs as lists of MIDI note 
+                   numbers The positions given above refer to the index
+                   number for the motifs in the solution. Each input 
+                   will receive one corresponding motif.
+ - position-for-pitches: The rule will receive individual
+                          pitches, one for each given position.
+                          The positions refer to the position
+                          of the individual duraions in the solution.</p><p>[Backtracking: This rule will trigger backtracking in its own engine.]</p><p>
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. </p><p>Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).</p></div></div>
+  </p><p>  </p>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>

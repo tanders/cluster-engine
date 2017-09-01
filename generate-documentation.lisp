@@ -16,6 +16,8 @@
     "Cluster Engine")
 |#
 
+;;; using the API generator cl-gendoc
+
 (ql:quickload :cl-gendoc)
 
 (gendoc:gendoc (:output-filename "/Users/torsten/common-lisp/cluster-engine/doc/index.html"
@@ -24,3 +26,18 @@
   (:apiref :cluster-engine)
   )
 
+
+
+;;; using the more flexible API generator Codex (https://github.com/CommonDoc/codex)
+
+;; (ql:quickload :codex)
+(require :codex)
+
+;; (in-package :codex.tmpl)
+
+;; Edited template directly defined in Codex code for now in the following file and directory
+;; [file:///Users/torsten/quicklisp/dists/quicklisp/software/codex-20160929-git/templates/templates.lisp]
+; [file:///Users/torsten/quicklisp/dists/quicklisp/software/codex-20160929-git/templates/minima-edit/] 
+
+;; generate documentation
+(codex:document :cluster-engine)

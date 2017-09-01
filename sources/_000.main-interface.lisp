@@ -428,18 +428,20 @@ organizing your rules in groups)."
                             voices  ;;;; 0
                             input-mode ;;;; '(":durations" ":dur/time" ":motifs" ":motif/time" ":all-durations")
                             &optional
-                            rule-type ;;;; '(":true/false" ":heur-switch")
-                            weight) ;;;; 1
-    "<rule> is a logic statement in he form of a function. The output of the 
+                            (rule-type :true/false) ;;;; '(":true/false" ":heur-switch")
+                            (weight 1)) ;;;; 1
+    "@cl:param(rule) is a logic statement in he form of a function. The output of the 
 function has to be either true or false. If there are more than one 
 input to the function, they will receive consecutive durations (or 
 consecutive motifs depending on the input-mode). 
 
-<voices> is the number for the voice (starting at 0) that the rule affects. 
+
+@cl:param(voices) is the number for the voice (starting at 0) that the rule affects. 
 It is possible to give a list of several voice numbers: The rule will then 
 be applied to every voice in the list (independant of each other).
 
-<input-mode> determines what type of variables the rule will receive in 
+
+@cl:param(input-mode) determines what type of variables the rule will receive in 
 its inputs:
  - durations: The rule will receive individual durations, one for each input.
  - dur/time: As above, but the start-time of the duration will be indicated.
@@ -460,7 +462,8 @@ its inputs:
 [Backtracking: This rule will trigger backtracking in its own engine.]
 
 
-Optional inputs:
+@begin(section)
+@title(Optional inputs:)
 By expanding the box it is possible to use the rule as a heuristic switch 
 rule. A heuristic switch rule is still using a logic statement (that 
 outputs true or false), but the effect of the rule is different: If the rule 
@@ -475,6 +478,7 @@ context, heuristic rules might have more or less of an effect.
 Heuristic switch rules differs slightly form regular heuristic rules (the 
 latter don't output true or false, but a weight that might vary depending
 on the candidate).
+@end(section)
 "
   ;  (:groupings '(2 1)  :extension-pattern '(2) :x-proportions '((0.2 0.2)(0.4)(0.3 0.1)) :w 0.5)
 

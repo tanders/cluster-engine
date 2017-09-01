@@ -77,8 +77,7 @@
 ;; at the top of each file after in-package
 
 
-(defsystem cluster-engine
-  :version "0.158"
+(defsystem cluster-engine  :version "0.158"
   :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torsten.anders@beds.ac.uk>"
   :licence "Simplified BSD License"
   :description "This is not an official release - use this at your own risk.
@@ -88,7 +87,7 @@ This library provides a constraint system that uses several search engines that 
 This system is experimental: Any found solution is always valid, however in some cases the system might not be able to find a solution even if there is one. Typically it is  enough to try again to find a valid solution. 
 
 
-Copyright (c) 2013, Örjan Sandred
+Copyright (c) 2017, Örjan Sandred
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
