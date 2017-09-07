@@ -1,0 +1,189 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lisp API documentation test &#8212; cluster-engine 0.158 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.158',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Python API documentation test" href="Python_API_test.html" />
+    <link rel="prev" title="Cluster Engine" href="readme.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="lisp-api-documentation-test">
+<h1>Lisp API documentation test<a class="headerlink" href="#lisp-api-documentation-test" title="Permalink to this headline">¶</a></h1>
+<p>The following tests report the interface of a Common Lisp function, but using the built-in doc interface for Python functions. It copies the doc-string of the function documentation directly into the RST file.</p>
+<dl class="function">
+<dt>
+<code class="descname">(clusterengine no-of-variables rnd? debug? rules metric-domain list-of-domains)</code></dt>
+<dd><p>The Cluster Engine - the main function of this library.
+Pitch domains cannot exist without at least one duration in the rhythm domain. Domains with only one value will not use up any time in the search process.
+See the PWGL tutorials of this library for a detailed discussion of this function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">(r-rhythms-one-voice rule voices &amp;optional (rule-type :true/false) (weight 1))</code></dt>
+<dd><p>We can document Lisp function arguments as in Python documentation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">RULE:</th><td class="field-body">is a logic statement in he form of a function. The output of the function has to be either true or false. If there are more than one input to the function, they will receive consecutive durations (or consecutive motifs depending on the input-mode).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">VOICES:</th><td class="field-body">is the number for the voice (starting at 0) that the rule affects. It is possible to give a list of several voice numbers: The rule will then be applied to every voice in the list (independant of each other).</td>
+</tr>
+</tbody>
+</table>
+<p>Now with type information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>RULE</strong> (<em>function</em>) – is a logic statement in he form of a function. The output of the function has to be either true or false. If there are more than one input to the function, they will receive consecutive durations (or consecutive motifs depending on the input-mode).</li>
+<li><strong>VOICES</strong> (<em>int-or-list</em>) – is the number for the voice (starting at 0) that the rule affects. It is possible to give a list of several voice numbers: The rule will then be applied to every voice in the list (independant of each other).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that more complex types are currently difficult to show this way (seemingly needs to be a single word, at least with default settings).</p>
+</dd></dl>
+
+<p>Such Lisp documentation is displayed, but not fully supported. Because they are not recognised as Python function interfaces, they are <strong>not included in the index</strong>, nor are they layouted like Python functions.</p>
+<p>Lets try the Sphinx standard domain instead. It shows that they are no improvement over using the Python domain. The <code class="docutils literal"><span class="pre">program</span></code> directive cannot even contain anything.</p>
+<dl class="option">
+<dt id="cmdoption-arg-r-rhythms-one-voice">
+<code class="descname">(r-rhythms-one-voice</code><code class="descclassname"> rule voices &amp;optional (rule-type :true/false) (weight 1))</code><a class="headerlink" href="#cmdoption-arg-r-rhythms-one-voice" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Param function RULE:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">is a logic statement in he form of a function. The output of the function has to be either true or false. If there are more than one input to the function, they will receive consecutive durations (or consecutive motifs depending on the input-mode).</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Param int-or-list VOICES:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">is the number for the voice (starting at 0) that the rule affects. It is possible to give a list of several voice numbers: The rule will then be applied to every voice in the list (independant of each other).</td>
+</tr>
+</tbody>
+</table>
+<p>Note that more complex types are currently difficult to show this way (seemingly needs to be a single word, at least with default settings).</p>
+</dd></dl>
+
+<dl class="object">
+<dt>
+<code class="descname">(r-rhythms-one-voice rule voices &amp;optional (rule-type :true/false) (weight 1))</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Param function RULE:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">is a logic statement in he form of a function. The output of the function has to be either true or false. If there are more than one input to the function, they will receive consecutive durations (or consecutive motifs depending on the input-mode).</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Param int-or-list VOICES:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">is the number for the voice (starting at 0) that the rule affects. It is possible to give a list of several voice numbers: The rule will then be applied to every voice in the list (independant of each other).</td>
+</tr>
+</tbody>
+</table>
+<p>Note that more complex types are currently difficult to show this way (seemingly needs to be a single word, at least with default settings).</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">cluster-engine</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Cluster Engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html#usage">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Lisp API documentation test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Python_API_test.html">Python API documentation test</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="readme.html" title="previous chapter">Cluster Engine</a></li>
+      <li>Next: <a href="Python_API_test.html" title="next chapter">Python API documentation test</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Örjan Sandred.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/Lisp_API_test.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

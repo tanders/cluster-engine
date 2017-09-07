@@ -47,20 +47,20 @@ extensions = ['sphinx.ext.autodoc',
 ## For http://cldomain.russellsim.org
 ##
 
-extensions.extend(['sphinxcontrib.cldomain',
-                   'sphinxcontrib.hyperspec'])
+# extensions.extend(['sphinxcontrib.cldomain',
+#                    'sphinxcontrib.hyperspec'])
 
-from os.path import join, dirname, realpath
-cl_systems = [{# name of ASDF system
-               "name": "cluster-engine", 
-               # path to ASDF system file    
-               "path": join(dirname(realpath(__file__)), "../"), 
-               # CL package
-               "packages": ["cluster-engine"]}]
-from os.path import expandvars
-cl_quicklisp = expandvars('$HOME/quicklisp/')
-# Lisp to use    
-cl_lisps = "ccl"
+# from os.path import join, dirname, realpath
+# cl_systems = [{# name of ASDF system
+#                "name": "cluster-engine", 
+#                # path to ASDF system file    
+#                "path": join(dirname(realpath(__file__)), "../"), 
+#                # CL package
+#                "packages": ["cluster-engine"]}]
+# from os.path import expandvars
+# cl_quicklisp = expandvars('$HOME/quicklisp/')
+# # Lisp to use    
+# cl_lisps = "ccl"
 
     
 

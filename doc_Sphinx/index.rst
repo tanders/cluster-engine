@@ -10,13 +10,15 @@ Welcome to cluster-engine's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   readme	     
-	     
+   readme
+   Lisp_API_test
+   Python_API_test
   
 	     
 Indices and tables
 ==================
 
+* :ref:`search`
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
+   
