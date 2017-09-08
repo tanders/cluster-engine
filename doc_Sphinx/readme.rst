@@ -68,7 +68,7 @@ the command line (after you created the directory ``~/common-lisp/``).
 Note that ``$`` is the terminal prompt here, you do not need to enter
 that :)
 
-.. code:: bash
+.. code-block:: bash
 
     $ cd ~/common-lisp
     $ git clone https://github.com/tanders/cluster-engine.git
@@ -83,11 +83,12 @@ If there are
 `changes <https://github.com/tanders/cluster-engine/commits/master>`__,
 you can update your software later at the terminal in the following way.
 
-.. code:: bash
+.. code-block:: bash
 
     $ cd ~/common-lisp/cluster-engine
     $ git pull
 
+    
 Usage
 =====
 
@@ -109,7 +110,7 @@ Cluster Engine is an `ASDF <https://common-lisp.net/project/asdf/>`__
 system (ASDF is the de facto standard for building Common Lisp
 software), and you can load it into your Lisp compiler as follows.
 
-.. code:: lisp
+.. code-block:: common-lisp
 
     (require :cluster-engine)
 
@@ -127,7 +128,7 @@ allowed (all bars are in 3/4 time); the single voice can consist of
 quarter notes and eighth notes; and possible pitches are middle C and C#
 (MIDI note numbers 60 and 61).
 
-.. code:: lisp
+.. code-block:: common-lisp
 
     (ce::clusterengine 
      10 t nil           ; settings
@@ -136,11 +137,12 @@ quarter notes and eighth notes; and possible pitches are middle C and C#
      ;; domain of rhythmic values and pitches for one voice
      '(((1/4) (1/8))   
        ((60) (61))))
+       
 
 ``clusterengine`` outputs a declaration of the sequences of time
 signatures, rhythmic values and pitches for each voice.
 
-.. code:: lisp
+.. code-block:: common-lisp
 
     (; rhythmic values of voice 1
      (1/4 1/8 1/8 1/8 1/4 1/8 1/8 1/8 1/8 1/8)
@@ -149,16 +151,18 @@ signatures, rhythmic values and pitches for each voice.
      ; time signatures
      ((3 4) (3 4) (3 4)))
 
+     
 The output is automatically translated into a notated score in PWGL, and
 can be translated into an OpusModus score with the function
 ``cluster-engine-score``, which in turn can be translated into a notated
 score with ``preview-score`` -- both functions provided by the library
 `tot <https://github.com/tanders/tot>`__.
 
-.. code:: lisp
+.. code-block:: common-lisp
 
     (:|1| ((q c4 e cs4 c4 cs4 cs4 tie) (e cs4 c4 c4 c4 c4 cs4)))
 
+    
 The above constraint problem does not include any musical rules. Without
 a detailed discussion, in the following a polyphonic example with a few
 rules is shown (example 8a translated from the PWGL tutorial into plain
@@ -167,7 +171,7 @@ rows. Rule 2 constrains all harmonic intervals between both voices to
 consonant intervals or 3, 4, 7, 8 or 9 semitones. Finally, the last rule
 forbids any voice crossings. A possible result is shown below the code.
 
-.. code:: lisp
+.. code-block:: common-lisp
 
     (ce::clusterengine 
      12 t nil 
@@ -192,6 +196,7 @@ forbids any voice crossings. A possible result is shown below the code.
        ((1/4)) 
        ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79))))
 
+       
 |image0|
 
 For further information refer to the PWGL tutorial for now. Pretty much
@@ -208,5 +213,26 @@ Rules <https://github.com/tanders/cluster-rules>`__ extends Cluster
 Engine by a collection of predefined musical constraints and that way
 makes it more easy to use. The equivalent PWGL library is `PWGL Cluster
 Rules <https://github.com/tanders/pwgl-cluster-rules>`__.
+
+
+
+Temporary Test
+--------------
+
+Some more Common Lisp code block tests.
+
+.. code-block:: common-lisp
+
+    (defun one+ (x) (+ 1 2))
+
+
+And another test showing captions.
+
+.. code-block:: common-lisp
+   :caption: This is a test caption for a simple definition
+	  
+    (defun one+ (x) (+ 1 2))
+		    
+
 
 .. |image0| image:: file:graphics/polyphonic-solution.jpg

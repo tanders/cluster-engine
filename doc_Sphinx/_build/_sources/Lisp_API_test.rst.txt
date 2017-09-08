@@ -23,6 +23,19 @@ The following tests report the interface of a Common Lisp function, but using th
 
 	      Note that more complex types are currently difficult to show this way (seemingly needs to be a single word, at least with default settings).
 
+	      **This is a test intermediate headline -- just a bold phrase...**
+
+	      The function doc goes on here...
+
+	      .. code-block:: common-lisp
+			      
+	          ;; a code block within the function doc -- usage example
+	          (list 1 2 3 4)
+
+			      
+	      This is still the function documentation. Terminating a ``code-block`` is a bit tricky...
+
+			      
 
 Such Lisp documentation is displayed, but not fully supported. Because they are not recognised as Python function interfaces, they are **not included in the index**, nor are they layouted like Python functions. 
 

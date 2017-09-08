@@ -24,7 +24,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Lisp API documentation test" href="Lisp_API_test.html" />
+    <link rel="next" title="Cluster Engine API" href="cluster-engine-API.html" />
     <link rel="prev" title="Welcome to cluster-engine’s documentation!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -99,8 +99,8 @@ For example, on UNIX incl. OS X you can enter the following commands at
 the command line (after you created the directory <code class="docutils literal"><span class="pre">~/common-lisp/</span></code>).
 Note that <code class="docutils literal"><span class="pre">$</span></code> is the terminal prompt here, you do not need to enter
 that :)</p>
-<div class="code bash highlight-default"><div class="highlight"><pre>$ cd ~/common-lisp
-$ git clone https://github.com/tanders/cluster-engine.git
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ~/common-lisp
+<span class="nv">$ </span>git clone https://github.com/tanders/cluster-engine.git
 </pre></div>
 </div>
 <p>You will be asked for your GitHub username and password.</p>
@@ -110,8 +110,8 @@ $ git clone https://github.com/tanders/cluster-engine.git
 <p>If there are
 <a class="reference external" href="https://github.com/tanders/cluster-engine/commits/master">changes</a>,
 you can update your software later at the terminal in the following way.</p>
-<div class="code bash highlight-default"><div class="highlight"><pre>$ cd ~/common-lisp/cluster-engine
-$ git pull
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ~/common-lisp/cluster-engine
+<span class="nv">$ </span>git pull
 </pre></div>
 </div>
 </div>
@@ -132,7 +132,7 @@ live patches with comments and documentation slides.</p>
 <p>Cluster Engine is an <a class="reference external" href="https://common-lisp.net/project/asdf/">ASDF</a>
 system (ASDF is the de facto standard for building Common Lisp
 software), and you can load it into your Lisp compiler as follows.</p>
-<div class="code lisp highlight-default"><div class="highlight"><pre><span class="p">(</span><span class="n">require</span> <span class="p">:</span><span class="n">cluster</span><span class="o">-</span><span class="n">engine</span><span class="p">)</span>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">:cluster-engine</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The library should now be loaded, and you can solve musical constraint
@@ -148,22 +148,22 @@ specifications below are very simple. Only a single time signature is
 allowed (all bars are in 3/4 time); the single voice can consist of
 quarter notes and eighth notes; and possible pitches are middle C and C#
 (MIDI note numbers 60 and 61).</p>
-<div class="code lisp highlight-default"><div class="highlight"><pre><span class="p">(</span><span class="n">ce</span><span class="p">::</span><span class="n">clusterengine</span>
- <span class="mi">10</span> <span class="n">t</span> <span class="n">nil</span>           <span class="p">;</span> <span class="n">settings</span>
- <span class="n">nil</span>                <span class="p">;</span> <span class="n">no</span> <span class="n">constraints</span>
- <span class="s">&#39;((3 4))           ; metric domain</span>
- <span class="p">;;</span> <span class="n">domain</span> <span class="n">of</span> <span class="n">rhythmic</span> <span class="n">values</span> <span class="ow">and</span> <span class="n">pitches</span> <span class="k">for</span> <span class="n">one</span> <span class="n">voice</span>
- <span class="s">&#39;(((1/4) (1/8))</span>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nv">ce::clusterengine</span>
+ <span class="mi">10</span> <span class="no">t</span> <span class="no">nil</span>           <span class="c1">; settings</span>
+ <span class="no">nil</span>                <span class="c1">; no constraints</span>
+ <span class="o">&#39;</span><span class="p">((</span><span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>           <span class="c1">; metric domain</span>
+ <span class="c1">;; domain of rhythmic values and pitches for one voice</span>
+ <span class="o">&#39;</span><span class="p">(((</span><span class="m">1/4</span><span class="p">)</span> <span class="p">(</span><span class="m">1/8</span><span class="p">))</span>
    <span class="p">((</span><span class="mi">60</span><span class="p">)</span> <span class="p">(</span><span class="mi">61</span><span class="p">))))</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">clusterengine</span></code> outputs a declaration of the sequences of time
 signatures, rhythmic values and pitches for each voice.</p>
-<div class="code lisp highlight-default"><div class="highlight"><pre><span class="p">(;</span> <span class="n">rhythmic</span> <span class="n">values</span> <span class="n">of</span> <span class="n">voice</span> <span class="mi">1</span>
- <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span>
- <span class="p">;</span> <span class="n">pitches</span>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="c1">; rhythmic values of voice 1</span>
+ <span class="p">(</span><span class="m">1/4</span> <span class="m">1/8</span> <span class="m">1/8</span> <span class="m">1/8</span> <span class="m">1/4</span> <span class="m">1/8</span> <span class="m">1/8</span> <span class="m">1/8</span> <span class="m">1/8</span> <span class="m">1/8</span><span class="p">)</span>
+ <span class="c1">; pitches</span>
  <span class="p">(</span><span class="mi">60</span> <span class="mi">61</span> <span class="mi">60</span> <span class="mi">61</span> <span class="mi">61</span> <span class="mi">60</span> <span class="mi">60</span> <span class="mi">60</span> <span class="mi">60</span> <span class="mi">61</span><span class="p">)</span>
- <span class="p">;</span> <span class="n">time</span> <span class="n">signatures</span>
+ <span class="c1">; time signatures</span>
  <span class="p">((</span><span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">4</span><span class="p">)))</span>
 </pre></div>
 </div>
@@ -172,7 +172,7 @@ can be translated into an OpusModus score with the function
 <code class="docutils literal"><span class="pre">cluster-engine-score</span></code>, which in turn can be translated into a notated
 score with <code class="docutils literal"><span class="pre">preview-score</span></code> – both functions provided by the library
 <a class="reference external" href="https://github.com/tanders/tot">tot</a>.</p>
-<div class="code lisp highlight-default"><div class="highlight"><pre><span class="p">(:</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span> <span class="p">((</span><span class="n">q</span> <span class="n">c4</span> <span class="n">e</span> <span class="n">cs4</span> <span class="n">c4</span> <span class="n">cs4</span> <span class="n">cs4</span> <span class="n">tie</span><span class="p">)</span> <span class="p">(</span><span class="n">e</span> <span class="n">cs4</span> <span class="n">c4</span> <span class="n">c4</span> <span class="n">c4</span> <span class="n">c4</span> <span class="n">cs4</span><span class="p">)))</span>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="ss">:|1|</span> <span class="p">((</span><span class="nv">q</span> <span class="nv">c4</span> <span class="nv">e</span> <span class="nv">cs4</span> <span class="nv">c4</span> <span class="nv">cs4</span> <span class="nv">cs4</span> <span class="nv">tie</span><span class="p">)</span> <span class="p">(</span><span class="nv">e</span> <span class="nv">cs4</span> <span class="nv">c4</span> <span class="nv">c4</span> <span class="nv">c4</span> <span class="nv">c4</span> <span class="nv">cs4</span><span class="p">)))</span>
 </pre></div>
 </div>
 <p>The above constraint problem does not include any musical rules. Without
@@ -182,27 +182,27 @@ Common Lisp). Here, the first rule forces both voices to create 12-tone
 rows. Rule 2 constrains all harmonic intervals between both voices to
 consonant intervals or 3, 4, 7, 8 or 9 semitones. Finally, the last rule
 forbids any voice crossings. A possible result is shown below the code.</p>
-<div class="code lisp highlight-default"><div class="highlight"><pre><span class="p">(</span><span class="n">ce</span><span class="p">::</span><span class="n">clusterengine</span>
- <span class="mi">12</span> <span class="n">t</span> <span class="n">nil</span>
- <span class="p">(</span><span class="n">append</span>
-  <span class="p">;;</span> <span class="n">rule</span> <span class="mi">1</span>
-  <span class="p">(</span><span class="n">ce</span><span class="p">::</span><span class="n">r</span><span class="o">-</span><span class="n">pitches</span><span class="o">-</span><span class="n">one</span><span class="o">-</span><span class="n">voice</span> <span class="c">#&#39;(lambda (x)</span>
-                   <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">member</span> <span class="p">(</span><span class="n">mod</span> <span class="p">(</span><span class="n">car</span> <span class="p">(</span><span class="n">last</span> <span class="n">x</span><span class="p">))</span> <span class="mi">12</span><span class="p">)</span>
-                        <span class="p">(</span><span class="n">mapcar</span> <span class="c">#&#39;(lambda (a) (mod a 12)) (butlast x)))))</span>
-               <span class="s">&#39;(0 1) :all-pitches)</span>
-  <span class="p">;;</span> <span class="n">rule</span> <span class="mi">2</span>
-  <span class="p">(</span><span class="n">ce</span><span class="p">::</span><span class="n">r</span><span class="o">-</span><span class="n">pitch</span><span class="o">-</span><span class="n">pitch</span> <span class="c">#&#39;(lambda (x)</span>
-             <span class="p">(</span><span class="n">member</span> <span class="p">(</span><span class="n">mod</span> <span class="p">(</span><span class="n">ce</span><span class="p">::</span><span class="n">apply</span><span class="o">-</span><span class="n">minus</span> <span class="n">x</span><span class="p">)</span> <span class="mi">12</span><span class="p">)</span> <span class="s">&#39;(3 4 7 8 9)))</span>
-             <span class="s">&#39;(0 1) &#39;</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">:</span><span class="nb">all</span> <span class="p">:</span><span class="n">no_grace</span> <span class="p">:</span><span class="n">pitch</span><span class="p">)</span>
-  <span class="p">;;</span> <span class="n">rule</span> <span class="mi">3</span>
-  <span class="p">(</span><span class="n">ce</span><span class="p">::</span><span class="n">R</span><span class="o">-</span><span class="n">pitch</span><span class="o">-</span><span class="n">pitch</span> <span class="c">#&#39;(lambda (x) (&gt;= (first x) (second x)) )</span>
-             <span class="s">&#39;(0 1) &#39;</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">:</span><span class="nb">all</span> <span class="p">:</span><span class="n">no_grace</span> <span class="p">:</span><span class="n">pitch</span><span class="p">))</span>
- <span class="s">&#39;((4 4))</span>
- <span class="s">&#39;(;; domains of rhythmic values and pitches of voice 1</span>
-   <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nv">ce::clusterengine</span>
+ <span class="mi">12</span> <span class="no">t</span> <span class="no">nil</span>
+ <span class="p">(</span><span class="nb">append</span>
+  <span class="c1">;; rule 1</span>
+  <span class="p">(</span><span class="nv">ce::r-pitches-one-voice</span> <span class="nf">#&#39;</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+                   <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nb">member</span> <span class="p">(</span><span class="nb">mod</span> <span class="p">(</span><span class="nb">car</span> <span class="p">(</span><span class="nb">last</span> <span class="nv">x</span><span class="p">))</span> <span class="mi">12</span><span class="p">)</span>
+                        <span class="p">(</span><span class="nb">mapcar</span> <span class="nf">#&#39;</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">a</span><span class="p">)</span> <span class="p">(</span><span class="nb">mod</span> <span class="nv">a</span> <span class="mi">12</span><span class="p">))</span> <span class="p">(</span><span class="nb">butlast</span> <span class="nv">x</span><span class="p">)))))</span>
+               <span class="o">&#39;</span><span class="p">(</span><span class="mi">0</span> <span class="mi">1</span><span class="p">)</span> <span class="ss">:all-pitches</span><span class="p">)</span>
+  <span class="c1">;; rule 2</span>
+  <span class="p">(</span><span class="nv">ce::r-pitch-pitch</span> <span class="nf">#&#39;</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+             <span class="p">(</span><span class="nb">member</span> <span class="p">(</span><span class="nb">mod</span> <span class="p">(</span><span class="nv">ce::apply-minus</span> <span class="nv">x</span><span class="p">)</span> <span class="mi">12</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="p">)))</span>
+             <span class="o">&#39;</span><span class="p">(</span><span class="mi">0</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="ss">:all</span> <span class="ss">:no_grace</span> <span class="ss">:pitch</span><span class="p">)</span>
+  <span class="c1">;; rule 3</span>
+  <span class="p">(</span><span class="nv">ce::R-pitch-pitch</span> <span class="nf">#&#39;</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">&gt;=</span> <span class="p">(</span><span class="nb">first</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">second</span> <span class="nv">x</span><span class="p">))</span> <span class="p">)</span>
+             <span class="o">&#39;</span><span class="p">(</span><span class="mi">0</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="ss">:all</span> <span class="ss">:no_grace</span> <span class="ss">:pitch</span><span class="p">))</span>
+ <span class="o">&#39;</span><span class="p">((</span><span class="mi">4</span> <span class="mi">4</span><span class="p">))</span>
+ <span class="o">&#39;</span><span class="p">(</span><span class="c1">;; domains of rhythmic values and pitches of voice 1</span>
+   <span class="p">((</span><span class="m">1/4</span><span class="p">))</span>
    <span class="p">((</span><span class="mi">60</span><span class="p">)</span> <span class="p">(</span><span class="mi">61</span><span class="p">)</span> <span class="p">(</span><span class="mi">62</span><span class="p">)</span> <span class="p">(</span><span class="mi">63</span><span class="p">)</span> <span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="p">(</span><span class="mi">65</span><span class="p">)</span> <span class="p">(</span><span class="mi">66</span><span class="p">)</span> <span class="p">(</span><span class="mi">67</span><span class="p">)</span> <span class="p">(</span><span class="mi">68</span><span class="p">)</span> <span class="p">(</span><span class="mi">69</span><span class="p">)</span> <span class="p">(</span><span class="mi">70</span><span class="p">)</span> <span class="p">(</span><span class="mi">71</span><span class="p">)</span> <span class="p">(</span><span class="mi">72</span><span class="p">)</span> <span class="p">(</span><span class="mi">73</span><span class="p">)</span> <span class="p">(</span><span class="mi">74</span><span class="p">)</span> <span class="p">(</span><span class="mi">75</span><span class="p">)</span> <span class="p">(</span><span class="mi">76</span><span class="p">)</span> <span class="p">(</span><span class="mi">77</span><span class="p">)</span> <span class="p">(</span><span class="mi">78</span><span class="p">)</span> <span class="p">(</span><span class="mi">79</span><span class="p">))</span>
-   <span class="p">;;</span> <span class="n">domains</span> <span class="n">of</span> <span class="n">rhythmic</span> <span class="n">values</span> <span class="ow">and</span> <span class="n">pitches</span> <span class="n">of</span> <span class="n">voice</span> <span class="mi">2</span>
-   <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span>
+   <span class="c1">;; domains of rhythmic values and pitches of voice 2</span>
+   <span class="p">((</span><span class="m">1/4</span><span class="p">))</span>
    <span class="p">((</span><span class="mi">60</span><span class="p">)</span> <span class="p">(</span><span class="mi">61</span><span class="p">)</span> <span class="p">(</span><span class="mi">62</span><span class="p">)</span> <span class="p">(</span><span class="mi">63</span><span class="p">)</span> <span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="p">(</span><span class="mi">65</span><span class="p">)</span> <span class="p">(</span><span class="mi">66</span><span class="p">)</span> <span class="p">(</span><span class="mi">67</span><span class="p">)</span> <span class="p">(</span><span class="mi">68</span><span class="p">)</span> <span class="p">(</span><span class="mi">69</span><span class="p">)</span> <span class="p">(</span><span class="mi">70</span><span class="p">)</span> <span class="p">(</span><span class="mi">71</span><span class="p">)</span> <span class="p">(</span><span class="mi">72</span><span class="p">)</span> <span class="p">(</span><span class="mi">73</span><span class="p">)</span> <span class="p">(</span><span class="mi">74</span><span class="p">)</span> <span class="p">(</span><span class="mi">75</span><span class="p">)</span> <span class="p">(</span><span class="mi">76</span><span class="p">)</span> <span class="p">(</span><span class="mi">77</span><span class="p">)</span> <span class="p">(</span><span class="mi">78</span><span class="p">)</span> <span class="p">(</span><span class="mi">79</span><span class="p">))))</span>
 </pre></div>
 </div>
@@ -220,6 +220,20 @@ Rules</a> extends Cluster
 Engine by a collection of predefined musical constraints and that way
 makes it more easy to use. The equivalent PWGL library is <a class="reference external" href="https://github.com/tanders/pwgl-cluster-rules">PWGL Cluster
 Rules</a>.</p>
+</div>
+<div class="section" id="temporary-test">
+<h2>Temporary Test<a class="headerlink" href="#temporary-test" title="Permalink to this headline">¶</a></h2>
+<p>Some more Common Lisp code block tests.</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">defun</span> <span class="nv">one+</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>And another test showing captions.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">This is a test caption for a simple definition</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-common-lisp"><div class="highlight"><pre> <span class="p">(</span><span class="nb">defun</span> <span class="nv">one+</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -255,8 +269,10 @@ Rules</a>.</p>
 <li class="toctree-l2"><a class="reference internal" href="#id1">PWGL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Common Lisp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cluster-rules">Cluster Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#temporary-test">Temporary Test</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cluster-engine-API.html">Cluster Engine API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lisp_API_test.html">Lisp API documentation test</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Python_API_test.html">Python API documentation test</a></li>
 </ul>
@@ -266,7 +282,7 @@ Rules</a>.</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">Welcome to cluster-engine’s documentation!</a></li>
-      <li>Next: <a href="Lisp_API_test.html" title="next chapter">Lisp API documentation test</a></li>
+      <li>Next: <a href="cluster-engine-API.html" title="next chapter">Cluster Engine API</a></li>
   </ul></li>
 </ul>
 </div>
