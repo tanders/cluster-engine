@@ -113,6 +113,7 @@ software), and you can load it into your Lisp compiler as follows.
 .. code-block:: common-lisp
 
     (require :cluster-engine)
+    
 
 The library should now be loaded, and you can solve musical constraint
 satisfaction problems. The first example below is an "empty" problem

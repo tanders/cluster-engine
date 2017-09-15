@@ -1,0 +1,40 @@
+# Foo Random manual
+
+###### \[in package FOO-RANDOM\]
+Here you describe what's common to all the referenced (and
+exported) functions that follow. They work with *FOO-STATE*,
+and have a :RANDOM-STATE keyword arg. Also explain when to
+choose which.
+
+Hey we can also print states!
+
+- [variable] *FOO-STATE* #<FOO-RANDOM-STATE>
+
+    Much like *RANDOM-STATE* but uses the FOO algorithm.
+
+- [function] GAUSSIAN-RANDOM STDDEV &KEY RANDOM-STATE
+
+    Return a random number from a zero mean normal distribution with
+    STDDEV.
+
+- [function] UNIFORM-RANDOM LIMIT &KEY RANDOM-STATE
+
+    Return a random number from the between 0 and LIMIT (exclusive)
+    uniform distribution.
+
+## Examples
+
+Let's see the transcript of a real session of someone working
+with FOO:
+
+```cl-transcript
+(values (princ :hello) (list 1 2))
+.. HELLO
+=> :HELLO
+=> (1 2)
+
+(make-instance 'foo-random-state)
+==> #<FOO-RANDOM-STATE>
+
+```
+

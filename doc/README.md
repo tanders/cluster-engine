@@ -70,6 +70,12 @@ The library comes with a tutorial, which you find under Help > PWGL Tutorial&#x2
 Cluster Engine is an [ASDF](https://common-lisp.net/project/asdf/) system (ASDF is the de facto standard for building Common Lisp software), and you can load it into your Lisp compiler as follows.
 
     (require :cluster-engine)
+	
+	``` lisp
+(defun test () )
+
+	```
+
 
 The library should now be loaded, and you solve musical constraint satisfaction problems. The first example below is an "empty" problem without any constraints yet. The function `clusterengine` is the constraint solver. Its first three arguments specify the number of variables (quasi notes) per voice (10 in this example), whether or not to randomise the solution (T) and whether to use additional debugging features (nil).  After a list of constraints (empty) the function expects specifications for various domains. These specifications support a mini language for flexibility, the specifications below are very simple. Only a single time signature is allowed (all bars are in 3/4); the single voice can consist of quarter notes and eighth notes; and possible pitches are middle C and C# (MIDI note numbers 60 and 61).  
 
