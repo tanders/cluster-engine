@@ -3,6 +3,7 @@
 
 #+SETUPFILE: setup/theme-readtheorg-local.setup
 #+SETUPFILE: setup/extract-lisp-documentation.setup
+#+SETUPFILE: setup/publishing.setup
 
 #+OPTIONS: num:nil toc:3 :makeindex T
 
