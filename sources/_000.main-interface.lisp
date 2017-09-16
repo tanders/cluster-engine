@@ -396,9 +396,7 @@ The default settings can be found by opening a new preference box.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun Rules->Cluster   (&rest rules) ;;;; nil
-    "Use this box to collect all rules before inputting them to the Cluster engine.
-It is possible to input the output of this box to a second Rules->Cluster box (to help
-organizing your rules in groups)."  
+    "Use this box to collect all rules before inputting them to the Cluster engine. It is possible to input the output of this box to a second Rules->Cluster box (to help organizing your rules in groups)."  
   (remove nil (flat-rule-list rules)))
 
 (defmethod flat-rule-list ((rules list))
