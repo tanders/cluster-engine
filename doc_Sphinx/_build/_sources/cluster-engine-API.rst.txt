@@ -3,14 +3,17 @@ Cluster Engine API
 ==================
 
 This is some test text
+(commented -- I removed cldomain extension in conf.py)
 
-.. cl:function:: clusterengine 
+..
+   .. cl:function:: gaussian-random 
 
 
 This is some intermediate test text		 
 
-		 
-.. cl:function:: r-rhythms-one-voice
+
+.. 
+  .. cl:function:: iota
 
 		 
 

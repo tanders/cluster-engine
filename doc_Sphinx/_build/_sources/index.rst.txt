@@ -13,7 +13,6 @@ Welcome to cluster-engine's documentation!
    readme
    cluster-engine-API
    Lisp_API_test
-   Python_API_test
   
 	     
 Indices and tables

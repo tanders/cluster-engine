@@ -38,38 +38,39 @@ except ImportError:
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc',
+extensions = [
+    # 'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax']
 
-##
-## For http://cldomain.russellsim.org
-##
+# ##
+# ## For http://cldomain.russellsim.org
+# ##
 
-extensions.extend(['sphinxcontrib.cldomain',
-                   'sphinxcontrib.hyperspec'])
-
+# extensions.extend(['sphinxcontrib.cldomain',
+#                    'sphinxcontrib.hyperspec'])
+#
+# # from os.path import join, dirname, realpath
+# # cl_systems = [{# name of ASDF system
+# #                "name": "cluster-engine", 
+# #                # path to ASDF system file    
+# #                "path": join(dirname(realpath(__file__)), "../"), 
+# #                # CL package
+# #                "packages": ["cluster-engine"]}]
 # from os.path import join, dirname, realpath
 # cl_systems = [{# name of ASDF system
-#                "name": "cluster-engine", 
+#                "name": "alexandria", 
 #                # path to ASDF system file    
-#                "path": join(dirname(realpath(__file__)), "../"), 
+#                "path": "/Users/torsten/quicklisp/dists/quicklisp/software/alexandria-20161204-git", 
 #                # CL package
-#                "packages": ["cluster-engine"]}]
-from os.path import join, dirname, realpath
-cl_systems = [{# name of ASDF system
-               "name": "alexandria", 
-               # path to ASDF system file    
-               "path": "/Users/torsten/quicklisp/dists/quicklisp/software/alexandria-20161204-git", 
-               # CL package
-               "packages": ["alexandria"]}]    
-## Causes error when trying to seemingly load all ASDF systems in quicklisp. In the system :net.didierverna.clon.termio within system clon-1.0b24 the file termio.lisp contains a reader macro #_ioctl that causes an error. Loading this system directly in Emacs/Slime with CCL works, but not with CCL from cl-launch it seems. 
-## Try including this again later.
-# from os.path import expandvars
-# cl_quicklisp = expandvars('$HOME/quicklisp/')
-# Lisp to use    
-cl_lisps = "ccl"
+#                "packages": ["alexandria"]}]    
+# ## Causes error when trying to seemingly load all ASDF systems in quicklisp. In the system :net.didierverna.clon.termio within system clon-1.0b24 the file termio.lisp contains a reader macro #_ioctl that causes an error. Loading this system directly in Emacs/Slime with CCL works, but not with CCL from cl-launch it seems. 
+# ## Try including this again later.
+# # from os.path import expandvars
+# # cl_quicklisp = expandvars('$HOME/quicklisp/')
+# # Lisp to use    
+# cl_lisps = "ccl"
 
     
 

@@ -1,5 +1,5 @@
 Python API documentation test
-======================
+=============================
 
 This is some test how to document Common Lisp functions using plain-vanilla Sphinx, i.e., without any Common Lisp specific extensions.
 
@@ -25,10 +25,11 @@ Here is a link to the function above: :py:func:`Timer.repeat`.
 		 
 
 		 
-The next two examples shows some documentation automatically extracted from Python docstrings.		 
+The next two examples shows some documentation automatically extracted from Python docstrings (commented -- I removed sphinx.ext.autodoc extension in conf.py)
 
-.. autofunction:: io.open
+..
+   .. autofunction:: io.open
 
-.. automodule:: io
-   :members:
+   .. automodule:: io
+      :members:
 		 
