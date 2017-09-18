@@ -1,59 +1,54 @@
-# -*- mode: org; -*-
+# -*- mode: org -*-
+
+* Test Functions - can be removed                                  :noexport:
+
+#+name: my-new-fn
+#+begin_src elisp :var x=7
+(+ x x)
+#+end_src
 
 
-#+begin_src lisp :exports none
-(require :cluster-engine)
-; (in-package :fenv)
-
-(require :docparser)
-
-;; (defparameter docparser::om-doc-index (docparser:parse :om))
-(defparameter docparser::doc-index (docparser:parse :cluster-engine))
+#+name: gen_doc
+#+begin_src lisp :results output raw :exports results :var data='("This" "is" "a" "test")
+(format t "~{~A~%~}" data)
+#+end_src
 
 
-(defun docparser::get-name (symbol-name index)
-  (let ((doc-entry (elt (docparser:query index :symbol-name symbol-name)
-			0)))
-    (docparser:node-name doc-entry)))
+* Lisp doc functions                                               :noexport:
 
-; (docparser::get-name 'fenv:v docparser::fenv-doc-index)
+Note: default value of name arg must be in docparser::doc-index, otherwise I get an error.
 
-(defun docparser::get-docstring (symbol-name index)
-  (let ((doc-entry (elt (docparser:query index :symbol-name symbol-name)
-			0)))
-    (docparser:node-docstring doc-entry)))
+#+name: defun
+#+begin_src lisp :results output raw :exports results :var name='cluster-engine:rules->cluster
+  ;; Create org-mode description list
+  ;; - /function/ (*<name>* <lambda-list>) :: <doc-string>
+  ;;
+  ;; Using format and :results output necessary to remove the double-quotes from the string result
+  ;; (format T "~{~A~}"
+  ;; 	(list
+  ;; 	 "  - /function/ (*"
+  ;; 	 (docparser::get-name name docparser::doc-index)
+  ;; 	 "* "
+  ;; 	 (format nil "~{~A~^ ~}" (docparser::get-lambda-list name docparser::doc-index))
+  ;; 	 ") :: "
+  ;; 	 ;; Docstring paragraphs indented
+  ;; 	 (replace-all (docparser::get-docstring name docparser::doc-index) "
+  ;; " "
+  ;;     ")
+  ;; 	))
 
-; (docparser::get-docstring 'v docparser::fenv-doc-index)
+  (let ((fn-name (docparser::get-name name docparser::doc-index))
+	(lambda-list (format nil "~{~A~^ ~}"
+			     (docparser::get-lambda-list name docparser::doc-index)))
+	;; Docstring, with paragraphs indented
+	(docstring (replace-all (docparser::get-docstring name docparser::doc-index) "
+  " "
+      ")))
+    (format T "#+BEGIN_EXPORT rst
+  .. index::
+     single: ~A (function)
+  ,#+END_EXPORT
 
-(defun docparser::get-lambda-list (symbol-name index)
-  (let ((doc-entry (elt (docparser:query index :symbol-name symbol-name)
-			0)))
-    (docparser:operator-lambda-list doc-entry)))
-
-; (docparser::get-lambda-list 'v docparser::fenv-doc-index)
-
-; (docparser::get-lambda-list 'om:ambitus docparser::om-doc-index)
-
- #+end_src
-
- # TODO:
- # - OK? include function args
- # - OK? add support for index: http://orgmode.org/org.html#Generating-an-index
- # - decide suitable output format and template etc.
- # - put into extra file and use with Cluster Engine
- # - make workable for variables, classes etc.
- # - improve layout of result -- should each function etc. be turned into its own section or some sort of headline?
- # - ensure macro defs are not included
- # - OK? clean up: put src_lisp blocks into separate named code blocks that are then called
- # - ?? consider to include package -- showing that every time is annoying...
- # - NO: try to have package defined globally to reduce clutter
-
- # https://stackoverflow.com/questions/22132603/define-org-mode-macro-with-line-breaks
- #+MACRO: newline   @@html:@@ src_emacs-lisp[:results raw]{"\n"}
- #+MACRO: index-marker   @@html:@@ src_emacs-lisp[:results raw]{"#+INDEX:"}
- #+MACRO: get-name   src_lisp[:results output raw]{(format t "~A" (docparser::get-name '$1 docparser::doc-index))}
- #+MACRO: get-docstring   src_lisp[:results output raw]{(format t "~A" (docparser::get-docstring '$1 docparser::doc-index))}
- #+MACRO: get-lambda-list   src_lisp[:results output raw]{(format t "~{~A~^ ~}" (docparser::get-lambda-list '$1 docparser::doc-index))}
- # Macro args: function-name, function-package 
- #+MACRO: defun     [function] *{{{get-name($1)}}}* {{{get-lambda-list($1)}}} {{{newline}}}{{{index-marker}}} $1{{{newline}}}{{{newline}}}{{{get-docstring($1)}}}{{{newline}}}
-
+    - /function/ (*~A* ~A) :: ~A"
+	    fn-name fn-name lambda-list docstring))
+#+end_src

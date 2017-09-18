@@ -1,11 +1,114 @@
-#+TITLE: Documentation of Cluster Engine
-#+AUTHOR: Torsten Anders
+# -*- eval: (org-sbe "setup-elisp")  eval: (org-sbe "setup-lisp") -*-
 
-#+SETUPFILE: setup/theme-readtheorg-local.setup
-#+SETUPFILE: setup/extract-lisp-documentation.setup
+#+TITLE: Overview
+
 #+SETUPFILE: setup/publishing.setup
 
 #+OPTIONS: num:nil toc:3 :makeindex T
+
+* Setup                         :noexport:
+
+  Execute code-block =setup= when loading this file. Called by first
+  line of this buffer.
+  See
+  https://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables
+  and https://emacs.stackexchange.com/questions/29816/org-mode-comment-blocks-local-variable-eval.
+
+
+#+name: setup-elisp
+#+begin_src emacs-lisp :results silent :exports none
+  (defun ta/publish-sphinx-project (PLIST SCRIPT PUB-DIR)
+    (call-process SCRIPT))
+
+  (setq org-publish-project-alist
+	'(("cluster-engine-doc-orgfiles"
+	   :base-directory "." ;; relative path
+	   :base-extension "org"
+	   :publishing-directory "../doc_source_sphinx"
+	   :publishing-function org-rst-publish-to-rst
+	   ;; :exclude "PrivatePage.org"   ;; regexp
+	   :headline-levels 3
+	   :section-numbers nil
+	   :with-toc nil
+	   )
+	  ("cluster-engine-doc-graphics"
+	   :base-directory "./graphics/"
+	   :base-extension "jpg\\|gif\\|png"
+	   :publishing-directory "../doc_source_sphinx/graphics/"
+	   :publishing-function org-publish-attachment)
+	  ;; I tried to automatically call script to make sphinx project
+	  ;; not working
+	  ;; ("cluster-engine-make-sphinx-doc"
+	  ;;  :base-directory "../doc_source_sphinx"
+	  ;;  :publishing-directory "../doc_source_sphinx" ;; irrelevant, but necessary
+	  ;;  :base-extension "sh"
+	  ;;  :publishing-function ta/publish-sphinx-project)
+	  ;; ("other"
+	  ;;  :base-directory "~/other/"
+	  ;;  :base-extension "css\\|el"
+	  ;;  :publishing-directory "/ssh:user@host:~/html/other/"
+	  ;;  :publishing-function org-publish-attachment)
+	  ("cluster-engine-doc" :components ("cluster-engine-doc-orgfiles" "cluster-engine-doc-graphics" ; "cluster-engine-make-sphinx-doc"
+					     ))
+	  ))
+#+end_src
+
+
+#+name: setup-lisp
+#+begin_src lisp :results silent :exports none :cache yes
+    (require :cluster-engine)
+    ; (in-package :fenv)
+
+    (require :docparser)
+
+    ;; (defparameter docparser::om-doc-index (docparser:parse :om))
+    (defparameter docparser::doc-index (docparser:parse :cluster-engine))
+
+
+    (defun docparser::get-name (symbol-name index)
+      (let ((doc-entry (elt (docparser:query index :symbol-name symbol-name)
+			    0)))
+	(docparser:node-name doc-entry)))
+
+    ; (docparser::get-name 'cluster-engine:clusterengine docparser::doc-index)
+
+    (defun docparser::get-docstring (symbol-name index)
+      (let ((doc-entry (elt (docparser:query index :symbol-name symbol-name)
+			    0)))
+	(docparser:node-docstring doc-entry)))
+
+    ; (docparser::get-docstring 'clusterengine docparser::doc-index)
+
+    (defun docparser::get-lambda-list (symbol-name index)
+      (let ((doc-entry (elt (docparser:query index :symbol-name symbol-name)
+			    0)))
+	(docparser:operator-lambda-list doc-entry)))
+
+    ; (docparser::get-lambda-list 'clusterengine docparser::doc-index)
+
+
+    ; (docparser::get-lambda-list 'v docparser::doc-index)
+
+    ; (docparser::get-lambda-list 'om:ambitus docparser::doc-index)
+
+
+  ;; http://cl-cookbook.sourceforge.net/strings.html
+  (defun replace-all (string part replacement &key (test #'char=))
+    "Returns a new string in which all the occurences of the part is replaced with replacement."
+	(with-output-to-string (out)
+	  (loop with part-length = (length part)
+		for old-pos = 0 then (+ pos part-length)
+		for pos = (search part string
+				  :start2 old-pos
+				  :test test)
+		do (write-string string out
+				 :start old-pos
+				 :end (or pos (length string)))
+		when pos do (write-string replacement out)
+		while pos)))
+ #+end_src
+
+
 
 * Introduction
 
@@ -146,33 +249,4 @@ For further information refer to the PWGL tutorial for now. Pretty much all PWGL
 
 
 
-
-* API
-
-{{{defun(cluster-engine:rules->cluster)}}}
-
-[function] *RULES->CLUSTER* &REST RULES  
- #+INDEX: cluster-engine:rules->cluster 
- 
-Use this box to collect all rules before inputting them to the Cluster engine. It is possible to input the output of this box to a second Rules->Cluster box (to help organizing your rules in groups). 
-
-
-** {{{defun(cluster-engine:rules->cluster)}}}
-
- # {{{defun(cluster-engine:clusterengine)}}}
-
- # {{{defun(cluster-engine:r-rhythms-one-voice)}}}
-
-
-** [function] *RULES->CLUSTER* &REST RULES  
-  #+INDEX: cluster-engine:rules->cluster 
- 
- Use this box to collect all rules before inputting them to the Cluster engine. It is possible to input the output of this box to a second Rules->Cluster box (to help organizing your rules in groups). 
-
-
-* TODO Revise Automatic Common Lisp Doc Extraction
-
-  - My current Org mode macro =defun= does not yet support multi-line doc strings, quite possibly because I removed the surrounding strings...
-
-  - The macro =defun= HTML export is not clean, e.g., the index extry to generate is actually shown
 

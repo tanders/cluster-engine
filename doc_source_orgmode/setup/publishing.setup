@@ -1,3 +1,53 @@
 # -*- mode: org; -*-
 
+#+BIND: org-publish-project-alist '(("cluster-engine-doc-orgfiles"
+	   :base-directory "." ;; relative path
+	   :base-extension "org"
+	   :publishing-directory "../doc_source_sphinx"
+	   :publishing-function org-rst-publish-to-rst
+	   ;; :exclude "PrivatePage.org"   ;; regexp
+	   :headline-levels 3
+	   :section-numbers nil
+	   :with-toc nil
+	   )
+	  ("cluster-engine-doc-graphics"
+	   :base-directory "./graphics/"
+	   :base-extension "jpg\\|gif\\|png"
+	   :publishing-directory "../doc_source_sphinx/graphics/"
+	   :publishing-function org-publish-attachment)	
+	  ;; ("other"
+	  ;;  :base-directory "~/other/"
+	  ;;  :base-extension "css\\|el"
+	  ;;  :publishing-directory "/ssh:user@host:~/html/other/"
+	  ;;  :publishing-function org-publish-attachment)
+	  ("cluster-engine-doc" :components ("cluster-engine-doc-orgfiles" "cluster-engine-doc-graphics"))
+	  )
+	  
+#+NAME: set-publish-project-alist
+#+begin_src emacs-lisp :results silent 
+  (setq org-publish-project-alist
+	'(("cluster-engine-doc-orgfiles"
+	   :base-directory "." ;; relative path
+	   :base-extension "org"
+	   :publishing-directory "../doc_source_sphinx"
+	   :publishing-function org-rst-publish-to-rst
+	   ;; :exclude "PrivatePage.org"   ;; regexp
+	   :headline-levels 3
+	   :section-numbers nil
+	   :with-toc nil
+	   )
+	  ("cluster-engine-doc-graphics"
+	   :base-directory "./graphics/"
+	   :base-extension "jpg\\|gif\\|png"
+	   :publishing-directory "../doc_source_sphinx/graphics/"
+	   :publishing-function org-publish-attachment)	
+	  ;; ("other"
+	  ;;  :base-directory "~/other/"
+	  ;;  :base-extension "css\\|el"
+	  ;;  :publishing-directory "/ssh:user@host:~/html/other/"
+	  ;;  :publishing-function org-publish-attachment)
+	  ("cluster-engine-doc-test" :components ("cluster-engine-doc-orgfiles" "cluster-engine-doc-graphics"))
+	  ))
+#+end_src
 
+# #+CALL: set-publish-project()

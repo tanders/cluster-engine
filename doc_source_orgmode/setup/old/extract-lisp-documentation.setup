@@ -1,0 +1,31 @@
+# -*- mode: org; -*-
+
+# TODO:
+# - OK? include function args
+# - OK? add support for index: http://orgmode.org/org.html#Generating-an-index
+# - OK? decide suitable output format and template etc.
+# - make workable for variables, classes etc.
+# - OK? improve layout of result -- should each function etc. be turned into its own section or some sort of headline?
+# - OK ensure macro defs are not included in output
+# - OK? clean up: put src_lisp blocks into separate named code blocks that are then called
+# - ?? consider to include package -- showing that every time is annoying...
+# - OK put into extra file and use with Cluster Engine
+# - NO: try to have package defined globally to reduce clutter
+
+
+
+# https://stackoverflow.com/questions/22132603/define-org-mode-macro-with-line-breaks
+#+MACRO: newline   @@html:@@ src_emacs-lisp[:results raw]{"\n"}
+#+MACRO: index-marker   @@html:@@ src_emacs-lisp[:results raw]{"#+INDEX:"}
+#+MACRO: get-name   src_lisp[:results output raw]{(format t "~A" (docparser::get-name '$1 docparser::doc-index))}
+#+MACRO: get-docstring   src_lisp[:results output raw]{(format t "~A" (docparser::get-docstring '$1 docparser::doc-index))}
+#+MACRO: get-lambda-list   src_lisp[:results output raw]{(format t "~{~A~^ ~}" (docparser::get-lambda-list '$1 docparser::doc-index))}
+# Macro args: function-name, function-package 
+#+MACRO: defun      - /function/ *{{{get-name($1)}}}* {{{get-lambda-list($1)}}} :: {{{get-docstring($1)}}}{{{newline}}}
+
+# !!! Problem: macro cannot directly result in multiple lines. Using {{{newline}}} is a good workaround, but how can I insert that into a result from another programming language. For example, could I define a loop in an org-mode macro? 
+# Solution: use lisp code-blocks instead of macros
+#+MACRO: random-test  src_lisp[:results output raw]{(format t "~{~A~%~}" '("First line" "Second line" "Third line"))}
+
+# Old version
+# #+MACRO: defun      /function/ *{{{get-name($1)}}}* {{{get-lambda-list($1)}}} {{{newline}}}{{{index-marker}}} $1{{{newline}}}{{{newline}}}{{{get-docstring($1)}}}{{{newline}}}

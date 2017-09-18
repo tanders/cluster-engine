@@ -1,0 +1,93 @@
+#+TITLE: TODO Title
+
+#+INCLUDE: "setup/extract-lisp-documentation.setup"
+
+* API
+
+Extracting docs again :)
+
+#+call: defun(name='cluster-engine:rules->cluster)
+
+#+call: defun(name='cluster-engine:clusterengine)
+
+#+call: defun(name='cluster-engine:r-rhythms-one-voice)
+
+
+Here goes the general text on.
+
+ # Automatically extracted doc with macro -- not 
+
+ #   {{{defun(cluster-engine:rules->cluster)}}}
+
+
+
+# Calling =my-new-fn=
+
+# #+call: my-new-fn(x=11)
+
+# Calling =gen_doc=
+
+# #+CALL: gen_doc(data='("This" "is" "a" "test"))
+
+
+#  # Test 1
+
+#  # #+begin_src lisp :results output raw :exports results 
+#  # (format t "~{~A~%~}" '("First line" "Second line" "Third line"))
+#  # #+end_src
+
+
+#  Test 2
+
+#  # #+CALL: gen-doc(data="First line~%Second line~%Third line~%")
+#  # #+call: f2(x=5)
+
+#  #+CALL: gen_doc(data='("This" "is" "a" "test"))
+
+#  # call_gen-doc("First line~%Second line~%Third line~%")
+
+
+ # Macro tests.
+
+
+
+
+ # # Macro tests.
+
+ # # # {{{random-test}}}
+
+ # # Newline test: Newline {{{newline}}} newline {{{newline}}} newline
+
+ # Explicit text inserted as description item.
+
+ #  - /function/ *RULES->CLUSTER* &REST RULES :: Use this box to collect all rules before inputting them to the Cluster engine. It is possible to input the output of this box to a second Rules->Cluster box (to help organizing your rules in groups). 
+ #    The text goes on here.
+
+ #    The text goes on here, but now after some whitespace. 
+
+
+ # ** {{{defun(cluster-engine:rules->cluster)}}}
+
+  # {{{defun(cluster-engine:clusterengine)}}}
+
+  # {{{defun(cluster-engine:r-rhythms-one-voice)}}}
+
+
+*** COMMENT [function] *RULES->CLUSTER* &REST RULES  
+   #+INDEX: cluster-engine:rules->cluster 
+ 
+  Use this box to collect all rules before inputting them to the Cluster engine. It is possible to input the output of this box to a second Rules->Cluster box (to help organizing your rules in groups). 
+
+
+* TODO COMMENT Revise Automatic Common Lisp Doc Extraction
+
+  - Add index support (e.g., directly with Sphinx syntax)
+
+
+** DONE Old
+   CLOSED: [2017-09-18 Mon 02:17]
+   - My current Org mode macro =defun= does not yet support multi-line doc strings, quite possibly because I removed the surrounding strings...
+     -> Using Lisp code blocks instead of Orgmode macros seems to be a way around
+
+   - The macro =defun= HTML export is not clean, e.g., the index extry to generate is actually shown
+     -> Problem solved with export to rST

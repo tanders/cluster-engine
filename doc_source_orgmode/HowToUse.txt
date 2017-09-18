@@ -1,0 +1,30 @@
+
+# Dependencies 
+
+   - Emacs with org mode
+   - Some Lisp compiler, and Emacs configured to be able to run Lisp code (e.g., with slime or slime-connect)
+   - Ox-Rst (https://github.com/masayuko/ox-rst)
+   - Sphinx (http://www.sphinx-doc.org)
+
+   - Optionally: docparser (https://github.com/eudoxia0/docparser)
+
+   - Custom code of this project
+
+
+  It might be possible to later turn the process above into a shell script, e.g., see
+  https://lists.gnu.org/archive/html/emacs-orgmode/2008-03/msg00154.html
+
+  or with a Makefile
+  https://stackoverflow.com/questions/22072773/batch-export-of-org-mode-files-from-the-command-line
+
+
+# How to use
+
+  - Start Emacs and connect to Lisp compiler
+  - Load Readme.org into Emacs. Emacs will ask whether to load variables -- confirm by pressing `y`
+  - Publish Org project, e.g., with the following key sequence: C-c C-e P x. Then select the project to publish ("cluster-engine-doc"), e.g, with TAB.
+     Doing so exports all *.org files within this directory into *.rst files into the directory ../doc_source_sphinx
+  - Build the resulting Sphinx documention in ../doc_source_sphinx, e.g., by calling ../make-doc.sh
+
+
+
