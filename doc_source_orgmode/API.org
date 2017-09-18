@@ -13,81 +13,38 @@ Extracting docs again :)
 #+call: defun(name='cluster-engine:r-rhythms-one-voice)
 
 
-Here goes the general text on.
-
- # Automatically extracted doc with macro -- not 
-
- #   {{{defun(cluster-engine:rules->cluster)}}}
-
-
-
-# Calling =my-new-fn=
-
-# #+call: my-new-fn(x=11)
-
-# Calling =gen_doc=
-
-# #+CALL: gen_doc(data='("This" "is" "a" "test"))
-
-
-#  # Test 1
-
-#  # #+begin_src lisp :results output raw :exports results 
-#  # (format t "~{~A~%~}" '("First line" "Second line" "Third line"))
-#  # #+end_src
-
-
-#  Test 2
-
-#  # #+CALL: gen-doc(data="First line~%Second line~%Third line~%")
-#  # #+call: f2(x=5)
-
-#  #+CALL: gen_doc(data='("This" "is" "a" "test"))
-
-#  # call_gen-doc("First line~%Second line~%Third line~%")
-
-
- # Macro tests.
-
-
-
-
- # # Macro tests.
-
- # # # {{{random-test}}}
-
- # # Newline test: Newline {{{newline}}} newline {{{newline}}} newline
-
- # Explicit text inserted as description item.
-
- #  - /function/ *RULES->CLUSTER* &REST RULES :: Use this box to collect all rules before inputting them to the Cluster engine. It is possible to input the output of this box to a second Rules->Cluster box (to help organizing your rules in groups). 
- #    The text goes on here.
-
- #    The text goes on here, but now after some whitespace. 
-
-
- # ** {{{defun(cluster-engine:rules->cluster)}}}
-
-  # {{{defun(cluster-engine:clusterengine)}}}
-
-  # {{{defun(cluster-engine:r-rhythms-one-voice)}}}
-
-
-*** COMMENT [function] *RULES->CLUSTER* &REST RULES  
-   #+INDEX: cluster-engine:rules->cluster 
- 
-  Use this box to collect all rules before inputting them to the Cluster engine. It is possible to input the output of this box to a second Rules->Cluster box (to help organizing your rules in groups). 
+Here goes on the general text. Here goes on the general text. Here
+goes on the general text. Here goes on the general text.
 
 
 * TODO COMMENT Revise Automatic Common Lisp Doc Extraction
 
-  - Add index support (e.g., directly with Sphinx syntax)
+  - Get support for Latex and PDF output: create publishing project for exporting all Org files into a single Latex file. 
+    Approach: create a top-level file in an extra dir with all the necessary settings, that includes these exported files.
+    Minor problem: default Latex class does not do line breaks for long lambda lists in the automatically generated API docs, but there will be a way around that
 
 
 ** DONE Old
    CLOSED: [2017-09-18 Mon 02:17]
+
+    - Add index support (e.g., directly with Sphinx syntax)
+
    - My current Org mode macro =defun= does not yet support multi-line doc strings, quite possibly because I removed the surrounding strings...
      -> Using Lisp code blocks instead of Orgmode macros seems to be a way around
 
    - The macro =defun= HTML export is not clean, e.g., the index extry to generate is actually shown
      -> Problem solved with export to rST
+(let ((fn-name (docparser::get-name name docparser::doc-index))
+      (lambda-list (format nil "~{~A~^ ~}"
+			   (docparser::get-lambda-list name docparser::doc-index)))
+      ;; Docstring, with paragraphs indented
+      (docstring (replace-all (docparser::get-docstring name docparser::doc-index) "
+  " "
+      ")))
+  (format T "#+BEGIN_EXPORT rst
+  .. index::
+     single: ~A (function)
+#+END_EXPORT
+
+  - /function/ (*~A* ~A) :: ~A"
+	  fn-name fn-name lambda-list docstring))

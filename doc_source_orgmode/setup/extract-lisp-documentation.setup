@@ -42,11 +42,11 @@ Note: default value of name arg must be in docparser::doc-index, otherwise I get
 			     (docparser::get-lambda-list name docparser::doc-index)))
 	;; Docstring, with paragraphs indented
 	(docstring (replace-all (docparser::get-docstring name docparser::doc-index) "
-  " "
-      ")))
+    " "
+	")))
     (format T "#+BEGIN_EXPORT rst
-  .. index::
-     single: ~A (function)
+    .. index::
+       single: ~A (function)
   ,#+END_EXPORT
 
     - /function/ (*~A* ~A) :: ~A"
