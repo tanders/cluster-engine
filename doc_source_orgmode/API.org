@@ -1,5 +1,8 @@
 #+TITLE: TODO Title
 
+# class declared in readme.org
+#+LaTeX_CLASS: cluster-engine-doc
+
 #+INCLUDE: "setup/extract-lisp-documentation.setup"
 
 * API

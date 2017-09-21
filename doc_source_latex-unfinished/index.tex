@@ -1,0 +1,62 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\newcommand{\comment}[1]{}
+
+% \hypersetup{
+%  pdfauthor={torsten},
+%  pdftitle={Overview},
+%  pdfkeywords={},
+%  pdfsubject={},
+%  pdfcreator={Emacs 25.1.1 (Org mode 9.1)}, 
+%  pdflang={English}}
+
+\author{The Author}
+\date{The Date}
+\title{The Top-Level Title (Todo)}
+
+\begin{document}
+
+\maketitle
+% \setcounter{tocdepth}{3}
+% \tableofcontents
+
+\section*{Current Problems with Latext Setup}
+\label{sec:curr-probl-with}
+
+All problems are caused by the fact that we are using multiple Org files to create multiple HTML files -- turning these into a single Latex document is a bit tricky.
+
+The individual org-files still contain remains of a header (e.g., loading packages color and listings), which causes errors.
+
+The titles of the individual org-files are part of their header -- how to turn these into top-level headings?
+
+Unicode chars in texts are not yet handled.
+
+The layout of API docs using Latex description environments needs improving: there are no (automatic) line breaks in description item titles.
+
+The layout of code listings needs improving (e.g., lines are too long)
+
+The table of content is missing (currently non-numbered sections are used\dots)
+
+
+\include{readme}
+
+\include{API}
+
+
+\end{document}
+
+

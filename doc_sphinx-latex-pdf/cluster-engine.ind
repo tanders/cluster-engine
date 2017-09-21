@@ -1,0 +1,12 @@
+\begin{sphinxtheindex}
+\def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
+
+  \bigletter C
+  \item CLUSTERENGINE (function), \hyperpage{5}
+
+  \indexspace
+  \bigletter R
+  \item R-RHYTHMS-ONE-VOICE (function), \hyperpage{5}
+  \item RULES-\textgreater{}CLUSTER (function), \hyperpage{5}
+
+\end{sphinxtheindex}

@@ -2,6 +2,9 @@
 
 #+TITLE: Overview
 
+# class declared below
+#+LaTeX_CLASS: cluster-engine-doc
+
 #+SETUPFILE: setup/publishing.setup
 
 #+OPTIONS: num:nil toc:3 :makeindex T
@@ -21,7 +24,7 @@
     (call-process SCRIPT))
 
   (setq org-publish-project-alist
-	'(("cluster-engine-doc-orgfiles"
+	'(("cluster-engine-doc-sphinx-orgfiles"
 	   :base-directory "." ;; relative path
 	   :base-extension "org"
 	   :publishing-directory "../doc_source_sphinx"
@@ -31,7 +34,7 @@
 	   :section-numbers nil
 	   :with-toc nil
 	   )
-	  ("cluster-engine-doc-graphics"
+	  ("cluster-engine-doc-sphinx-graphics"
 	   :base-directory "./graphics/"
 	   :base-extension "jpg\\|gif\\|png"
 	   :publishing-directory "../doc_source_sphinx/graphics/"
@@ -48,9 +51,40 @@
 	  ;;  :base-extension "css\\|el"
 	  ;;  :publishing-directory "/ssh:user@host:~/html/other/"
 	  ;;  :publishing-function org-publish-attachment)
-	  ("cluster-engine-doc" :components ("cluster-engine-doc-orgfiles" "cluster-engine-doc-graphics" ; "cluster-engine-make-sphinx-doc"
-					     ))
+	  ("cluster-engine-doc-sphinx"
+	   :components ("cluster-engine-doc-sphinx-orgfiles" "cluster-engine-doc-sphinx-graphics" ; "cluster-engine-make-sphinx-doc"
+			))
+
+	  ("cluster-engine-doc-latex-orgfiles"
+	   :base-directory "." ;; relative path
+	   :base-extension "org"
+	   :publishing-directory "../doc_source_latex"
+	   :publishing-function org-latex-publish-to-latex
+	   ;; :exclude "PrivatePage.org"   ;; regexp
+	   :headline-levels 3
+	   :section-numbers nil
+	   :with-toc nil
+	   )
+	  ("cluster-engine-doc-latex-graphics"
+	   :base-directory "./graphics/"
+	   :base-extension "jpg\\|gif\\|png\\|pdf"
+	   :publishing-directory "../doc_source_latex/graphics/"
+	   :publishing-function org-publish-attachment)
+	  ("cluster-engine-doc-latex"
+	   :components ("cluster-engine-doc-latex-orgfiles" "cluster-engine-doc-latex-graphics" ; "cluster-engine-make-sphinx-doc"
+			))
 	  ))
+
+  (add-to-list 'org-latex-classes
+	       '("cluster-engine-doc"
+		 ;; empty header: no class, no default packages nor document-specific packages, but extras, just in case
+		 "[NO-DEFAULT-PACKAGES]"
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+		 ))
 #+end_src
 
 
