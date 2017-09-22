@@ -1,33 +1,170 @@
-#+TITLE: TODO Title
+#+TITLE: Function Reference 
 
-# class declared in readme.org
+# Latex class declared in readme.org
 #+LaTeX_CLASS: cluster-engine-doc
 
 #+INCLUDE: "setup/extract-lisp-documentation.setup"
 
-* API
+# #+OPTIONS: broken-links:mark
 
-Extracting docs again :)
+* Solver Call
+
+  The following functions are part of virtually all programs using the Cluster Engine library.
+
+#+name: clusterengine
+#+call: defun(name='cluster-engine:clusterengine)
+
 
 #+call: defun(name='cluster-engine:rules->cluster)
 
-#+call: defun(name='cluster-engine:clusterengine)
+# #+name: rules->cluster
+# #+BEGIN_SRC lisp :noweb yes
+# <<defun(name='cluster-engine:rules->cluster)>>
+# #+END_SRC
+#   [[rules->cluster]]CLUSTERENGIN
 
-#+call: defun(name='cluster-engine:r-rhythms-one-voice)
-
-
-Here goes on the general text. Here goes on the general text. Here
-goes on the general text. Here goes on the general text.
-
-
-* TODO COMMENT Revise Automatic Common Lisp Doc Extraction
-
-  - Get support for Latex and PDF output: create publishing project for exporting all Org files into a single Latex file. 
-    Approach: create a top-level file in an extra dir with all the necessary settings, that includes these exported files.
-    Minor problem: default Latex class does not do line breaks for long lambda lists in the automatically generated API docs, but there will be a way around that
+Test: see also function {{{ilink(CLUSTERENGINE)}}}
 
 
-** DONE Old
+* Rule Definitions
+
+  This section documents functions by which users can define their own musical rules. Their results (one or more functions) are typically given to the function {{{ilink(RULES->CLUSTER)}}}. 
+
+  # <<CLUSTER->RULES>>
+
+  # Test: an internal link to the function [[R-PITCHES-ONE-VOICE]].
+
+
+** Rules for One "Engine"
+
+   Functions for defining rules that restrict only one domain in one voice (e.g., only the pitches of the first voice). 
+   
+
+  #+call: defun(name='cluster-engine:r-rhythms-one-voice)
+
+  #+call: defun(name='cluster-engine:R-index-rhythms-one-voice)
+
+  #+call: defun(name='cluster-engine:R-pitches-one-voice)
+  #+call: defun(name='cluster-engine:R-index-pitches-one-voice)
+  #+call: defun(name='cluster-engine:R-time-signatures)
+  #+call: defun(name='cluster-engine:R-index-time-signatures)
+  #+call: defun(name='cluster-engine:R-only-m-motifs)
+  #+call: defun(name='cluster-engine:R-rhythms-one-voice-at-timepoints)
+  #+call: defun(name='cluster-engine:HR-rhythms-one-voice)
+  #+call: defun(name='cluster-engine:HR-index-rhythms-one-voice)
+  #+call: defun(name='cluster-engine:HR-pitches-one-voice)
+  #+call: defun(name='cluster-engine:HR-index-pitches-one-voice)
+  #+call: defun(name='cluster-engine:HR-time-signatures)
+  #+call: defun(name='cluster-engine:HR-index-time-signatures)
+  #+call: defun(name='cluster-engine:R-pmc-one-voice)
+  #+call: defun(name='cluster-engine:R-jbs-one-voice)
+  #+call: defun(name='cluster-engine:set-end)
+
+
+** Rules for One Voice
+
+
+** Rules for Two Voices
+
+
+** Rules for Two or More Voices
+
+
+* Other Functions
+
+** Special Domain Declarations, Debugging and More
+
+  #+call: defun(name='cluster-engine:metric-domain)
+
+  #+call: defun(name='cluster-engine:R-predefine-meter)
+
+  #+call: defun(name='cluster-engine:Stop-rule-time)
+
+  #+call: defun(name='cluster-engine:Stop-rule-index)
+
+
+  TODO: function =CLUSTERdebug= named differently?
+  # #+call: defun(name='cluster-engine:CLUSTERdebug)
+
+  #+call: defun(name='cluster-engine:preferences)
+
+
+** Utilities
+
+  Here goes on the general text. Here goes on the general text. Here
+  goes on the general text. Here goes on the general text.
+
+  # [[Test->Test]]
+
+
+* TODO COMMENT Current Limitations of Automatic Common Lisp Doc Extraction
+  
+** Spaces inserted before line breaks / paragraphs in automatically extracted functions 
+
+   BUG: Does not work if there are multiple consecutive empty lines. 
+
+
+** Get support for internal links to reference documentation entries
+
+   Update: use macro for creating links: {{{ilink(MY-FUNCTION)}}}
+
+   Then I can still later add additional export formats, or change the format of the link etc. Also, I find this macro is more easy to read
+
+
+*** Intermediate solution
+
+    Use inline rST links. Example: See also @@rst:`my-function`_@@.
+
+    Unfortunately, also rST links only work within the same file.
+
+    rST :ref: should work across files, but I did not got that working yet.
+   
+    http://www.sphinx-doc.org/en/stable/markup/inline.html#role-ref
+
+ #+RST: `my-function`_
+
+ #+BEGIN_EXPORT rst
+ `my-function`_
+ #+END_EXPORT
+
+*** Old: searching for solution
+
+    Alternative option: use rST syntax in all doc strings, not org mode. This is quetionable, as two different kinds of syntax in documentation and doc strings are confusing.
+
+
+    -------------------
+
+    Half-way solution
+    - For internal links within doc org file create link targets manually. These targets should perhaps not be the function names in caps, as otherwise I have two identical link targets
+    - For internal links within function doc strings linking should work, as long as the linked function etc. doc is automatically inserted into the same org file. Format:  =[[FUNCTION-NAME]]=, i.e. all caps
+    - NOTE: Functions with `>` in the function name cannot be linked this way it seems. I would need to use another target mechanism (e.g., subsections with a respective property)
+
+   
+    PROBLEMS: 
+    - Internal org targets that contain a single `>` are not recognised as targets. Is there any way around that?
+    - !! If internal links are inserted automatically by code-blocks, these are not know yet in the export process. In such a case the export stops with an error (see below). Why not only issue a warning? 
+      Seemingly there is no real way around that, I can only turn the links automatically into links marked as broken with #+OPTIONS: broken-links:mark
+
+      user-error: Unable to resolve link: <my-link>
+
+
+    Currently, neither =[[internal links]]= created with explicit targets like =<<internal links>>= nor named targets like the one below work when these are inserted only later automatically into the document.
+
+ #+begin_src org-mode
+ #+NAME: internal links
+ #+end_src
+
+ # <<<My Target>>>
+
+
+** [80%] Get support PDF output 
+
+   E.g., create publishing project for exporting all Org files into a single Latex file.
+     Approach: create a top-level file in an extra dir with all the necessary settings, that includes these exported files.
+     Minor problem: default Latex class does not do line breaks for long lambda lists in the automatically generated API docs, but there will be a way around that
+   
+
+** DONE COMMENT Old
    CLOSED: [2017-09-18 Mon 02:17]
 
     - Add index support (e.g., directly with Sphinx syntax)

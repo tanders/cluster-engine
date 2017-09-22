@@ -7,7 +7,7 @@
 
 #+SETUPFILE: setup/publishing.setup
 
-#+OPTIONS: num:nil toc:3 :makeindex T
+#+OPTIONS: num:nil toc:3 makeindex:T
 
 * Setup                         :noexport:
 
@@ -24,7 +24,28 @@
     (call-process SCRIPT))
 
   (setq org-publish-project-alist
-	'(("cluster-engine-doc-sphinx-orgfiles"
+	'(
+	  ;; ("cluster-engine-doc-expand-orgfiles"
+	  ;;  :base-directory "." ;; relative path
+	  ;;  :base-extension "org"
+	  ;;  :publishing-directory "../doc_source_orgmode_expanded"
+	  ;;  :publishing-function org-org-publish-to-org
+	  ;;  ;; :exclude "PrivatePage.org"   ;; regexp
+	  ;;  :headline-levels 3
+	  ;;  :section-numbers nil
+	  ;;  :with-toc nil
+	  ;;  ) 
+	  ;; ("cluster-engine-doc-sphinx-orgfiles"
+	  ;;  :base-directory "../doc_source_orgmode_expanded" 
+	  ;;  :base-extension "org"
+	  ;;  :publishing-directory "../doc_source_sphinx"
+	  ;;  :publishing-function org-rst-publish-to-rst
+	  ;;  ;; :exclude "PrivatePage.org"   ;; regexp
+	  ;;  :headline-levels 3
+	  ;;  :section-numbers nil
+	  ;;  :with-toc nil
+	  ;;  )
+	  ("cluster-engine-doc-sphinx-orgfiles"
 	   :base-directory "." ;; relative path
 	   :base-extension "org"
 	   :publishing-directory "../doc_source_sphinx"
@@ -270,6 +291,9 @@ The above constraint problem does not include any musical rules. Without a detai
    ((60) (61) (62) (63) (64) (65) (66) (67) (68) (69) (70) (71) (72) (73) (74) (75) (76) (77) (78) (79))))
 #+end_src
 
+#+CAPTION: Possible result of the constraint problem above
+#+ATTR_HTML: :width 70%
+#+ATTR_RST: :width 70%
 [[file:graphics/polyphonic-solution.jpg]]
 
 
@@ -284,3 +308,7 @@ For further information refer to the PWGL tutorial for now. Pretty much all PWGL
 
 
 
+
+* Test
+
+  This is a test link to the documentation of function @@rst::ref:`R-RHYTHMS-ONE-VOICE`@@.

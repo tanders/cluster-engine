@@ -14,41 +14,50 @@
 #+end_src
 
 
+* Macros                                                           :noexport:
+
+#+MACRO: get-name   src_lisp[:results output raw]{(format t "~A" (docparser::get-name '$1 docparser::doc-index))}
+
+# create an internal link for all required export export formats
+# macro arg $1: name of link target
+#
+# version with direct rST links (target must be in same file) 
+#+MACRO: ilink @@rst:`$1`_@@ @@org:[[$1]]@@   
+#
+# version with rST link role :ref:`my-link` -- should allow for linking across files, but currently Sphinx does not turn these into links
+# see, e.g., https://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html
+# #+MACRO: ilink @@rst::ref:`$1`@@ @@org:[[$1]]@@   
+
+
+
+
 * Lisp doc functions                                               :noexport:
 
 Note: default value of name arg must be in docparser::doc-index, otherwise I get an error.
 
 #+name: defun
 #+begin_src lisp :results output raw :exports results :var name='cluster-engine:rules->cluster
-  ;; Create org-mode description list
+  ;; Create org-mode description list. Simplified output shown below. 
   ;; - /function/ (*<name>* <lambda-list>) :: <doc-string>
-  ;;
-  ;; Using format and :results output necessary to remove the double-quotes from the string result
-  ;; (format T "~{~A~}"
-  ;; 	(list
-  ;; 	 "  - /function/ (*"
-  ;; 	 (docparser::get-name name docparser::doc-index)
-  ;; 	 "* "
-  ;; 	 (format nil "~{~A~^ ~}" (docparser::get-lambda-list name docparser::doc-index))
-  ;; 	 ") :: "
-  ;; 	 ;; Docstring paragraphs indented
-  ;; 	 (replace-all (docparser::get-docstring name docparser::doc-index) "
-  ;; " "
-  ;;     ")
-  ;; 	))
-
+  ;; Additionally, for rST export a link target and index entry are created, and for org-mode export also a link target
   (let ((fn-name (docparser::get-name name docparser::doc-index))
 	(lambda-list (format nil "~{~A~^ ~}"
 			     (docparser::get-lambda-list name docparser::doc-index)))
 	;; Docstring, with paragraphs indented
-	(docstring (replace-all (docparser::get-docstring name docparser::doc-index) "
-    " "
-	")))
+	(docstring (replace-all (docparser::get-docstring name docparser::doc-index)
+				(concatenate 'string '(#\newline))
+				(concatenate 'string '(#\newline #\space #\space #\space #\space))
+				)))
+    ;;; Hack: export internal link target directly to rST format, because the Org format of of link targets like <<RULES->CLUSTER>> is left untouched 
+    ;;; Hm -- I cannot refer to these links
     (format T "#+BEGIN_EXPORT rst
+  .. _~A:
+
     .. index::
        single: ~A (function)
-  ,#+END_EXPORT
 
-    - /function/ (*~A* ~A) :: ~A"
-	    fn-name fn-name lambda-list docstring))
+  ,#+END_EXPORT
+    - @@org:<<~A>>@@ /function/ (*~A* ~A) :: ~A~%~%"
+	   fn-name fn-name fn-name fn-name lambda-list docstring))
 #+end_src
+

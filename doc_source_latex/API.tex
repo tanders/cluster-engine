@@ -1,0 +1,812 @@
+% Created 2017-09-22 Fri 20:39
+% Intended LaTeX compiler: pdflatex
+
+
+\usepackage{color}
+\usepackage{listings}
+\author{torsten}
+\date{\today}
+\title{Function Reference}
+\hypersetup{
+ pdfauthor={torsten},
+ pdftitle={Function Reference},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.1.1 (Org mode 9.1)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section*{Solver Call}
+\label{sec:org118b3fd}
+
+The following functions are part of virtually all programs using the Cluster Engine library.
+
+\begin{description}
+\item[{ \emph{function} (\textbf{CLUSTERENGINE} NO-OF-VARIABLES RND? DEBUG? RULES METRIC-DOMAIN LIST-OF-DOMAINS)}] The Cluster Engine - the main function of this library. 
+
+Pitch domains cannot exist without at least one duration in the rhythm domain. Domains with only one value will not use up any time in the search process.
+
+See the PWGL tutorials of this library for a detailed discussion of this function.
+\end{description}
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{RULES->CLUSTER} \&REST RULES)}] Use this box to collect all rules before inputting them to the box/function . It is possible to input the output of this box to a second Rules->Cluster box (to help organizing your rules in groups).
+\end{description}
+
+
+Test: see also function  
+
+
+\section*{Rule Definitions}
+\label{sec:orge56e057}
+
+This section documents functions by which users can define their own musical rules. Their results (one or more functions) are typically given to the function RULES->CLUSTER. 
+
+
+\subsection*{Rules for One "Engine"}
+\label{sec:org563702e}
+
+Functions for defining rules that restrict only one domain in one voice (e.g., only the pitches of the first voice). 
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-RHYTHMS-ONE-VOICE} RULE VOICES INPUT-MODE \&OPTIONAL RULE-TYPE WEIGHT)}] :RULE: is a logic statement in he form of a function. The output of the function has to be either true or false. If there are more than one input to the function, they will receive consecutive durations (or consecutive motifs depending on the input-mode). 
+
+:VOICES: is the number for the voice (starting at 0) that the rule affects. It is possible to give a list of several voice numbers: The rule will then be applied to every voice in the list (independant of each other).
+
+:INPUT-MODE: determines what type of variables the rule will receive in its inputs:
+\begin{itemize}
+\item \texttt{:durations} The rule will receive individual durations, one for each input.
+\item \texttt{:dur/time} As above, but the start-time of the duration will be indicated.
+Format: '(duration start-time), Ex. '(1/4 9/4)
+\item \texttt{:motifs} The rule will receive motifs, one (consecutive) motif for each 
+input. A motif is a collection of durations that are grouped in 
+a list. Motifs are designed in the domain and cannot be 
+redesignedby the engine. Note that a motif may be a single 
+duration (a list with one duration-ratio) if it is defined as 
+such in the domain.
+\item \texttt{:motif/time} As the previous selection, but with the start-time of the first event in the motif added. Format: '(motif start-time)
+Ex. '((1/4 -1/8) 9/8)
+\item \texttt{:all-durations} All durations in the voice that are assigned at the time the rule is checked are given as a list of duration ratios. The list will thus become longer and longer during the search. The rule can only have ONE input in this mode.
+\end{itemize}
+\textbf{Optional inputs}
+
+By expanding the box it is possible to use the rule as a heuristic switch rule. A heuristic switch rule is still using a logic statement (that outputs true or false), but the effect of the rule is different: If the rule is true, the weight (given in the <weight> input) is passed to the engine. If it is false, a weight of 0 will be passed. A candidate that receive a high weight will have a higher priority for being picked when the true/false rules are checked. A heuristic rule can never fail a candidate, nor can it trigger backtracking of the engine. Heuristic rules only sort the candidates locally before the strict rules are applied. Depending on the context, heuristic rules might have more or less of an effect. 
+
+Heuristic switch rules differs slightly form regular heuristic rules (the latter don't output true or false, but a weight that might vary dependingon the candidate).
+
+[Backtracking: This rule will trigger backtracking in its own engine.]
+\end{description}
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-INDEX-RHYTHMS-ONE-VOICE} RULE POSITIONS VOICES INPUT-MODE \&OPTIONAL RULE-TYPE WEIGHT)}] <rule> is a logic statement in he form of a function. The output of the 
+function has to be either true or false. The function should have as many 
+inputs as there are positions given in the <positions> list.
+
+<positions> is a list of positions where the logic statement is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.
+
+<voices> is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).
+
+<input-mode> determines what type of variables the rule will receive in 
+its inputs:
+\begin{itemize}
+\item index-for-cell: The rule will receive motifs as lists of duration 
+ratios. The positions given above refer to the index
+number for the motifs in the solution. Each input 
+will receive one corresponding motif.
+\item position-for-duration: The rule will receive individual
+durations, one for each given position.
+The positions refer to the position
+of the individual duraions in the solution.
+Rests are included.
+\end{itemize}
+[Backtracking: This rule will trigger backtracking in its own engine.]
+\end{description}
+
+
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the <weight> input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. 
+
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-PITCHES-ONE-VOICE} RULE VOICES INPUT-MODE \&OPTIONAL RULE-TYPE WEIGHT)}] <rule> is a logic statement in he form of a function. The output of the 
+function has to be either true or false. If there are more than one 
+input to the function, they will receive consecutive pitches (or 
+consecutive motifs depending on the input-mode). 
+
+<voices> is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).
+
+<input-mode> determines what type of variables the rule will receive in 
+its inputs:
+\begin{itemize}
+\item pitches: The rule will receive individual  pitches, one for each input.
+\item pitch/nth: As above, but the position of the pitch is also indicated.
+Format: '(pitch nth) Ex. '(60 3).
+\item motifs: The rule will receive (consecutive) motifs, one motif for each 
+input. A motif is a collection of pitches that are grouped in 
+a list. Motifs are designed in the domain and cannot be redesigned
+by the engine. Note that a motif may be a single pitch (a list 
+with one MIDI note number) if it is defined as such in the domain.
+\item motif/nth: As above, but the position of the pitches is also indicated.
+Format: '((pitch-motif) (nth-list)) Ex. '((60 64) (3 4)).
+\item motif/index: As motifs, but the index of the variable is also indicated.
+Format: '((pitch-motif) index) Ex. '((60 64) 2).
+\item all-pitches: All pitches in the voice that are assigned at the time the  
+rule is checked are given as a list of MIDI note numbers.  
+The list will thus become longer and longer during the 
+search. The rule can only have ONE input in this mode.
+\end{itemize}
+[Backtracking: This rule will trigger backtracking in its own engine.]
+\end{description}
+
+
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the <weight> input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. 
+
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-INDEX-PITCHES-ONE-VOICE} RULE POSITIONS VOICES INPUT-MODE \&OPTIONAL RULE-TYPE WEIGHT)}] <rule> is a logic statement in he form of a function. The output of the 
+function has to be either true or false. The function should have as many 
+inputs as there are positions given in the <positions> list.
+
+<positions> is a list of positions where the logic statement is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.
+
+<voices> is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).
+
+<input-mode> determines what type of variables the rule will receive in 
+its inputs:
+\begin{itemize}
+\item index-for-cell: The rule will receive motifs as lists of MIDI note 
+numbers The positions given above refer to the index
+number for the motifs in the solution. Each input 
+will receive one corresponding motif.
+\item position-for-pitches: The rule will receive individual
+pitches, one for each given position.
+The positions refer to the position
+of the individual duraions in the solution.
+\end{itemize}
+[Backtracking: This rule will trigger backtracking in its own engine.]
+\end{description}
+
+
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the <weight> input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. 
+
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-TIME-SIGNATURES} RULE INPUT-MODE \&OPTIONAL RULE-TYPE WEIGHT)}] <rule> is a logic statement in he form of a function. The output of the 
+function has to be either true or false. If there are more than one 
+input to the function, they will receive consecutive time signatures.
+
+<input-mode> determines what type of variables the rule will receive in 
+its inputs:
+\begin{itemize}
+\item timesigns: The rule will receive individual time signatures, one for 
+each input. Ex. '(4 4)
+\item all-timesigns: All time signatures in the score that are assigned at the
+time the rule is checked are given as a list of time   
+signatures. The list will thus become longer and longer 
+during the search. The rule can only have ONE input in 
+this mode. Ex. '((4 4) (6 8))
+\end{itemize}
+[Backtracking: This rule will trigger backtracking in its own engine.]
+\end{description}
+
+
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the <weight> input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. 
+
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-INDEX-TIME-SIGNATURES} RULE INDEXES \&OPTIONAL RULE-TYPE WEIGHT)}] <rule> is a logic statement in he form of a function. The output of the 
+function has to be either true or false. The function should have as many 
+inputs as there are positions given in the <positions> list.
+
+<indexes> is a list of positions where the logic statement is applied.
+Indexes are counted from 0. Every position in this list corresponds to
+an input in the rule.
+\end{description}
+
+
+[Backtracking: This rule will trigger backtracking in its own engine.]
+
+
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the <weight> input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. 
+
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-ONLY-M-MOTIFS} VOICES \&OPTIONAL RULE-TYPE WEIGHT)}] This rule will force the system to only pick transposable pitch
+motifs (motifs defined as melodic intervals and flagged with the 
+letter m). The first variable in a voice is an exception: this 
+variable always has to be a pitch defined as a MIDI note value.
+
+<voices> is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).
+
+[Backtracking: This rule will trigger backtracking in its own engine.]
+\end{description}
+
+
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the <weight> input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. 
+
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-RHYTHMS-ONE-VOICE-AT-TIMEPOINTS} RULE VOICE TIMEPOINTS INPUT-MODE)}] Rule for rhythms that exist at timepoints in one voice.
+
+<rule> is a logic statement in he form of a function. The output of the 
+function has to be either true or false. .If there are more than one 
+input to the function, they will receive the information for consecutive
+timepoints.
+
+<voices> is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).
+
+<timepoints> is a list of timepoints (starting from 0) counted from the 
+beginning of the score where the rule will be checked. For example
+the timepoint 15/4 will be 15 quarter notes from the beginning of the 
+score. 
+
+<input-mode>              
+\begin{itemize}
+\item motifs-start: The start time for motifs will be compared to the given 
+timepoint. An input receives the as 
+'(offset-to-timepoint (motif)). Offset is the duration 
+between the startingpoint of the motif and given timepoint. 
+Ex. (-1/4 (1/8 -1/8 1/16 1/16))
+\item motifs-end:   The end time for motifs will be compared to the given 
+timepoint. An input receives the as 
+'(offset-to-timepoint (motif)). Offset is the duration 
+between the endingpoint of the motif and given timepoint. 
+Ex. (1/8 (1/8 -1/8 1/16 1/16))
+\item dur-start:    The start time for durations and rests will be compared to 
+the given timepoint. An input receives the as 
+'(offset-to-timepoint duration). Offset is the duration 
+between the startingpoint of the event and given timepoint. 
+Ex. (-1/16 1/4)
+\end{itemize}
+\end{description}
+
+
+
+This rule always prefer to backtrack the rhythm engine that it belongs to.
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{HR-RHYTHMS-ONE-VOICE} RULE VOICES RULETYPE)}] Heuristic rule for durations in one voice.
+
+Heuristic rules sort the candidates locally according to weights. 
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor 
+can it trigger backtracking of an engine. 
+
+<rule> is a function that outputs a numerical weight. If there are 
+more than one input to the function, it will receive consecutive 
+pitches or consecutive motifs depending on the input-mode (see below). 
+
+<voices> is the number for the voice (starting at 0) that the heuristic 
+rule affects. It is possible to give a list of several voice numbers: 
+The rule will then be applied to every voice in the list (independant 
+of each other).
+
+<input-mode> determines what type of variables the rule will receive in 
+its inputs:
+\begin{itemize}
+\item durations: The rule will receive individual  pitches, one for each input.
+\item dur/time: As above, but the start time of the duration will be indicated.
+Format: '(duration start-time), Ex. '(1/4 9/4)
+\item motifs: The rule will receive (consecutive) motifs, one motif for each 
+input. A motif is a collection of durations that are grouped in 
+a list. Motifs are designed in the domain and cannot be 
+redesignedby the engine. Note that a motif may be a single 
+duration (a list with one duration ratio) if it is defined as 
+such in the domain.
+\item motif/time: As the previous selection, but with the start time of the 
+first event in the motif added. Format: '(motif start-time)
+Ex. '((1/4 -1/8) 9/8)
+\item all-durations: All durations in the voice that are assigned at the time 
+the rule is checked are given as a list of duration ratios.  
+The list will thus become longer and longer during the 
+search. The rule can only have ONE input in this mode.
+\end{itemize}
+\end{description}
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{HR-INDEX-RHYTHMS-ONE-VOICE} RULE POSITIONS VOICE RULETYPE)}] Heuristic index rule for durations in one voice.
+
+Heuristic rules sort the candidates locally according to weights. 
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor 
+can it trigger backtracking of an engine. 
+
+<rule> is a function that outputs a numerical weight. The function 
+should have as many inputs as there are positions given in the 
+<positions> list. 
+
+<positions> is a list of positions where the heuristic rule is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.
+
+<voices> is the number for the voice (starting at 0) that the heuristic 
+rule affects. It is possible to give a list of several voice numbers: 
+The rule will then be applied to every voice in the list (independant 
+of each other).
+\end{description}
+
+
+<input-mode> determines what type of variables the heuristic rule will
+receive in its inputs:
+\begin{itemize}
+\item index-for-cell: The rule will receive motifs as lists of duration 
+ratios. The positions given above refer to the index
+number for the motifs in the solution. Each input 
+will receive one corresponding motif.
+\item position-for-duration: The rule will receive individual
+durations, one for each given position.
+The positions refer to the position
+of the individual duraions in the solution.
+Rests are included.
+\end{itemize}
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{HR-PITCHES-ONE-VOICE} RULE VOICES INPUT-MODE)}] Heuristic rule for pitches in one voice.
+
+Heuristic rules sort the candidates locally according to weights. 
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor 
+can it trigger backtracking of an engine. 
+
+<rule> is a function that outputs a numerical weight. If there are more 
+than one input to the function, it will receive consecutive pitches 
+or consecutive motifs depending on the input-mode (see below). 
+
+<voices> is the number for the voice (starting at 0) that the heuristic 
+rule affects. It is possible to give a list of several voice numbers: 
+The rule will then be applied to every voice in the list (independant 
+of each other).
+
+<input-mode> determines what type of variables the rule will receive in 
+its inputs:
+\begin{itemize}
+\item pitches The rule will receive individual  pitches, one for each input.
+\item pitch/nth: As above, but the position of the pitch is also indicated.
+Format: '(pitch nth) Ex. '(60 3).
+\item motifs: The rule will receive (consecutive) motifs, one motif for each 
+input. A motif is a collection of pitches that are grouped in 
+a list. Motifs are designed in the domain and cannot be redesigned
+by the engine. Note that a motif may be a single pitch (a list 
+with one MIDI note number) if it is defined as such in the domain.
+\item motif/nth: As above, but the position of the pitches is also indicated.
+Format: '((pitch-motif) (nth-list)) Ex. '((60 64) (3 4)).
+\item motif/index: As motifs, but the index of the variable is also indicated.
+Format: '((pitch-motif) index) Ex. '((60 64) 2).
+\item all-pitches: All pitches in the voice that are assigned at the time the  
+rule is checked are given as a list of MIDI note numbers.  
+The list will thus become longer and longer during the 
+search. The rule can only have ONE input in this mode.
+\end{itemize}
+\end{description}
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{HR-INDEX-PITCHES-ONE-VOICE} RULE POSITIONS VOICE INPUT-MODE)}] Heuristic index rule for pitches in one voice.
+
+Heuristic rules sort the candidates locally according to weights. 
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor 
+can it trigger backtracking of an engine. 
+
+<rule> is a function that outputs a numerical weight. The function 
+should have as many inputs as there are positions given in the 
+<positions> list. 
+
+<positions> is a list of positions where the heuristic rule is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.
+
+<voices> is the number for the voice (starting at 0) that the heuristic 
+rule affects. It is possible to give a list of several voice numbers: 
+The rule will then be applied to every voice in the list (independant 
+of each other).
+
+<input-mode> determines what type of variables the rule will receive in 
+its inputs:
+\begin{itemize}
+\item index-for-cell: The rule will receive motifs as lists of MIDI note 
+numbers The positions given above refer to the index
+number for the motifs in the solution. Each input 
+will receive one corresponding motif.
+\item position-for-pitches: The rule will receive individual
+pitches, one for each given position.
+The positions refer to the position
+of the individual duraions in the solution.
+\end{itemize}
+\end{description}
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{HR-TIME-SIGNATURES} RULE INPUT-MODE)}] Heuristic rules sort the candidates locally according to weights. 
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor 
+can it trigger backtracking of an engine. 
+
+<rule> is a function that outputs a numerical weight. If there are 
+more than one input to the function, they will receive consecutive 
+time signatures.
+
+<input-mode> determines what type of variables the rule will receive in 
+its inputs:
+\begin{itemize}
+\item timesigns: The rule will receive individual time signatures, one for 
+each input. Ex. '(4 4)
+\item all-timesigns: All time signatures in the score that are assigned at the
+time the rule is checked are given as a list of time   
+signatures. The list will thus become longer and longer 
+during the search. The rule can only have ONE input in 
+this mode. Ex. '((4 4) (6 8))
+\end{itemize}
+\end{description}
+
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{HR-INDEX-TIME-SIGNATURES} RULE INDEXES)}] Heuristic rules sort the candidates locally according to weights. 
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor 
+can it trigger backtracking of an engine. 
+
+<rule> is a function that outputs a numerical weight. The function 
+should have as many inputs as there are positions given in the 
+<indexes> list.
+
+<indexes> is a list of positions where the logic statement is applied.
+Indexes are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.
+\end{description}
+
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-PMC-ONE-VOICE} PMCRULES0 RULETYPE0 VOICE0 \&OPTIONAL PMCRULES1 RULETYPE1 VOICE1 PMCRULES2 RULETYPE2 VOICE2 PMCRULES3 RULETYPE3 VOICE3 PMCRULES4 RULETYPE4 VOICE4 PMCRULES5 RULETYPE5 VOICE5 PMCRULES6 RULETYPE6 VOICE6 PMCRULES7 RULETYPE7 VOICE7 PMCRULES8 RULETYPE8 VOICE8 PMCRULES9 RULETYPE9 VOICE9)}] This box makes it possible to use PMC formated rules with the Poly-engine. The box expects a list of rules (for
+example from a text box). The following PMC related variables and functions are supported:
+L, RL, LEN, (cur-index)
+
+Both wildcard rules and index rules are possible to use. Wildcard rules are expected to use variables 
+in order.
+\end{description}
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-JBS-ONE-VOICE} JBSRULE0 RULETYPE0 VOICE0 \&OPTIONAL JBSRULE1 RULETYPE1 VOICE1 JBSRULE2 RULETYPE2 VOICE2 JBSRULE3 RULETYPE3 VOICE3 JBSRULE4 RULETYPE4 VOICE4 JBSRULE5 RULETYPE5 VOICE5 JBSRULE6 RULETYPE6 VOICE6 JBSRULE7 RULETYPE7 VOICE7 JBSRULE8 RULETYPE8 VOICE8 JBSRULE9 RULETYPE9 VOICE9)}] This box makes it possible to use rules from the JBS-constraint library. 
+The box can handle both true/false rules and heuristic rules.
+
+Rules that use the (cur-slen) function are not supported (it is possible 
+to use these rules by letting them pass the set-end box).
+
+The voice input can be a list with all voices that the rule should affect.
+
+Score-PMC-rules are NOT supported.
+\end{description}
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{SET-END} RULE END-POINT)}] This box will set the endpoint for a jbs or a pmc rule. The rule should
+pass through this box before going into the r-jbs-one-voice box (or the
+r-pmc-one-voice box). The end point is the position (i.e. not the index) for 
+the last value in a voice where the rule is checked. It also replaces 
+the '(cur-slen) expression by the end point.
+
+Note that the first value has the position 1 (this is compatible with
+how index numbers are counted in the PMC engine).
+\end{description}
+
+
+
+
+
+\subsection*{Rules for One Voice}
+\label{sec:org05dc49f}
+
+
+\subsection*{Rules for Two Voices}
+\label{sec:orga55fed6}
+
+
+\subsection*{Rules for Two or More Voices}
+\label{sec:org49f0c90}
+
+
+\section*{Other Functions}
+\label{sec:org12c5730}
+
+\subsection*{Special Domain Declarations, Debugging and More}
+\label{sec:org28775d4}
+
+\begin{description}
+\item[{ \emph{function} (\textbf{METRIC-DOMAIN} TIMESIGN1 TUPLETS1 ALT-BEATLENGTH1 \&OPTIONAL TIMESIGN2 TUPLETS2 ALT-BEATLENGTH2 TIMESIGN3 TUPLETS3 ALT-BEATLENGTH3 TIMESIGN4 TUPLETS4 ALT-BEATLENGTH4 TIMESIGN5 TUPLETS5 ALT-BEATLENGTH5 TIMESIGN6 TUPLETS6 ALT-BEATLENGTH6 TIMESIGN7 TUPLETS7 ALT-BEATLENGTH7 TIMESIGN8 TUPLETS8 ALT-BEATLENGTH8)}] This box sets the metric domain in more detail than just a list of possible time signatures.
+
+<tuplets> is a list of allowed subdivisions of the beat. This setting only has an effect if 
+using the rule r-metric-hierarchy.
+
+<alt-beatlength> allows the user to define another beat length than the time 
+signature indicates. This will affect rules that consrain events located on
+beats:
+\begin{itemize}
+\item nil:  If this input is nil, the default beat length for a time signature 
+will be used (i.e. the time signature '(4 4) will have the beat length
+1/4, the time signature '(6 8) will have the beat length 1/8, etc.
+\item\relax [a fraction]: If this input is a fraction, it will be used as the beat
+length. For example, if the time signature is '(6 8), the fraction
+3/8 will give replace the default beat length 1/8. The subdivision of 
+beats (the tuplets input) will relate to the alternative beat length.
+\item\relax [a list]:  If this input is a list, it will define an arbitrary beat
+ division of the measure. For example, if the time signature is
+'(9 8), the list '(3/8 2/8 2/8 2/8) will distribute the beats
+accordingly. NOTE: the sum of the beats have to add up to the length 
+of a measure. The subdivision of beats (the tuplets input) will
+relate to the default beat length.
+\end{itemize}
+\end{description}
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{R-PREDEFINE-METER} TIMESIG-LIST)}] This rule predefines the time signature to follow a given sequence.
+WARNING: This rule will preset the sequence of time signature and 
+will not allow the system to backtrack them.
+
+It the given list of time signatures is shorted than what is needed 
+in the solution, the remaining time signatures will be picked
+randomly.
+\end{description}
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{STOP-RULE-TIME} VOICES STOPTIME INPUT-MODE)}] This rule will not affect the choice of musical parameters (it will always be true), but it will stop the search when a time point has been reached. The solution found when the time point is reached will be returned as a valid solution.
+
+The rule compares the START TIME of motifs to the stoptime (i.e. the end time or the time point for durations inside motifs of a motif is not checked). The stop will happen when a duration reaches the stop time.
+
+<voices> is one or a list of voices that will be checked.
+
+<stoptime> is a timepoint in the score, counting from 0, where the search will stop (ex. the time point 5/2 is 2 whole notes + 1 half note into the score). The stoptime has to be reached in all given voices. Note that the rule ignors the pitch information.
+
+<input-mode>
+
+\begin{itemize}
+\item OR: The search will stop when one of the voices in the given list reached the stop time. The metric structure will be ignored.
+\item AND: The search will stop when all the voices in the given list reached the stop time. The metric structure will be ignored.
+\item meter: The start time for the measures will determine the stop.
+\end{itemize}
+\end{description}
+
+
+Note that if the system has not assigned a meter for durations, they will not be displayed in the score.
+
+
+
+
+\begin{description}
+\item[{ \emph{function} (\textbf{STOP-RULE-INDEX} VOICES STOPINDEX INPUT-MODE PARAMETERS)}] This rule will not affect the choice of musical parameters (it will always be true), but it will stop the search when an index has been reached. The solution found when the index is reached will be returned as a valid solution.
+
+<voices> is one or a list of voices that will be checked.
+
+<stopindex> is an index in the score, counting from 0, where the search will stop.
+
+<input-mode>
+
+\begin{itemize}
+\item OR: The search will stop when one of the voices in the given list reached the stop time. The metric structure will be ignored.
+\end{itemize}
+\end{description}
+
+
+
+
+TODO: function \texttt{CLUSTERdebug} named differently?
+
+\begin{description}
+\item[{ \emph{function} (\textbf{PREFERENCES} BACKJUMP? MAX-NR-OF-LOOPS BKTR-RP1V BKTR-RR2V BKTR-RH2V BKTR-RMH2V BKTR-DM1V BKTR-NM1V BKTR-MD1V BKTR-MN1V BKTR-PPNV BKTR-LENV)}] By evaluating this box you may change some default settings of the 
+system. The box should not be connected to other boxes. Note that you 
+need to evaluate this box every time you restart PWGL or after you 
+change a setting to change the preferences.
+
+<backjump?>     Backjumping speeds up backtracking by jumping 
+directly to the variable that caused a failed ruletest instead of 
+step-by-step backtracking. The speed difference vary from no 
+difference to a huge difference. The way backjumping is used in this 
+system, it should not cause the system to miss possible solutions. It 
+is strongly recommended to keep backjumping on.
+
+<max-nr-of-loops> is the maximum search loops the engine will do before stopping. 
+---
+
+The following variables sets what engine a failed rule prefers to
+backtrack. If the prefered engine cannot be backtracked, the system
+will make another choice based on lower priorities. Note that if
+more than one rule fails, the choice will be based on the most
+frequently proposed engine to backtrack. 
+
+The default settings can be found by opening a new preference box.
+
+<bktr-rp1v>  r-rhyth-pitch-one-vocie
+\begin{itemize}
+\item self (default): backtrack the engine (rhythm or pitch) where the failed variable was found.
+\item other: backtrack the engine (rhythm or pitch) that is associated with the enginewhere the failed variable was found.
+\end{itemize}
+<bktr-rr2v> r-rhythm-rhythm
+\begin{itemize}
+\item self: backtrack the engine (voice 1 or 2) where the failed varialbe was found.
+\item other (default): backtrack the engine (voice 1 or 2) that is associated with the engine where the failed variable was found.
+\end{itemize}
+<bktr-rh2v> r-rhythm-hierarchy
+\begin{itemize}
+\item self: backtrack the engine (voice 1 or 2) where the failed variable was found.
+\item other (default): backtrack the engine (voice 1 or 2) that is associated with the engine where the failed variable was found.
+\end{itemize}
+<bktr-rmh2v> r-metric-hierarchy
+\begin{itemize}
+\item rhythm (default): backtrack the rhythm engine
+\item meter: backtrack the metric engine.
+\end{itemize}
+<bktr-dm1v> r-note-meter if pitch information is NOT asked for
+\begin{itemize}
+\item rhythm (default): backtrack the rhythm engine
+\item meter: backtrack the metric engine.
+\end{itemize}
+<bktr-nm1v> r-note-meter if pitch information is asked for
+\begin{itemize}
+\item self (default): backtrack the engine (rhythm, pitch or meter) where the failed variable was found.
+\item rhythm/pitch: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the rhythm engine.
+\item pitch/rhythm: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the pitch engine.
+\end{itemize}
+<bktr-md1v> r-meter-note if pitch information is NOT asked for
+\begin{itemize}
+\item rhythm (default): backtrack the rhythm engine
+\item meter: backtrack the metric engine.
+\end{itemize}
+<bktr-mn1v> r-meter-note if pitch information is asked for
+\begin{itemize}
+\item self (default): backtrack the engine (rhythm, pitch or meter) where the failed variable was found.
+\item rhythm/pitch: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the rhythm engine.
+\item pitch/rhythm: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the pitch engine.
+\end{itemize}
+<bktr-ppnv> r-pitch-pitch
+\begin{itemize}
+\item next-pitch (default): backtrack the pitch engine after the engine where the failed variable was found (the order is defined by the voice input).
+\item next-rhythm: backtrack the pitch engine after the engine where the failed variable was found (the order is defined by the voice input).
+\item current-pitch: if the failed variable is in a pitch engine, backtrack the same engine. If it is in a rhythm engine, backtrack the associated pitch engine.
+\item current-rhythm: if the failed variable is in a rhythm engine, backtrack the same engine. If it is in a pitch engine, backtrack the associated rhythm engine.
+\end{itemize}
+<bktr-leNv> r-list-all-events
+\begin{itemize}
+\item next:  backtrack the engine after the engine where the failed variable was found (the order is defined by the voice input).
+\item self:  backtrack the engine where the failed variable was found.
+\end{itemize}
+\end{description}
+
+
+
+
+
+\subsection*{Utilities}
+\label{sec:org8f700b7}
+
+Here goes on the general text. Here goes on the general text. Here
+goes on the general text. Here goes on the general text.
+\end{document}

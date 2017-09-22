@@ -1,0 +1,910 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Function Reference &#8212; cluster-engine 0.158 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.158',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Overview" href="readme.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="function-reference">
+<h1>Function Reference<a class="headerlink" href="#function-reference" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">torsten</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="section" id="solver-call">
+<h2>Solver Call<a class="headerlink" href="#solver-call" title="Permalink to this headline">¶</a></h2>
+<p>The following functions are part of virtually all programs using the Cluster Engine library.</p>
+<blockquote id="clusterengine">
+<div><blockquote>
+<div></div></blockquote>
+<dl class="docutils" id="index-0">
+<dt><em>function</em> (<strong>CLUSTERENGINE</strong> NO-OF-VARIABLES RND? DEBUG? RULES METRIC-DOMAIN LIST-OF-DOMAINS)</dt>
+<dd><p class="first">The Cluster Engine - the main function of this library.</p>
+<p>Pitch domains cannot exist without at least one duration in the rhythm domain. Domains with only one value will not use up any time in the search process.</p>
+<p class="last">See the PWGL tutorials of this library for a detailed discussion of this function.</p>
+</dd>
+</dl>
+</div></blockquote>
+<blockquote id="rules-cluster">
+<div><blockquote>
+<div></div></blockquote>
+<dl class="docutils" id="index-1">
+<dt><em>function</em> (<strong>RULES-&gt;CLUSTER</strong> &amp;REST RULES)</dt>
+<dd>Use this box to collect all rules before inputting them to the box/function <a class="reference internal" href="#clusterengine">clusterengine</a>. It is possible to input the output of this box to a second Rules-&gt;Cluster box (to help organizing your rules in groups).</dd>
+</dl>
+</div></blockquote>
+<p>Test: see also function <a class="reference internal" href="#clusterengine">CLUSTERENGINE</a></p>
+</div>
+<div class="section" id="rule-definitions">
+<h2>Rule Definitions<a class="headerlink" href="#rule-definitions" title="Permalink to this headline">¶</a></h2>
+<p>This section documents functions by which users can define their own musical rules. Their results (one or more functions) are typically given to the function <a class="reference internal" href="#rules-cluster">RULES-&gt;CLUSTER</a> .</p>
+<div class="section" id="rules-for-one-engine">
+<h3>Rules for One “Engine”<a class="headerlink" href="#rules-for-one-engine" title="Permalink to this headline">¶</a></h3>
+<p>Functions for defining rules that restrict only one domain in one voice (e.g., only the pitches of the first voice).</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="r-rhythms-one-voice">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-2">
+<dt><em>function</em> (<strong>R-RHYTHMS-ONE-VOICE</strong> RULE VOICES INPUT-MODE &amp;OPTIONAL RULE-TYPE WEIGHT)</dt>
+<dd><blockquote class="first">
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">RULE:</th><td class="field-body">is a logic statement in he form of a function. The output of the function has to be either true or false. If there are more than one input to the function, they will receive consecutive durations (or consecutive motifs depending on the input-mode).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">VOICES:</th><td class="field-body">is the number for the voice (starting at 0) that the rule affects. It is possible to give a list of several voice numbers: The rule will then be applied to every voice in the list (independant of each other).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">INPUT-MODE:</th><td class="field-body">determines what type of variables the rule will receive in its inputs:</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">:durations</span></code> The rule will receive individual durations, one for each input.</li>
+<li><code class="docutils literal"><span class="pre">:dur/time</span></code> As above, but the start-time of the duration will be indicated.
+Format: ‘(duration start-time), Ex. ‘(1/4 9/4)</li>
+<li><code class="docutils literal"><span class="pre">:motifs</span></code> The rule will receive motifs, one (consecutive) motif for each
+input. A motif is a collection of durations that are grouped in
+a list. Motifs are designed in the domain and cannot be
+redesignedby the engine. Note that a motif may be a single
+duration (a list with one duration-ratio) if it is defined as
+such in the domain.</li>
+<li><code class="docutils literal"><span class="pre">:motif/time</span></code> As the previous selection, but with the start-time of the first event in the motif added. Format: ‘(motif start-time)
+Ex. ‘((1/4 -1/8) 9/8)</li>
+<li><code class="docutils literal"><span class="pre">:all-durations</span></code> All durations in the voice that are assigned at the time the rule is checked are given as a list of duration ratios. The list will thus become longer and longer during the search. The rule can only have ONE input in this mode.</li>
+</ul>
+<p><strong>Optional inputs</strong></p>
+<p>By expanding the box it is possible to use the rule as a heuristic switch rule. A heuristic switch rule is still using a logic statement (that outputs true or false), but the effect of the rule is different: If the rule is true, the weight (given in the &lt;weight&gt; input) is passed to the engine. If it is false, a weight of 0 will be passed. A candidate that receive a high weight will have a higher priority for being picked when the true/false rules are checked. A heuristic rule can never fail a candidate, nor can it trigger backtracking of the engine. Heuristic rules only sort the candidates locally before the strict rules are applied. Depending on the context, heuristic rules might have more or less of an effect.</p>
+<p>Heuristic switch rules differs slightly form regular heuristic rules (the latter don’t output true or false, but a weight that might vary dependingon the candidate).</p>
+<p>[Backtracking: This rule will trigger backtracking in its own engine.]</p>
+</div></blockquote>
+<blockquote class="last" id="r-index-rhythms-one-voice">
+<div></div></blockquote>
+</dd>
+<dt id="index-3"><em>function</em> (<strong>R-INDEX-RHYTHMS-ONE-VOICE</strong> RULE POSITIONS VOICES INPUT-MODE &amp;OPTIONAL RULE-TYPE WEIGHT)</dt>
+<dd><p class="first">&lt;rule&gt; is a logic statement in he form of a function. The output of the
+function has to be either true or false. The function should have as many
+inputs as there are positions given in the &lt;positions&gt; list.</p>
+<p>&lt;positions&gt; is a list of positions where the logic statement is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.</p>
+<p>&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects.
+It is possible to give a list of several voice numbers: The rule will then
+be applied to every voice in the list (independant of each other).</p>
+<p>&lt;input-mode&gt; determines what type of variables the rule will receive in
+its inputs:</p>
+<ul class="simple">
+<li>index-for-cell: The rule will receive motifs as lists of duration
+ratios. The positions given above refer to the index
+number for the motifs in the solution. Each input
+will receive one corresponding motif.</li>
+<li>position-for-duration: The rule will receive individual
+durations, one for each given position.
+The positions refer to the position
+of the individual duraions in the solution.
+Rests are included.</li>
+</ul>
+<p class="last">[Backtracking: This rule will trigger backtracking in its own engine.]</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch
+rule. A heuristic switch rule is still using a logic statement (that
+outputs true or false), but the effect of the rule is different: If the rule
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine.
+If it is false, a weight of 0 will be passed. A candidate that receive a
+high weight will have a higher priority for being picked when the true/false
+rules are checked. A heuristic rule can never fail a candidate, nor can it
+trigger backtracking of the engine. Heuristic rules only sort the
+candidates locally before the strict rules are applied. Depending on the
+context, heuristic rules might have more or less of an effect.</p>
+<p>Heuristic switch rules differs slightly form regular heuristic rules (the
+latter don’t output true or false, but a weight that might vary depending
+on the candidate).</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="r-pitches-one-voice">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-4">
+<dt><em>function</em> (<strong>R-PITCHES-ONE-VOICE</strong> RULE VOICES INPUT-MODE &amp;OPTIONAL RULE-TYPE WEIGHT)</dt>
+<dd><p class="first">&lt;rule&gt; is a logic statement in he form of a function. The output of the
+function has to be either true or false. If there are more than one
+input to the function, they will receive consecutive pitches (or
+consecutive motifs depending on the input-mode).</p>
+<p>&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects.
+It is possible to give a list of several voice numbers: The rule will then
+be applied to every voice in the list (independant of each other).</p>
+<p>&lt;input-mode&gt; determines what type of variables the rule will receive in
+its inputs:</p>
+<ul class="simple">
+<li>pitches: The rule will receive individual  pitches, one for each input.</li>
+<li>pitch/nth: As above, but the position of the pitch is also indicated.
+Format: ‘(pitch nth) Ex. ‘(60 3).</li>
+<li>motifs: The rule will receive (consecutive) motifs, one motif for each
+input. A motif is a collection of pitches that are grouped in
+a list. Motifs are designed in the domain and cannot be redesigned
+by the engine. Note that a motif may be a single pitch (a list
+with one MIDI note number) if it is defined as such in the domain.</li>
+<li>motif/nth: As above, but the position of the pitches is also indicated.
+Format: ‘((pitch-motif) (nth-list)) Ex. ‘((60 64) (3 4)).</li>
+<li>motif/index: As motifs, but the index of the variable is also indicated.
+Format: ‘((pitch-motif) index) Ex. ‘((60 64) 2).</li>
+<li>all-pitches: All pitches in the voice that are assigned at the time the
+rule is checked are given as a list of MIDI note numbers.
+The list will thus become longer and longer during the
+search. The rule can only have ONE input in this mode.</li>
+</ul>
+<p class="last">[Backtracking: This rule will trigger backtracking in its own engine.]</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch
+rule. A heuristic switch rule is still using a logic statement (that
+outputs true or false), but the effect of the rule is different: If the rule
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine.
+If it is false, a weight of 0 will be passed. A candidate that receive a
+high weight will have a higher priority for being picked when the true/false
+rules are checked. A heuristic rule can never fail a candidate, nor can it
+trigger backtracking of the engine. Heuristic rules only sort the
+candidates locally before the strict rules are applied. Depending on the
+context, heuristic rules might have more or less of an effect.</p>
+<p>Heuristic switch rules differs slightly form regular heuristic rules (the
+latter don’t output true or false, but a weight that might vary depending
+on the candidate).</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="r-index-pitches-one-voice">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-5">
+<dt><em>function</em> (<strong>R-INDEX-PITCHES-ONE-VOICE</strong> RULE POSITIONS VOICES INPUT-MODE &amp;OPTIONAL RULE-TYPE WEIGHT)</dt>
+<dd><p class="first">&lt;rule&gt; is a logic statement in he form of a function. The output of the
+function has to be either true or false. The function should have as many
+inputs as there are positions given in the &lt;positions&gt; list.</p>
+<p>&lt;positions&gt; is a list of positions where the logic statement is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.</p>
+<p>&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects.
+It is possible to give a list of several voice numbers: The rule will then
+be applied to every voice in the list (independant of each other).</p>
+<p>&lt;input-mode&gt; determines what type of variables the rule will receive in
+its inputs:</p>
+<ul class="simple">
+<li>index-for-cell: The rule will receive motifs as lists of MIDI note
+numbers The positions given above refer to the index
+number for the motifs in the solution. Each input
+will receive one corresponding motif.</li>
+<li>position-for-pitches: The rule will receive individual
+pitches, one for each given position.
+The positions refer to the position
+of the individual duraions in the solution.</li>
+</ul>
+<p class="last">[Backtracking: This rule will trigger backtracking in its own engine.]</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch
+rule. A heuristic switch rule is still using a logic statement (that
+outputs true or false), but the effect of the rule is different: If the rule
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine.
+If it is false, a weight of 0 will be passed. A candidate that receive a
+high weight will have a higher priority for being picked when the true/false
+rules are checked. A heuristic rule can never fail a candidate, nor can it
+trigger backtracking of the engine. Heuristic rules only sort the
+candidates locally before the strict rules are applied. Depending on the
+context, heuristic rules might have more or less of an effect.</p>
+<p>Heuristic switch rules differs slightly form regular heuristic rules (the
+latter don’t output true or false, but a weight that might vary depending
+on the candidate).</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="r-time-signatures">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-6">
+<dt><em>function</em> (<strong>R-TIME-SIGNATURES</strong> RULE INPUT-MODE &amp;OPTIONAL RULE-TYPE WEIGHT)</dt>
+<dd><p class="first">&lt;rule&gt; is a logic statement in he form of a function. The output of the
+function has to be either true or false. If there are more than one
+input to the function, they will receive consecutive time signatures.</p>
+<p>&lt;input-mode&gt; determines what type of variables the rule will receive in
+its inputs:</p>
+<ul class="simple">
+<li>timesigns: The rule will receive individual time signatures, one for
+each input. Ex. ‘(4 4)</li>
+<li>all-timesigns: All time signatures in the score that are assigned at the
+time the rule is checked are given as a list of time
+signatures. The list will thus become longer and longer
+during the search. The rule can only have ONE input in
+this mode. Ex. ‘((4 4) (6 8))</li>
+</ul>
+<p class="last">[Backtracking: This rule will trigger backtracking in its own engine.]</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch
+rule. A heuristic switch rule is still using a logic statement (that
+outputs true or false), but the effect of the rule is different: If the rule
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine.
+If it is false, a weight of 0 will be passed. A candidate that receive a
+high weight will have a higher priority for being picked when the true/false
+rules are checked. A heuristic rule can never fail a candidate, nor can it
+trigger backtracking of the engine. Heuristic rules only sort the
+candidates locally before the strict rules are applied. Depending on the
+context, heuristic rules might have more or less of an effect.</p>
+<p>Heuristic switch rules differs slightly form regular heuristic rules (the
+latter don’t output true or false, but a weight that might vary depending
+on the candidate).</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="r-index-time-signatures">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-7">
+<dt><em>function</em> (<strong>R-INDEX-TIME-SIGNATURES</strong> RULE INDEXES &amp;OPTIONAL RULE-TYPE WEIGHT)</dt>
+<dd><p class="first">&lt;rule&gt; is a logic statement in he form of a function. The output of the
+function has to be either true or false. The function should have as many
+inputs as there are positions given in the &lt;positions&gt; list.</p>
+<p class="last">&lt;indexes&gt; is a list of positions where the logic statement is applied.
+Indexes are counted from 0. Every position in this list corresponds to
+an input in the rule.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>[Backtracking: This rule will trigger backtracking in its own engine.]</p>
+<p>Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch
+rule. A heuristic switch rule is still using a logic statement (that
+outputs true or false), but the effect of the rule is different: If the rule
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine.
+If it is false, a weight of 0 will be passed. A candidate that receive a
+high weight will have a higher priority for being picked when the true/false
+rules are checked. A heuristic rule can never fail a candidate, nor can it
+trigger backtracking of the engine. Heuristic rules only sort the
+candidates locally before the strict rules are applied. Depending on the
+context, heuristic rules might have more or less of an effect.</p>
+<p>Heuristic switch rules differs slightly form regular heuristic rules (the
+latter don’t output true or false, but a weight that might vary depending
+on the candidate).</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="r-only-m-motifs">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-8">
+<dt><em>function</em> (<strong>R-ONLY-M-MOTIFS</strong> VOICES &amp;OPTIONAL RULE-TYPE WEIGHT)</dt>
+<dd><p class="first">This rule will force the system to only pick transposable pitch
+motifs (motifs defined as melodic intervals and flagged with the
+letter m). The first variable in a voice is an exception: this
+variable always has to be a pitch defined as a MIDI note value.</p>
+<p>&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects.
+It is possible to give a list of several voice numbers: The rule will then
+be applied to every voice in the list (independant of each other).</p>
+<p class="last">[Backtracking: This rule will trigger backtracking in its own engine.]</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch
+rule. A heuristic switch rule is still using a logic statement (that
+outputs true or false), but the effect of the rule is different: If the rule
+is true, the weight (given in the &lt;weight&gt; input) is passed to the engine.
+If it is false, a weight of 0 will be passed. A candidate that receive a
+high weight will have a higher priority for being picked when the true/false
+rules are checked. A heuristic rule can never fail a candidate, nor can it
+trigger backtracking of the engine. Heuristic rules only sort the
+candidates locally before the strict rules are applied. Depending on the
+context, heuristic rules might have more or less of an effect.</p>
+<p>Heuristic switch rules differs slightly form regular heuristic rules (the
+latter don’t output true or false, but a weight that might vary depending
+on the candidate).</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="r-rhythms-one-voice-at-timepoints">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-9">
+<dt><em>function</em> (<strong>R-RHYTHMS-ONE-VOICE-AT-TIMEPOINTS</strong> RULE VOICE TIMEPOINTS INPUT-MODE)</dt>
+<dd><p class="first">Rule for rhythms that exist at timepoints in one voice.</p>
+<p>&lt;rule&gt; is a logic statement in he form of a function. The output of the
+function has to be either true or false. .If there are more than one
+input to the function, they will receive the information for consecutive
+timepoints.</p>
+<p>&lt;voices&gt; is the number for the voice (starting at 0) that the rule affects.
+It is possible to give a list of several voice numbers: The rule will then
+be applied to every voice in the list (independant of each other).</p>
+<p>&lt;timepoints&gt; is a list of timepoints (starting from 0) counted from the
+beginning of the score where the rule will be checked. For example
+the timepoint 15/4 will be 15 quarter notes from the beginning of the
+score.</p>
+<p>&lt;input-mode&gt;</p>
+<ul class="last simple">
+<li>motifs-start: The start time for motifs will be compared to the given
+timepoint. An input receives the as
+‘(offset-to-timepoint (motif)). Offset is the duration
+between the startingpoint of the motif and given timepoint.
+Ex. (-1/4 (1/8 -1/8 1/16 1/16))</li>
+<li>motifs-end:   The end time for motifs will be compared to the given
+timepoint. An input receives the as
+‘(offset-to-timepoint (motif)). Offset is the duration
+between the endingpoint of the motif and given timepoint.
+Ex. (1/8 (1/8 -1/8 1/16 1/16))</li>
+<li>dur-start:    The start time for durations and rests will be compared to
+the given timepoint. An input receives the as
+‘(offset-to-timepoint duration). Offset is the duration
+between the startingpoint of the event and given timepoint.
+Ex. (-1/16 1/4)</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p>This rule always prefer to backtrack the rhythm engine that it belongs to.</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="hr-rhythms-one-voice">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-10">
+<dt><em>function</em> (<strong>HR-RHYTHMS-ONE-VOICE</strong> RULE VOICES RULETYPE)</dt>
+<dd><blockquote class="first">
+<div><blockquote>
+<div>Heuristic rule for durations in one voice.</div></blockquote>
+<p>Heuristic rules sort the candidates locally according to weights.
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor
+can it trigger backtracking of an engine.</p>
+<p>&lt;rule&gt; is a function that outputs a numerical weight. If there are
+more than one input to the function, it will receive consecutive
+pitches or consecutive motifs depending on the input-mode (see below).</p>
+<p>&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic
+rule affects. It is possible to give a list of several voice numbers:
+The rule will then be applied to every voice in the list (independant
+of each other).</p>
+<p>&lt;input-mode&gt; determines what type of variables the rule will receive in
+its inputs:</p>
+<ul class="simple">
+<li>durations: The rule will receive individual  pitches, one for each input.</li>
+<li>dur/time: As above, but the start time of the duration will be indicated.
+Format: ‘(duration start-time), Ex. ‘(1/4 9/4)</li>
+<li>motifs: The rule will receive (consecutive) motifs, one motif for each
+input. A motif is a collection of durations that are grouped in
+a list. Motifs are designed in the domain and cannot be
+redesignedby the engine. Note that a motif may be a single
+duration (a list with one duration ratio) if it is defined as
+such in the domain.</li>
+<li>motif/time: As the previous selection, but with the start time of the
+first event in the motif added. Format: ‘(motif start-time)
+Ex. ‘((1/4 -1/8) 9/8)</li>
+<li>all-durations: All durations in the voice that are assigned at the time
+the rule is checked are given as a list of duration ratios.
+The list will thus become longer and longer during the
+search. The rule can only have ONE input in this mode.</li>
+</ul>
+</div></blockquote>
+<blockquote class="last" id="hr-index-rhythms-one-voice">
+<div></div></blockquote>
+</dd>
+<dt id="index-11"><em>function</em> (<strong>HR-INDEX-RHYTHMS-ONE-VOICE</strong> RULE POSITIONS VOICE RULETYPE)</dt>
+<dd><blockquote class="first">
+<div>Heuristic index rule for durations in one voice.</div></blockquote>
+<p>Heuristic rules sort the candidates locally according to weights.
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor
+can it trigger backtracking of an engine.</p>
+<p>&lt;rule&gt; is a function that outputs a numerical weight. The function
+should have as many inputs as there are positions given in the
+&lt;positions&gt; list.</p>
+<p>&lt;positions&gt; is a list of positions where the heuristic rule is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.</p>
+<p class="last">&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic
+rule affects. It is possible to give a list of several voice numbers:
+The rule will then be applied to every voice in the list (independant
+of each other).</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>&lt;input-mode&gt; determines what type of variables the heuristic rule will
+receive in its inputs:</p>
+<ul>
+<li><p class="first">index-for-cell: The rule will receive motifs as lists of duration
+ratios. The positions given above refer to the index
+number for the motifs in the solution. Each input
+will receive one corresponding motif.</p>
+</li>
+<li><p class="first">position-for-duration: The rule will receive individual
+durations, one for each given position.
+The positions refer to the position
+of the individual duraions in the solution.
+Rests are included.</p>
+<blockquote id="hr-pitches-one-voice">
+<div></div></blockquote>
+</li>
+</ul>
+<blockquote id="index-12">
+<div><dl class="docutils">
+<dt><em>function</em> (<strong>HR-PITCHES-ONE-VOICE</strong> RULE VOICES INPUT-MODE)</dt>
+<dd><blockquote class="first">
+<div><blockquote>
+<div>Heuristic rule for pitches in one voice.</div></blockquote>
+<p>Heuristic rules sort the candidates locally according to weights.
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor
+can it trigger backtracking of an engine.</p>
+<p>&lt;rule&gt; is a function that outputs a numerical weight. If there are more
+than one input to the function, it will receive consecutive pitches
+or consecutive motifs depending on the input-mode (see below).</p>
+<p>&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic
+rule affects. It is possible to give a list of several voice numbers:
+The rule will then be applied to every voice in the list (independant
+of each other).</p>
+<p>&lt;input-mode&gt; determines what type of variables the rule will receive in
+its inputs:</p>
+<ul class="simple">
+<li>pitches The rule will receive individual  pitches, one for each input.</li>
+<li>pitch/nth: As above, but the position of the pitch is also indicated.
+Format: ‘(pitch nth) Ex. ‘(60 3).</li>
+<li>motifs: The rule will receive (consecutive) motifs, one motif for each
+input. A motif is a collection of pitches that are grouped in
+a list. Motifs are designed in the domain and cannot be redesigned
+by the engine. Note that a motif may be a single pitch (a list
+with one MIDI note number) if it is defined as such in the domain.</li>
+<li>motif/nth: As above, but the position of the pitches is also indicated.
+Format: ‘((pitch-motif) (nth-list)) Ex. ‘((60 64) (3 4)).</li>
+<li>motif/index: As motifs, but the index of the variable is also indicated.
+Format: ‘((pitch-motif) index) Ex. ‘((60 64) 2).</li>
+<li>all-pitches: All pitches in the voice that are assigned at the time the
+rule is checked are given as a list of MIDI note numbers.
+The list will thus become longer and longer during the
+search. The rule can only have ONE input in this mode.</li>
+</ul>
+</div></blockquote>
+<blockquote class="last" id="hr-index-pitches-one-voice">
+<div></div></blockquote>
+</dd>
+<dt id="index-13"><em>function</em> (<strong>HR-INDEX-PITCHES-ONE-VOICE</strong> RULE POSITIONS VOICE INPUT-MODE)</dt>
+<dd><blockquote class="first">
+<div><blockquote>
+<div>Heuristic index rule for pitches in one voice.</div></blockquote>
+<p>Heuristic rules sort the candidates locally according to weights.
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor
+can it trigger backtracking of an engine.</p>
+<p>&lt;rule&gt; is a function that outputs a numerical weight. The function
+should have as many inputs as there are positions given in the
+&lt;positions&gt; list.</p>
+<p>&lt;positions&gt; is a list of positions where the heuristic rule is applied.
+Positions are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.</p>
+<p>&lt;voices&gt; is the number for the voice (starting at 0) that the heuristic
+rule affects. It is possible to give a list of several voice numbers:
+The rule will then be applied to every voice in the list (independant
+of each other).</p>
+<p>&lt;input-mode&gt; determines what type of variables the rule will receive in
+its inputs:</p>
+<ul class="simple">
+<li>index-for-cell: The rule will receive motifs as lists of MIDI note
+numbers The positions given above refer to the index
+number for the motifs in the solution. Each input
+will receive one corresponding motif.</li>
+<li>position-for-pitches: The rule will receive individual
+pitches, one for each given position.
+The positions refer to the position
+of the individual duraions in the solution.</li>
+</ul>
+</div></blockquote>
+<blockquote class="last" id="hr-time-signatures">
+<div></div></blockquote>
+</dd>
+<dt id="index-14"><em>function</em> (<strong>HR-TIME-SIGNATURES</strong> RULE INPUT-MODE)</dt>
+<dd><blockquote class="first">
+<div><blockquote>
+<div>Heuristic rules sort the candidates locally according to weights.</div></blockquote>
+<p>The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor
+can it trigger backtracking of an engine.</p>
+<p>&lt;rule&gt; is a function that outputs a numerical weight. If there are
+more than one input to the function, they will receive consecutive
+time signatures.</p>
+<p>&lt;input-mode&gt; determines what type of variables the rule will receive in
+its inputs:</p>
+<ul class="simple">
+<li>timesigns: The rule will receive individual time signatures, one for
+each input. Ex. ‘(4 4)</li>
+<li>all-timesigns: All time signatures in the score that are assigned at the
+time the rule is checked are given as a list of time
+signatures. The list will thus become longer and longer
+during the search. The rule can only have ONE input in
+this mode. Ex. ‘((4 4) (6 8))</li>
+</ul>
+</div></blockquote>
+<blockquote class="last" id="hr-index-time-signatures">
+<div></div></blockquote>
+</dd>
+<dt id="index-15"><em>function</em> (<strong>HR-INDEX-TIME-SIGNATURES</strong> RULE INDEXES)</dt>
+<dd><blockquote class="first">
+<div><blockquote>
+<div>Heuristic rules sort the candidates locally according to weights.</div></blockquote>
+<p>The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor
+can it trigger backtracking of an engine.</p>
+<p>&lt;rule&gt; is a function that outputs a numerical weight. The function
+should have as many inputs as there are positions given in the
+&lt;indexes&gt; list.</p>
+<p>&lt;indexes&gt; is a list of positions where the logic statement is applied.
+Indexes are counted from 0. Every position in this list corresponds to
+an input in the rule. See also input-mode below.</p>
+</div></blockquote>
+<blockquote class="last" id="r-pmc-one-voice">
+<div></div></blockquote>
+</dd>
+<dt id="index-16"><em>function</em> (<strong>R-PMC-ONE-VOICE</strong> PMCRULES0 RULETYPE0 VOICE0 &amp;OPTIONAL PMCRULES1 RULETYPE1 VOICE1 PMCRULES2 RULETYPE2 VOICE2 PMCRULES3 RULETYPE3 VOICE3 PMCRULES4 RULETYPE4 VOICE4 PMCRULES5 RULETYPE5 VOICE5 PMCRULES6 RULETYPE6 VOICE6 PMCRULES7 RULETYPE7 VOICE7 PMCRULES8 RULETYPE8 VOICE8 PMCRULES9 RULETYPE9 VOICE9)</dt>
+<dd><blockquote class="first">
+<div><p>This box makes it possible to use PMC formated rules with the Poly-engine. The box expects a list of rules (for
+example from a text box). The following PMC related variables and functions are supported:
+L, RL, LEN, (cur-index)</p>
+<p>Both wildcard rules and index rules are possible to use. Wildcard rules are expected to use variables
+in order.</p>
+</div></blockquote>
+<blockquote class="last" id="r-jbs-one-voice">
+<div></div></blockquote>
+</dd>
+<dt id="index-17"><em>function</em> (<strong>R-JBS-ONE-VOICE</strong> JBSRULE0 RULETYPE0 VOICE0 &amp;OPTIONAL JBSRULE1 RULETYPE1 VOICE1 JBSRULE2 RULETYPE2 VOICE2 JBSRULE3 RULETYPE3 VOICE3 JBSRULE4 RULETYPE4 VOICE4 JBSRULE5 RULETYPE5 VOICE5 JBSRULE6 RULETYPE6 VOICE6 JBSRULE7 RULETYPE7 VOICE7 JBSRULE8 RULETYPE8 VOICE8 JBSRULE9 RULETYPE9 VOICE9)</dt>
+<dd><blockquote class="first">
+<div><blockquote>
+<div>This box makes it possible to use rules from the JBS-constraint library.</div></blockquote>
+<p>The box can handle both true/false rules and heuristic rules.</p>
+<p>Rules that use the (cur-slen) function are not supported (it is possible
+to use these rules by letting them pass the set-end box).</p>
+<p>The voice input can be a list with all voices that the rule should affect.</p>
+<p>Score-PMC-rules are NOT supported.</p>
+</div></blockquote>
+<blockquote class="last" id="set-end">
+<div></div></blockquote>
+</dd>
+<dt id="index-18"><em>function</em> (<strong>SET-END</strong> RULE END-POINT)</dt>
+<dd><p class="first">This box will set the endpoint for a jbs or a pmc rule. The rule should
+pass through this box before going into the r-jbs-one-voice box (or the
+r-pmc-one-voice box). The end point is the position (i.e. not the index) for
+the last value in a voice where the rule is checked. It also replaces
+the ‘(cur-slen) expression by the end point.</p>
+<p class="last">Note that the first value has the position 1 (this is compatible with
+how index numbers are counted in the PMC engine).</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="rules-for-one-voice">
+<h3>Rules for One Voice<a class="headerlink" href="#rules-for-one-voice" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="rules-for-two-voices">
+<h3>Rules for Two Voices<a class="headerlink" href="#rules-for-two-voices" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="rules-for-two-or-more-voices">
+<h3>Rules for Two or More Voices<a class="headerlink" href="#rules-for-two-or-more-voices" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="other-functions">
+<h2>Other Functions<a class="headerlink" href="#other-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="special-domain-declarations-debugging-and-more">
+<h3>Special Domain Declarations, Debugging and More<a class="headerlink" href="#special-domain-declarations-debugging-and-more" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="metric-domain">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-19">
+<dt><em>function</em> (<strong>METRIC-DOMAIN</strong> TIMESIGN1 TUPLETS1 ALT-BEATLENGTH1 &amp;OPTIONAL TIMESIGN2 TUPLETS2 ALT-BEATLENGTH2 TIMESIGN3 TUPLETS3 ALT-BEATLENGTH3 TIMESIGN4 TUPLETS4 ALT-BEATLENGTH4 TIMESIGN5 TUPLETS5 ALT-BEATLENGTH5 TIMESIGN6 TUPLETS6 ALT-BEATLENGTH6 TIMESIGN7 TUPLETS7 ALT-BEATLENGTH7 TIMESIGN8 TUPLETS8 ALT-BEATLENGTH8)</dt>
+<dd><blockquote class="first">
+<div><p>This box sets the metric domain in more detail than just a list of possible time signatures.</p>
+<p>&lt;tuplets&gt; is a list of allowed subdivisions of the beat. This setting only has an effect if
+using the rule r-metric-hierarchy.</p>
+<p>&lt;alt-beatlength&gt; allows the user to define another beat length than the time
+signature indicates. This will affect rules that consrain events located on
+beats:</p>
+<ul>
+<li><p class="first">nil:  If this input is nil, the default beat length for a time signature
+will be used (i.e. the time signature ‘(4 4) will have the beat length
+1/4, the time signature ‘(6 8) will have the beat length 1/8, etc.</p>
+</li>
+<li><p class="first">[a fraction]: If this input is a fraction, it will be used as the beat
+length. For example, if the time signature is ‘(6 8), the fraction
+3/8 will give replace the default beat length 1/8. The subdivision of
+beats (the tuplets input) will relate to the alternative beat length.</p>
+</li>
+<li><dl class="first docutils">
+<dt>[a list]:  If this input is a list, it will define an arbitrary beat</dt>
+<dd><p class="first last">division of the measure. For example, if the time signature is</p>
+</dd>
+</dl>
+<p>‘(9 8), the list ‘(3/8 2/8 2/8 2/8) will distribute the beats
+accordingly. NOTE: the sum of the beats have to add up to the length
+of a measure. The subdivision of beats (the tuplets input) will
+relate to the default beat length.</p>
+</li>
+</ul>
+</div></blockquote>
+<blockquote class="last" id="r-predefine-meter">
+<div></div></blockquote>
+</dd>
+<dt id="index-20"><em>function</em> (<strong>R-PREDEFINE-METER</strong> TIMESIG-LIST)</dt>
+<dd><blockquote class="first">
+<div><p>This rule predefines the time signature to follow a given sequence.
+WARNING: This rule will preset the sequence of time signature and
+will not allow the system to backtrack them.</p>
+<p>It the given list of time signatures is shorted than what is needed
+in the solution, the remaining time signatures will be picked
+randomly.</p>
+</div></blockquote>
+<blockquote class="last" id="stop-rule-time">
+<div></div></blockquote>
+</dd>
+<dt id="index-21"><em>function</em> (<strong>STOP-RULE-TIME</strong> VOICES STOPTIME INPUT-MODE)</dt>
+<dd><p class="first">This rule will not affect the choice of musical parameters (it will always be true), but it will stop the search when a time point has been reached. The solution found when the time point is reached will be returned as a valid solution.</p>
+<p>The rule compares the START TIME of motifs to the stoptime (i.e. the end time or the time point for durations inside motifs of a motif is not checked). The stop will happen when a duration reaches the stop time.</p>
+<p>&lt;voices&gt; is one or a list of voices that will be checked.</p>
+<p>&lt;stoptime&gt; is a timepoint in the score, counting from 0, where the search will stop (ex. the time point 5/2 is 2 whole notes + 1 half note into the score). The stoptime has to be reached in all given voices. Note that the rule ignors the pitch information.</p>
+<p>&lt;input-mode&gt;</p>
+<ul class="last simple">
+<li>OR: The search will stop when one of the voices in the given list reached the stop time. The metric structure will be ignored.</li>
+<li>AND: The search will stop when all the voices in the given list reached the stop time. The metric structure will be ignored.</li>
+<li>meter: The start time for the measures will determine the stop.</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p>Note that if the system has not assigned a meter for durations, they will not be displayed in the score.</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="stop-rule-index">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-22">
+<dt><em>function</em> (<strong>STOP-RULE-INDEX</strong> VOICES STOPINDEX INPUT-MODE PARAMETERS)</dt>
+<dd><p class="first">This rule will not affect the choice of musical parameters (it will always be true), but it will stop the search when an index has been reached. The solution found when the index is reached will be returned as a valid solution.</p>
+<p>&lt;voices&gt; is one or a list of voices that will be checked.</p>
+<p>&lt;stopindex&gt; is an index in the score, counting from 0, where the search will stop.</p>
+<p>&lt;input-mode&gt;</p>
+<ul class="last simple">
+<li>OR: The search will stop when one of the voices in the given list reached the stop time. The metric structure will be ignored.</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<p>TODO: function <code class="docutils literal"><span class="pre">CLUSTERdebug</span></code> named differently?</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote id="preferences">
+<div></div></blockquote>
+</div></blockquote>
+<dl class="docutils" id="index-23">
+<dt><em>function</em> (<strong>PREFERENCES</strong> BACKJUMP? MAX-NR-OF-LOOPS BKTR-RP1V BKTR-RR2V BKTR-RH2V BKTR-RMH2V BKTR-DM1V BKTR-NM1V BKTR-MD1V BKTR-MN1V BKTR-PPNV BKTR-LENV)</dt>
+<dd><blockquote class="first">
+<div>By evaluating this box you may change some default settings of the</div></blockquote>
+<p>system. The box should not be connected to other boxes. Note that you
+need to evaluate this box every time you restart PWGL or after you
+change a setting to change the preferences.</p>
+<p>&lt;backjump?&gt;     Backjumping speeds up backtracking by jumping
+directly to the variable that caused a failed ruletest instead of
+step-by-step backtracking. The speed difference vary from no
+difference to a huge difference. The way backjumping is used in this
+system, it should not cause the system to miss possible solutions. It
+is strongly recommended to keep backjumping on.</p>
+<p>&lt;max-nr-of-loops&gt; is the maximum search loops the engine will do before stopping.
+—</p>
+<p>The following variables sets what engine a failed rule prefers to
+backtrack. If the prefered engine cannot be backtracked, the system
+will make another choice based on lower priorities. Note that if
+more than one rule fails, the choice will be based on the most
+frequently proposed engine to backtrack.</p>
+<p>The default settings can be found by opening a new preference box.</p>
+<p>&lt;bktr-rp1v&gt;  r-rhyth-pitch-one-vocie</p>
+<ul class="simple">
+<li>self (default): backtrack the engine (rhythm or pitch) where the failed variable was found.</li>
+<li>other: backtrack the engine (rhythm or pitch) that is associated with the enginewhere the failed variable was found.</li>
+</ul>
+<p>&lt;bktr-rr2v&gt; r-rhythm-rhythm</p>
+<ul class="simple">
+<li>self: backtrack the engine (voice 1 or 2) where the failed varialbe was found.</li>
+<li>other (default): backtrack the engine (voice 1 or 2) that is associated with the engine where the failed variable was found.</li>
+</ul>
+<p>&lt;bktr-rh2v&gt; r-rhythm-hierarchy</p>
+<ul class="simple">
+<li>self: backtrack the engine (voice 1 or 2) where the failed variable was found.</li>
+<li>other (default): backtrack the engine (voice 1 or 2) that is associated with the engine where the failed variable was found.</li>
+</ul>
+<p>&lt;bktr-rmh2v&gt; r-metric-hierarchy</p>
+<ul class="simple">
+<li>rhythm (default): backtrack the rhythm engine</li>
+<li>meter: backtrack the metric engine.</li>
+</ul>
+<p>&lt;bktr-dm1v&gt; r-note-meter if pitch information is NOT asked for</p>
+<ul class="simple">
+<li>rhythm (default): backtrack the rhythm engine</li>
+<li>meter: backtrack the metric engine.</li>
+</ul>
+<p>&lt;bktr-nm1v&gt; r-note-meter if pitch information is asked for</p>
+<ul class="simple">
+<li>self (default): backtrack the engine (rhythm, pitch or meter) where the failed variable was found.</li>
+<li>rhythm/pitch: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the rhythm engine.</li>
+<li>pitch/rhythm: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the pitch engine.</li>
+</ul>
+<p>&lt;bktr-md1v&gt; r-meter-note if pitch information is NOT asked for</p>
+<ul class="simple">
+<li>rhythm (default): backtrack the rhythm engine</li>
+<li>meter: backtrack the metric engine.</li>
+</ul>
+<p>&lt;bktr-mn1v&gt; r-meter-note if pitch information is asked for</p>
+<ul class="simple">
+<li>self (default): backtrack the engine (rhythm, pitch or meter) where the failed variable was found.</li>
+<li>rhythm/pitch: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the rhythm engine.</li>
+<li>pitch/rhythm: backtrack the engine (rhythm or pitch) that is associated with the engine where the failed variable was found. The metric engine always prefer to backtrack the pitch engine.</li>
+</ul>
+<p>&lt;bktr-ppnv&gt; r-pitch-pitch</p>
+<ul class="simple">
+<li>next-pitch (default): backtrack the pitch engine after the engine where the failed variable was found (the order is defined by the voice input).</li>
+<li>next-rhythm: backtrack the pitch engine after the engine where the failed variable was found (the order is defined by the voice input).</li>
+<li>current-pitch: if the failed variable is in a pitch engine, backtrack the same engine. If it is in a rhythm engine, backtrack the associated pitch engine.</li>
+<li>current-rhythm: if the failed variable is in a rhythm engine, backtrack the same engine. If it is in a pitch engine, backtrack the associated rhythm engine.</li>
+</ul>
+<p>&lt;bktr-leNv&gt; r-list-all-events</p>
+<ul class="last simple">
+<li>next:  backtrack the engine after the engine where the failed variable was found (the order is defined by the voice input).</li>
+<li>self:  backtrack the engine where the failed variable was found.</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="utilities">
+<h3>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h3>
+<p>Here goes on the general text. Here goes on the general text. Here
+goes on the general text. Here goes on the general text.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Function Reference</a><ul>
+<li><a class="reference internal" href="#solver-call">Solver Call</a></li>
+<li><a class="reference internal" href="#rule-definitions">Rule Definitions</a><ul>
+<li><a class="reference internal" href="#rules-for-one-engine">Rules for One “Engine”</a></li>
+<li><a class="reference internal" href="#rules-for-one-voice">Rules for One Voice</a></li>
+<li><a class="reference internal" href="#rules-for-two-voices">Rules for Two Voices</a></li>
+<li><a class="reference internal" href="#rules-for-two-or-more-voices">Rules for Two or More Voices</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-functions">Other Functions</a><ul>
+<li><a class="reference internal" href="#special-domain-declarations-debugging-and-more">Special Domain Declarations, Debugging and More</a></li>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="readme.html" title="previous chapter">Overview</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/API.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Örjan Sandred.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/API.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
