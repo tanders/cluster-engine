@@ -1,6 +1,6 @@
 # -*- mode: org -*-
 
-* Test Functions - can be removed                                  :noexport:
+* COMMENT Test Functions - can be removed                          :noexport:
 
 #+name: my-new-fn
 #+begin_src elisp :var x=7

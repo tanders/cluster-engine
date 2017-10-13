@@ -428,9 +428,9 @@ The default settings can be found by opening a new preference box.
                             &optional
                             rule-type ;;;; '(":true/false" ":heur-switch")
                             weight) ;;;; 1
-    ":RULE: is a logic statement in he form of a function. The output of the function has to be either true or false. If there are more than one input to the function, they will receive consecutive durations (or consecutive motifs depending on the input-mode). 
+    ":RULE: (function) is a logic statement in he form of a function. The output of the function has to be either true or false. If there are more than one input to the function, they will receive consecutive durations (or consecutive motifs depending on the input-mode). 
 
-:VOICES: is the number for the voice (starting at 0) that the rule affects. It is possible to give a list of several voice numbers: The rule will then be applied to every voice in the list (independant of each other).
+:VOICES: (number or list of numbers) is the number for the voice (starting at 0) that the rule affects. It is possible to give a list of several voice numbers: The rule will then be applied to every voice in the list (independant of each other).
 
 :INPUT-MODE: determines what type of variables the rule will receive in its inputs:
  - =:durations= The rule will receive individual durations, one for each input.

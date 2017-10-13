@@ -20,8 +20,8 @@
 
 #+name: setup-elisp
 #+begin_src emacs-lisp :results silent :exports none
-  (defun ta/publish-sphinx-project (PLIST SCRIPT PUB-DIR)
-    (call-process SCRIPT))
+  ;; (defun ta/publish-sphinx-project (PLIST SCRIPT PUB-DIR)
+  ;;   (call-process SCRIPT))
 
   (setq org-publish-project-alist
 	'(
@@ -234,10 +234,11 @@ $ git pull
 #+begin_src lisp :tangle yes
 (require :cluster-engine)
 #+end_src  
+
  
 The library should now be loaded, and you can solve musical constraint satisfaction problems. The first example below is an "empty" problem without any constraints yet. The function =clusterengine= is the constraint solver. Its first three arguments specify the number of variables (quasi notes) per voice (=10= in this example), whether or not to randomise the solution (=T=) and whether to use additional debugging features (=nil=).  After a list of constraints (empty in this first example) the function expects specifications for various domains. These specifications support a mini language for flexibility, the specifications below are very simple. Only a single time signature is allowed (all bars are in 3/4 time); the single voice can consist of quarter notes and eighth notes; and possible pitches are middle C and C# (MIDI note numbers 60 and 61).  
 
-#+begin_src lisp :tangle yes   
+#+begin_src lisp :tangle yes :results raw    
 (ce::clusterengine 
  10 t nil           ; settings
  nil                ; no constraints
@@ -246,6 +247,9 @@ The library should now be loaded, and you can solve musical constraint satisfact
  '(((1/4) (1/8))   
    ((60) (61))))
 #+end_src
+
+#+RESULTS:
+((1/4 1/4 1/8 1/8 1/4 1/4 1/8 1/4 1/4 1/8) (60 60 60 61 60 61 60 60 60 61) ((3 4) (3 4) (3 4)))
 
 =clusterengine= outputs a declaration of the sequences of time signatures, rhythmic values and pitches for each voice. 
 
