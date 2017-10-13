@@ -161,3 +161,59 @@
  )
 
 
+
+;;;
+;;; Example with a contradiction -- no solution
+;;;
+
+;;
+;; Note: if there is no solution, clusterengine should perhaps better return so uniform value meaning that there is no solution
+;; Instead, it returns various values that simply miss the information that could not be found
+;;
+
+;; failed rhythm rule; non-empty rhythm and empty pitch domain: no pitches and no rhythm returned
+(ce::clusterengine 
+  10 t nil 
+  ;; all rhythmic value paris are increasing
+  (ce::R-rhythms-one-voice #'(lambda (x y) (< x y)) 0 :durations)
+  '((3 4)) 
+  '(((1/4) (1/8))
+    () 
+    ))
+; => (nil nil ((3 4)))
+
+;; failed rhythm rule; non-empty rhythm and non-empty pitch domain: no pitches and no rhythm returned
+(ce::clusterengine 
+  10 t nil 
+  ;; all rhythmic value paris are increasing
+  (ce::R-rhythms-one-voice #'(lambda (x y) (< x y)) 0 :durations)
+  '((3 4)) 
+  '(((1/4) (1/8))
+    ((60) (61))
+    ))
+; => (nil nil ((3 4)))
+
+;; failed rhythm rule; single rhythm domain value, and non-empty pitch domain: one rhythmic value by no pitches returned, though pitch list is now (nil)
+(ce::clusterengine 
+  10 t nil 
+  ;; all rhythmic value paris are increasing
+  (ce::R-rhythms-one-voice #'(lambda (x y) (< x y)) 0 :durations)
+  '((3 4)) 
+  '(((1/4)) 
+    ((60) (61))
+    ))
+; => ((1/4) (nil) ((3 4)))
+
+
+;;; Contrast: purely rhythmic CSP (no rules here for simplicity)
+;;; NOTE: The last above example result cannot be distinguished from a purely rhythmic CSP
+(ce::clusterengine 
+  10 t nil 
+  ;; all rhythmic value paris are increasing
+  () 
+  '((3 4)) 
+  '(((1/4) (1/8)) 
+    ()
+    ))
+; => ((1/8 1/4 1/8 1/8 1/4 1/4 1/8 1/8 1/8 1/4) (nil nil nil nil nil nil nil nil nil nil) ((3 4) (3 4) (3 4)))
+
