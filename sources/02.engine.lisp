@@ -60,7 +60,7 @@
 
 
 (defun poly-engine (max-index domains metric-domain nr-of-voices locked-engines forwardrule backtrackrule rnd? vrules vheuristic-rules debug?)
-  "Strange bug:bktr-rule cannot be forwarded from this function...It is given in the fail subroutine instead.
+  "Strange bug: bktr-rule cannot be forwarded from this function...It is given in the fail subroutine instead.
 Locked engines cannot be backtracked."
 
 
@@ -76,7 +76,7 @@ Locked engines cannot be backtracked."
          (vlinear-solution (make-array (list nr-of-engines 3) :initial-element nil :element-type 'list))
          (vsolution-for-backjump (make-array (list nr-of-engines 2) :initial-element nil  :element-type 'list)) ;this is a summary with startingpoints for each index (countvalue and timepoint)
          (vbackjump-indexes (make-array (list nr-of-engines) :initial-element nil :element-type 'list));this is a list of indexes to jump to for each engine
-         ;(master-index 0)
+	 ;; (master-index 0)
          (meter-beatstructures '(((4 4) 0 -1/4 -1/2 -3/4 1)((3 4) 0 -1/4 -1/2 3/4)));;;;;;start for next step to develop
          (meter-onsetgrids '(((4 4) 0 1/8 1/4 3/8 1/2 5/8 3/4 7/8 1)((3 4) 0 1/4 1/2 3/4)));;;;;;start for next step to develop
          (vdefault-engine-order (make-array '(6) :element-type 'list));this is a vector with lists with all information about used engines and search order 
@@ -86,7 +86,7 @@ Locked engines cannot be backtracked."
          (vflag-changed-engine (make-array '(1) :element-type 'list));this is a list of engines that has been changed since last rule check
          (loop-counter 0);this is to count how many times the system steped forward
          )
-;(declare (optimize (speed 3) (safety 0)))
+    ;; (declare (optimize (speed 3) (safety 0)))
 
 
     ;;;;declare types of all variables
@@ -100,18 +100,18 @@ Locked engines cannot be backtracked."
 
 
 ;;;;;;;this was added july 2012
-(setf *stop?* nil) 
-;
+    (setf *stop?* nil)
+    
 ;;;;;;
-(print (format nil "----"))
-(print (format nil "Cluster Engine by Orjan Sandred (Studio FLAT, University of Manitoba). Transfered from PWGL to SBCL by Julien Vincenot and Orjan Sandred (Uppsala 2015)."))
+    (print (format nil "----"))
+    (print (format nil "Cluster Engine by Orjan Sandred (Studio FLAT, University of Manitoba). Transfered from PWGL to SBCL by Julien Vincenot and Orjan Sandred (Uppsala 2015)."))
 ;;;;;;
 
 
     ;;;;print some default settings
     (if *backjump?* (print (format nil "Initiate search with ~D engines: backjumping is on." nr-of-engines))
-      (print (format nil "Initiate search with ~D engines: backjumping is off." nr-of-engines)))
-    ;(print (format nil "Some engines are locked and cannot be backtracked (maybe because they are pre-defined): ~S" locked-engines))
+	(print (format nil "Initiate search with ~D engines: backjumping is off." nr-of-engines)))
+					;(print (format nil "Some engines are locked and cannot be backtracked (maybe because they are pre-defined): ~S" locked-engines))
 
     ;;;;set metric grid, beatstructure and time sign from vector in metric domain (in the box-function any input will be transformed into a vector
     (setf meter-onsetgrids (aref metric-domain 1))
@@ -120,11 +120,11 @@ Locked engines cannot be backtracked."
 
     ;;;;initiate solution vectors
     (loop for engine from 0 to (1- nr-of-engines)
-          do (setf (aref vsolution engine) (make-array (list max-index) :initial-element nil :element-type 'list)))
+       do (setf (aref vsolution engine) (make-array (list max-index) :initial-element nil :element-type 'list)))
 
     ;;;;initiate indexes
     (loop for engine from 0 to (1- nr-of-engines)
-          do (setf (aref vindex engine) -1))
+       do (setf (aref vindex engine) -1))
 
     (when debug? (clear-debug-vector))
 
@@ -136,10 +136,10 @@ Locked engines cannot be backtracked."
     (set-vnumber-of-candidates vdomain vnumber-of-candidates nr-of-engines)
 
 
-;;;added july 2012 - this is moved to PWGL function ClusterEngine to correct backtrack rule from failed rules
-;(when *always-lock-meter?* (setf locked-engines (append locked-engines (list (1- nr-of-engines)))))
-;(setf *always-lock-meter?* nil)
-;;;;
+    ;; added july 2012 - this is moved to PWGL function ClusterEngine to correct backtrack rule from failed rules
+    ;; (when *always-lock-meter?* (setf locked-engines (append locked-engines (list (1- nr-of-engines)))))
+    ;; (setf *always-lock-meter?* nil)
+    ;;
 
 
     ;;;;set defaults
@@ -160,15 +160,15 @@ Locked engines cannot be backtracked."
 
 
     (if (aref vheuristic-rules (aref vcurrent-engine 0) 0)
-                ;If there are heuristic rules, sort the candidate list according to the heuristic rules (this will also update the linear and backjump information)
+	;; If there are heuristic rules, sort the candidate list according to the heuristic rules (this will also update the linear and backjump information)
         (sort-candidates-heuristically-and-set-linear-solution vheuristic-rules vsolution vindex vlinear-solution vsolution-for-backjump vflag-changed-engine meter-onsetgrids meter-beatstructures nr-of-engines (aref vcurrent-engine 0))
-              ;Else flag the current engine to update the linear and backjump information in the loop.
-      (setf (aref vflag-changed-engine 0) (list (aref vcurrent-engine 0))))
+	;; Else flag the current engine to update the linear and backjump information in the loop.
+	(setf (aref vflag-changed-engine 0) (list (aref vcurrent-engine 0))))
 
 
 
-     ;*****************************
-     ;Main loop
+    ;;*****************************
+    ;;Main loop
     (print (format nil "Search running..." vindex))
 
 
@@ -176,78 +176,84 @@ Locked engines cannot be backtracked."
 
 
     (loop for n from 0 to *max-nr-of-loops*
-          do (progn
+       do (progn
 
-                ;print search progress
-               (when (and (= (mod n 50000) 0) (/= n 0)) (print (format nil "Current indexes:  ~S. Number of testloops: ~D." vindex n)))
-                   
-               (convert-vsolution->linear-and-backjump vsolution vindex vlinear-solution vsolution-for-backjump vflag-changed-engine nr-of-engines)
-               (setf (aref vflag-changed-engine 0) nil) ;reset vflag-changed-engine (this is used for the convert-vsolution->linear-and-backjump to determine what needs to be updated)
-               (setf *vindex* vindex)
+	    ;; print search progress
+	    (when (and (= (mod n 50000) 0) (/= n 0)) (print (format nil "Current indexes:  ~S. Number of testloops: ~D." vindex n)))
+	    
+	    (convert-vsolution->linear-and-backjump vsolution vindex vlinear-solution vsolution-for-backjump vflag-changed-engine nr-of-engines)
+	    (setf (aref vflag-changed-engine 0) nil) ;reset vflag-changed-engine (this is used for the convert-vsolution->linear-and-backjump to determine what needs to be updated)
+	    (setf *vindex* vindex)
 
-                ;check rules
-               (if (test-rules (aref vcurrent-engine 0) vrules vsolution vlinear-solution vsolution-for-backjump vbackjump-indexes vindex vbacktrack-engines)
-                    ;*****************************
-                    ;Rules passed test
-                   (progn  
-                     ;set debug information and print indexes if they exceed previous max index
-                     (if debug? (progn (debug-print-and-update-maxindex vindex vmax-index vsolution (aref vcurrent-engine 0) nr-of-engines)
-                                  (store-temp-solution-to-debug-vector (get-all-engines vsolution vindex nr-of-engines)))
-                      ; (print-and-update-maxindex vindex vmax-index (aref vcurrent-engine 0)) ;this would only print indexes, not store temporary solution
-                       )
+					;check rules
+	    (if (test-rules (aref vcurrent-engine 0) vrules vsolution vlinear-solution vsolution-for-backjump vbackjump-indexes vindex vbacktrack-engines)
+		;;*****************************
+		;; Rules passed test
+		(progn  
+		  ;; set debug information and print indexes if they exceed previous max index
+		  (if debug? (progn (debug-print-and-update-maxindex vindex vmax-index vsolution (aref vcurrent-engine 0) nr-of-engines)
+				    (store-temp-solution-to-debug-vector (get-all-engines vsolution vindex nr-of-engines)))
+		      ;; (print-and-update-maxindex vindex vmax-index (aref vcurrent-engine 0)) ;this would only print indexes, not store temporary solution
+		      )
 
-                     ;set new engine and increase its index
-                     (setf (aref vcurrent-engine 0) (funcall forwardrule vsolution vindex vbacktrack-history vdefault-engine-order nr-of-engines))
-                     (setf (aref vindex (aref vcurrent-engine 0)) (1+ (aref vindex (aref vcurrent-engine 0))))
-                     (setf loop-counter (1+ loop-counter))
-                     ;stop if index exceeds max index OR *stop?* variable is true
-                     (when (or (>= (aref vindex (aref vcurrent-engine 0)) max-index) *stop?*) (progn 
-                                                                                           ;decrease index so it points at the last assigned variable
-                                                                                                (setf (aref vindex (aref vcurrent-engine 0)) (1- (aref vindex (aref vcurrent-engine 0))))
-                                                                                                (when *stop?* (print (format nil "A stop rule ended the search.")))
-                                                                                                (print (format nil "A solution was found."))
-                                                                                                (return 'done)))
+		  ;; set new engine and increase its index
+		  (setf (aref vcurrent-engine 0) (funcall forwardrule vsolution vindex vbacktrack-history vdefault-engine-order nr-of-engines))
+		  (setf (aref vindex (aref vcurrent-engine 0)) (1+ (aref vindex (aref vcurrent-engine 0))))
+		  (setf loop-counter (1+ loop-counter))
+		  ;; stop if index exceeds max index OR *stop?* variable is true
+		  (when (or (>= (aref vindex (aref vcurrent-engine 0)) max-index) *stop?*) (progn 
+											     ;; decrease index so it points at the last assigned variable
+											     (setf (aref vindex (aref vcurrent-engine 0)) (1- (aref vindex (aref vcurrent-engine 0))))
+											     (when *stop?* (print (format nil "A stop rule ended the search.")))
+											     (print (format nil "A solution was found."))
+											     (return 'done)))
 
-                             
+		  
 
                      ;;;;initiate first variable for the current engine
 
 
-                     (initiate-new-variable (aref vcurrent-engine 0) vindex vsolution vdomain meter-beatstructures meter-onsetgrids nr-of-engines rnd?)
+		  (initiate-new-variable (aref vcurrent-engine 0) vindex vsolution vdomain meter-beatstructures meter-onsetgrids nr-of-engines rnd?)
 
 
-                     (if (aref vheuristic-rules (aref vcurrent-engine 0) 0)
-                                 ;If there are heuristic rules, sort the candidate list according to the heuristic rules (this will also update the linear and backjump information)
-                         (sort-candidates-heuristically-and-set-linear-solution vheuristic-rules vsolution vindex vlinear-solution vsolution-for-backjump 
-                                                                                vflag-changed-engine  meter-onsetgrids meter-beatstructures nr-of-engines (aref vcurrent-engine 0))
-                               ;Else flag the current engine to update the linear and backjump information in the loop.
-                       (setf (aref vflag-changed-engine 0) (cons (aref vcurrent-engine 0) (aref vflag-changed-engine 0))))
+		  (if (aref vheuristic-rules (aref vcurrent-engine 0) 0)
+		      ;; If there are heuristic rules, sort the candidate list according to the heuristic rules (this will also update the linear and backjump information)
+		      (sort-candidates-heuristically-and-set-linear-solution vheuristic-rules vsolution vindex vlinear-solution vsolution-for-backjump 
+									     vflag-changed-engine  meter-onsetgrids meter-beatstructures nr-of-engines (aref vcurrent-engine 0))
+		      ;; Else flag the current engine to update the linear and backjump information in the loop.
+		      (setf (aref vflag-changed-engine 0) (cons (aref vcurrent-engine 0) (aref vflag-changed-engine 0))))
 
-                     (reset-vbackjump-indexes vbackjump-indexes nr-of-engines))  ;This resets memory for backjump targets.
+		  (reset-vbackjump-indexes vbackjump-indexes nr-of-engines))  ;This resets memory for backjump targets.
 
-                  ;*****************************
-                  ;Rules failed test
-                  ;The fail-fuction will take care of backtracking and finding a new candidate to test. The fail-function will also find out if it cannot
-                  ;find a solution.
-                 (when (not (fail vcurrent-engine vsolution vlinear-solution vsolution-for-backjump vindex meter-beatstructures meter-onsetgrids nr-of-engines (aref vdefault-engine-order 5) 
-                                  vbacktrack-history backtrackrule vbacktrack-engines vbackjump-indexes vflag-changed-engine vnumber-of-candidates vheuristic-rules debug?)) 
-                   (progn (print (format nil "Unable to find a solution."))
-                     (return nil))))
-               )
-                 ;Finally is used to stop the engine if it gets stuck in too many loops. The limit canbe increased above.
-          finally (error "The search system exceeded ~D loops. ~%The system was unable to find a solution.~%You may increase the maximum number of loops in the preferences." *max-nr-of-loops*)
-          )
-    
-            ;print some information about the search
+		;;*****************************
+		;; Rules failed test
+		;; The fail-fuction will take care of backtracking and finding a new candidate to test. The fail-function will also find out if it cannot
+		;; find a solution.
+		(when (not (fail vcurrent-engine vsolution vlinear-solution vsolution-for-backjump vindex meter-beatstructures meter-onsetgrids nr-of-engines (aref vdefault-engine-order 5) 
+				 vbacktrack-history backtrackrule vbacktrack-engines vbackjump-indexes vflag-changed-engine vnumber-of-candidates vheuristic-rules debug?)) 
+		  (progn (print "Unable to find a solution.")
+			 (print (format nil "This search needed ~D steps to complete." loop-counter))
+			 (if *backjump?* (print (format nil "Backjumping was on."))
+			     (print "Backjumping was off."))
+			 (when debug? (print (format nil "The engine needed to backtrack ~D times." *debug-count-backtrack*)) )
+			 (when locked-engines (print (format nil "The following engines were locked and never backtracked: ~S" locked-engines)))
+			 (return-from poly-engine :no-solution) 
+			 ;; (return nil)
+			 )))
+	    )
+       ;; Finally is used to stop the engine if it gets stuck in too many loops. The limit canbe increased above.
+       finally (error "The search system exceeded ~D loops. ~%The system was unable to find a solution.~%You may increase the maximum number of loops in the preferences." *max-nr-of-loops*)
+	 )
+
+    ;; print some information about the search
     (print (format nil "This search needed ~D steps to complete." loop-counter))
     (if *backjump?* (print (format nil "Backjumping was on."))
-      (print (format nil "Backjumping was off.")))
+	(print "Backjumping was off."))
     (when debug? (print (format nil "The engine needed to backtrack ~D times." *debug-count-backtrack*)) )
     (when locked-engines (print (format nil "The following engines were locked and never backtracked: ~S" locked-engines)))
-     ;output solution
+    ;; output solution
     (get-all-engines vsolution vindex nr-of-engines)
-    ;(format nil "~S" (get-all-engines vsolution vindex nr-of-engines))
-
+    ;; (format nil "~S" (get-all-engines vsolution vindex nr-of-engines))
     ))
 
 

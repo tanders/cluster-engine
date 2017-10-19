@@ -82,11 +82,15 @@ Ex. (group-list '(1 2 3 4) '(1 2 3) 'circular)  => ((1) (2 3) (4 1 2))
     (list rtm (nreverse res-pitch))))
 
 (defun cluster-conv-nil-rests (list)
-  (let* ((list-pairs (butlast list))
-         (time-sigs (car (last list)))
-         (grouped-pairs (group-list list-pairs 2 'linear)))
-    (append (loop for i in grouped-pairs
-              append (cluster-convert-one-rtm-pitch-pair i)) (list time-sigs))))
+  (case list
+    (:no-solution :no-solution)
+    (otherwise
+     (let* ((list-pairs (butlast list))
+	    (time-sigs (car (last list)))
+	    (grouped-pairs (group-list list-pairs 2 'linear)))
+       (append (loop for i in grouped-pairs
+		  append (cluster-convert-one-rtm-pitch-pair i))
+	       (list time-sigs))))))
 
 
 
@@ -106,71 +110,71 @@ Pitch domains cannot exist without at least one duration in the rhythm domain. D
 
 See the PWGL tutorials of this library for a detailed discussion of this function."
   
-(cluster-conv-nil-rests
+  (cluster-conv-nil-rests
 
-  (let ((bktr-rule :bktr-rule1) ;This is set in a menu in the ClusterEngine2
-        (fwd-rule :fwd-rule6B))
-    
-    (when (not metric-domain) (setf metric-domain (create-metric-domain-vector '((4 4)) '((3 4)) '(nil))))
-    (when (typep metric-domain 'list) (setf metric-domain (create-metric-domain-vector metric-domain 
-                                                                                       (make-list (length metric-domain) :initial-element '(3 4))
-                                                                                       (make-list (length metric-domain) :initial-element nil))))
-               
-  
+   (let ((bktr-rule :bktr-rule1) ;This is set in a menu in the ClusterEngine2
+	 (fwd-rule :fwd-rule6B))
+     
+     (when (not metric-domain) (setf metric-domain (create-metric-domain-vector '((4 4)) '((3 4)) '(nil))))
+     (when (typep metric-domain 'list) (setf metric-domain (create-metric-domain-vector metric-domain 
+											(make-list (length metric-domain) :initial-element '(3 4))
+											(make-list (length metric-domain) :initial-element nil))))
+     
+     
 
-    (let* ((no-of-voices  (ceiling (/ (loop for x in (reverse list-of-domains) 
-                                                                for n from 0 
-                                                                until x
-                                                                finally (return (- (length list-of-domains) n))) 
-                                      2)))
+     (let* ((no-of-voices  (ceiling (/ (loop for x in (reverse list-of-domains) 
+					  for n from 0 
+					  until x
+					  finally (return (- (length list-of-domains) n))) 
+				       2)))
 
-           (no-of-engines (1+ (* 2 no-of-voices)))
-           
+	    (no-of-engines (1+ (* 2 no-of-voices)))
+	    
 
-           (domains (loop for n from 1 to no-of-engines
-                          for sub-domain in list-of-domains
-                          collect sub-domain))
-           
+	    (domains (loop for n from 1 to no-of-engines
+			for sub-domain in list-of-domains
+			collect sub-domain))
+	    
 
            ;;;added july 2012 - potentially the metric engine is locked if flag is true (flag is set in r-predefine-meter)
-           (locked-engines (append (analyze-domain-for-locked-engines domains metric-domain)
-                                   (if *always-lock-meter?* 
-                                       (list (1- no-of-engines))
-                                     nil)))
+	    (locked-engines (append (analyze-domain-for-locked-engines domains metric-domain)
+				    (if *always-lock-meter?* 
+					(list (1- no-of-engines))
+					nil)))
            ;;;
 
-           (vrules (create-rule-vector rules no-of-engines locked-engines))
-           (vheuristic-rules (create-heuristic-rule-vector rules no-of-engines locked-engines))
-           (backtrack-rule (cond ((equal bktr-rule :bktr-rule1)
-                                  'backtrack-rule1)
-                                 ((equal bktr-rule :bktr-rule2)
-                                  'backtrack-rule2)
-                                 ((equal bktr-rule :bktr-rule3)
-                                  'backtrack-rule3)
-                                 (t nil)))
-           (forward-rule (cond ((equal fwd-rule :fwd-indep)
-                                'fwd-rule-indep)
-                               ((equal fwd-rule :fwd-rule2)
-                                'fwd-rule2)
-                               ((equal fwd-rule :fwd-rule3)
-                                'fwd-rule3)
-                               ((equal fwd-rule :fwd-rule4)
-                                'fwd-rule4)
-                               ((equal fwd-rule :fwd-rule5)
-                                'fwd-rule5)
-                               ((equal fwd-rule :fwd-rule6)
-                                'fwd-rule6)
-                               ((equal fwd-rule :fwd-rule6B)
-                                'fwd-rule6B)
-                               (t nil))))
+	    (vrules (create-rule-vector rules no-of-engines locked-engines))
+	    (vheuristic-rules (create-heuristic-rule-vector rules no-of-engines locked-engines))
+	    (backtrack-rule (cond ((equal bktr-rule :bktr-rule1)
+				   'backtrack-rule1)
+				  ((equal bktr-rule :bktr-rule2)
+				   'backtrack-rule2)
+				  ((equal bktr-rule :bktr-rule3)
+				   'backtrack-rule3)
+				  (t nil)))
+	    (forward-rule (cond ((equal fwd-rule :fwd-indep)
+				 'fwd-rule-indep)
+				((equal fwd-rule :fwd-rule2)
+				 'fwd-rule2)
+				((equal fwd-rule :fwd-rule3)
+				 'fwd-rule3)
+				((equal fwd-rule :fwd-rule4)
+				 'fwd-rule4)
+				((equal fwd-rule :fwd-rule5)
+				 'fwd-rule5)
+				((equal fwd-rule :fwd-rule6)
+				 'fwd-rule6)
+				((equal fwd-rule :fwd-rule6B)
+				 'fwd-rule6B)
+				(t nil))))
 
 
-      (setf *always-lock-meter?* nil)  ;;;added july 2012
+       (setf *always-lock-meter?* nil)  ;;;added july 2012
 
 
-      (poly-engine no-of-variables domains metric-domain no-of-voices locked-engines forward-rule backtrack-rule rnd? vrules vheuristic-rules debug?)
-        
-      ))))
+       (poly-engine no-of-variables domains metric-domain no-of-voices locked-engines forward-rule backtrack-rule rnd? vrules vheuristic-rules debug?)
+       
+       ))))
 
 
 ; (print (ClusterEngine  10 t nil nil '((4 4)) '((1/4)(1/8)) '((50) (51)) '((1/4)(1/8)) '((50) (51))))

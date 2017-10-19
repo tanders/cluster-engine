@@ -180,7 +180,8 @@
   '(((1/4) (1/8))
     () 
     ))
-; => (nil nil ((3 4)))
+; => :no-solution
+; OLD: => (nil nil ((3 4)))
 
 ;; failed rhythm rule; non-empty rhythm and non-empty pitch domain: no pitches and no rhythm returned
 (ce::clusterengine 
@@ -191,7 +192,8 @@
   '(((1/4) (1/8))
     ((60) (61))
     ))
-; => (nil nil ((3 4)))
+; => :no-solution
+; OLD: => (nil nil ((3 4)))
 
 ;; failed rhythm rule; single rhythm domain value, and non-empty pitch domain: one rhythmic value by no pitches returned, though pitch list is now (nil)
 (ce::clusterengine 
@@ -202,7 +204,8 @@
   '(((1/4)) 
     ((60) (61))
     ))
-; => ((1/4) (nil) ((3 4)))
+; => :no-solution
+; OLD: => ((1/4) (nil) ((3 4)))
 
 
 ;;; Contrast: purely rhythmic CSP (no rules here for simplicity)
