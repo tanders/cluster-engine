@@ -161,6 +161,41 @@
  )
 
 
+;;;
+;;; Test ties
+;;;
+
+;;; test ties -- pitches are nil??? Number of variables not large enough
+(preview-cluster-engine-score
+ (ce::clusterengine  
+  10 t nil
+  ()
+  '((2 4))
+  '(((-1/2 3/2 -1/2 -1/2 -1/2 3/2))
+    ((72) (73) (74)))))
+
+;; How large does no-of-variables need to be to have exactly one rhythm motif occurance in the solution and all note pitches assigned?
+(preview-cluster-engine-score
+ (ce::clusterengine  
+  18 t nil
+  ()
+  '((2 4))
+  '(((1/2 3/2 -1/2 -1/2 -1/2 3/2))
+    ((72) (73) (74)))))
+
+;;; test ties -- pitches are nil???
+(preview-cluster-engine-score
+ (ce::clusterengine  
+  10 t nil
+  ()
+  '((2 4))
+  '(((-1/6 1/6 1/6 1/4 1/4 1/6 1/6 1/6 1/2 -1/4 1/4 1/4 -1/4 -1/10 -1/10 1/10 1/10 1/10 1/4 1/4 1/5 1/10 1/10 1/10 1/2))
+    ((72) (73) (74))
+    ;; ((-1/2 3/2 -1/2 -1/2 -1/2 3/2))
+    ;; ((60) (61) (62))
+    )))
+
+
 
 ;;;
 ;;; Example with a contradiction -- no solution
