@@ -29,6 +29,12 @@
 (defun function-lambda-list (fn)
   (ccl:arglist fn))
 
+;; (ccl:arglist 'list)
+;; (ccl:method-lambda-list 'list)
+
+; (function-lambda-list 'list)
+; (function-lambda-list #'list)
+
 #+SBCL
 (defun function-lambda-list (fn)
   (sb-kernel:%simple-fun-arglist fn))
