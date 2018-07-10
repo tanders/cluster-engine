@@ -1,23 +1,22 @@
-
 (in-package cluster-engine) 
 
-(preview-cluster-engine-score
- (ce:clusterengine 
+
+(print (clusterengine 
   16 t nil 
   '()  ; no rules
   '((4 4)) 
   '(((1/4))
     ;; chord domain
-    (((67 71 74)) ((69 72 76)))
+    (((60 64 67)) ((65 69 72)) ((67 71 74)(69 72 76)))
     )))
 
-(preview-cluster-engine-score
- (ce:clusterengine 
+(print
+ (clusterengine 
   16 t nil 
   '()  ; no rules
   '((4 4)) 
   '(((1/4) (1/8))
     ;; chord sequence motif
-    (((67 71 74) (69 72 76)))
+    ((60)(m 7 -3)(m -7 3))
     )))
 

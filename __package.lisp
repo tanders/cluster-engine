@@ -76,7 +76,7 @@
 ; 
 ;(save-lisp-and-die "/Users/orjansandred/Dropbox/cluster-to-Max-Orjan/cluster19.core")
 ;(save-lisp-and-die "/Users/julienvincenot/Dropbox/cluster-to-Max-Orjan/new-approach/cluster.core")
- (save-lisp-and-die "/Users/julienvincenot/Desktop/cluster-test.core")
+ (save-lisp-and-die "/Users/orjansandred/Desktop/cluster-test.core")
 
 ;;;;;;;;;;;
 
