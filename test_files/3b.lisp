@@ -1,14 +1,7 @@
 (in-package cluster-engine) 
 
-<<<<<<< HEAD
-(print
- (clusterengine 
-=======
-(in-package cluster-engine) 
 
-(preview-cluster-engine-score
- (ce:clusterengine 
->>>>>>> 11b6783f7b1bb55ce3040263404ccb22b4e71dcd
+(print (clusterengine 
   16 t nil 
   '()  ; no rules
   '((4 4)) 
