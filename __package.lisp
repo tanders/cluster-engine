@@ -72,6 +72,8 @@
 ;;;;;; gen-domains
 (load-local "_001.gen_domains")
 
+(in-package pw)
+(defun lst (&rest args) args)
 
 ;;;;;;;;;;; PLEASE un-comment the proper one and comment the other 
 ;;;;;;;;;;; (for some reason save-lisp-and-die doesn't understand the ~/ address...)
