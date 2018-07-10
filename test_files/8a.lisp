@@ -1,7 +1,7 @@
 (in-package cluster-engine) 
 (setf *random-state* (make-random-state t)) 
 
-	(print (cluster-engine::ClusterEngine 12 t nil 
+	(print (cluster-engine::ClusterEngine 5 t nil 
 		(append (cluster-engine::R-pitches-one-voice #'(lambda (x) (not (member (mod (car (last x)) 12) (mapcar #'(lambda (a) (mod a 12)) (butlast x)) ))) '(0 1) :all-pitches) 
 			(cluster-engine::R-pitch-pitch #'(lambda (x) (member (mod (cluster-engine::apply-minus x) 12) '(3 4 7 8 9))) '(0 1) '(0) :all :no_grace :pitch) 
 			(cluster-engine::R-pitch-pitch #'(lambda (x) (>= (first x) (second x)) ) '(0 1) '(0) :all :no_grace :pitch) ) 
