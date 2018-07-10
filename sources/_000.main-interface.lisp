@@ -25,6 +25,8 @@
   (error 'not-implemented :proc (list 'arglist fn)))
 |#
 
+
+#|
 #+CCL
 (defun function-lambda-list (fn)
   (ccl:arglist fn))
@@ -32,6 +34,8 @@
 #+SBCL
 (defun function-lambda-list (fn)
   (sb-kernel:%simple-fun-arglist fn))
+
+|#
 
 ;; from OM
 (defun repeat-n  (self n) 
@@ -43,7 +47,6 @@ Ex. (repeat-n (+ 1 1) 4) ==> (2 2 2 2)"
           (push self rep))
     (reverse rep)))
 
-;; from OM
 (defmethod group-list ((list list) (segmentation list) mode)
    "Segments a <list> in successives sublists which lengths are successive values of the list <segmentation>.
  <mode> indicates if <list> is to be read in a circular way.

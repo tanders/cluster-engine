@@ -48,8 +48,10 @@
 (load-local "07.backjumping")
 (load-local "08.decode")
 (load-local "09.utilities")
-(load-local "09b.markov-tools")
-(load-local "09c.cluster-energy-profile")
+
+;(load-local "09b.markov-tools")
+;(load-local "09c.cluster-energy-profile")
+
 (load-local "12.debug-tools")
 (load-local "13.convert-pmc-rules")
 
@@ -76,7 +78,7 @@
 ; 
 ;(save-lisp-and-die "/Users/orjansandred/Dropbox/cluster-to-Max-Orjan/cluster19.core")
 ;(save-lisp-and-die "/Users/julienvincenot/Dropbox/cluster-to-Max-Orjan/new-approach/cluster.core")
- (save-lisp-and-die "/Users/orjansandred/Desktop/cluster-test.core")
+ (save-lisp-and-die "/Users/julienvincenot/Desktop/cluster-test.core")
 
 ;;;;;;;;;;;
 
