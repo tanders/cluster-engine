@@ -25,17 +25,13 @@
   (error 'not-implemented :proc (list 'arglist fn)))
 |#
 
-
-#|
 #+CCL
 (defun function-lambda-list (fn)
   (ccl:arglist fn))
-
 #+SBCL
 (defun function-lambda-list (fn)
   (sb-kernel:%simple-fun-arglist fn))
 
-|#
 
 ;; from OM
 (defun repeat-n  (self n) 
