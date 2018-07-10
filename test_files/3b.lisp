@@ -1,5 +1,5 @@
 
-(in-package :om) 
+(in-package cluster-engine) 
 
 (preview-cluster-engine-score
  (ce:clusterengine 
