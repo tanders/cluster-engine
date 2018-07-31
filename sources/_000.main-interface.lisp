@@ -30,8 +30,6 @@
   (ccl:arglist fn))
 
 ;; (ccl:arglist 'list)
-;; (ccl:method-lambda-list 'list)
-
 ; (function-lambda-list 'list)
 ; (function-lambda-list #'list)
 
