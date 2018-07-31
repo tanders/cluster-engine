@@ -39,6 +39,7 @@
 (defun function-lambda-list (fn)
   (sb-kernel:%simple-fun-arglist fn))
 
+
 ;; from OM
 (defun repeat-n  (self n) 
 "Repeats <n> times the evaluation of <self> and collects the <n> results into a list.
@@ -49,7 +50,6 @@ Ex. (repeat-n (+ 1 1) 4) ==> (2 2 2 2)"
           (push self rep))
     (reverse rep)))
 
-;; from OM
 (defmethod group-list ((list list) (segmentation list) mode)
    "Segments a <list> in successives sublists which lengths are successive values of the list <segmentation>.
  <mode> indicates if <list> is to be read in a circular way.
