@@ -79,7 +79,7 @@
 
 (defsystem cluster-engine
   :version "0.158"
-  :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torsten.anders@beds.ac.uk>"
+  :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torstenanders@gmx.de>"
   :licence "Simplified BSD License"
   :description "This is not an official release - use this at your own risk.
 
