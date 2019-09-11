@@ -115,6 +115,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
   :components
   ((:file "sources/package")
    (:file "sources/from-studio-flat")
+   (:file "sources/12.debug-tools")
    ;; (:file "sources/000.box-ptr-for-orjan") ; likely obsolete 
    (:file "sources/01.domain")
    (:file "sources/02.engine")
@@ -146,7 +147,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
    (:file "sources/09c.cluster-energy-profile")
    #+PWGL (:file "sources/10.PWGL-interface")
    #+PWGL (:file "sources/11.simple-tree")
-   (:file "sources/12.debug-tools")
    (:file "sources/13.convert-pmc-rules")
    ;; (:file "sources/14.back-compability")
    #+PWGL (:file "sources/00.menu")

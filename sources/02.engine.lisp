@@ -93,7 +93,7 @@ Locked engines cannot be backtracked."
     (declare (type t metric-domain))
     (declare (type list domains meter-beatstructures meter-onsetgrids locked-engines))
     (declare (type array vsolution vlinear-solution vsolution-for-backjump vbackjump-indexes vindex vmax-index vdomain vbacktrack-history vcurrent-engine vdefault-engine-order vbacktrack-engines vrules vheuristic-rules vflag-changed-engine vnumber-of-candidates))
-    (declare (type fixnum max-index master-index nr-of-voices nr-of-engines loop-counter))
+    (declare (type fixnum max-index nr-of-voices nr-of-engines loop-counter)) ; master-index
     (declare (type boolean rnd? debug?))
     (declare (type symbol forwardrule))
     (declare (type symbol backtrackrule))
@@ -358,6 +358,7 @@ Empty sublists will be added for additional information (onsets, number of pitch
 
 ;;functions that are used in the functions initiate-new-variable and fail
 
+#|
 ;;OLD (se below)
 (defun assign-pitches-for-motif (engine vsolution vindex)
   "index has to be 1 or larger - otherwise this function wil give an error"
@@ -379,7 +380,7 @@ Empty sublists will be added for additional information (onsets, number of pitch
     (when (listp previous-pitch) (setf previous-pitch (car previous-pitch)))
     (setf (car (nth nth (aref (aref vsolution engine) (aref vindex engine))))
           (dx-to-x-cdr previous-pitch (get-nth-m-motif engine vindex vsolution nth)))))
-
+|#
 
 ;Dec 31 2014
 (defun assign-pitches-for-motif (engine vsolution vindex)
@@ -633,7 +634,7 @@ backtracked steps (i.e. indexes) that was jumped. The trashed variables are set 
 
 
 
-
+#|
 (defun backjump-engine (engine vbackjump-indexes vbacktrack-history vindex vsolution)
   "This function does not compensate in the backtrack history when variables are skipped during backjumping.
 This works better since variables that fail each other will be rebuilt in sequence this way."
@@ -644,7 +645,7 @@ This works better since variables that fail each other will be rebuilt in sequen
 
              (setf (aref vindex engine) backjump-index-current-engine)
              ))
-
+|#
 
 ;this is new april 7 2011
 (defun backjump-engine (engine vbackjump-indexes vbacktrack-history vindex vsolution)

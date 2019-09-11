@@ -3,6 +3,7 @@
 
 ;;;; FOR R-mel-interval-one-voice
 
+#|
 (defun melodic-statement-for-dur (fn-filterdur fn-filtermel)
   #'(lambda (evt1 evt2) 
       (let ((interval (- (second evt1) (second evt2)))
@@ -13,6 +14,7 @@
         (if (funcall fn-filterdur dur)
             (funcall fn-filtermel interval)
           t))))
+|#
 
 ;new Aug27 2012
 ;(defun melodic-statement-for-dur (fn-filterdur fn-filtermel)
