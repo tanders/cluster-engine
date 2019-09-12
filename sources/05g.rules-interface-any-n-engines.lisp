@@ -367,7 +367,7 @@ Returns nil if one voice doesn't have events with dur/pitch yet."
   (remove-duplicates
    (sort 
     (apply 'append
-           (loop for voicenr fixnum in list-voicenrs
+           (loop for voicenr in list-voicenrs
                  collect (remove-rests-from-list2 (butlast (aref vlinear-solution (* 2 voicenr) 1)))))
     '<)))
 
@@ -398,9 +398,9 @@ If duration is not assigned, nil will be returned. Also works for he metric engi
   #-CCL (declare (type list list-voicenrs notecounts-all-voice)) ; notecounts
   (declare (type array vlinear-solution))
   ;; #-CCL (declare (type fixnum voicenr notecount))
-  (loop for voicenr fixnum in list-voicenrs
+  (loop for voicenr in list-voicenrs
     for notecounts in notecounts-all-voice
-    collect (loop for notecount fixnum in notecounts
+    collect (loop for notecount in notecounts
               collect (if notecount (get-pitch-at-pitchcount (+ 1 (* 2 voicenr)) vlinear-solution notecount) nil))))
 
 
@@ -774,10 +774,10 @@ This function also includs the notecounts for grace notes."
   (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices)) ; notecount-slice
   (declare (type array vlinear-solution))
   ;; (declare (type fixnum voicenr notecount))
-  (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
-     collect (loop for voicenr fixnum in list-voicenrs
-		for notecount fixnum in notecount-slice
-		collect (if notecount (get-pitch-at-pitchcount (+ 1 (* 2 voicenr)) vlinear-solution notecount) nil))))
+    (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
+        collect (loop for voicenr in list-voicenrs
+                      for notecount in notecount-slice
+                      collect (if notecount (get-pitch-at-pitchcount (+ 1 (* 2 voicenr)) vlinear-solution notecount) nil))))
 
 ;;;;
 
@@ -1644,7 +1644,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 
   (loop for notecountgroups in all-voices-notecountgroups
         collect (loop for notecountgroup in notecountgroups
-                      for timepoint number in timepoints
+                      for timepoint in timepoints
                       collect (if notecountgroup
                                   (if (listp notecountgroup)
                                       (make-list (length notecountgroup) :initial-element timepoint)
@@ -1658,8 +1658,8 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
   (declare (type array vlinear-solution))
   ;; (declare (type fixnum voicenr notecount))
     (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
-        collect (loop for voicenr fixnum in list-voicenrs
-                      for notecount fixnum in notecount-slice
+        collect (loop for voicenr in list-voicenrs
+                      for notecount in notecount-slice
                       collect (if notecount (get-duration-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
 
 
@@ -1668,10 +1668,10 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
   (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices)) ; notecount-slice
   (declare (type array vlinear-solution))
   ;; (declare (type fixnum voicenr notecount))
-  (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
-     collect (loop for voicenr fixnum in list-voicenrs
-		for notecount fixnum in notecount-slice
-		collect (if notecount (get-timepoint-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
+    (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
+        collect (loop for voicenr in list-voicenrs
+                      for notecount in notecount-slice
+                      collect (if notecount (get-timepoint-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
 
 
 

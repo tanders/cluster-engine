@@ -143,8 +143,8 @@ If iled-notecounts is nil (i.e. a rest), backjump will not be set. This is a sim
   (declare (type list list-voicenrs failed-notecounts))
   (declare (type array vbackjump-indexes vsolution-for-backjump vlinear-solution))
 
-  (loop for voicenr fixnum in list-voicenrs
-        for failed-notecount list in failed-notecounts ; type-of list 
+  (loop for voicenr in list-voicenrs
+        for failed-notecount in failed-notecounts
         do (progn 
              ;; #-CCL (declare (type fixnum voicenr)) 
              ;; #-CCL (declare (type list failed-notecount))
