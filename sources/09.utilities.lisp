@@ -523,8 +523,8 @@ the last engine in default-engine-order."
   (declare (type array vindex))
   (declare (type list default-engine-order))
   (let ((max-index (apply 'max (loop for n in default-engine-order collect (aref vindex n)))))
-    (declare (type fixnum max-index))
-    (loop for engine fixnum in (reverse default-engine-order) ; type-of ;; SBCL does not know "type-of" in for clause of loop?
+    (declare (type fixnum max-index)) ; engine
+    (loop for engine in (reverse default-engine-order)
           while (/= (aref vindex engine) max-index)
           finally (return engine))))
 
@@ -655,7 +655,7 @@ The first value in a chord will be considered the link to previous and following
 
 (defun remove-list-before-startpoint (startpoint list)
   (declare (type list list))
-  (declare (type number startpoint))
+  ;; (declare (type number endpoint))
   (member startpoint list  :test #'(lambda (a b) (<= a b))))
 
 
@@ -754,14 +754,13 @@ The first value in a chord will be considered the link to previous and following
 
 (defun get-durations-at-notecounts (list-voicenrs notecounts-all-voice vlinear-solution)
   "This function looks up the correcponding durations at notecounts in one or several voices."
-  (declare (type list list-voicenrs notecounts-all-voice))
+  (declare (type list list-voicenrs notecounts-all-voice)) ;; notecounts
   (declare (type array vlinear-solution))
-  (loop
-     for voicenr fixnum in list-voicenrs ; type-of
-     for notecounts in notecounts-all-voice ; type-of list 
-     collect (loop for notecount in notecounts ; type-of fixnum 
-		;; TA: Conflicting use of notecount as Boolean, which was declared as fixnum -- I therefore took out the type declaration
-		collect (if notecount (get-duration-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
+  ;; (declare (type fixnum voicenr notecount))
+    (loop for voicenr in list-voicenrs
+          for notecounts in notecounts-all-voice
+        collect (loop for notecount in notecounts
+                      collect (if notecount (get-duration-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
 
 
 (defun get-durations-from-timepoint (engine vlinear-solution timepoint)
@@ -804,14 +803,13 @@ Replaces function get-position-for-duration-at-notecount+following-rests"
 and if there are rest immediately preceeding the duration, the position for the first of them).
 Notecount HAS to exist."
   (declare (type array vlinear-solution))
-  ;; Warning: Constant NIL conflicts with its asserted type FIXNUM.
   (declare (type fixnum engine notecount))
 
-  (let ((position-for-duration-at-notecount (get-position-for-duration-at-notecount engine vlinear-solution notecount))
-	(count 0))
-    (declare (type fixnum position-for-duration-at-notecount count))
-    
-    (when (< position-for-duration-at-notecount 1)
+(let ((position-for-duration-at-notecount (get-position-for-duration-at-notecount engine vlinear-solution notecount))
+      count)
+  (declare (type fixnum position-for-duration-at-notecount)) ;; count ;; fixnum can not have init val NIL
+
+  (when (< position-for-duration-at-notecount 1)
       (return-from get-position-for-duration-at-notecount-minus-preceeding-rests position-for-duration-at-notecount))
 
     (loop for n from position-for-duration-at-notecount downto 1
@@ -906,18 +904,18 @@ Gracenotes will not be found, only notes with durations."
 
 (defun get-timepoints-at-notecounts (list-voicenrs notecounts-all-voice vlinear-solution)
   "This function looks up the correcponding timepoints at notecounts in one or several voices."
-  (declare (type list list-voicenrs notecounts-all-voice))
+  (declare (type list list-voicenrs notecounts-all-voice)) ;; notecounts
   (declare (type array vlinear-solution))
-  ;; (declare (type fixnum notecount))
-  (loop for voicenr fixnum in list-voicenrs ; type-of 
-     for notecounts in notecounts-all-voice ; type-of list 
-     collect (loop for notecount in notecounts ; type-of fixnum
-		;; TA: declared type fixnum of notecount inconsistent with its use as Boolean, so I took out the type declaration
-		collect (if notecount (get-timepoint-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
+  ;; (declare (type fixnum voicenr notecount))
+    (loop for voicenr in list-voicenrs
+          for notecounts in notecounts-all-voice
+        collect (loop for notecount in notecounts
+                      collect (if notecount (get-timepoint-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
 
 
 (defun get-timepoints-at-notecounts-one-voice (voicenr notecounts vlinear-solution)
   "This function looks up the correcponding timepoints at notecounts in one or several voices."
+  (declare (type list notecounts))
   ;; (declare (type list list-voicenrs notecounts-all-voice notecounts))
   (declare (type array vlinear-solution))
   (declare (type fixnum voicenr))
@@ -1856,8 +1854,8 @@ Also for heuristic rules.
 (defun get-timepoints-from-before-any-timepoint-minus-nsteps-ignor-gracenotes (rhythm-engine vindex vlinear-solution timepoint nsteps)
   "Also for heuristic rules.
 Returns the list from the timepoint, or (if timepoint does not exist) the step before the timepoint."
-  (let* ((all-onsets-no-gracenote (remove-gracenotes-from-timepointlist (the list (aref vlinear-solution rhythm-engine 1))))) 
-    (declare (type list)) ; all-onsets-no-gracenote-no-rest
+  (let* ((all-onsets-no-gracenote (remove-gracenotes-from-timepointlist (the list (aref vlinear-solution rhythm-engine 1)))))
+    ;; (declare (type list all-onsets-no-gracenote-no-rest))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
     (declare (type array vindex vlinear-solution))
@@ -2126,9 +2124,9 @@ This will correct the notecount list to mark where the rests are."
 
 (defun matrix-trans (matrix)
   "The cluster engine version of the mat-trans function"
-  (declare (type list matrix))
+  (declare (type list matrix)) ;; row
   (loop for n from 0 to (1- (length (first matrix)))
-        collect (loop for row of-type list in matrix
+        collect (loop for row in matrix
                       collect (nth n row))))
 
 
