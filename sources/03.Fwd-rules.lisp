@@ -43,7 +43,7 @@ which voice to search next."
          (max-voice-length (apply 'max all-voices-total-length))
          (min-voice-length (apply 'min all-voices-total-length))
          pitch-engine-with-missing-pitches)
-    (declare (type number length-metric-engin max-voice-length min-voice-length))
+    (declare (type number length-metric-engine max-voice-length min-voice-length))
     (declare (type list all-voices-total-length))
     (declare (type t pitch-engine-with-missing-pitches))
 
@@ -81,7 +81,7 @@ which voice to search next."
            (max-voice-length (apply 'max all-voices-total-length))
            (min-voice-length (apply 'min all-voices-total-length))
            pitch-engine-with-missing-pitches)
-      (declare (type number length-metric-engin max-voice-length min-voice-length))
+      (declare (type number length-metric-engine max-voice-length min-voice-length))
       (declare (type list all-voices-total-length))
       (declare (type t pitch-engine-with-missing-pitches))
 
@@ -135,7 +135,7 @@ which voice to search next."
          (max-voice-length (apply 'max all-voices-total-length))
          (min-voice-length (apply 'min all-voices-total-length))
          pitch-engine-with-missing-pitches)
-    (declare (type number length-metric-engin max-voice-length min-voice-length))
+    (declare (type number length-metric-engine max-voice-length min-voice-length))
     (declare (type list all-voices-total-length))
     (declare (type t pitch-engine-with-missing-pitches))
 
@@ -189,7 +189,7 @@ which voice to search next."
          (max-voice-length (apply 'max all-voices-total-length))
          (min-voice-length (apply 'min all-voices-total-length))
          pitch-engine-with-missing-pitches)
-    (declare (type number length-metric-engin max-voice-length min-voice-length))
+    (declare (type number length-metric-engine max-voice-length min-voice-length))
     (declare (type list all-voices-total-length))
     (declare (type t pitch-engine-with-missing-pitches))
 
@@ -264,7 +264,7 @@ which voice to search next."
          (max-voice-length (apply 'max all-voices-total-length))
          (min-voice-length (apply 'min all-voices-total-length))
          pitch-engine-with-missing-pitches)
-    (declare (type number length-metric-engin max-voice-length min-voice-length))
+    (declare (type number length-metric-engine max-voice-length min-voice-length))
     (declare (type list all-voices-total-length))
     (declare (type t pitch-engine-with-missing-pitches))
 
@@ -349,7 +349,7 @@ which voice to search next."
          (max-voice-length (apply 'max all-voices-total-length))
          (min-voice-length (apply 'min all-voices-total-length))
          pitch-engine-with-missing-pitches)
-    (declare (type number length-metric-engin max-voice-length min-voice-length))
+    (declare (type number length-metric-engine max-voice-length min-voice-length))
     (declare (type list all-voices-total-length))
     (declare (type t pitch-engine-with-missing-pitches))
 
@@ -434,7 +434,7 @@ which voice to search next."
          (max-voice-length (apply 'max all-voices-total-length))
          (min-voice-length (apply 'min all-voices-total-length))
          pitch-engine-with-missing-pitches)
-    (declare (type number length-metric-engin max-voice-length min-voice-length))
+    (declare (type number length-metric-engine max-voice-length min-voice-length))
     (declare (type list all-voices-total-length))
     (declare (type t pitch-engine-with-missing-pitches))
 

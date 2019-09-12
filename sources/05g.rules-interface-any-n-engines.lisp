@@ -339,8 +339,8 @@ Metric engine has lowest priority.
   "Returns a list with the timepoints for the last event in each voice that has both pitch and rhythm value. Both rhythm and pitch engine for the voice must exist."
   (declare (type list list-voicenrs))
   (declare (type array vlinear-solution))
-  #-CCL (declare (type fixnum voicenrs)) 
-  (loop for voicenrs in list-voicenrs
+  ;; #-CCL (declare (type fixnum voicenrs)) 
+  (loop for voicenrs fixnum in list-voicenrs
         collect (get-offset-timepoint-at-notecount-include-final-rest (* 2 voicenrs) vlinear-solution 
                                                                       (min 
                                                                        (get-total-pitchcount (+ 1 (* 2 voicenrs)) vlinear-solution) 
@@ -363,11 +363,11 @@ Returns nil if one voice doesn't have events with dur/pitch yet."
   "Collects all timepoints from the voices, sorts them and removes duplicates."
   (declare (type list list-voicenrs))
   (declare (type array vlinear-solution))
-  #-CCL (declare (type fixnum voicenr)) 
+  ;; #-CCL (declare (type fixnum voicenr)) 
   (remove-duplicates
    (sort 
     (apply 'append
-           (loop for voicenr in list-voicenrs
+           (loop for voicenr fixnum in list-voicenrs
                  collect (remove-rests-from-list2 (butlast (aref vlinear-solution (* 2 voicenr) 1)))))
     '<)))
 
@@ -395,12 +395,12 @@ If duration is not assigned, nil will be returned. Also works for he metric engi
 
 (defun get-pitches-to-notecounts (list-voicenrs notecounts-all-voice vlinear-solution)
   "This function looks up teh correcponding pitches at notecounts in one or several voices."
-  #-CCL (declare (type list list-voicenrs notecounts-all-voice notecounts))
+  #-CCL (declare (type list list-voicenrs notecounts-all-voice)) ; notecounts
   (declare (type array vlinear-solution))
-  #-CCL (declare (type fixnum voicenr notecount))
-  (loop for voicenr in list-voicenrs
+  ;; #-CCL (declare (type fixnum voicenr notecount))
+  (loop for voicenr fixnum in list-voicenrs
     for notecounts in notecounts-all-voice
-    collect (loop for notecount in notecounts
+    collect (loop for notecount fixnum in notecounts
               collect (if notecount (get-pitch-at-pitchcount (+ 1 (* 2 voicenr)) vlinear-solution notecount) nil))))
 
 
@@ -705,7 +705,7 @@ for each gracenote (they are grouped with the main notes in the other voices)."
                                  for n from 0
                                  collect (when (listp one-voice-notecount) 
                                          (progn
-                                             #-CCL (declare (type t one-voice-notecount))
+                                             ;; #-CCL (declare (type t one-voice-notecount)) ;; type t declaration redundant anyway
                                              (loop for gracenote in (butlast one-voice-notecount)
                                                    collect (let ((this-slice (copy-list basenotes-this-timepoint)))
                                                              (declare (type list this-slice))
@@ -771,13 +771,13 @@ This function also includs the notecounts for grace notes."
 
 (defun get-pitches-for-slices-of-notecounts (list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution)
   "This function looks up teh correcponding pitches at notecounts in harmonic slices."
-  (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices notecount-slice))
+  (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices)) ; notecount-slice
   (declare (type array vlinear-solution))
-  (declare (type fixnum voicenr notecount))
-    (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
-        collect (loop for voicenr in list-voicenrs
-                      for notecount in notecount-slice
-                      collect (if notecount (get-pitch-at-pitchcount (+ 1 (* 2 voicenr)) vlinear-solution notecount) nil))))
+  ;; (declare (type fixnum voicenr notecount))
+  (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
+     collect (loop for voicenr fixnum in list-voicenrs
+		for notecount fixnum in notecount-slice
+		collect (if notecount (get-pitch-at-pitchcount (+ 1 (* 2 voicenr)) vlinear-solution notecount) nil))))
 
 ;;;;
 
@@ -1639,12 +1639,12 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 (defun replace-notecount-by-timepoint (all-voices-notecountgroups timepoints)
   "This function is to understand the matching of timepoints to notecounts in the rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-and-offset function."
 
-  (declare (type list all-voices-notecountgroups timepoints notecountgroups))
-  (declare (type number timepoint))
+  (declare (type list all-voices-notecountgroups timepoints)) ; notecountgroups
+  ;; (declare (type number timepoint))
 
   (loop for notecountgroups in all-voices-notecountgroups
         collect (loop for notecountgroup in notecountgroups
-                      for timepoint in timepoints
+                      for timepoint number in timepoints
                       collect (if notecountgroup
                                   (if (listp notecountgroup)
                                       (make-list (length notecountgroup) :initial-element timepoint)
@@ -1654,24 +1654,24 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
 ;The following two functions are similar to get-pitches-for-slices-of-notecounts above.
 (defun get-durations-for-slices-of-notecounts (list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution)
   "This function looks up teh correcponding pitches at notecounts in harmonic slices."
-  (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices notecount-slice))
+  (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices)) ; notecount-slice
   (declare (type array vlinear-solution))
-  (declare (type fixnum voicenr notecount))
+  ;; (declare (type fixnum voicenr notecount))
     (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
-        collect (loop for voicenr in list-voicenrs
-                      for notecount in notecount-slice
+        collect (loop for voicenr fixnum in list-voicenrs
+                      for notecount fixnum in notecount-slice
                       collect (if notecount (get-duration-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
 
 
 (defun get-timepoints-for-slices-of-notecounts (list-voicenrs groups-of-simultaneous-notecounts-all-voices vlinear-solution)
   "This function looks up teh correcponding pitches at notecounts in harmonic slices."
-  (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices notecount-slice))
+  (declare (type list list-voicenrs groups-of-simultaneous-notecounts-all-voices)) ; notecount-slice
   (declare (type array vlinear-solution))
-  (declare (type fixnum voicenr notecount))
-    (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
-        collect (loop for voicenr in list-voicenrs
-                      for notecount in notecount-slice
-                      collect (if notecount (get-timepoint-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
+  ;; (declare (type fixnum voicenr notecount))
+  (loop for notecount-slice in groups-of-simultaneous-notecounts-all-voices
+     collect (loop for voicenr fixnum in list-voicenrs
+		for notecount fixnum in notecount-slice
+		collect (if notecount (get-timepoint-at-notecount (* 2 voicenr) vlinear-solution notecount) nil))))
 
 
 
