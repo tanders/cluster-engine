@@ -148,9 +148,8 @@ be output in the format of a list of individual rule arrays."
                                        collect (count engine engines-for-rules-include-duplicates)))
 
     ;create rule array
-    (setf vrules (make-array (list nr-of-engines 2)
-			     :initial-element (make-array 1 :initial-element nil)
-			     :element-type 'array))
+    (setf vrules (make-array (list nr-of-engines 2) :initial-element nil))
+		;; (setf vrules (make-array (list nr-of-engines 2) :initial-element nil :element-type 'array))
     (loop for engine in engines-for-rules
           for nr-of-rules in nr-of-rules-per-engine
           do (progn 
