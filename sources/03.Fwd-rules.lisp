@@ -452,7 +452,7 @@ which voice to search next."
 
 (defun find-pitch-engine-with-missing-pitches (vsolution vindex vdefault-engine-order)
   (declare (type array vsolution vindex vdefault-engine-order))
-;(print vsolution)
+;(print vsolution *cluster-engine-log-output*)
   (loop for rhythm-engine in (aref vdefault-engine-order 1)
         do (let ((pitch-engine (1+ rhythm-engine)))
              (when (member pitch-engine (aref vdefault-engine-order 2))

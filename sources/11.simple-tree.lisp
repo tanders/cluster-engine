@@ -336,7 +336,7 @@
 
   (ccl::make-score
    (let ((tempo 90))
-(print (- (length linear-solution) 2))
+(print (- (length linear-solution) 2) *cluster-engine-log-output*)
      (loop for n from 0 to (- (length linear-solution) 2) by 2
            collect (simple->tree (nth n linear-solution) (nth (1+ n) linear-solution) (car (last linear-solution)) tempo))
      )))

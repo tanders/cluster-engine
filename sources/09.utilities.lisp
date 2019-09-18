@@ -1026,12 +1026,12 @@ Gracenotes will be returned in sublists ending at the main beat."
   (let ((endtime-engine (car (last (aref vlinear-solution engine 1)))))
     (declare (type number endtime-engine))
     (when (>= timepoint endtime-engine) (return-from get-durations-between-onset-offset-include-gracenotes nil)) ;this might be an unnecessary check
-;(print (list engine vlinear-solution timepoint duration))
+;(print (list engine vlinear-solution timepoint duration) *cluster-engine-log-output*)
 ;changed '>= to #'(lambda (a b) (>= a (abs b)))
     (let ((start-position-include-gracenote (position (find timepoint (aref vlinear-solution engine 1) :test #'(lambda (a b) (>= a (abs b))) :from-end t) (aref vlinear-solution engine 1)))
           (end-position (position (+ timepoint (abs duration)) (butlast (aref vlinear-solution engine 1)) :test #'(lambda (a b) (> a (abs b))) :from-end t)))
       (declare (type fixnum start-position-include-gracenote end-position))
-;(print (list start-position-include-gracenote end-position))
+;(print (list start-position-include-gracenote end-position) *cluster-engine-log-output*)
       (loop for n from start-position-include-gracenote to end-position
             collect (nth n (aref vlinear-solution engine 0))))))
 
