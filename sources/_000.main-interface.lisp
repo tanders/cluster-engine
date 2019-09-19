@@ -35,7 +35,11 @@
 
 #+SBCL
 (defun function-lambda-list (fn)
-  (sb-kernel:%simple-fun-arglist fn))
+  (sb-introspect:function-lambda-list
+   ;; NOTE: It is not right that this is necessary, but unfortunately rule applicators are initially nested lists that are lambda expressions instead of proper functions
+   (compile-if-not-compiled nil fn)))
+;; (defun function-lambda-list (fn)
+;;   (sb-kernel:%simple-fun-arglist fn))
 
 
 ;; from OM
