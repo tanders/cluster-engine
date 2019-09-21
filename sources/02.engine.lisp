@@ -45,6 +45,10 @@
 (defparameter *cluster-engine-log-output* *error-output*
   "Stream to which Cluster Engine log messages are printed.")
 
+(defparameter *verbose-i/o?* T
+  "Flag controlling whether log messages and warnings are set to *cluster-engine-log-output*, or whether they are skipped.")
+
+
 (defvar *backjump?* t)
 
 ;added july 2012
@@ -107,19 +111,21 @@ Locked engines cannot be backtracked."
 (setf *stop?* nil) 
 ;
 ;;;;;;
-(print (format nil "----")
-       *cluster-engine-log-output*)
-(print (format nil "Cluster Engine by Orjan Sandred (Studio FLAT, University of Manitoba). Transfered from PWGL to SBCL by Julien Vincenot and Orjan Sandred (Uppsala 2015).")
-       *cluster-engine-log-output*)
+(when *verbose-i/o?*
+  (print (format nil "----")
+	 *cluster-engine-log-output*)
+  (print (format nil "Cluster Engine by Orjan Sandred (Studio FLAT, University of Manitoba). Transfered from PWGL to SBCL by Julien Vincenot and Orjan Sandred (Uppsala 2015).")
+	 *cluster-engine-log-output*))
 ;;;;;;
 
 
     ;;;;print some default settings
 (if *backjump?*
-    (print (format nil "Initiate search with ~D engines: backjumping is on." nr-of-engines)
-	   *cluster-engine-log-output*)
-    (print (format nil "Initiate search with ~D engines: backjumping is off." nr-of-engines)
-	   *cluster-engine-log-output*))
+    (when *verbose-i/o?*
+      (print (format nil "Initiate search with ~D engines: backjumping is on." nr-of-engines)
+	     *cluster-engine-log-output*)
+      (print (format nil "Initiate search with ~D engines: backjumping is off." nr-of-engines)
+	     *cluster-engine-log-output*)))
     ;(print (format nil "Some engines are locked and cannot be backtracked (maybe because they are pre-defined): ~S" locked-engines) *cluster-engine-log-output*)
 
     ;;;;set metric grid, beatstructure and time sign from vector in metric domain (in the box-function any input will be transformed into a vector
@@ -178,8 +184,8 @@ Locked engines cannot be backtracked."
 
      ;*****************************
      ;Main loop
-    (print (format nil "Search running..." vindex) *cluster-engine-log-output*)
-
+     (when *verbose-i/o?*
+       (print (format nil "Search running..." vindex) *cluster-engine-log-output*))
 
 
 
@@ -188,8 +194,9 @@ Locked engines cannot be backtracked."
           do (progn
 
                 ;print search progress
-               (when (and (= (mod n 50000) 0) (/= n 0)) (print (format nil "Current indexes:  ~S. Number of testloops: ~D." vindex n)
-							       *cluster-engine-log-output*))
+               (when (and *verbose-i/o?* (= (mod n 50000) 0) (/= n 0))
+		 (print (format nil "Current indexes:  ~S. Number of testloops: ~D." vindex n)
+			*cluster-engine-log-output*))
                    
                (convert-vsolution->linear-and-backjump vsolution vindex vlinear-solution vsolution-for-backjump vflag-changed-engine nr-of-engines)
                (setf (aref vflag-changed-engine 0) nil) ;reset vflag-changed-engine (this is used for the convert-vsolution->linear-and-backjump to determine what needs to be updated)
@@ -214,8 +221,9 @@ Locked engines cannot be backtracked."
                      (when (or (>= (aref vindex (aref vcurrent-engine 0)) max-index) *stop?*) (progn 
                                                                                            ;decrease index so it points at the last assigned variable
                                                                                                 (setf (aref vindex (aref vcurrent-engine 0)) (1- (aref vindex (aref vcurrent-engine 0))))
-                                                                                                (when *stop?* (print (format nil "A stop rule ended the search.") *cluster-engine-log-output*))
-                                                                                                (print (format nil "A solution was found.") *cluster-engine-log-output*)
+												(when *verbose-i/o?*
+												  (when *stop?* (print (format nil "A stop rule ended the search.") *cluster-engine-log-output*))
+												  (print (format nil "A solution was found.") *cluster-engine-log-output*))
                                                                                                 (return 'done)))
 
                              
@@ -241,7 +249,8 @@ Locked engines cannot be backtracked."
                   ;find a solution.
                  (when (not (fail vcurrent-engine vsolution vlinear-solution vsolution-for-backjump vindex meter-beatstructures meter-onsetgrids nr-of-engines (aref vdefault-engine-order 5) 
                                   vbacktrack-history backtrackrule vbacktrack-engines vbackjump-indexes vflag-changed-engine vnumber-of-candidates vheuristic-rules debug?)) 
-                   (progn (print (format nil "Unable to find a solution.") *cluster-engine-log-output*)
+                   (progn
+		     (print (format nil "Unable to find a solution.") *cluster-engine-log-output*)
                      (return nil))))
                )
                  ;Finally is used to stop the engine if it gets stuck in too many loops. The limit canbe increased above.
@@ -249,11 +258,12 @@ Locked engines cannot be backtracked."
           )
     
             ;print some information about the search
-    (print (format nil "This search needed ~D steps to complete." loop-counter) *cluster-engine-log-output*)
-    (if *backjump?* (print (format nil "Backjumping was on.") *cluster-engine-log-output*)
-      (print (format nil "Backjumping was off.") *cluster-engine-log-output*))
-    (when debug? (print (format nil "The engine needed to backtrack ~D times." *debug-count-backtrack*) *cluster-engine-log-output*) )
-    (when locked-engines (print (format nil "The following engines were locked and never backtracked: ~S" locked-engines) *cluster-engine-log-output*))
+    (when *verbose-i/o?*
+      (print (format nil "This search needed ~D steps to complete." loop-counter) *cluster-engine-log-output*)
+      (if *backjump?* (print (format nil "Backjumping was on.") *cluster-engine-log-output*)
+	  (print (format nil "Backjumping was off.") *cluster-engine-log-output*))
+      (when debug? (print (format nil "The engine needed to backtrack ~D times." *debug-count-backtrack*) *cluster-engine-log-output*) )
+      (when locked-engines (print (format nil "The following engines were locked and never backtracked: ~S" locked-engines) *cluster-engine-log-output*)))
      ;output solution
     (get-all-engines vsolution vindex nr-of-engines)
     ;(format nil "~S" (get-all-engines vsolution vindex nr-of-engines))
@@ -276,7 +286,8 @@ among the variables."
   (declare (type fixnum current-engine))
   (when (> (aref vindex current-engine) (aref vmax-index current-engine))
     (progn (setf (aref vmax-index current-engine) (aref vindex current-engine))
-      (print (format nil "Highest indexes during this search: ~S" vmax-index) *cluster-engine-log-output*))))
+	   (when *verbose-i/o?*
+	     (print (format nil "Highest indexes during this search: ~S" vmax-index) *cluster-engine-log-output*)))))
 
 
 (defun debug-print-and-update-maxindex (vindex vmax-index vsolution current-engine nr-of-engines)
@@ -292,7 +303,8 @@ among the variables."
   (when (> (aref vindex current-engine) (aref vmax-index current-engine))
     (progn (setf (aref vmax-index current-engine) (aref vindex current-engine))
       (store-temp-solution-to-debug-vector2 (get-all-engines vsolution vindex nr-of-engines))
-      (print (format nil "Highest indexes during this search: ~S" vmax-index) *cluster-engine-log-output*))))
+      (when *verbose-i/o?*
+	(print (format nil "Highest indexes during this search: ~S" vmax-index) *cluster-engine-log-output*)))))
 
 (defun store-temp-solution-for-maxindex-to-debug-vector2  (vindex vmax-index vsolution current-engine nr-of-engines)
   "This function stores the temporary solution when an index exceeds its previous maximum."
