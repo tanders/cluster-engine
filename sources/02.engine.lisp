@@ -254,8 +254,9 @@ Locked engines cannot be backtracked."
                 (progn
 		  (when *verbose-i/o?*
 		    (print (format nil "This search needed ~D steps to complete." loop-counter) *cluster-engine-log-output*)
-		    (if *backjump?* (print (format nil "Backjumping was on.") *cluster-engine-log-output*)
-			(print "Backjumping was off.") *cluster-engine-log-output*)
+		    (if *backjump?*
+			(print (format nil "Backjumping was on.") *cluster-engine-log-output*)
+			(print "Backjumping was off." *cluster-engine-log-output*))
 		    (when debug? (print (format nil "The engine needed to backtrack ~D times." *debug-count-backtrack*) *cluster-engine-log-output*))
 		    (when locked-engines (print (format nil "The following engines were locked and never backtracked: ~S" locked-engines) *cluster-engine-log-output*))
 		    (print "Unable to find a solution." *cluster-engine-log-output*))
