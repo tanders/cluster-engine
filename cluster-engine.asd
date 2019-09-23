@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; ClusterEngine Library
-;;; Copyright (c) 2017, Örjan Sandred.  All rights reserved.
+;;; Copyright (c) 2017, Orjan Sandred.  All rights reserved.
 ;;;
 ;;; This is an experimental library, and a work in progress
 ;;;
@@ -79,7 +79,7 @@
 
 (defsystem cluster-engine
   :version "0.158"
-  :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torsten.anders@beds.ac.uk>"
+  :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torstenanders@gmx.de>"
   :licence "Simplified BSD License"
   :description "This is not an official release - use this at your own risk.
 
@@ -88,7 +88,7 @@ This library provides a constraint system that uses several search engines that 
 This system is experimental: Any found solution is always valid, however in some cases the system might not be able to find a solution even if there is one. Typically it is  enough to try again to find a valid solution. 
 
 
-Copyright (c) 2013, Örjan Sandred
+Copyright (c) 2013, Orjan Sandred
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -115,6 +115,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
   :components
   ((:file "sources/package")
    (:file "sources/from-studio-flat")
+   (:file "sources/12.debug-tools")
    ;; (:file "sources/000.box-ptr-for-orjan") ; likely obsolete 
    (:file "sources/01.domain")
    (:file "sources/02.engine")
@@ -146,7 +147,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
    (:file "sources/09c.cluster-energy-profile")
    #+PWGL (:file "sources/10.PWGL-interface")
    #+PWGL (:file "sources/11.simple-tree")
-   (:file "sources/12.debug-tools")
    (:file "sources/13.convert-pmc-rules")
    ;; (:file "sources/14.back-compability")
    #+PWGL (:file "sources/00.menu")

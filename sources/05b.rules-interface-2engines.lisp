@@ -201,7 +201,7 @@ This is used to filter out grace notes."
 (defun get-nth-for-dur-filter-rests-and-gracenotes (rhythmseq)
   "This function returns the positions for all events BUT grace notes and rests in rythmseq.
 This is used to filter out grace notes and rests."
-  (declare (type list rhythmseq))
+  ;; (declare (type list rhythmseq))
   (remove nil
           (loop for nth from 0 to (1- (length rhythmseq))
                 collect (if (plusp (nth nth rhythmseq)) nth nil))))
@@ -213,7 +213,7 @@ This is used to filter out grace notes and rests."
 rhythmseq-nths is a list with allowed positions in the rhythm sequence (typically after gracenotes have been filtered out).
 first-nth is the first nth in the current variable (nth counted from the beginning of the sequence)
 args-in-rule is the number of arguments the rule that will be checked has."
-  (declare (type list rhythmseq))
+  ;; (declare (type list rhythmseq))
   (declare (type fixnum first-nth no-args-in-rule))
 
   ;find the position for the value - if it does not exist, use the following value
@@ -229,7 +229,7 @@ args-in-rule is the number of arguments the rule that will be checked has."
 rhythmseq-nths is a list with allowed positions in the rhythm sequence (typically after gracenotes have been filtered out).
 last-nth is the last nth in the current variable (nth counted from the beginning of the sequence)
 args-in-rule is the number of arguments the rule that will be checked has."
-  (declare (type list rhythmseq))
+  ;; (declare (type list rhythmseq))
   (declare (type fixnum last-nth no-args-in-rule))
 
   ;find the position for the value - if it does not exist, use the preceeding value

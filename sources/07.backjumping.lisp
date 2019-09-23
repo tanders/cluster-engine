@@ -146,8 +146,8 @@ If iled-notecounts is nil (i.e. a rest), backjump will not be set. This is a sim
   (loop for voicenr in list-voicenrs
         for failed-notecount in failed-notecounts
         do (progn 
-             #-CCL (declare (type fixnum voicenr)) 
-             #-CCL (declare (type list failed-notecount))
+             ;; #-CCL (declare (type fixnum voicenr)) 
+             ;; #-CCL (declare (type list failed-notecount))
              (when failed-notecount ;if there is no notecound (i.e. if it is a rest) don't set any backjump index. Not ethat it would be better to actually set it from timepoint in this case.
                (progn
                  (setf (aref vbackjump-indexes (1+ (* 2 voicenr))) ;pitch-engine

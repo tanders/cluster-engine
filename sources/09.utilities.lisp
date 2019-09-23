@@ -523,7 +523,7 @@ the last engine in default-engine-order."
   (declare (type array vindex))
   (declare (type list default-engine-order))
   (let ((max-index (apply 'max (loop for n in default-engine-order collect (aref vindex n)))))
-    (declare (type fixnum max-index engine))
+    (declare (type fixnum max-index)) ; engine
     (loop for engine in (reverse default-engine-order)
           while (/= (aref vindex engine) max-index)
           finally (return engine))))
@@ -655,7 +655,7 @@ The first value in a chord will be considered the link to previous and following
 
 (defun remove-list-before-startpoint (startpoint list)
   (declare (type list list))
-  (declare (type number endpoint))
+  ;; (declare (type number endpoint))
   (member startpoint list  :test #'(lambda (a b) (<= a b))))
 
 
@@ -754,9 +754,9 @@ The first value in a chord will be considered the link to previous and following
 
 (defun get-durations-at-notecounts (list-voicenrs notecounts-all-voice vlinear-solution)
   "This function looks up the correcponding durations at notecounts in one or several voices."
-  (declare (type list list-voicenrs notecounts-all-voice notecounts))
+  (declare (type list list-voicenrs notecounts-all-voice)) ;; notecounts
   (declare (type array vlinear-solution))
-  (declare (type fixnum voicenr notecount))
+  ;; (declare (type fixnum voicenr notecount))
     (loop for voicenr in list-voicenrs
           for notecounts in notecounts-all-voice
         collect (loop for notecount in notecounts
@@ -807,19 +807,16 @@ Notecount HAS to exist."
 
 (let ((position-for-duration-at-notecount (get-position-for-duration-at-notecount engine vlinear-solution notecount))
       count)
-  (declare (type fixnum position-for-duration-at-notecount count))
-  
+  (declare (type fixnum position-for-duration-at-notecount)) ;; count ;; fixnum can not have init val NIL
+
   (when (< position-for-duration-at-notecount 1)
       (return-from get-position-for-duration-at-notecount-minus-preceeding-rests position-for-duration-at-notecount))
 
-  (loop for n from
-        position-for-duration-at-notecount
-        downto
-        1
-        do (progn (setf count n)
-             (when (not (minusp (nth (1- n) (aref vlinear-solution engine 0))))
-               (return count)))
-             finally (return (1- count)))))
+    (loop for n from position-for-duration-at-notecount downto 1
+       do (progn (setf count n)
+		 (when (not (minusp (nth (1- n) (aref vlinear-solution engine 0))))
+		   (return count)))
+       finally (return (1- count)))))
 
 
 
@@ -907,9 +904,9 @@ Gracenotes will not be found, only notes with durations."
 
 (defun get-timepoints-at-notecounts (list-voicenrs notecounts-all-voice vlinear-solution)
   "This function looks up the correcponding timepoints at notecounts in one or several voices."
-  (declare (type list list-voicenrs notecounts-all-voice notecounts))
+  (declare (type list list-voicenrs notecounts-all-voice)) ;; notecounts
   (declare (type array vlinear-solution))
-  (declare (type fixnum voicenr notecount))
+  ;; (declare (type fixnum voicenr notecount))
     (loop for voicenr in list-voicenrs
           for notecounts in notecounts-all-voice
         collect (loop for notecount in notecounts
@@ -918,11 +915,12 @@ Gracenotes will not be found, only notes with durations."
 
 (defun get-timepoints-at-notecounts-one-voice (voicenr notecounts vlinear-solution)
   "This function looks up the correcponding timepoints at notecounts in one or several voices."
-  (declare (type list list-voicenrs notecounts-all-voice notecounts))
+  (declare (type list notecounts))
+  ;; (declare (type list list-voicenrs notecounts-all-voice notecounts))
   (declare (type array vlinear-solution))
-  (declare (type fixnum voicenr notecount))
-  (loop for notecount in notecounts
-        collect (if notecount (get-timepoint-at-notecount (* 2 voicenr) vlinear-solution notecount) nil)))
+  (declare (type fixnum voicenr))
+  (loop for notecount in notecounts ; type-of fixnum
+     collect (if notecount (get-timepoint-at-notecount (* 2 voicenr) vlinear-solution notecount) nil)))
 
 
 (defun get-offset-timepoint-at-notecount-include-final-rest (engine vlinear-solution notecount)
@@ -1028,12 +1026,12 @@ Gracenotes will be returned in sublists ending at the main beat."
   (let ((endtime-engine (car (last (aref vlinear-solution engine 1)))))
     (declare (type number endtime-engine))
     (when (>= timepoint endtime-engine) (return-from get-durations-between-onset-offset-include-gracenotes nil)) ;this might be an unnecessary check
-;(print (list engine vlinear-solution timepoint duration))
+;(print (list engine vlinear-solution timepoint duration) *cluster-engine-log-output*)
 ;changed '>= to #'(lambda (a b) (>= a (abs b)))
     (let ((start-position-include-gracenote (position (find timepoint (aref vlinear-solution engine 1) :test #'(lambda (a b) (>= a (abs b))) :from-end t) (aref vlinear-solution engine 1)))
           (end-position (position (+ timepoint (abs duration)) (butlast (aref vlinear-solution engine 1)) :test #'(lambda (a b) (> a (abs b))) :from-end t)))
       (declare (type fixnum start-position-include-gracenote end-position))
-;(print (list start-position-include-gracenote end-position))
+;(print (list start-position-include-gracenote end-position) *cluster-engine-log-output*)
       (loop for n from start-position-include-gracenote to end-position
             collect (nth n (aref vlinear-solution engine 0))))))
 
@@ -1109,7 +1107,7 @@ If there is no pitch at pitchcount, or if there is no duration at the position: 
   (remove-if 'minusp timepoints))
 
 (defun remove-rests-and-gracenotes-from-durationlist (durations)
-  (declare (type list timepoints))
+  ;; (declare (type list timepoints))
   (the list (remove-if-not 'plusp durations)))
 
 (defun remove-gracenotes-from-durationlist (durations)
@@ -1128,6 +1126,7 @@ If there is no pitch at pitchcount, or if there is no duration at the position: 
                             (the list (aref vlinear-solution rhythm-engine 0))
                             (the list (aref vlinear-solution rhythm-engine 2))))))
 
+#|
 (defun remove-rests-and-return-notecountlist (vlinear-solution rhythm-engine)
   (declare (type array vlinear-solution))
   (declare (type fixnum rhythm-engine))
@@ -1135,6 +1134,17 @@ If there is no pitch at pitchcount, or if there is no duration at the position: 
           (the list (mapcar #'(lambda (dur count) (if (minusp dur) nil count))
                             (the list (aref vlinear-solution rhythm-engine 0))
                             (the list (aref vlinear-solution rhythm-engine 2))))))
+|#
+
+(defun remove-rests-and-return-notecountlist (vlinear-solution rhythm-engine)
+  (declare (type array vlinear-solution))
+  (declare (type fixnum rhythm-engine))
+  (remove nil
+          (the list (mapcar #'(lambda (dur count) (if (minusp dur) nil count))
+                            (the list (aref vlinear-solution rhythm-engine 0))
+                            (the list (aref vlinear-solution rhythm-engine 2))))))
+
+
 
 ;not for gracenotes or rests
 (defun find-position-or-preceding-position (timepoint list-of-timepoints)
@@ -1645,7 +1655,7 @@ A gracenote before a rest is kept, but the rest removed."
     (declare (type number first-onset-maybe-endpoint))
     (declare (type fixnum rhythm-engine nsteps))
     (declare (type array vindex vsolution vlinear-solution))
-
+    
     (the list (cdr-from-nsteps-before-value first-onset-maybe-endpoint (remove-duplicates all-onsets-no-rest) nsteps))))
 
 ;;;;here
@@ -1659,7 +1669,7 @@ A gracenote before a rest is kept, but the rest removed."
     (declare (type list all-onsets-no-gracenote-no-rest))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (the list (cdr-from-nsteps-before-value2 timepoint all-onsets-no-gracenote-no-rest nsteps))
     ))
@@ -1671,7 +1681,7 @@ A gracenote before a rest is kept, but the rest removed."
     (declare (type list all-onsets-no-gracenote-no-rest))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (let ((position (position timepoint all-onsets-no-gracenote-no-rest :test '<=)))
       (declare (type t position))
@@ -1688,7 +1698,7 @@ A gracenote before a rest is kept, but the rest removed."
     (declare (type list all-onsets-no-rest))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (let ((position (position timepoint all-onsets-no-rest :test '<=)))
       (declare (type t position))
@@ -1704,7 +1714,7 @@ A gracenote before a rest is kept, but the rest removed."
     (declare (type list all-onsets-no-rest))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (the list (cdr-from-nsteps-before-value2 timepoint all-onsets-no-rest nsteps)) 
     ))
@@ -1717,7 +1727,7 @@ A gracenote before a rest is kept, but the rest removed."
     (declare (type list all-onsets-no-rest))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (let ((position (position timepoint all-onsets-no-rest :test '<=)))
       (declare (type t position))
@@ -1734,7 +1744,7 @@ A gracenote before a rest is kept, but the rest removed."
     (declare (type list all-onsets-no-rest))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (let ((position (position timepoint all-onsets-no-rest :test '<=)))
       (declare (type t position))
@@ -1751,7 +1761,7 @@ This rule only shows one onset for a group of grace notes."
     (declare (type list all-onsets-no-rest))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (the list (cdr-from-nsteps-before-value2 timepoint (remove-duplicates all-onsets-no-rest) nsteps)) ;remove duplicates since only one gracenote is necessary to show
     ))
@@ -1762,7 +1772,7 @@ This rule only shows one onset for a group of grace notes."
     (declare (type list all-onsets))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (mapcar 'abs
            (the list (cdr-from-nsteps-before-value2-also-rests timepoint all-onsets nsteps))) 
@@ -1798,7 +1808,7 @@ Also for heuristic rules.
 "
   (let* ((all-onsets (the list (aref vlinear-solution rhythm-engine 1)))
          (all-notecounts (the list (aref vlinear-solution rhythm-engine 2))))
-    (declare (type list all-onsets all-events))
+    (declare (type list all-onsets)) ; all-events
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
     (declare (type array vindex vlinear-solution))
@@ -1817,7 +1827,7 @@ Also for heuristic rules.
     (declare (type list all-onsets-no-gracenotes))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (mapcar 'abs
            (the list (cdr-from-nsteps-before-value2-also-rests timepoint all-onsets-no-gracenotes nsteps)))
@@ -1830,7 +1840,7 @@ Also for heuristic rules.
     (declare (type list all-onsets-no-gracenotes))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
-    (declare (type array vindex vsolution vlinear-solution))
+    (declare (type array vindex vlinear-solution)) ; vsolution
 
     (let ((position (position-if #'(lambda (n) (<= (abs timepoint) (abs (the number n)))) all-onsets-no-gracenotes)))
       (declare (type t position))
@@ -1844,8 +1854,8 @@ Also for heuristic rules.
 (defun get-timepoints-from-before-any-timepoint-minus-nsteps-ignor-gracenotes (rhythm-engine vindex vlinear-solution timepoint nsteps)
   "Also for heuristic rules.
 Returns the list from the timepoint, or (if timepoint does not exist) the step before the timepoint."
-  (let* ((all-onsets-no-gracenote (remove-gracenotes-from-timepointlist (the list (aref vlinear-solution rhythm-engine 1))))) 
-    (declare (type list all-onsets-no-gracenote-no-rest))
+  (let* ((all-onsets-no-gracenote (remove-gracenotes-from-timepointlist (the list (aref vlinear-solution rhythm-engine 1)))))
+    ;; (declare (type list all-onsets-no-gracenote-no-rest))
     (declare (type number timepoint))
     (declare (type fixnum rhythm-engine nsteps))
     (declare (type array vindex vlinear-solution))
@@ -2104,16 +2114,6 @@ This will correct the notecount list to mark where the rests are."
                    notecount
                  nil)))
 
-
-(defun remove-rests-and-return-notecountlist (vlinear-solution rhythm-engine)
-  (declare (type array vlinear-solution))
-  (declare (type fixnum rhythm-engine))
-  (remove nil
-          (the list (mapcar #'(lambda (dur count) (if (minusp dur) nil count))
-                            (the list (aref vlinear-solution rhythm-engine 0))
-                            (the list (aref vlinear-solution rhythm-engine 2))))))
-
-
 (defun first-n (list n)
   "Returns the first elemenst of the list ending at (but including) the n nth element, i.e. n will also represent the number of elements in teh output list."
   (declare (type list list))
@@ -2124,7 +2124,7 @@ This will correct the notecount list to mark where the rests are."
 
 (defun matrix-trans (matrix)
   "The cluster engine version of the mat-trans function"
-  (declare (type list matrix row))
+  (declare (type list matrix)) ;; row
   (loop for n from 0 to (1- (length (first matrix)))
         collect (loop for row in matrix
                       collect (nth n row))))

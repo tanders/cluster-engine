@@ -140,14 +140,16 @@ be output in the format of a list of individual rule arrays."
     ;calculate how many rules in each engine
     (setf engines-for-rules-include-duplicates 
           (sort (copy-list (apply 'append (loop for rule in rules
-                                                collect (aref rule 0)))) '<))
+					     collect (aref rule 0))))
+		#'<))
     (setf engines-for-rules (remove-duplicates engines-for-rules-include-duplicates))
     (test-if-engines-nr-exist-in-rules nr-of-engines engines-for-rules)
     (setf nr-of-rules-per-engine (loop for engine in engines-for-rules
                                        collect (count engine engines-for-rules-include-duplicates)))
 
     ;create rule array
-    (setf vrules (make-array (list nr-of-engines 2) :initial-element nil :element-type 'array))
+    (setf vrules (make-array (list nr-of-engines 2) :initial-element nil))
+		;; (setf vrules (make-array (list nr-of-engines 2) :initial-element nil :element-type 'array))
     (loop for engine in engines-for-rules
           for nr-of-rules in nr-of-rules-per-engine
           do (progn 

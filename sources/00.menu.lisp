@@ -1,9 +1,6 @@
 (in-package cluster-engine)
 
 
-;;; just another useless comment
-
-
 (ccl::add-PWGL-user-menu 
  '(:menu-component
    ("Cluster Engine"

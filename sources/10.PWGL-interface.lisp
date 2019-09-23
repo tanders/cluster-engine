@@ -86,9 +86,9 @@ The default settings can be found by opening a new preference box.
                  (:groupings '(1 1 1 1 1 1 1 1 1 1 1 1)  :x-proportions '((0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)) :w 0.25)
                  (setf *backjump?* backjump?)
                  (setf *max-nr-of-loops* max-nr-of-loops)
-                 (if *backjump?* (print (format nil "Backjumping is on"))
-                   (print (format nil "Backjumping is off")))
-                 (print (format nil "Max number of search loops: ~D" *max-nr-of-loops*))
+                 (if *backjump?* (print (format nil "Backjumping is on") *cluster-engine-log-output*)
+                   (print (format nil "Backjumping is off") *cluster-engine-log-output*))
+                 (print (format nil "Max number of search loops: ~D" *max-nr-of-loops*) *cluster-engine-log-output*)
 
                  (setf *bktr-rp1v* (cond ((equal bktr-rp1v :self) 1)
                                          ((equal bktr-rp1v :other) 2)))

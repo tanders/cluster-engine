@@ -31,10 +31,10 @@ The engine with the highest index will be backtracked. "
                                         collect (aref vindex engine)))
          )
     (declare (type list prefered-backtrack-engines length-prefered-engines))
-    (declare (type fixnum highest-index))
+    ;; (declare (type fixnum highest-index))
 
-;(print (list 'lengths length-prefered-engines))
-;(print (list 'engines prefered-backtrack-engines))
+;(print (list 'lengths length-prefered-engines) *cluster-engine-log-output*)
+;(print (list 'engines prefered-backtrack-engines) *cluster-engine-log-output*)
     (if prefered-backtrack-engines
         (nth
          (position (apply 'max length-prefered-engines) length-prefered-engines)

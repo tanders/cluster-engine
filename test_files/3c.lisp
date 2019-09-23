@@ -1,4 +1,4 @@
-(in-package cluster-engine) 
+(in-package cluster-engine) (setf *random-state* (make-random-state t)) 
 
 (print
 (cluster-engine::ClusterEngine 16 t nil 

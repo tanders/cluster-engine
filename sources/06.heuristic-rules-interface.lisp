@@ -54,7 +54,8 @@ be output in the format of a list of individual heuristic-rule arrays."
 
     ;;;;;;;;;-----------------
     ;create heuristic-rule array
-    (setf vheuristic-rules (make-array (list nr-of-engines 1) :initial-element nil :element-type 'array))
+    (setf vheuristic-rules (make-array (list nr-of-engines 1) :initial-element nil))
+    ;; (setf vheuristic-rules (make-array (list nr-of-engines 1) :initial-element nil :element-type 'array))
     (loop for engine in engines-for-heur-rules
           for nr-of-heuristic-rules in nr-of-heur-rules-per-engine
           do (setf (aref vheuristic-rules engine 0)

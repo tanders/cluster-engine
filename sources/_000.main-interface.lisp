@@ -29,9 +29,18 @@
 (defun function-lambda-list (fn)
   (ccl:arglist fn))
 
+;; (ccl:arglist 'list)
+; (function-lambda-list 'list)
+; (function-lambda-list #'list)
+
 #+SBCL
 (defun function-lambda-list (fn)
-  (sb-kernel:%simple-fun-arglist fn))
+  (sb-introspect:function-lambda-list
+   ;; NOTE: It is not right that this is necessary, but unfortunately rule applicators are initially nested lists that are lambda expressions instead of proper functions
+   (compile-if-not-compiled nil fn)))
+;; (defun function-lambda-list (fn)
+;;   (sb-kernel:%simple-fun-arglist fn))
+
 
 ;; from OM
 (defun repeat-n  (self n) 
@@ -43,7 +52,6 @@ Ex. (repeat-n (+ 1 1) 4) ==> (2 2 2 2)"
           (push self rep))
     (reverse rep)))
 
-;; from OM
 (defmethod group-list ((list list) (segmentation list) mode)
    "Segments a <list> in successives sublists which lengths are successive values of the list <segmentation>.
  <mode> indicates if <list> is to be read in a circular way.
@@ -177,7 +185,7 @@ See the PWGL tutorials of this library for a detailed discussion of this functio
        ))))
 
 
-; (print (ClusterEngine  10 t nil nil '((4 4)) '((1/4)(1/8)) '((50) (51)) '((1/4)(1/8)) '((50) (51))))
+; (print (ClusterEngine  10 t nil nil '((4 4)) '((1/4)(1/8)) '((50) (51)) '((1/4)(1/8)) '((50) (51))) *cluster-engine-log-output*)
 
 
 
@@ -313,9 +321,10 @@ The default settings can be found by opening a new preference box.
              ;     (:groupings '(1 1 1 1 1 1 1 1 1 1 1 1)  :x-proportions '((0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)(0.2)) :w 0.25)
                  (setf *backjump?* backjump?)
                  (setf *max-nr-of-loops* max-nr-of-loops)
-                 (if *backjump?* (print (format nil "Backjumping is on"))
-                   (print (format nil "Backjumping is off")))
-                 (print (format nil "Max number of search loops: ~D" *max-nr-of-loops*))
+		 (when *verbose-i/o?*
+		   (if *backjump?* (print (format nil "Backjumping is on") *cluster-engine-log-output*)
+		       (print (format nil "Backjumping is off") *cluster-engine-log-output*))
+		   (print (format nil "Max number of search loops: ~D" *max-nr-of-loops*) *cluster-engine-log-output*))
 
                  (setf *bktr-rp1v* (cond ((equal bktr-rp1v :self) 1)
                                          ((equal bktr-rp1v :other) 2)))
