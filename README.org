@@ -13,7 +13,10 @@ Cluster Engine has been successfully tested on PWGL (based on Lispworks), SBCL a
 
 Sandred, Ö. (2010) PWMC, a Constraint-Solving System for Generating Music Scores. /Computer Music Journal/. 34(2), 8–24.
 
+Anders, T. (2016) Teaching Rule-Based Algorithmic Composition: The PWGL Library Cluster Rules. /Journal of Pedagogic Development/. 6 (1), 3--14.
+ 
 Vincenot, J. (2017) LISP in Max: Exploratory Computer-Aided Composition in Real-Time. /ICMC 2017/.  
+
 
 
 * Installation
