@@ -4,13 +4,55 @@
 ;; ASDF interface for running all tests
 (asdf:test-system :cluster-engine)
 
+;; Run test-suite directly
+(run! 'cluster-engine-tests)
+
+
 (asdf:load-system :cluster-engine/FiveAM-tests)
 
 (asdf:load-system :cluster-engine)
 (asdf:load-system :FiveAM)
 
-;; (run :cluster-engine/tests :style :spec)
- |#
+|#
+
+#|
+;; Generating an html test coverage output
+;; See https://lispcookbook.github.io/cl-cookbook/testing.html#code-coverage
+
+;;; Load SB-COVER
+(require :sb-cover)
+
+;;; Turn on generation of code coverage instrumentation in the compiler
+(declaim (optimize sb-cover:store-coverage-data))
+
+;;; Load the code, ensuring that it's recompiled with the new optimization
+;;; policy.
+(asdf:oos 'asdf:load-op :cluster-engine :force t)
+(asdf:oos 'asdf:load-op :cluster-engine/FiveAM-tests :force t)
+
+;;; Run the test suite.
+(run! 'cluster-engine-tests)
+
+;; Produce a coverage report, set the output directory:
+;; TODO: Make path platform independent -- somehow path of ASDF system...
+;; NOTE: Some problems reading Cluster Engine source files...
+(sb-cover:report "/Users/torsten/common-lisp/cluster-engine/coverage/")
+
+;; Finally, turn off instrumentation
+(declaim (optimize (sb-cover:store-coverage-data 0)))
+
+;; Open resulting HTML file with browser
+|#
+
+#|
+;; Collecting profiling info
+
+;; Generating profiling info with slime
+;; The profiling commands are based on CMUCL’s profiler -- from which SBCL is forked
+;; See menu SLIME > Profiling 
+;; https://common-lisp.net/project/slime/doc/html/Profiling.html
+|#
+
 
 (in-package #:cluster-engine/tests)
 
@@ -26,31 +68,10 @@
 ;; Cluster engine is silent
 (setf *verbose-i/o?* nil)
 
-
-#|
-;; NOTE: Not really needed...
-(defun full-test ()
-  "Run all tests."
-  (run! 'cluster-engine-tests))
-; (full-test)
-|#
-
-
-;; ;; BUG: Can only be called a limited time
-;; (defun gen-selection (xs)
-;;   "Return a generator that picks values from `xs' (list) without repeating them. Must be called less often than length of xs."
-;;   (let ((xs-copy (copy-list xs)))
-;;     (lambda ()
-;;       (let ((pos (random (length xs-copy))))
-;; 	(tu:pop-nth xs-copy pos)))))
-;; #|
-;; (setf my-list '(1 2 3))
-;; (setf my-gen (gen-selection my-list))
-;; (funcall my-gen)
-
-;; (setf my-gen (gen-list :length (gen-integer :min 1 :max 3) :elements (gen-selection '((-1/2) (-1/4) (-1/8) (1/8) (1/4) (1/2)))))
-;; (funcall my-gen)
-;; |#
+;; Interactive debugging 
+(setf *on-error* :DEBUG)
+;; (setf *on-error* :BACKTRACE)
+;; (setf *on-error* NIL)
 
 (defun gen-selection (&key (length (gen-integer :min 0 :max 10))
 			   elements)
@@ -77,6 +98,10 @@
   (loop for pitch from 36 to 84
      collect (list pitch))
   "A range of standard pitch domain values to select from.")
+
+(defparameter *pitch-pairs*
+  (tu:map-pairwise #'append *pitch-domain-template*)
+  "An (unefficiently large) list of lists of two pitches each.")
 
 (defparameter *metric-domain-template*
   (loop for demon in '(2 4 8)
@@ -263,7 +288,22 @@
 		 time-sigs-solution)))))
 
 
-;; TODO: 3d-metric-domain with function metric-domain
+;; TODO: Add rules that actually test effect of domain declaration with metric-domain
+;; arg tuplets only has an effect if using the rule r-metric-hierarchy.
+;; arg alt-beatlength affect rules that constrain events located on beats
+(test 3d-only-metric-domain_using-function-metric-domain
+  (let* (;; Seeded random state
+	 (*random-state* (sb-ext:seed-random-state 1234))
+	 (time-sigs-solution (get-time-signatures
+			       (cluster-shorthand 12
+						  '()  ; no rules
+						  '(((1/4)) 
+						    ((62)))
+						  :metric-domain (metric-domain '(4 4) '(1 2 3 4) nil
+										'(6 8) '(1 3) 3/8)))))
+    ;; 
+    (is (equal time-sigs-solution '((6 8) (6 8) (4 4) (6 8))))))
+
 
 #|
 get-time-signatures
@@ -286,18 +326,18 @@ get-time-signatures
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; 
+;;; Single constraints tests
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-suite single-constraint-tests
+(def-suite single-constraints-tests
     :description "Testing domain declarations etc."
     :in cluster-engine-tests)
 
-(in-suite single-constraint-tests)
+(in-suite single-constraints-tests)
 
 (test all-rhythms-equal
-  "Randomised test: all rhythmic values are equal."
+  "Randomised test of R-rhythms-one-voice rule: all rhythmic values are equal."
   (for-all ((no-of-variables (gen-integer :min 2 :max 10))
 	    (rhythm-domain (gen-selection :length (gen-integer :min 2 :max (length *rhythm-domain-template*))
 					  :elements *rhythm-domain-template*)))
@@ -308,12 +348,78 @@ get-time-signatures
 						      (list rhythm-domain
 							    nil ; no pitches
 							    )))))
-	   (first-rhythm (first voice-rhythm-solution)))
-      (is (every (lambda (rhythm) (= rhythm first-rhythm))
-		 voice-rhythm-solution))
+	   ; (first-rhythm (first voice-rhythm-solution))
+	   )
+      (is (all-elements-equal? voice-rhythm-solution))
+      ;; (is (every (lambda (rhythm) (= rhythm first-rhythm))
+      ;; 		 voice-rhythm-solution))
       )))
 
 
+(test 5b-index-rules-one-engine
+  "Randomised  test with R-index-rhythms-one-voice: first note always with set duration."
+  (for-all ((no-of-variables (gen-integer :min 2 :max 10))	    
+	    (rhythm-domain (gen-selection :length (gen-integer :min 2 :max (length *rhythm-domain-template*))
+					  :elements *rhythm-domain-template*)))
+    (let* (;; Some random rhythmic value from rhythm-domain
+	   (rhythmic-value (first (nth (random (length rhythm-domain))
+				       rhythm-domain)))
+	   (voice-rhythm-solution (first (get-rhythms
+					  (cluster-shorthand
+					   no-of-variables
+					   ;; Rule: first duration has set random rhythmic-value
+					   (ce:R-index-rhythms-one-voice
+					    #'(lambda (x) (= x rhythmic-value))				     
+					    '(0) 0 :position-for-duration)
+					   (list rhythm-domain
+						 nil) ; no pitches
+					   )))))
+      (is (= rhythmic-value (first voice-rhythm-solution)))
+      )))
+
+
+(test 5c-index-rules-one-engine
+  "Randomised test with r-index-pitches-one-voice: first and third pitch motifs are equal."
+  (for-all ((no-of-variables (gen-integer :min 6 :max 20)) ;; must be long enough for three 2-note motifs
+	    ;; Pitch domain consists of 2-note motifs only (with uneven motif duration checking rule will be difficult...)
+	    (pitch-domain (gen-selection :length (gen-integer :min 6 :max 20)
+					 :elements *pitch-pairs*)))
+    (let* ((voice-pitch-solution (first
+				  (get-pitches
+				   (cluster-shorthand no-of-variables
+						      ;; first and third pitch cells are equal
+						      (r-index-pitches-one-voice 
+						       #'(lambda (x y) (equal x y)) 
+						       '(0 2) 0 :index-for-cell)
+						      (list '((1/4) (1/8) (1/16) (3/8))
+							    pitch-domain
+							    ))))))
+      ;; 1st and 3rd pitch motifs (i.e., the set sublists below) should be equal
+      (is (equal (subseq voice-pitch-solution 0 2) (subseq voice-pitch-solution 4 6)))
+      )))
+
+
+(test 5d-wildcard-rules-one-engine
+  "Randomised test with R-pitches-one-voice: Every third pitch is equal."
+  (for-all ((no-of-variables (gen-integer :min 6 :max 20)) ;; must be long enough
+	    (pitch-domain (gen-selection :length (gen-integer :min 6 :max 20)
+					 :elements *pitch-domain-template*)))
+    (let* ((voice-pitch-solution (first
+				  (get-pitches
+				   (cluster-shorthand no-of-variables
+						      ;; first and third pitch cells are equal
+						      (cluster-engine::R-pitches-one-voice
+						       #'(lambda (p1 p2 p3 p4)
+							   (declare (ignore p2 p3))
+							   (equal p1 p4))
+						       0 :pitches)
+						      (list '((1/4) (1/8) (1/16) (3/8))
+							    pitch-domain
+							    ))))))
+      (is (all-elements-equal? (tu:at-position voice-pitch-solution 3 0)))
+      (is (all-elements-equal? (tu:at-position voice-pitch-solution 3 1)))
+      (is (all-elements-equal? (tu:at-position voice-pitch-solution 3 2)))
+      )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
