@@ -28,3 +28,9 @@
   (first (last cluster-engine-result)))
 
 
+(defun all-elements-equal? (xs &key (test #'equal))
+  "Returns T if all elements in xs are equal."
+  (let ((first-elt (first xs)))
+    (every (lambda (x) (funcall test first-elt x)) (rest xs))))
+; (all-elements-equal? '(1 1 1))
+
