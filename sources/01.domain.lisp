@@ -86,6 +86,7 @@ NOTE THAT if the alt-beatlength is a list, the default beat length will be used 
           for domain in domains
           do (when (<= (length domain) 1) (setf locked-engines (cons n locked-engines))))
     (when (<= (length (aref metric-domain 0)) 1) (setf locked-engines (cons (length domains) locked-engines)))
+    ;; TODO: Instead of raising an error, this should return the only possible solution :)
     (when (= (length locked-engines) (1+ (length domains))) (error "All engines are locked! There is nothing to search for."))
     ;This avoids error with backtracking when all engines are locked.
 
