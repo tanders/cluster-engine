@@ -154,5 +154,37 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
    #-PWGL (:file "sources/_000.main-interface")
    ;;; TMP comment -- dependency on two PW functions
    ;; (:file "sources/_001.gen_domains")
-   (:file "sources/export")
-))
+   (:file "sources/export"))
+  :in-order-to ((test-op (test-op #:cluster-engine/FiveAM-tests)))
+)
+
+#|
+(defsystem #:cluster-engine/tests
+  :depends-on (:cluster-engine :rove
+			       ;; TODO: Reconsider this dependency
+			       :ta-utilities)
+  :components ((:module "test_files"
+			::components ((:module "unit-tests"
+					       :serial t
+					       :components ((:file "package")
+							    (:file "utils")
+							    (:file "test-drafts")
+							    )))))
+  :perform (test-op (op c) (symbol-call :rove '#:run c)))
+|#
+
+
+(defsystem #:cluster-engine/FiveAM-tests
+  :depends-on (:cluster-engine :FiveAM
+			       ;; TODO: Reconsider this dependency
+			       :ta-utilities)
+  :components ((:module "test_files"
+			::components ((:module "unit-tests"
+					       :serial t
+					       :components ((:file "package")
+							    (:file "utils")
+							    (:file "test-FiveAM")
+							    )))))
+  :perform (test-op (o s)
+		    (uiop:symbol-call :fiveam '#:run!
+				      (uiop:find-symbol* '#:cluster-engine-tests :cluster-engine/tests))))
