@@ -13,19 +13,20 @@
                                  metric-domain
                                  list-of-domains))
 
-(defun get-rhythms (cluster-engine-result)
+(defun get-rhythms (cluster-engine-solution)
   "Return list of rhythmic sequences only."
-  (tu:at-even-position (butlast cluster-engine-result)))
+  (tu:at-even-position (butlast cluster-engine-solution)))
 
 
-(defun get-pitches (cluster-engine-result)
+(defun get-pitches (cluster-engine-solution)
   "Return list of rhythmic sequences only."
-  (tu:at-odd-position (butlast cluster-engine-result)))
+  (tu:at-odd-position (butlast cluster-engine-solution)))
 
 
-(defun get-time-signatures (cluster-engine-result)
+(defun get-time-signatures (cluster-engine-solution)
   "Return list of time signatures only."
-  (first (last cluster-engine-result)))
+  (first (last cluster-engine-solution)))
+
 
 (defun get-voices (cluster-engine-solution)
   "Return list of voices, with each voice represented as a list of notes/rests in the form (<duration> <pitch>)."
