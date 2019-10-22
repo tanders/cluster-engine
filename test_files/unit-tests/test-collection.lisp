@@ -834,6 +834,95 @@ get-time-signatures
 |#
 
 
+(test 7d-R-meter-note
+  "non-randomised R-meter-note test: every note on beat in 6/8 meter is C4 (60) and every note on beat in 4/4 meter is G4 (67)."
+  (let* (;; Seeded random state
+	 (*random-state* (sb-ext:seed-random-state 4321))
+	 (solution 
+	  (cluster-shorthand 21
+			     (rules->cluster
+			      (R-meter-note (lambda (note)
+					      (let ((pitch (third note))
+						    (meter (fourth note)))
+						(if (equal meter '(6 8))
+						    (= pitch 60)
+						    ;; otherwise 4/4
+						    (= pitch 67))))
+					    0 :beats :offset_dur_pitch_meter :norm)
+			      ;; Redundant rule, but simplifying rhythm makes it more likely that notes on beat occur
+			      (cluster-engine::R-metric-hierarchy 0 :durations)
+			      ;; Another redundant rule disallowing syncopations: makes time signature changes more likely
+			      (R-meter-note (lambda (x) (= x 0)) 0 :1st-beat :offset :norm))
+			     `(;; Small rhythmic domain, also making notes on beat likely
+			       ((1/8) (3/8) (1/4))
+			       ,(loop for p from 60 to 79 collect (list p)))
+			     :metric-domain (metric-domain '(4 4) '(1 2 3 4) nil ; nil: default beat length
+							   ;; 6/8 beat is 3/8 long
+							   '(6 8) '(1 3) 3/8)
+			     ))
+	 (time-sigs (get-time-signatures solution))
+	 (voice (first (get-voices solution))))
+    (is (equal (list voice time-sigs)
+	       '((;; bar 1: 6/8, where accents are 60
+		  (1/4 60) (3/8 60) (1/8 74)
+		  ;; bar 2: 4/4, where accents are 67
+		  (3/8 67) (1/4 67) (1/8 66) (1/4 67)
+		  ;; bar 3: 6/8, where accents are 60
+		  (3/8 60) (1/4 60) (1/8 68)
+		  ;; remaining bars: 4/4, where accents are 67
+		  (1/8 67) (3/8 67) (1/4 67) (1/8 67) (1/8 64) (1/4 67)
+		  (3/8 67) (3/8 67) (1/8 67) (1/4 67) (3/8 67))
+		 ((6 8) (4 4) (6 8) (4 4) (4 4) (4 4)))))
+    ))
+
+
+(test 7e-r-note-meter
+  "non-randomised r-note-meter test: notes in 4/4 meter on beat are restricted to C-major and notes in 6/8 to F#-major."
+  (let* (;; Seeded random state
+	 (*random-state* (sb-ext:seed-random-state 4321))
+	 (solution 
+	  (cluster-shorthand 21
+			     (rules->cluster
+			      (r-note-meter (lambda (note)
+					      (let* ((meter (third note))
+						     (pitch (fourth note))
+						     (pc (mod pitch 12)))
+						(if (equal '(4 4) meter)
+						    ;; C-major for 4/4
+						    (member pc '(0 2 4 5 7 9 11))
+						    ;; F#-major for 6/8
+						    (member pc '(1 3 5 6 8 10 11)))))
+					    0 :d_offs_m_n :beats :incl-rests :normal :true/false)
+			      ;; Redundant rule, but simplifying rhythm makes it more likely that notes on beat occur
+			      (cluster-engine::R-metric-hierarchy 0 :durations)
+			      ;; Another redundant rule disallowing syncopations: makes time signature changes more likely
+			      (R-meter-note (lambda (x) (= x 0)) 0 :1st-beat :offset :norm))
+			     `(;; Small rhythmic domain, also making notes on beat likely
+			       ((1/8) (3/8) (1/4))
+			       ,(loop for p from 60 to 72 collect (list p)))
+			     :metric-domain (metric-domain '(4 4) '(1 2 3 4) nil ; nil: default beat length
+							   ;; 6/8 beat is 3/8 long
+							   '(6 8) '(1 3) 3/8)
+			     ))
+	 (time-sigs (get-time-signatures solution))
+	 (voice (first (get-voices solution))))
+    (is (equal (list voice time-sigs)
+	       '((;; bar 1: 6/8 in F# major
+		  (1/4 70) (1/8 65) (1/8 65) (1/8 61) (1/8 70)
+		  ;; bar 2
+		  (3/8 65) (1/8 68) (1/4 70)
+		  ;; bar 3: 4/4 in C-major
+		  (1/8 67) (3/8 67) (1/4 60) (1/8 71) (1/8 72)
+		  ;; bar 4
+		  (1/4 69) (3/8 67) (1/4 64) (1/8 69)
+		  ;; bar 5: 6/8
+		  (1/8 65) (1/4 68) (3/8 71)
+		  ;; bar 6: 4/4
+		  (3/8 64))
+		 ((6 8) (6 8) (4 4) (4 4) (6 8) (4 4)))
+	       ))
+    ))
+
 #|
 (let ((*package* (find-package :cluster-engine/tests)))
   (funcall #'rule (nth idx1 solution-voice) (nth idx2 solution-voice)))
