@@ -751,6 +751,26 @@ get-time-signatures
 
 (test 7b-metric-rule-one-voice
   "Randomised test with r-meter-note - Every bar starts with a 1/4-note."
+(test R-meter-note_no-syncopation-across-bars
+  "Randomised test with r-meter-note - no syncopations across bar lines."
+  (for-all ((no-of-variables (gen-integer :min 8 :max 30)))
+    (let* ((rhythm-solution
+	    (get-rhythms ; rhythms of all voices (one nesting level more)
+	     (cluster-shorthand no-of-variables
+				(R-meter-note (lambda (x) (= x 0))
+					      0 :1st-beat :offset :norm)
+				'(;; Rhythmic domain also allows for 8th-note triplets
+				  ((1/12) (1/16) (1/8) (1/4))
+				  ((62)))
+				:metric-domain '((4 4)))))
+	   (voice-starts (first (get-starts rhythm-solution)))	  
+	   )
+      (is (every (lambda (int) (member int voice-starts))
+		 ;; Each new bar must start with a new note. In 4/4 meter, the start time of a bar is always an integer,
+		 ;; and so all integers up to the ending of the score must be contained in start-times.
+		 (loop for i from 0 to (floor (tu:last-element voice-starts))
+		    collect i)))
+      )))
   (for-all ((no-of-variables (gen-integer :min 8 :max 30)) 
 	    )
     (let* ((bar-start-dur 1/4)
