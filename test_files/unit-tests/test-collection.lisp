@@ -4,11 +4,17 @@
 ;; ASDF interface for running all tests
 (asdf:test-system :cluster-engine)
 
-;; Run test-suite directly
+;; Run some test-suite directly -- first re-load tests
+(progn
+  (asdf:load-system :cluster-engine/tests)
+  (run! 'polyphonic-pitch-rules-tests))
+
+(progn
+  (asdf:load-system :cluster-engine/tests)
+  (run! 'testing-utils-tests))
+
 (run! 'cluster-engine-tests)
 
-
-(asdf:load-system :cluster-engine/tests)
 
 (asdf:load-system :cluster-engine)
 (asdf:load-system :FiveAM)
@@ -159,6 +165,8 @@
 ;; (fiveam::description (get-test 'only-rhythm-domain))
 
 
+;; NOTE: Numbers leading test titles refer to the number of Cluster Engine PWGL tutorial patches from which they are derived
+;; (with some help from the previously existing translation of these patches in plain lisp in the test_files folder)
 (test 2_only-rhythm-domain_with-motifs
   "Test using a rhythm domain with motifs"
   (let* (;; Seeded random state
