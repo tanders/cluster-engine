@@ -11,7 +11,7 @@
 
 (defun cluster-shorthand (no-of-variables rules list-of-domains
 			  &key (metric-domain '((4 4))) (rnd? T) (debug? nil))
-  "Slight variant of function cluster-engine::clusterengine where the function lambda list is rearranged for shorter function calls. See the orig definition for further documentation."
+  "Slight variant of function CLUSTER-ENGINE::CLUSTERENGINE where the function lambda list is rearranged for shorter function calls. See the orig definition for further documentation."
   (cluster-engine::clusterengine no-of-variables
                                  rnd?
                                  debug?
@@ -19,23 +19,24 @@
                                  metric-domain
                                  list-of-domains))
 
+
 (defun get-rhythms (cluster-engine-solution)
-  "Return list of rhythmic sequences only."
+  "Return list of note duration lists, where each duration is a ratio."
   (tu:at-even-position (butlast cluster-engine-solution)))
 
 
 (defun get-pitches (cluster-engine-solution)
-  "Return list of rhythmic sequences only."
+  "Return list of note pitch lists, where each pitch is an integer (MIDI pitch), a list of pitches for a chord, or NIL for a rest."
   (tu:at-odd-position (butlast cluster-engine-solution)))
 
 
 (defun get-time-signatures (cluster-engine-solution)
-  "Return list of time signatures only."
+  "Return list of time signatures, where each time signature is a list (<num> <denom>)."
   (first (last cluster-engine-solution)))
 
 
 (defun get-voices (cluster-engine-solution)
-  "Return list of voices, with each voice represented as a list of notes/rests in the form (<duration> <pitch>)."
+  "Return list of voices, with each voice is represented as a list of notes/chords/rests in the form (<duration> <pitch>)."
   (mapcar #'tu:mat-trans (tu:plist->pairs (butlast cluster-engine-solution))))
 
 
@@ -88,7 +89,7 @@
 
 
 (defun all-elements-equal? (xs &key (test #'equal))
-  "Returns T if all elements in xs are equal."
+  "Returns T if all elements in XS are equal."
   (let ((first-elt (first xs)))
     (every (lambda (x) (funcall test first-elt x)) (rest xs))))
 ; (all-elements-equal? '(1 1 1))
