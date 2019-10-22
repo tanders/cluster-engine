@@ -353,7 +353,7 @@ get-time-signatures
 
 (in-suite constrain-one-voice-tests)
 
-(test all-rhythms-equal
+(test R-rhythms-one-voice_all-rhythms-equal
   "Randomised test of R-rhythms-one-voice rule: all rhythmic values are equal."
   (for-all ((no-of-variables (gen-integer :min 2 :max 10))
 	    (rhythm-domain (gen-selection :length (gen-integer :min 2 :max (length *rhythm-domain-template*))
@@ -373,8 +373,8 @@ get-time-signatures
       )))
 
 
-(test 5b-index-rules-one-engine
-  "Randomised  test with R-index-rhythms-one-voice: first note always with set duration."
+(test 5b-R-index-rhythms-one-voice
+  "Randomised test with R-index-rhythms-one-voice: first note always with set duration."
   (for-all ((no-of-variables (gen-integer :min 2 :max 10))	    
 	    (rhythm-domain (gen-selection :length (gen-integer :min 2 :max (length *rhythm-domain-template*))
 					  :elements *rhythm-domain-template*)))
@@ -394,7 +394,7 @@ get-time-signatures
       )))
 
 
-(test 5c-index-rules-one-engine
+(test 5c-r-index-pitches-one-voice
   "Randomised test with r-index-pitches-one-voice: first and third pitch motifs are equal."
   (for-all ((no-of-variables (gen-integer :min 6 :max 20)) ;; must be long enough for three 2-note motifs
 	    ;; Pitch domain consists of 2-note motifs only (with uneven motif duration checking rule will be difficult...)
@@ -414,7 +414,7 @@ get-time-signatures
       )))
 
 
-(test 5d-wildcard-rules-one-engine
+(test 5d-R-pitches-one-voice
   "Randomised test with R-pitches-one-voice: Every third pitch is equal."
   (for-all ((no-of-variables (gen-integer :min 6 :max 20)) ;; must be long enough
 	    (pitch-domain (gen-selection :length (gen-integer :min 6 :max 20)
@@ -437,7 +437,7 @@ get-time-signatures
 
 
 
-(test 5e-wildcard-rules-one-engine
+(test 5e-R-rhythms-one-voice
   "Randomised test with R-rhythms-one-voice: Every fourth rhythmic value is equal."
   (for-all ((no-of-variables (gen-integer :min 8 :max 20)) ;; must be long enough
 	    (rhythm-domain (gen-selection :length (gen-integer :min 4 :max 15)
@@ -464,8 +464,8 @@ get-time-signatures
   (= (length (remove-duplicates pitches))
      12))
 
-(test 5e-all-pitches-rule-one-engine
-  "Test: all-interval row."
+(test 5e-R-pitches-one-voice_all-interval-row
+  "Test R-pitches-one-voice: all-interval row."
   (let ((voice-pitch-solution
 	 (first
 	  (get-pitches
@@ -546,7 +546,7 @@ get-time-signatures
 |#
 
 
-(test 6a-index-rule-one-voice
+(test 6a-R-index-rhythm-pitch-one-voice
   "Testing R-index-rhythm-pitch-one-voice: relation of notes at positions idx1 and idx2 constrained according to defined rule."
   (for-all ((no-of-variables (gen-integer :min 6 :max 15))
 	    (idx1 (gen-integer :min 0 :max 3))
@@ -573,7 +573,7 @@ get-time-signatures
 
 
 
-(test 6b-rhythm-pitch-rule-one-voice
+(test 6b-R-rhythm-pitch-one-voice
   "Testing r-rhythm-pitch-one-voice: the duration of a note conditions its pitch."
   (for-all ((no-of-variables (gen-integer :min 1 :max 15)))
     (flet ((rule (note)
@@ -626,13 +626,12 @@ get-time-signatures
 |#
 
 
-(test 6c-rhythm-pitch-rule-one-voice_consecutive-notes
+(test 6c-R-rhythm-pitch-one-voice
   "Testing r-rhythm-pitch-one-voice: two consecutive notes are constrained. If a note follows a rest, its pitch is 60, otherwise its pitch is higher than its predecessor."
   (for-all ((no-of-variables (gen-integer :min 2 :max 15)))
     (flet ((rule (note1 note2)
 	     ;; Each note is list: (<dur> <pitch>)
 	     (let ((dur1 (first note1))
-		   (dur2 (first note2))
 		   (pitch1 (second note1))
 		   (pitch2 (second note2)))
 	       (if pitch2 ;; note2 not a rest
@@ -651,7 +650,7 @@ get-time-signatures
 	(is (every #'identity (tu:map-neighbours #'rule solution-voice)))))))
 
 
-(test 6d-rhythm-pitch-rule-one-voice_note-segments
+(test 6d-R-rhythm-pitch-one-voice
   "Testing r-rhythm-pitch-one-voice: note segments (phrases) between rests are constrained. All note pitches must be equal to their preceeding note unless there is a rest, then a new pitch can be set."
   (for-all ((no-of-variables (gen-integer :min 5 :max 15)))
     (flet ((rule (note1 note2)
@@ -679,7 +678,7 @@ get-time-signatures
 
 
 
-(test 6e-mel-intervals-one-voice
+(test 6e-r-mel-interval-one-voice
   "Testing r-mel-interval-one-voice: quarter notes are followed by a fourth and eighth notes by an interval smaller than a maj. third."
   (for-all ((no-of-variables (gen-integer :min 5 :max 15)))
       (let* ((solution-voice (first (get-voices
@@ -695,7 +694,6 @@ get-time-signatures
 	(is (every #'identity
 		   (tu:map-neighbours (lambda (note1 note2)
 					(let ((dur1 (first note1))
-					      (dur2 (first note2))
 					      (pitch1 (second note1))
 					      (pitch2 (second note2)))
 					  (cond
@@ -719,15 +717,15 @@ get-time-signatures
 (in-suite metric-rules-one-voice-tests)
 
 
-(test 7a-metric-rule-one-voice
+(test 7a-R-metric-hierarchy
   "Non-randomised testing R-metric-hierarchy: beats are only subdivided into a 'grid' of 3 or 4 possible note onsets, which reduces the rhythmic complexity (e.g., triplet and 1/8th or 1/16th-notes cannot be freely combined without a note starting on a beat in between."
   (let* (;; Seeded random state
 	 (*random-state* (sb-ext:seed-random-state 1234))
 	 (voice-rhythm-solution (first (get-rhythms
 					(cluster-shorthand 21
-							   (cluster-engine::R-metric-hierarchy 0
-											       ;; rests are not constrained
-											       :durations)
+							   (R-metric-hierarchy 0
+									       ;; rests are not constrained
+									       :durations)
 							   '(;; Rhythmic domain also allows for 8th-note triplets
 							     ((1/12) (1/16) (1/8) (1/4))
 							     ((62)))
@@ -749,8 +747,6 @@ get-time-signatures
 	       ))))
 
 
-(test 7b-metric-rule-one-voice
-  "Randomised test with r-meter-note - Every bar starts with a 1/4-note."
 (test R-meter-note_no-syncopation-across-bars
   "Randomised test with r-meter-note - no syncopations across bar lines."
   (for-all ((no-of-variables (gen-integer :min 8 :max 30)))
@@ -771,6 +767,10 @@ get-time-signatures
 		 (loop for i from 0 to (floor (tu:last-element voice-starts))
 		    collect i)))
       )))
+
+
+(test 7b-r-meter-note
+  "Randomised r-meter-note test: Every bar starts with a 1/4-note."
   (for-all ((no-of-variables (gen-integer :min 8 :max 30)) 
 	    )
     (let* ((bar-start-dur 1/4)
@@ -935,11 +935,12 @@ get-time-signatures
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-suite polyphonic-rules-one-voice-tests
-    :description "Testing individual polyphonic constraints."
+(def-suite polyphonic-pitch-rules-tests
+    :description "Testing individual polyphonic constraints on pitches."
     :in cluster-engine-tests)
 
-(in-suite polyphonic-rules-one-voice-tests)
+(in-suite polyphonic-pitch-rules-tests)
+
 
 (test 8a-R-pitch-pitch_no-voice-crossing
   "Testing R-pitch-pitch: no voice crossing between voices 1 and 2."
