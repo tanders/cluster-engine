@@ -27,6 +27,10 @@
   "Return list of time signatures only."
   (first (last cluster-engine-result)))
 
+(defun get-voices (cluster-engine-solution)
+  "Return list of voices, with each voice represented as a list of notes/rests in the form (<duration> <pitch>)."
+  (mapcar #'tu:mat-trans (tu:plist->pairs (butlast cluster-engine-solution))))
+
 
 (defun all-elements-equal? (xs &key (test #'equal))
   "Returns T if all elements in xs are equal."
