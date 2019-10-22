@@ -13,6 +13,3 @@
         #:FiveAM)
   (:export #:run!
 	   #:all-tests))
-
-
-(in-package #:cluster-engine/tests)
