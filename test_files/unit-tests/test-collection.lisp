@@ -944,6 +944,138 @@ get-time-signatures
 
 (in-suite polyphonic-rules-one-voice-tests)
 
+(test 8a-R-pitch-pitch_no-voice-crossing
+  "Testing R-pitch-pitch: no voice crossing between voices 1 and 2."
+  (for-all ((no-of-variables (gen-integer :min 5 :max 15)))
+    (flet ((rule (pitches)
+	     (>= (first pitches) (second pitches))))
+      (let* ((pitch-domain (loop for p from 60 to 79 collect (list p)))
+	     (pitches-solution
+	      (get-pitches
+	       (cluster-shorthand no-of-variables
+				  (R-pitch-pitch #'rule '(0 1) '(0) :all :no_grace :pitch)
+				  `(;; voice 1
+				    ((1/4)) ; all notes equal duration
+				    ,pitch-domain
+				    ;; voice 2
+				    ((1/4)) 
+				    ,pitch-domain
+				    ))))
+	     ;; Simultaneous pitches of voice 1 and 2
+	     (sim-pitch-pairs (tu:mat-trans pitches-solution)))
+	(is (every #'rule sim-pitch-pairs))))))
+
+
+(test 8a-R-pitch-pitch_only-specified-intervals
+  "Testing R-pitch-pitch: constrain harmonic intervals between voices 1 and 2 to certain allowed intervals."
+  (for-all ((allowed-intervals (gen-selection :length (gen-integer :min 2 :max 6)
+					      :elements (loop for p from 1 to 11 collect p)))
+	    (no-of-variables (gen-integer :min 5 :max 15)))
+    (flet ((rule (pitches)
+	     (let* ((p1 (first pitches))
+		    (p2 (second pitches))
+		    (pc-interval (mod (- p2 p1) 12)))
+	       (member pc-interval allowed-intervals))))
+      (let* ((pitch-domain (loop for p from 60 to 79 collect (list p)))
+	     (pitches-solution
+	      (get-pitches
+	       (cluster-shorthand no-of-variables
+				  (R-pitch-pitch #'rule '(0 1) '(0) :all :no_grace :pitch)
+				  `(;; voice 1
+				    ((1/4)) ; all notes equal duration
+				    ,pitch-domain
+				    ;; voice 2
+				    ((1/4)) 
+				    ,pitch-domain
+				    ))))
+	     (sim-pitch-pairs (tu:mat-trans pitches-solution)))
+	(is (every #'rule sim-pitch-pairs))
+	))))
+
+
+(test 8b-R-pitch-pitch_on-beat
+  "Testing R-pitch-pitch: on beat, no voice crossing between voices 1 and 2."
+  (for-all ((no-of-variables (gen-integer :min 10 :max 16)))
+    (flet ((rule (pitches)
+	     (>= (first pitches) (second pitches))))
+      (let* ((pitch-domain (loop for p from 60 to 79 collect (list p)))
+	     (pitches-solution
+	      (get-pitches
+	       (cluster-shorthand no-of-variables
+				  (R-pitch-pitch #'rule '(0 1) '(0) :beat :no_grace :pitch)
+				  `(;; voice 1
+				    ((1/8)) ;; NOTE: every 2nd note not on beat in 4/4
+				    ,pitch-domain
+				    ;; voice 2
+				    ((1/8)) 
+				    ,pitch-domain
+				    ))))
+	     (sim-pitch-pairs (tu:mat-trans pitches-solution)))
+	;; Every even note is on beat in 4/4
+	(is (every #'rule (tu:at-even-position sim-pitch-pairs)))
+	;; ;; Testing intervals not on beat -- some should contradict rule (high likelyhood, but not completely certain).
+	;; ;; Consider therefore removing the clause again (it worked at least often)
+	;; (is (notevery #'rule (tu:at-odd-position sim-pitch-pairs)))
+	))))
+
+
+(test 8c-R-pitch-pitch_consecutive-time-slices
+  "Testing R-pitch-pitch: constrain consecutive harmonic intervals between voices 1 and 2 to differ."
+  (for-all ((no-of-variables (gen-integer :min 8 :max 16)))
+    (flet ((rule (pitches1 pitches2)	     
+	     (let* ((interval1 (apply #'- pitches1))
+		    (interval2 (apply #'- pitches2)))
+	       (not (equal interval1 interval2)))))
+      (let* ((pitch-domain (loop for p from 60 to 79 collect (list p)))
+	     (pitches-solution
+	      (get-pitches
+	       (cluster-shorthand no-of-variables
+				  (R-pitch-pitch #'rule '(0 1) '(0) :all :no_grace :pitch)
+				  `(;; voice 1
+				    ((1/4)) ; all notes equal duration
+				    ,pitch-domain
+				    ;; voice 2
+				    ((1/4)) 
+				    ,pitch-domain
+				    ))))
+	     (sim-pitch-pairs (tu:mat-trans pitches-solution)))
+	(is (every #'identity
+		   ;; apply rule to two consecutive pairs of simultaneous pitches, which returns a list of Booleans
+		   (tu:map-neighbours #'rule sim-pitch-pairs)))
+	))))
+
+
+(test 8c-R-pitch-pitch_1st-voice
+  "Testing R-pitch-pitch: for every note onset in voice 1, constrain harmonic intervals between voices 1 and 2 to certain allowed intervals between voices 1 and 2."
+  (for-all ((allowed-intervals (gen-selection :length (gen-integer :min 2 :max 6)
+					      :elements (loop for p from 1 to 11 collect p)))
+	    (no-of-variables (gen-integer :min 5 :max 15)))
+    (flet ((rule (pitches)
+	     (let ((pitch1 (first pitches))
+		   (pitch2 (second pitches)))
+	       (if (and pitch1 pitch2) ; no rests
+		   (let ((pc-interval (mod (- pitch2 pitch1) 12)))
+		     (member pc-interval allowed-intervals))
+		   T))))
+      (let* ((rhythm-domain '((1/16 1/16) (1/4) (1/8) (3/8)))
+	     (pitch-domain (loop for p from 60 to 79 collect (list p)))
+	     (voices-solution
+	      (get-keyword-voices
+	       (cluster-shorthand no-of-variables
+				  (R-pitch-pitch #'rule '(0 1) '(0) :1st-voice :no_grace :pitch)
+				  (list ;; voice 1
+				   rhythm-domain pitch-domain
+				   ;; voice 2
+				   rhythm-domain pitch-domain
+				   ))))
+	     (first-voice (first voices-solution))
+	     (first-voice-pitches (mapcar #'get-pitch first-voice))	     
+	     (matching-2nd-voice-pitches (mapcar #'get-pitch
+						 (get-events-at-starts (second voices-solution)
+									 (mapcar #'get-start first-voice))))
+	     (sim-pitch-pairs (tu:mat-trans (list first-voice-pitches matching-2nd-voice-pitches))))
+	(is (every #'rule sim-pitch-pairs))
+	))))
 
 
 
