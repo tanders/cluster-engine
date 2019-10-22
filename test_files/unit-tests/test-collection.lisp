@@ -796,19 +796,20 @@ get-time-signatures
       )))
 
 
-#|
-;; BUG: unfinished
-(test 7c-metric-rule-one-voice
-  "Randomised test with r-note-meter: every 1/4-note must start on a beat."
+(test 7c-R-note-meter
+  "Randomised test with r-note-meter: every note of specified-dur (1/4) must start on a beat."
   (for-all ((no-of-variables (gen-integer :min 8 :max 30)) 
 	    )
-    (let* ((bar-start-dur 1/4)
+    (let* ((specified-dur 1/4)
 	   (voice-rhythm-solution
 	    (first
 	     (get-rhythms
 	      (cluster-shorthand no-of-variables
 				 (rules->cluster
-				  (R-note-meter (lambda (x) (if (= (first x) 1/4) (= (second x) 0) t))
+				  (R-note-meter (lambda (x)
+						  (if (= (first x) specified-dur)
+						      (= (second x) 0)
+						      t))
 						0 :d_offs :beats :incl-rests :normal)
 				  ;; Redundant rule, but simplifying rhythm makes it more likely that  1/4-notes can occur
 				  (cluster-engine::R-metric-hierarchy 0 :durations))
@@ -818,20 +819,16 @@ get-time-signatures
 				 :metric-domain '((4 4))))))
 	   (start-times (butlast ;; skip last (end of last note)
 			 (tu:dx->x voice-rhythm-solution 0)))
-	   ;; positions of all 1/4 notes
-	   ;; TODO: find all positions
-	   ;; BUG: Note durations can occur multiple times -- this does not work directly on note durations
-	   (quarter-note-positions
-	    ;; (loop for start in start-times
-	    ;; 	 when 
-	    ;;    collect (position dur voice-rhythm-solution))
-	     (position-if (lambda (dur) (= dur 1/4)) voice-rhythm-solution)
-	     )
-	   (quarter-note-starts (loop for pos in quarter-note-positions collect (nth pos start-times))))
+	   (durations-with-starts (tu:mat-trans (list voice-rhythm-solution start-times)))
+	   (quarter-notes-with-starts (remove-if-not (lambda (x) (= x 1/4)) durations-with-starts :key #'first))
+	   )
       ;; Start on a beat: start mod 1/4 is 0
-      (is (every (lambda (start) (= (mod start 1/4) 0)) quarter-note-starts))
+      ;; (is (every (lambda (start) (= (mod start 1/4) 0)) quarter-note-starts))
+      (is (every (lambda (dur-n-start)
+		   (let ((start (second dur-n-start)))
+		     (= (mod start specified-dur) 0)))
+		 quarter-notes-with-starts))
       )))
-|#
 
 
 (test 7d-R-meter-note
