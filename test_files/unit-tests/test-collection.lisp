@@ -1069,7 +1069,7 @@ get-time-signatures
 	     (first-voice (first voices-solution))
 	     (first-voice-pitches (mapcar #'get-pitch first-voice))	     
 	     (matching-2nd-voice-pitches (mapcar #'get-pitch
-						 (get-events-at-starts (second voices-solution)
+						 (get-events-time-points (second voices-solution)
 									 (mapcar #'get-start first-voice))))
 	     (sim-pitch-pairs (tu:mat-trans (list first-voice-pitches matching-2nd-voice-pitches))))
 	(is (every #'rule sim-pitch-pairs))
