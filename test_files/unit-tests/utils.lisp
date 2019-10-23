@@ -1,5 +1,9 @@
 ;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; -*-
 
+#|
+Utility functions for defining Cluster Engine tests 
+|#
+
 (in-package #:cluster-engine/tests)
 
 
@@ -8,6 +12,7 @@
 
 (in-suite testing-utils-tests)
 
+;; NOTE: Some definitions copied here from my only internally updated library ta-utilities.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -99,6 +104,12 @@ NOTE: With sets of great intervallic regularity, the ordering that begins with t
 (pitches->pc-normal-form '(2 4 8 10)) ; any order would do here...
 |#
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Cluster Engine top-level
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defun cluster-shorthand (no-of-variables rules list-of-domains
 			  &key (metric-domain '((4 4))) (rnd? T) (debug? nil))
   "Slight variant of function CLUSTER-ENGINE::CLUSTERENGINE where the function lambda list is rearranged for shorter function calls. See the orig definition for further documentation."
@@ -109,6 +120,11 @@ NOTE: With sets of great intervallic regularity, the ordering that begins with t
                                  metric-domain
                                  list-of-domains))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Cluster Engine result processing
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun get-rhythms (cluster-engine-solution)
   "Return list of note duration lists, where each duration is a ratio."
@@ -176,6 +192,7 @@ NOTE: With sets of great intervallic regularity, the ordering that begins with t
 
 (defun get-pitch (event)
   (getf event :pitch))
+; (get-pitch NIL) ; => NIL
 
 
 (defun all-elements-equal? (xs &key (test #'equal))
