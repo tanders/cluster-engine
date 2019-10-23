@@ -11,6 +11,11 @@
 
 (progn
   (asdf:load-system :cluster-engine/tests)
+  (run! '8e-R-pitch-pitch_3-different-PCs))
+
+
+(progn
+  (asdf:load-system :cluster-engine/tests)
   (run! 'testing-utils-tests))
 
 (run! 'cluster-engine-tests)
@@ -926,9 +931,6 @@ get-time-signatures
 |#
 
 
-;; TODO: turn missing Cluster Engine tutorial examples into tests
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Polyphonic constraints tests
@@ -1044,10 +1046,10 @@ get-time-signatures
 
 
 (test 8c-R-pitch-pitch_1st-voice
-  "Testing R-pitch-pitch: for every note onset in voice 1, constrain harmonic intervals between voices 1 and 2 to certain allowed intervals between voices 1 and 2."
+  "Testing R-pitch-pitch: for every note onset in voice 1, constrain harmonic intervals between voices 1 and 2 to the allowed intervals."
   (for-all ((allowed-intervals (gen-selection :length (gen-integer :min 2 :max 6)
 					      :elements (loop for p from 1 to 11 collect p)))
-	    (no-of-variables (gen-integer :min 5 :max 15)))
+	    (no-of-variables (gen-integer :min 4 :max 10)))
     (flet ((rule (pitches)
 	     (let ((pitch1 (first pitches))
 		   (pitch2 (second pitches)))
@@ -1055,7 +1057,7 @@ get-time-signatures
 		   (let ((pc-interval (mod (- pitch2 pitch1) 12)))
 		     (member pc-interval allowed-intervals))
 		   T))))
-      (let* ((rhythm-domain '((1/16 1/16) (1/4) (1/8) (3/8)))
+      (let* ((rhythm-domain '((1/16 1/16 1/8) (1/4) (1/8 1/8) (3/8 1/16)))
 	     (pitch-domain (loop for p from 60 to 79 collect (list p)))
 	     (voices-solution
 	      (get-keyword-voices
@@ -1222,7 +1224,6 @@ get-time-signatures
 ;; TODO: (apply #'ce:r-predefine-meter r-predefine-meter-args)
 
 ;; TODO: (apply #'ce:stop-rule-time stop-rule-time-args)
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
