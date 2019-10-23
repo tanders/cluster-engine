@@ -9,6 +9,24 @@
 (in-suite testing-utils-tests)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; General utilities
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun best-if (xs comparison)
+  "Return the best of XS with respect to COMPARISON (binary Boolean function). In case of ties, the first best is returned."
+  (let ((x1 (first xs)))
+    (loop for x2 in (rest xs)
+       when (funcall comparison x2 x1)
+       do (setf x1 x2))
+    x1))
+; (best-if '(3 5 2 4 1 7 4) #'<)
+; (best-if '(3 5 2 4 1 7 4) #'>)
+; (best-if '(3 5 2 4 1 7 4) #'=)
+
+
 (defun cluster-shorthand (no-of-variables rules list-of-domains
 			  &key (metric-domain '((4 4))) (rnd? T) (debug? nil))
   "Slight variant of function CLUSTER-ENGINE::CLUSTERENGINE where the function lambda list is rearranged for shorter function calls. See the orig definition for further documentation."
