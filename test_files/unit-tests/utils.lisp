@@ -185,20 +185,28 @@ NOTE: With sets of great intervallic regularity, the ordering that begins with t
 ; (all-elements-equal? '(1 1 1))
 
 
-(defun get-events-at-starts (keyword-voice time-points)
+(defun get-events-time-points (keyword-voice time-points)
   "Return list with the notes/chords/rests in KEYWORD-VOICE (notes in the format returned by GET-KEYWORD-VOICES) that sound at TIME-POINTS (list of reals);  events either started exactly at time point or started before."
   (loop for time-point in time-points
      ;; not most efficient, but result is correct, and for testing that should be fine...
-     collect (find-if (lambda (event) (<= (get-start event) time-point))
-		      keyword-voice :from-end T)))
+     collect (find-if (lambda (event)
+			(let ((start (get-start event)))
+			  (and (<= start time-point)
+			       (> (+ start (get-duration event)) time-point))))
+		      keyword-voice ; :from-end T
+		      )))
 
 
-(test get-events-at-starts
-  "Test testing util: get-notes-at-starts"
+(test get-events-time-points
+  "Test get-notes-at-starts"
   (let ((voice '((:START 0 :DURATION 1/8 :PITCH 67) (:START 1/8 :DURATION 1/4 :PITCH 63)
-		 (:START 3/8 :DURATION 3/8 :PITCH 79)))
-	(time-points '(0 1/4)))
-    (is (equal (get-events-at-starts voice time-points)
+		 (:START 3/8 :DURATION 1/8 :PITCH 79)))
+	(time-points '(0 1/4 1)))
+    (is (equal (get-events-time-points voice time-points)
 	       ;; First matches exactly, and 2nd sounds still at given start time points
-	       '((:START 0 :DURATION 1/8 :PITCH 67) (:START 1/8 :DURATION 1/4 :PITCH 63))))))
+	       '((:START 0 :DURATION 1/8 :PITCH 67)
+		 (:START 1/8 :DURATION 1/4 :PITCH 63)
+		 NIL
+		 )))))
+
 
