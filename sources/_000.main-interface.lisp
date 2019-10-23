@@ -4164,8 +4164,8 @@ and rhythm domain.
 
 <list-of-voices> is a list with the numbers of the voices (starting at 0) that 
 the rule accesses. Any number of voices can be accessed by the rule.
-If more tan 2 voices are accessed, the rule will split up into several
-rules to more efficient find a solution.
+If more than 2 voices are accessed, the rule will split up into several
+rules to more efficiently find a solution.
 
 <model> is a chord or a list of chords. A chord is expressed as intervals from a 
 bass note. The rule will only allow the chords (and all their inversions) from this 
@@ -4189,7 +4189,7 @@ Pitches may exist in any octave.
 - at-timepoints: The rule will be checked at the timepoints in the 
                timepoints input.
 
-[Backtracking behaves the same as fro the R-pitch-pitch rule.]
+[Backtracking behaves the same as for the R-pitch-pitch rule.]
 "
               ;   (:groupings '(2 2 1) :extension-pattern '(2) :x-proportions '((0.2 0.2)(0.1 0.3)(0.4)(0.25 0.15)) :w 0.5)
 
