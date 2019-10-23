@@ -1076,6 +1076,136 @@ get-time-signatures
 	))))
 
 
+(test 8d-R-pitch-pitch_three-voices
+  "Testing R-pitch-pitch: constrain three voices -- the simultaneous interval between voice 1 and 2 is the same as between voice 2 and 3."
+  (for-all ((no-of-variables (gen-integer :min 1 :max 15)))
+    (flet ((rule (pitches)
+	     (let* ((p1 (first pitches))
+		    (p2 (second pitches))
+		    (p3 (third pitches))
+		    (interval1 (- p1 p2))
+		    (interval2 (- p2 p3)))	     
+	     (= interval1 interval2))))
+      (let* ((pitch-domain (loop for p from 60 to 79 collect (list p)))
+	     (pitches-solution
+	      (get-pitches
+	       (cluster-shorthand no-of-variables
+				  (R-pitch-pitch #'rule '(0 1 2) '(0) :all :no_grace :pitch)
+				  `(;; voice 1
+				    ((1/4)) ; all notes equal duration
+				    ,pitch-domain
+				    ;; voice 2
+				    ((1/4)) 
+				    ,pitch-domain
+				    ;; voice 3
+				    ((1/4)) 
+				    ,pitch-domain
+				    ))))
+	     ;; Simultaneous pitches of voices 1, 2 and 3
+	     (sim-pitch-triplets (tu:mat-trans pitches-solution)))
+	(is (every #'rule sim-pitch-triplets))))))
+
+
+(test 8e-R-pitch-pitch_no-voice-crossing
+  "Testing R-pitch-pitch: for three voices, no voice crossing between voice pairs."
+  (for-all ((no-of-variables (gen-integer :min 1 :max 10)))
+    (flet ((rule (pitches)
+	     (let* ((p1 (first pitches))
+		    (p2 (second pitches)))
+	       (>= p1 p2))))
+      (let* (;; ? TODO: randomise pitch domain?
+	     (pitch-domain (loop for p from 60 to 79 collect (list p)))
+	     (pitches-solution
+	      (get-pitches
+	       (cluster-shorthand no-of-variables
+				  (R-pitch-pitch #'rule
+						 '((0 1) (1 2)) '(0) :beat :no_grace :pitch)
+				  `(;; voice 1
+				    ((1/4)) ; all notes equal duration
+				    ,pitch-domain
+				    ;; voice 2
+				    ((1/4)) 
+				    ,pitch-domain
+				    ;; voice 3
+				    ((1/4)) 
+				    ,pitch-domain
+				    ))))
+	     ;; Simultaneous pitches of voices 1, 2 and 3
+	     (sim-pitch-triplets (tu:mat-trans pitches-solution))
+	     ;; Sim voice pairs of voices 1 & 2 and then voice 2 & 3
+	     (sim-pitch-pairs (loop for triple in sim-pitch-triplets
+				 append (loop for (start end) in '((0 2) (1 3))
+					   collect (subseq triple start end)))))
+	(is (every #'rule sim-pitch-pairs))))))
+
+
+(test 8e-R-pitch-pitch_3-different-PCs
+  "Testing R-pitch-pitch: for three voices, simultaneous notes should have different PCs."
+  (for-all ((no-of-variables (gen-integer :min 1 :max 10)))
+    (flet ((rule (pitches)
+	     (= (length (remove-duplicates (pitch->pc pitches)))
+		3)))
+      (let* (;; ? TODO: randomise pitch domain?
+	     (pitch-domain (loop for p from 60 to 79 collect (list p)))
+	     (pitches-solution
+	      (get-pitches
+	       (cluster-shorthand no-of-variables
+				  (R-pitch-pitch #'rule
+				       '(0 1 2) '(0) :beat :no_grace :pitch)
+				  `(;; voice 1
+				    ((1/4)) ; all notes equal duration
+				    ,pitch-domain
+				    ;; voice 2
+				    ((1/4)) 
+				    ,pitch-domain
+				    ;; voice 3
+				    ((1/4)) 
+				    ,pitch-domain
+				    ))))
+	     ;; Simultaneous pitches of voices 1, 2 and 3
+	     (sim-pitch-triplets (tu:mat-trans pitches-solution)))
+	(is (every #'rule sim-pitch-triplets))))))
+
+
+(test 8e-R-chords
+  "Testing R-chords: resulting chords match allowed chords; chord transpositions and inversions are possible."
+  (for-all ((no-of-variables (gen-integer :min 1 :max 15)))
+    (let* ((pitch-domain (loop for p from 60 to 84 collect (list p)))
+	   (allowed-chords-for-R-chords '((4 7) (3 7)))
+	   ;; ;; Corresponding untransposed PC sets
+	   ;; (allowed-chord-pc-sets (loop for chord in allowed-chords-for-R-chords
+	   ;; 			     ;; pitches->pc-normal-form not necessary for major and minor triads,
+	   ;; 			     ;; but in case chords are changed...
+	   ;; 			     collect (pitches->pc-normal-form (cons 0 chord))))
+	   ;; Manually collected for simplicy. These could be generated algorithmically by generating all possible subsets of allowed-chords-for-R-chords and apply to each (pc-transpose-to-0 (pitches->pc-normal-form my-subset))
+	   (allowed-chord-pc-sets '((0 3 7) (0 4 7) (0 3) (0 4) (0 5) (0)))
+	   (pitches-solution
+	    (get-pitches
+	     (cluster-shorthand no-of-variables
+				(cluster-engine::R-chords '(0 1 2) allowed-chords-for-R-chords
+							  '(0) :all :exclude-gracenotes)
+				`(;; voice 1
+				  ;; all notes equal duration
+				  ((1/4)) ,pitch-domain
+				  ;; voice 2
+				  ((1/4)) ,pitch-domain
+				  ;; voice 3
+				  ((1/4)) ,pitch-domain))))
+	   ;; Simultaneous pitches of voices 1, 2 and 3
+	   (sim-pitches (tu:mat-trans pitches-solution))
+	   ;; Untransposed PC sets in normal form (like the chords are)
+	   (sim-pc-sets (loop for pitches in sim-pitches
+			   collect (pc-transpose-to-0 (pitches->pc-normal-form pitches)))))
+      ;; For every sim-pc-set match some chord: every pc from sim-pc-set matches some chord pc by matching every of its pcs
+      (is (every (lambda (sim-pc-set)
+		   (some (lambda (allowed-chord)
+			     ;; untransposed-normal-form can be incomplete chord, so make sure every pitch is part of chord
+			     (every (lambda (pc) (member pc allowed-chord))
+				    sim-pc-set))
+			   allowed-chord-pc-sets))
+		 sim-pc-sets)))))
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
