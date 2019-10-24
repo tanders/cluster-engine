@@ -1157,6 +1157,64 @@ get-time-signatures
 		 sim-pc-sets)))))
 
 
+;; BUG: Test can fail for some cases when rule is set to :beat. Seemingly there are some cases when rule is not checked with that setting. With setting :all it works find.
+(test 8f-R-pitch-pitch_no-parallel-fifths
+  "Testing R-pitch-pitch: for each possible voice combination pair, avoid parallel fifths (parallel octaves not checked)."
+  (for-all ((no-of-variables (gen-integer :min 1 :max 10)))
+    (flet ((rule (pitches1 pitches2)
+	     (let ((interval1 (apply #'- pitches1))
+		   (interval2 (apply #'- pitches2)))
+	     (if (not (equal pitches1 pitches2))
+		 (if (= interval1 7)
+		     (/= interval2 7)
+		     t)
+		 t))))
+      (let* ((pitch-domain (loop for p from 60 to 79 collect (list p)))
+	     (pitches-solution
+	      (get-pitches
+	       (cluster-shorthand no-of-variables
+				  (R-pitch-pitch #'rule
+						 ;; Test all voice combinations
+						 '((0 1) (1 2) (0 2)) '(0)
+						 ;; ? BUG: -- with setting :beat this test can fail
+						 :all ; :beat
+						 :no_grace :pitch)
+				  `(;; voice 1
+				    ((1/4)) ; all notes equal duration
+				    ,pitch-domain
+				    ;; voice 2
+				    ((1/4)) 
+				    ,pitch-domain
+				    ;; voice 3
+				    ((1/4)) 
+				    ,pitch-domain
+				    ))))
+	     ;; Simultaneous pitches of voices 1, 2 and 3
+	     (sim-pitch-triplets (tu:mat-trans pitches-solution))
+	     ;; Sim voice pairs of voices 1 & 2 and then voice 2 & 3
+	     (sim-pitch-pairs (loop for triple in sim-pitch-triplets
+				 append (loop for (start end) in '((0 2) (1 3))
+					   collect (subseq triple start end)))))
+	;; Apply rule to consecutive pairs of simultaneous pitch pairs
+	(is (every #'identity (tu:map-neighbours #'rule sim-pitch-pairs)))))))
+
+#| ;; TODO:
+;; Failing sim-pitch-pair
+((68 61) (69 62))
+;; from these sim-pitch-pairs
+((61 63) (63 68) (70 60) (60 71) (64 79) (79 79) (63 68) (68 61) (69 62)
+ (62 65) (68 79) (79 65) (62 66) (66 68) (72 71) (71 68) (62 76) (76 67))
+|#
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Polyphonic rhythm constraints tests
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; TODO: 
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -1172,7 +1230,73 @@ get-time-signatures
 
 ;; TODO: (apply #'ce:r-predefine-meter r-predefine-meter-args)
 
-;; TODO: (apply #'ce:stop-rule-time stop-rule-time-args)
+
+(test 10-stop-rule-time
+  "Testing stop-rule-time: index rule immediately after stop would cause fail, but instead solution reaching up to there is returned."
+  (for-all ((no-of-variables (gen-integer :min 1 :max 16))
+	    (stop-position (gen-integer :min 0 :max 10)
+			   (< stop-position no-of-variables)))    
+    (flet (;; Rule to be followed: simply enforce one constant pitch from domain
+	   (rule (pitch) (= pitch 62)))
+      (let* ((constant-rhythm 1/4)
+	     (pitch-domain (loop for p from 60 to 71 collect (list p)))
+	     (stop-time (* constant-rhythm stop-position))
+	     ;; Note: If rule-to-fail-application-position would be one less, this would result in :no-solution
+	     (rule-to-fail-application-position (1+ stop-position))
+	     (pitches-solution
+	      (get-pitches
+	       (cluster-shorthand no-of-variables
+				  (rules->cluster
+				   (R-pitches-one-voice #'rule '(0 1) :pitches)
+				   ;; Stop search at specified time
+				   (stop-rule-time '(0 1) stop-time :and)
+				   ;; Rule to always fail without stop rule, resulting in :no-solution
+				   (r-index-pitches-one-voice (lambda (pitch) (= pitch 36)) ;; Pitch 36 outside pitch domain
+							      `(,rule-to-fail-application-position) '(0 1) :position-for-pitches))
+				  `(;; voice 1
+				    ((,constant-rhythm)) ,pitch-domain
+				    ;; voice 2
+				    ((,constant-rhythm)) ,pitch-domain))))
+					; (sim-pitch-pairs (tu:mat-trans pitches-solution))
+	     )
+	(is (every #'rule
+		   (tu:flat (mapcar (lambda (pitches) (subseq pitches 0 stop-position))
+				    pitches-solution))))
+	))))
+
+(test 10-stop-rule-time_fail
+  "Testing stop-rule-time: same test as before, but now constraint that always fails is applied one position earlier, resulting in :no-solution.."
+  (for-all ((no-of-variables (gen-integer :min 1 :max 16))
+	    (stop-position (gen-integer :min 1 :max 10)
+			   (< stop-position no-of-variables)))    
+    (flet (;; Rule to be followed: simply enforce one constant pitch from domain
+	   (rule (pitch) (= pitch 62)))
+      (let* ((constant-rhythm 1/4)
+	     (pitch-domain (loop for p from 60 to 71 collect (list p)))
+	     (stop-time (* constant-rhythm stop-position))
+	     ;; NOTE: main change compared with test 10-stop-rule-time is here: rule-to-fail-application-position is one less
+	     (rule-to-fail-application-position stop-position)
+	     (solution
+	      (cluster-shorthand no-of-variables
+				  (rules->cluster
+				   (R-pitches-one-voice #'rule '(0 1) :pitches)
+				   ;; Stop search at specified time
+				   (stop-rule-time '(0 1) stop-time :and)
+				   ;; Rule to always fail without stop rule, resulting in :no-solution
+				   (r-index-pitches-one-voice (lambda (pitch) (= pitch 36)) ;; Pitch 36 outside pitch domain
+							      `(,rule-to-fail-application-position) '(0 1) :position-for-pitches))
+				  `(;; voice 1
+				    ((,constant-rhythm)) ,pitch-domain
+				    ;; voice 2
+				    ((,constant-rhythm)) ,pitch-domain)))
+					; (sim-pitch-pairs (tu:mat-trans pitches-solution))
+	     )
+	(is (equal solution :no-solution))
+	))))
+#|
+;; ? BUG: or cornercase: if stop-position is 0 and no-of-variables is larger, solution is not :no-solution, but ((1/4) (NIL) NIL NIL ((4 4)))
+|#
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1189,6 +1313,7 @@ get-time-signatures
   (&body)
   (teardown-code))
 
+;; Alternatively, multiple tests can be defined within with-fixture body, to have fixture only set up once.
 (def-test a-test ()
   "Test in clean environment."
   (with-fixture in-test-environment ()
