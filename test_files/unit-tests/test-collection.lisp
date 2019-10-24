@@ -888,6 +888,47 @@ get-time-signatures
 
 (in-suite polyphonic-pitch-rules-tests)
 
+#|
+;; BUG: With complex rhythm domains, r-pitch-pitch *can* result in Cluster Engine internal error even with a rule always returning T.
+;; Try evaluating the example multiple times to see the problem...
+;; Seemingly, this bug did not exist in PWGL version. Perhaps, PWGL (CCL) ignored certain type declarations, which SBCL now uses and which cause this error (NIL not of type number).
+;; TODO: Try with an older SBCL version.
+(let ((no-of-variables 4)
+      (rhythm-domain '((-1) (-3/4) (-3/8) (-3/16) (-1/8) (3/16) (3/8) (1/2) (3/4) (1)))
+      (pitch-domain '((62))))
+  (ce:clusterengine no-of-variables T NIL
+		    (ce:r-pitch-pitch (lambda (ignore) T)
+				      '(0 1) '(0) :all :include-gracenotes :pitch)
+		    '((4 4))
+		    (list rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain
+			  )))
+
+;; A simpler rhythm domain seemingly fixes the problem.
+(let ((no-of-variables 4)
+      (rhythm-domain '((-1 -3/4 -1/2 -3/8 -1/4 -1/8 -1/16 1 3/4 1/2 3/8 1/4 1/8 1/16)))
+      ;; (rhythm-domain '((1/4)))
+      (pitch-domain '((46) (47) (73) (74) (79) (81))))
+  (ce:clusterengine no-of-variables T NIL
+		    (ce:r-pitch-pitch (lambda (ignore) T)
+				      '(0 1) '(0) :all :include-gracenotes :pitch)
+		    ;; (no-voice-crossing :voices '(0 1))
+		    '((4 4))
+		    (list rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain)))
+
+
+;; Potential error of first example above -- this is perhaps an error where a variable value contradicts its type declaration.
+The value
+  NIL
+is not of type
+  NUMBER
+when binding CLUSTER-ENGINE::START-TIME-INCLUDE-EARLIER-VARIABLES
+in a lambda expression within CLUSTER-ENGINE::TEST-RULES (but the offending lambda has likely been compiled on the fly, so it has likely to be identified by code-walking from ce:r-pitch-pitch, a stack trace is only a limited help due to the [unnecessary] dynamic compilation)
+(CLUSTER-ENGINE::TEST-RULES 2 #2A((#(#1=#<FUNCTION # {22A874DB}>) #(#)) (#(#1#) #(#)) (#(#1#) #(#)) (#(#1#) #(#)) (NIL NIL)) #(#((# # # # # # ...) NIL NIL NIL) #(NIL NIL NIL NIL) #((# # # # # # ...) N..
+
+|#
+
 
 (test 8a-R-pitch-pitch_no-voice-crossing
   "Testing R-pitch-pitch: no voice crossing between voices 1 and 2."
