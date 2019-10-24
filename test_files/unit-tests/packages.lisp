@@ -11,11 +11,15 @@
   (:use #:cl #:cluster-engine
 	;; For defining tests for test utils
 	#:FiveAM)
-  (:export #:cluster-shorthand
+  (:export #:gen-selection
+	   #:*rhythm-domain-template* #:*pitch-domain-template* #:*pitch-pairs* #:*metric-domain-template*
+	   #:cluster-shorthand
 	   #:get-rhythms #:get-pitches #:get-time-signatures #:get-voices #:get-starts #:get-keyword-voices
 	   #:is-note? #:is-rest? #:is-chord?
 	   #:get-start #:get-duration #:get-pitch
-	   #:get-events-time-points))
+	   #:get-events-time-points
+	   ;; FiveAM test short-hands
+	   #:test-harmonic-constraint))
 
 
 (defpackage #:ta-utilities/redefinitions
