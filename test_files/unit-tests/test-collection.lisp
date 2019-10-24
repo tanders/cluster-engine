@@ -11,7 +11,7 @@
 
 (progn
   (asdf:load-system :cluster-engine/tests)
-  (run! '8e-R-pitch-pitch_3-different-PCs))
+  (run! 'other-rules-tests))
 
 
 (progn
@@ -70,16 +70,13 @@
 
 (in-package #:cluster-engine/tests)
 
-
+;; TODO: Revise all randomised tests: consider whether more parameters can be randomised
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Domain tests 
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(def-suite cluster-engine-tests
-    :description "The top-level suite of all Cluster Engine tests.")
 
 (def-suite domain-tests
     :description "Testing domain declarations etc."
@@ -251,7 +248,7 @@
 		 time-sigs-solution)))))
 
 
-;; TODO: Add rules that actually test effect of domain declaration with metric-domain
+;; TODO: Add rules that actually tests effect of domain declaration with metric-domain
 ;; arg tuplets only has an effect if using the rule r-metric-hierarchy.
 ;; arg alt-beatlength affect rules that constrain events located on beats
 (test 3d-only-metric-domain_using-function-metric-domain
@@ -498,7 +495,6 @@ get-time-signatures
 	     constrained-duration))
       )))
 |#
-
 
 (test 6a-R-index-rhythm-pitch-one-voice
   "Testing R-index-rhythm-pitch-one-voice: relation of notes at positions idx1 and idx2 constrained according to defined rule."
@@ -882,7 +878,7 @@ get-time-signatures
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Polyphonic constraints tests
+;;; Polyphonic pitch constraints tests
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1133,8 +1129,8 @@ get-time-signatures
 	   (pitches-solution
 	    (get-pitches
 	     (cluster-shorthand no-of-variables
-				(cluster-engine::R-chords '(0 1 2) allowed-chords-for-R-chords
-							  '(0) :all :exclude-gracenotes)
+				(R-chords '(0 1 2) allowed-chords-for-R-chords
+					  '(0) :all :exclude-gracenotes)
 				`(;; voice 1
 				  ;; all notes equal duration
 				  ((1/4)) ,pitch-domain
@@ -1322,41 +1318,3 @@ get-time-signatures
 |#
 
 
-#|
-;; NOTE: Tests can be evaluated interactively (like in rove), and in case of fail drop into debugger
-(for-all ((x (gen-integer :min 1 :max 10))
-          (y (gen-integer :min 1 :max 10)))
-  "Test doc string"
-  (is (>= x y)))
-
-
-(get-pitches
- (cluster-shorthand 4 
-		    '()  ; no rules
-		    '(((1/4))
-		      ((60) (62))
-		      )))
-|#
-
-#|
-;; TMP:
-(test dummy-tests
-  "Just a placeholder."
-  (is (listp (list 1 2)))
-  (is (= 5 (+ 2 3))))
-(dummy-tests)
-
-;; ? TMP:
-(test only-rhythm-domain-1
-  (let* ((*random-state* (sb-ext:seed-random-state 1234))
-	 (result (get-rhythms
-		  (cluster-shorthand 4 
-				     '()  ; no rules
-				     ;; rhythm domain 
-				     '(((1/4) (1/8) (-1/4))
-				       nil ; no pitches
-				       )))))
-    (is (equal result '((-1/4 1/4 1/4 1/8))))))
-
-
-|#
