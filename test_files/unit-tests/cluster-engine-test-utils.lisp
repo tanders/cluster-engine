@@ -183,3 +183,52 @@ Utility functions for defining Cluster Engine tests
 		 (:START 1/8 :DURATION 1/4 :PITCH 63)
 		 NIL
 		 )))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; FiveAM test short-hands for certain Cluster Engine tests
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; TODO: Does this really need to be a macro?
+;; TODO: Turn rhythm-domain and pitch-domain into optional args?
+(defmacro test-harmonic-constraint (name &body body)
+  "Set up FiveAM test for harmonic constraint in a randomised CSP.
+
+* Arguments:
+  - NAME (symbol): Name of test.
+  - DOCSTRING (string): Compulsary. 
+  - CONSTRAINTS (list of functions): Cluster engine rule(s) to test.
+  - TEST-CONDITION (unary Boolean function): Applied  to every simultaneous pitch-pair. All must return T for test to succeed.
+  Keyword args
+  - VOICE-NUMBER (integer, default 2): 
+"
+  (destructuring-bind (docstring constraints test-condition &key (voice-number 2))
+      body
+    `(test ,name 
+       ,docstring
+       (for-all ((no-of-variables (gen-integer :min 1 :max 15))
+		 ;; NOTE: With complex rhythm domains,  r-pitch-pitch *can* result in Cluster Engine internal error (even with a rule always returning T).
+		 ;; (rhythm-domain (gen-selection :length (gen-integer :min 1 :max (length *rhythm-domain-template*))
+		 ;; 			       :elements *rhythm-domain-template*))
+		 (pitch-domain (gen-selection :length (gen-integer :min 2 :max (length *pitch-domain-template*))
+					      :elements *pitch-domain-template*)))
+	 (let* ((rhythm-domain '((-1 -3/4 -1/2 -3/8 -1/4 -1/8 -1/16 1 3/4 1/2 3/8 1/4 1/8 1/16)))
+		(voices-solution
+		 (get-keyword-voices
+		  (cluster-shorthand no-of-variables
+				     ,constraints
+				     (tu:one-level-flat
+				      (make-list ,voice-number
+						 :initial-element (list rhythm-domain pitch-domain))))))
+		;; BUG: not generalised for more than 2 voices
+		(first-voice (first voices-solution))
+		(first-voice-pitches (mapcar #'get-pitch first-voice))	     
+		(matching-2nd-voice-pitches (mapcar #'get-pitch
+						    (get-events-time-points (second voices-solution)
+									    (mapcar #'get-start first-voice))))
+		(sim-pitch-pairs (tu:mat-trans (list first-voice-pitches matching-2nd-voice-pitches))))
+	   (is (every ,test-condition sim-pitch-pairs)))))))
+
+
