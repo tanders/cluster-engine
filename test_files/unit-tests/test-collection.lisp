@@ -487,8 +487,9 @@ get-time-signatures
 					(R-rhythms-one-voice-at-timepoints (lambda (x) (equal x (list 0 constrained-duration)))
 									   0 (list time-point) :dur-start)
 					;; Time points are only whole numbers, i.e. 1st beats of bars
-					;; Rule no-syncopation forces that there is always a note starting at a downbeat
-					(cr:no-syncopation :voices 0 :metric-structure :1st-beat))
+					;; No syncopation across bar lines: forces that there is always a note starting at a downbeat
+					(R-meter-note (lambda (x) (= x 0)) 0 :1st-beat :offset :norm)
+					)
 				       (list rhythm-domain
 					     '((62)))
 				       :metric-domain '((4 4))))))
