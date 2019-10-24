@@ -115,7 +115,7 @@ Utility functions for defining Cluster Engine tests
   "Expects result of GET-RHYTHMS and return a list of start time lists, where each start time is a ratio."
   (loop for durs in rhythms
      collect (butlast ; skip end of last note
-	      (tu:dx->x durs 0))))
+	      (tu:dx->x (mapcar #'abs durs) 0))))
 
 
 (defun get-keyword-voices (cluster-engine-solution)
