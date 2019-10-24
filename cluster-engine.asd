@@ -180,8 +180,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
   :components ((:module "test_files"
 			::components ((:module "unit-tests"
 					       :serial t
-					       :components ((:file "package")
 							    (:file "utils")
+					       :components ((:file "packages")
 							    (:file "test-collection")
 							    )))))
   :perform (test-op (o s)
