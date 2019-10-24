@@ -174,9 +174,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 
 
 (defsystem #:cluster-engine/tests
-  :depends-on (:cluster-engine :cluster-rules ;; :cluster-rules help defining some tests more concisely
-			       :FiveAM
-			       :ta-utilities)
+  :depends-on (:cluster-engine :FiveAM :ta-utilities ; Depends on :ta-utilities version at GitHub
+	       )
   :components ((:module "test_files"
 			::components ((:module "unit-tests"
 					       :serial t
