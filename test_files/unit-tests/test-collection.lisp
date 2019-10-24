@@ -299,6 +299,13 @@ get-time-signatures
 
 (in-suite constrain-one-voice-tests)
 
+
+(defun all-elements-equal? (xs &key (test #'equal))
+  "Returns T if all elements in XS are equal."
+  (let ((first-elt (first xs)))
+    (every (lambda (x) (funcall test first-elt x)) (rest xs))))
+; (all-elements-equal? '(1 1 1))
+
 (test R-rhythms-one-voice_all-rhythms-equal
   "Randomised test of R-rhythms-one-voice rule: all rhythmic values are equal."
   (for-all ((no-of-variables (gen-integer :min 2 :max 10))
