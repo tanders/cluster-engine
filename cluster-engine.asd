@@ -182,6 +182,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 					       :serial t
 							    (:file "utils")
 					       :components ((:file "packages")
+							    (:file "set-up")
 							    (:file "test-collection")
 							    )))))
   :perform (test-op (o s)
