@@ -6,14 +6,14 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(in-package #:cluster-engine/tests)
+(in-package :cluster-engine/tests)
 
 (declaim (optimize (speed 0) (space 0) (debug 3)))
 
 ;; Cluster engine is silent
 (setf *verbose-i/o?* nil)
 
-
+;; TODO: Move this elsewhere
 (def-suite cluster-engine-tests
     :description "The top-level suite of all Cluster Engine tests.")
 
