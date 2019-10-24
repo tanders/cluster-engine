@@ -1094,7 +1094,7 @@ get-time-signatures
   "Testing R-pitch-pitch: for three voices, simultaneous notes should have different PCs."
   (for-all ((no-of-variables (gen-integer :min 1 :max 10)))
     (flet ((rule (pitches)
-	     (= (length (remove-duplicates (pitch->pc pitches)))
+	     (= (length (remove-duplicates (tu-redef:pitch->pc pitches)))
 		3)))
       (let* (;; ? TODO: randomise pitch domain?
 	     (pitch-domain (loop for p from 60 to 79 collect (list p)))
@@ -1127,8 +1127,8 @@ get-time-signatures
 	   ;; (allowed-chord-pc-sets (loop for chord in allowed-chords-for-R-chords
 	   ;; 			     ;; pitches->pc-normal-form not necessary for major and minor triads,
 	   ;; 			     ;; but in case chords are changed...
-	   ;; 			     collect (pitches->pc-normal-form (cons 0 chord))))
-	   ;; Manually collected for simplicy. These could be generated algorithmically by generating all possible subsets of allowed-chords-for-R-chords and apply to each (pc-transpose-to-0 (pitches->pc-normal-form my-subset))
+	   ;; 			     collect (tu-redef:pitches->pc-normal-form (cons 0 chord))))
+	   ;; Manually collected for simplicy. These could be generated algorithmically by generating all possible subsets of allowed-chords-for-R-chords and apply to each (pc-transpose-to-0 (tu-redef:pitches->pc-normal-form my-subset))
 	   (allowed-chord-pc-sets '((0 3 7) (0 4 7) (0 3) (0 4) (0 5) (0)))
 	   (pitches-solution
 	    (get-pitches
@@ -1146,7 +1146,7 @@ get-time-signatures
 	   (sim-pitches (tu:mat-trans pitches-solution))
 	   ;; Untransposed PC sets in normal form (like the chords are)
 	   (sim-pc-sets (loop for pitches in sim-pitches
-			   collect (pc-transpose-to-0 (pitches->pc-normal-form pitches)))))
+			   collect (tu-redef:pc-transpose-to-0 (tu-redef:pitches->pc-normal-form pitches)))))
       ;; For every sim-pc-set match some chord: every pc from sim-pc-set matches some chord pc by matching every of its pcs
       (is (every (lambda (sim-pc-set)
 		   (some (lambda (allowed-chord)
