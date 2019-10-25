@@ -24,6 +24,15 @@ Utility functions for defining Cluster Engine tests
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun gen-select-one (&key candidates)
+  "Return a generator that picks a value from CANDIDATES."
+  (lambda ()
+    (nth (random (length candidates)) candidates)))
+#|
+(setf my-gen (gen-select-one :candidates '((-1/2) (-1/4) (-1/8) (1/8) (1/4) (1/2))))
+(funcall my-gen)
+|#
+
 (defun gen-selection (&key (length (gen-integer :min 0 :max 10))
 			elements)
   "Return a generator that picks `length' values from `elements' without repeating them. Must be called less often than length of xs."
