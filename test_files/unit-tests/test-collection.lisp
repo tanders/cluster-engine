@@ -929,6 +929,84 @@ in a lambda expression within CLUSTER-ENGINE::TEST-RULES (but the offending lamb
 
 |#
 
+#|
+;; BUG: If the rhythm domain only consists in rest, it also triggers the error above
+(let ((no-of-variables 4)
+      (rhythm-domain '((-1/4 -1/4) (-1/2)))
+      (pitch-domain '((62))))
+  (ce:clusterengine no-of-variables T NIL
+		    (ce:r-pitch-pitch (lambda (ignore) T)
+				      '(0 1) '(0) :all :include-gracenotes :pitch)
+		    '((4 4))
+		    (list rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain
+			  )))
+
+;; BUG: Even with these simple domain settings the problem can appear
+(let ((no-of-variables 4)
+      (rhythm-domain '((-1/2) (1/16) (1/4) (-1/16)))
+      (pitch-domain '((62) (64) (67))))
+  (ce:clusterengine no-of-variables T NIL
+		    (ce:r-pitch-pitch (lambda (ignore) T)
+				      '(0 1) '(0) :all :include-gracenotes :pitch)
+		    '((4 4))
+		    (list rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain)))
+
+;; BUG: Even when all rhythm-domain values have the duration 1/4, the bug happens
+(let ((no-of-variables 3)
+      (rhythm-domain '((-1/16 -1/16 1/8) (1/16 1/8 1/16) (-1/12 1/6) (-1/4) (-1/8 -1/8)
+		       (-1/12 -1/6) (3/16 1/16) (-3/16 1/16) (-1/6 -1/12) (-1/6 1/12)))
+      (pitch-domain '((37) (79) (75) (62) (72) (48) (46) (84) (65) (38) (69) (52) (45) (77) (57)
+		      (43) (76) (80) (58) (61) (71) (42) (36) (81) (73) (40) (59) (68) (74) (66)
+		      (53) (51) (41) (63) (70) (82) (60) (78) (67) (55) (39) (50) (44) (64) (49)
+		      (47) (83) (56))))
+  (ce:clusterengine no-of-variables T NIL
+		    (ce:r-pitch-pitch (lambda (ignore) T)
+				      '(0 1) '(0) :all :include-gracenotes :pitch)
+		    '((4 4))
+		    (list rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain)))
+
+
+;; NOTE: A CSP with the settings below also resulted in this error, but this is seemingly not reproducible here
+;; Anyway, also in test runs, the error occurs only rarely, which indicates that perhaps it can also occur with rather "tamed" rhythm domains occasionally (e.g., 1 in 20 runs)
+(let ((no-of-variables 12)
+      (rhythm-domain '((1/4 -1/2 -1/4) (1/16) (1/8 1/16 1/16) (3/16 -1/2 -5/16) (-1/8 -1/4 -1/8)
+		       (1/16 3/16 3/4) (1/8) (1/8 1/8 1/4) (-1/4 1/2 -1/16 -3/16)))
+      (pitch-domain '((57) (66) (61) (83) (70) (71) (84) (44) (64) (80) (69) (74) (67) (63) (45)
+		      (37) (81) (59) (46) (42) (65) (62) (47) (36) (40) (39) (43))))
+  (ce:clusterengine no-of-variables T NIL
+		    (cr:no-voice-crossing :voices '(0 1))
+		    #(((4 4))
+		      (((4 4) 0 1/16 1/12 1/8 1/6 3/16 1/4 5/16 1/3 3/8 5/12 7/16 1/2 9/16 7/12
+			5/8 2/3 11/16 3/4 13/16 5/6 7/8 11/12 15/16 1))
+		      (((4 4) 0 -1/4 -1/2 -3/4 1)))
+		    (list rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain
+			  )))
+
+;; NOTE: Same problem
+(let ((no-of-variables 6)
+      (rhythm-domain '((-3/8 -1/8) (-5/8 -3/8) (-1/2 1/2) (-3/4 1/4) (3/4 1/4) (-3/8 -5/8)
+		       (1/2 -1/2)))
+      (pitch-domain '((45) (41) (51) (49) (75) (38) (71) (79) (42) (81) (65) (73) (63) (40) (37)
+		      (56) (58) (68) (76) (72) (53) (74) (39) (69) (36) (54) (60) (43) (67) (78)
+		      (44))))
+  (ce:clusterengine no-of-variables T NIL
+		    (cr:number-of-sim-PCs :voices '(0 1 2) :pc-number 3 :rests-mode :reduce-no)
+		    #(((4 4))
+		      (((4 4) 0 1/16 1/12 1/8 1/6 3/16 1/4 5/16 1/3 3/8 5/12 7/16 1/2 9/16 7/12
+			5/8 2/3 11/16 3/4 13/16 5/6 7/8 11/12 15/16 1))
+		      (((4 4) 0 -1/4 -1/2 -3/4 1)))
+		    (list rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain
+			  rhythm-domain pitch-domain)))
+
+|#
+
 
 (test 8a-R-pitch-pitch_no-voice-crossing
   "Testing R-pitch-pitch: no voice crossing between voices 1 and 2."
