@@ -46,6 +46,27 @@ Utility functions for defining Cluster Engine tests
 (funcall my-gen)
 |#
 
+(defun gen-ratio (&key
+		    ;; (numerator (gen-integer :min -7 :max 7))
+		    ;; no grace-notes for now
+		    (numerator (gen-select-one :candidates '(-5 -4 -3 -2 -1 1 2 3 4 5 6 6))) 
+		    (denominator (gen-select-one :candidates '(1 2 4 8 16))))
+  "Return a generator that produces a ratio. NUMERATOR and DENOMINATOR are both integer generators with default values suitable for standard Cluster Engine rhythmic values."
+  (lambda ()
+    (/ (funcall numerator) (funcall denominator))))
+#|
+(setf my-gen (gen-ratio))
+(funcall my-gen)
+
+;; Generate a rhythmic motif
+(setf my-gen (gen-list :length (gen-integer :min 1 :max 5) :elements (gen-ratio)))
+(funcall my-gen)
+
+;; Generate a rhythmic domain
+(setf my-gen (gen-list :length (gen-integer :min 1 :max 5) 
+		       :elements (gen-list :length (gen-integer :min 1 :max 5) :elements (gen-ratio))))
+(funcall my-gen)
+|#
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
