@@ -11,8 +11,10 @@
   (:use #:cl #:cluster-engine
 	;; For defining tests for test utils
 	#:FiveAM)
-  (:export #:gen-selection
-	   #:*rhythm-domain-template* #:*pitch-domain-template* #:*pitch-pairs* #:*metric-domain-template*
+  (:export #:gen-select-one #:gen-selection #:gen-ratio
+	   #:*rhythm-domain-template* #:*even-rhythm-domain-template*
+	   #:*1/4-rhythm-domain-template* #:*simple-rhythm-domain-template*
+	   #:*pitch-domain-template* #:*pitch-pairs* #:*metric-domain-template*
 	   #:cluster-shorthand
 	   #:get-rhythms #:get-pitches #:get-time-signatures #:get-voices #:get-starts #:get-keyword-voices
 	   #:is-note? #:is-rest? #:is-chord?
