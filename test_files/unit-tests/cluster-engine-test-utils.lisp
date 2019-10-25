@@ -35,7 +35,7 @@ Utility functions for defining Cluster Engine tests
 
 (defun gen-selection (&key (length (gen-integer :min 0 :max 10))
 			elements)
-  "Return a generator that picks `length' values from `elements' without repeating them. Must be called less often than length of xs."
+  "Return a generator that picks LENGTH values from ELEMENTS without repeating them. Must be called less often than length of ELEMENTS."
   (lambda ()
     (let ((elements-copy (copy-list elements)))
       (loop for i from (funcall length) downto 1
@@ -97,7 +97,7 @@ Utility functions for defining Cluster Engine tests
 		   for x = (/ 1 (expt 2 i))
 		   append (list (- x) x (* 3/2 x) (* -3/2 x)))
 		#'<))
-  "A range of standard rhythmic domain values to select from.")
+  "A range of standard rhythmic domain values (only individual notes and rests, no motifs) to select from.")
 
 (defparameter *even-rhythm-domain-template*
   (let ((motif-no 0)
