@@ -3577,490 +3577,578 @@ candidates locally before the strict rules are applied. Depending on the
 context, heuristic rules might have more or less of an effect. 
 
 Heuristic switch rules differs slightly form regular heuristic rules (the 
-latter don't output true or false, but a weight that might vary depending
-on the candidate).
+								      latter don't output true or false, but a weight that might vary depending
+								      on the candidate).
 "
-             ;    (:groupings '(2 2 2) :extension-pattern '(2) :x-proportions '((0.2 0.2)(0.1 0.3)(0.2 0.2)(0.25 0.15)) :w 0.5)
+  ;; (:groupings '(2 2 2) :extension-pattern '(2) :x-proportions '((0.2 0.2)(0.1 0.3)(0.2 0.2)(0.25 0.15)) :w 0.5)
 
-                 (when timepoints (setf timepoints (sort timepoints '<)))
-                 (when (/= (count-if 'minusp timepoints) 0) (error "Error in inputs to R-pitch-pitch: timepoints cannot be negative"))
-                 (when (numberp (car list-all-voices)) (setf list-all-voices (list list-all-voices)))
-                 
+  (when timepoints (setf timepoints (sort timepoints '<)))
+  (when (/= (count-if 'minusp timepoints) 0) (error "Error in inputs to R-pitch-pitch: timepoints cannot be negative"))
+  (when (numberp (car list-all-voices)) (setf list-all-voices (list list-all-voices)))
+  
+  (loop for list-voices in list-all-voices ;to make it possible to have a list of voice definitions
+     collect (let ((list-with-engine-nrs (apply 'append (loop for voice in list-voices collect (list (* 2 voice) (1+ (* 2 voice)))))))
+	       (cond ((equal format :pitch) ;rules for only pitch information (no duration)
+		      (cond ((equal rule-type :heur-switch) 
+			     (cond ((equal input-mode :all)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-in-n-voices
+					    rule list-voices weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-in-n-voices rule list-voices weight))))
+				   ((equal input-mode :beat)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-in-n-voices
+					    rule list-voices 'get-all-beats weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-on-beat-in-n-voices
+					    rule list-voices 'get-all-beats weight)))
+				    )
+				   ((equal input-mode :1st-beat)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-in-n-voices
+					    rule list-voices 'get-1st-down-beats weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-on-beat-in-n-voices
+					    rule list-voices 'get-1st-down-beats weight)))
+				    )
+				   ((equal input-mode :1st-voice)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-in-n-voices
+					    rule list-voices weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-in-n-voices
+					    rule list-voices weight)))
+				    )
+				   ((equal input-mode :at-timepoints)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-at-timepoints-include-gracenotes-in-n-voices
+					    rule timepoints list-voices weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-at-timepoints-in-n-voices
+					    rule timepoints list-voices weight)))
+				    )
 
-                 (loop for list-voices in list-all-voices ;to make it possible to have a list of voice definitions
-                       collect (let ((list-with-engine-nrs (apply 'append (loop for voice in list-voices collect (list (* 2 voice) (1+ (* 2 voice)))))))
-                                 (cond ((equal format :pitch) ;rules for only pitch information (no duration)
-                                        (cond ((equal rule-type :heur-switch) 
-                                               (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-in-n-voices rule list-voices weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-in-n-voices rule list-voices weight))))
-                                                     ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-in-n-voices rule list-voices 'get-all-beats weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-on-beat-in-n-voices rule list-voices 'get-all-beats weight)))
-                                                      )
-                                                     ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-in-n-voices rule list-voices 'get-1st-down-beats weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-on-beat-in-n-voices rule list-voices 'get-1st-down-beats weight)))
-                                                      )
-                                                     ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-in-n-voices rule list-voices weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-in-n-voices rule list-voices weight)))
-                                                      )
-                                                     ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-timepoints-include-gracenotes-in-n-voices rule timepoints list-voices weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-timepoints-in-n-voices rule timepoints list-voices weight)))
-                                                      )
+				   ))
 
-                                                     ))
+			    (t ;true/false rule
+			     (cond ((equal input-mode :all)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-A* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-A* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-A* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route
+						      (rule-n-engines-pitch-and-pitch-include-gracenotes rule list-voices)
+						      list-with-engine-nrs)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-A* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-A* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-A* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route
+						      (rule-n-engines-pitch-and-pitch rule list-voices)
+						      list-with-engine-nrs))))
+				    )
+				   ((equal input-mode :beat)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat
+								       rule list-voices 'get-all-beats)
+						      list-with-engine-nrs -1)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
 
-                                              (t ;true/false rule
-                                               (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-A* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-A* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-A* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes rule list-voices) list-with-engine-nrs)))
-                                                            (t
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-A* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-A* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-A* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch rule list-voices) list-with-engine-nrs))))
-                                                      )
-                                                     ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat rule list-voices 'get-all-beats) list-with-engine-nrs -1)))
-                                                            (t
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat
+								       rule list-voices 'get-all-beats)
+						      list-with-engine-nrs -1)))
+					  ))
+				   ((equal input-mode :1st-beat)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
 
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat rule list-voices 'get-all-beats) list-with-engine-nrs -1)))
-                                                            ))
-                                                     ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat
+								       rule list-voices 'get-1st-down-beats)
+						      list-with-engine-nrs -1)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
 
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1)))
-                                                            (t
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat
+								       rule list-voices 'get-1st-down-beats)
+						      list-with-engine-nrs -1))))
+				    )
+				   ((equal input-mode :1st-voice)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-C* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-C* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-C* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes
+								       rule list-voices)
+						      list-with-engine-nrs)))
+					  (t
 
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1))))
-                                                      )
-                                                     ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-C* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-C* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-C* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes rule list-voices) list-with-engine-nrs)))
-                                                            (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-C* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-C* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-C* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets
+								       rule list-voices)
+						      list-with-engine-nrs))))
+				    )
+				   ((equal input-mode :at-timepoints)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-D* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-D* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-D* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes
+								       rule timepoints list-voices)
+						      list-with-engine-nrs)))
+					  (t
 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-C* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-C* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-C* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets rule list-voices) list-with-engine-nrs))))
-                                                      )
-                                                     ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-D* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-D* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-D* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes rule timepoints list-voices) list-with-engine-nrs)))
-                                                            (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-D* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-D* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-D* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints
+								       rule timepoints list-voices)
+						      list-with-engine-nrs))))
+				    ))))
 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-D* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-D* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-D* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints rule timepoints list-voices) list-with-engine-nrs))))
-                                                      ))))
-
-                                        )
+		      )
                                        ;;;;;;;;;;;;;;;;;;;;;;;;
-                                       ((equal format :p_d_offs)       ;rules for pitch and duration
-                                        (cond ((equal rule-type :heur-switch) 
+		     ((equal format :p_d_offs)       ;rules for pitch and duration
+		      (cond ((equal rule-type :heur-switch) 
 
-                                               (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-with-durations-and-offset-in-n-voices rule list-voices weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-with-durations-and-offset-in-n-voices rule list-voices weight))))
-                                                     ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset-in-n-voices rule list-voices 'get-all-beats weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-and-offset-in-n-voices rule list-voices 'get-all-beats weight)))
-                                                      )
-                                                     ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset-in-n-voices rule list-voices 'get-1st-down-beats weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-and-offset-in-n-voices rule list-voices 'get-1st-down-beats weight)))
-                                                      )
-                                                     ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-and-offset-in-n-voices rule list-voices weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-with-durations-and-offset-in-n-voices rule list-voices weight)))
-                                                      )
-                                                     ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-and-offset-in-n-voices rule timepoints list-voices weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-timepoints-with-durations-and-offset-in-n-voices rule timepoints list-voices weight)))
-                                                      )
+			     (cond ((equal input-mode :all)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-with-durations-and-offset-in-n-voices
+					    rule list-voices weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-with-durations-and-offset-in-n-voices
+					    rule list-voices weight))))
+				   ((equal input-mode :beat)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset-in-n-voices
+					    rule list-voices 'get-all-beats weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-and-offset-in-n-voices
+					    rule list-voices 'get-all-beats weight)))
+				    )
+				   ((equal input-mode :1st-beat)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset-in-n-voices
+					    rule list-voices 'get-1st-down-beats weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-and-offset-in-n-voices
+					    rule list-voices 'get-1st-down-beats weight)))
+				    )
+				   ((equal input-mode :1st-voice)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-and-offset-in-n-voices
+					    rule list-voices weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-with-durations-and-offset-in-n-voices
+					    rule list-voices weight)))
+				    )
+				   ((equal input-mode :at-timepoints)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-and-offset-in-n-voices
+					    rule timepoints list-voices weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-at-timepoints-with-durations-and-offset-in-n-voices
+					    rule timepoints list-voices weight)))
+				    )
 
-                                                     )
-                                               )
-                 
-                                              (t ;true/false rule
-                                               (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-A* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-A* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-A* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-and-offset rule list-voices) list-with-engine-nrs)))
-                                                            (t
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-A* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-A* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-A* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-with-durations-and-offset rule list-voices) list-with-engine-nrs))))
-                                                      )
-                                                     ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset rule list-voices 'get-all-beats) list-with-engine-nrs -1)))
-                                                            (t
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+				   )
+			     )
+			    
+			    (t ;true/false rule
+			     (cond ((equal input-mode :all)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-A* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-A* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-A* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-and-offset
+								       rule list-voices)
+						      list-with-engine-nrs)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-A* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-A* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-A* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-with-durations-and-offset
+								       rule list-voices)
+						      list-with-engine-nrs))))
+				    )
+				   ((equal input-mode :beat)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset
+								       rule list-voices 'get-all-beats)
+						      list-with-engine-nrs -1)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
 
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-and-offset rule list-voices 'get-all-beats) list-with-engine-nrs -1)))
-                                                            ))
-                                                     ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-and-offset
+								       rule list-voices 'get-all-beats)
+						      list-with-engine-nrs -1)))
+					  ))
+				   ((equal input-mode :1st-beat)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
 
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1)))
-                                                            (t
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset
+								       rule list-voices 'get-1st-down-beats)
+						      list-with-engine-nrs -1)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
 
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-and-offset rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1))))
-                                                      )
-                                                     ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-C* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-C* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-C* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-and-offset rule list-voices) list-with-engine-nrs)))
-                                                            (t
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-and-offset
+								       rule list-voices 'get-1st-down-beats)
+						      list-with-engine-nrs -1))))
+				    )
+				   ((equal input-mode :1st-voice)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-C* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-C* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-C* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route
+						      (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-and-offset
+						       rule list-voices)
+						      list-with-engine-nrs)))
+					  (t
 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-C* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-C* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-C* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-and-offset rule list-voices) list-with-engine-nrs))))
-                                                      )
-                                                     ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-D* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-D* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-D* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-and-offset rule timepoints list-voices) list-with-engine-nrs)))
-                                                            (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-C* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-C* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-C* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-and-offset
+								       rule list-voices)
+						      list-with-engine-nrs))))
+				    )
+				   ((equal input-mode :at-timepoints)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-D* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-D* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-D* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-and-offset
+								       rule timepoints list-voices)
+						      list-with-engine-nrs)))
+					  (t
 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-D* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-D* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-D* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints-with-durations-and-offset rule timepoints list-voices) list-with-engine-nrs))))
-                                                      )))))
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-D* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-D* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-D* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints-with-durations-and-offset
+								       rule timepoints list-voices)
+						      list-with-engine-nrs))))
+				    )))))
 
-                                       (t       ;rules for pitch and duration WITH timepoint
+		     (t       ;rules for pitch and duration WITH timepoint
 
-;missing heuristics
-                                        (cond ((equal rule-type :heur-switch) 
+					;missing heuristics
+		      (cond ((equal rule-type :heur-switch) 
 
-                                               (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-with-durations-offset-and-timepoint-in-n-voices rule list-voices weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-with-durations-offset-and-timepoint-in-n-voices rule list-voices weight))))
-                                                     ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint-in-n-voices rule list-voices 'get-all-beats weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint-in-n-voices rule list-voices 'get-all-beats weight)))
-                                                      )
-                                                     ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint-in-n-voices rule list-voices 'get-1st-down-beats weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint-in-n-voices rule list-voices 'get-1st-down-beats weight)))
-                                                      )
-                                                     ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-offset-and-timepoint-in-n-voices rule list-voices weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-with-durations-offset-and-timepoint-in-n-voices rule list-voices weight)))
-                                                      )
-                                                     ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-offset-and-timepoint-in-n-voices rule timepoints list-voices weight))
-                                                            (t
-                                                             (heuristic-switch-rule-pitch-and-pitch-at-timepoints-with-durations-offset-and-timepoint-in-n-voices rule timepoints list-voices weight)))
-                                                      )
+			     (cond ((equal input-mode :all)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-with-durations-offset-and-timepoint-in-n-voices
+					    rule list-voices weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-with-durations-offset-and-timepoint-in-n-voices
+					    rule list-voices weight))))
+				   ((equal input-mode :beat)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint-in-n-voices
+					    rule list-voices 'get-all-beats weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint-in-n-voices
+					    rule list-voices 'get-all-beats weight)))
+				    )
+				   ((equal input-mode :1st-beat)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint-in-n-voices
+					    rule list-voices 'get-1st-down-beats weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint-in-n-voices
+					    rule list-voices 'get-1st-down-beats weight)))
+				    )
+				   ((equal input-mode :1st-voice)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-offset-and-timepoint-in-n-voices
+					    rule list-voices weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-with-durations-offset-and-timepoint-in-n-voices
+					    rule list-voices weight)))
+				    )
+				   ((equal input-mode :at-timepoints)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (heuristic-switch-rule-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-offset-and-timepoint-in-n-voices
+					    rule timepoints list-voices weight))
+					  (t
+					   (heuristic-switch-rule-pitch-and-pitch-at-timepoints-with-durations-offset-and-timepoint-in-n-voices
+					    rule timepoints list-voices weight)))
+				    )
+				   )
+			     )
+			    
+			    (t ;true/false rule
+			     (cond ((equal input-mode :all)
+				    (cond ((equal gracenotes? :gracenotes)
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-A* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-A* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-A* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-offset-and-timepoint
+								       rule list-voices)
+						      list-with-engine-nrs)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-A* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-A* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-A* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-with-durations-offset-and-timepoint
+								       rule list-voices)
+						      list-with-engine-nrs))))
+				    )
+				   ((equal input-mode :beat)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint
+								       rule list-voices 'get-all-beats)
+						      list-with-engine-nrs -1)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
 
-                                                     )
-                                               )
-                 
-                                              (t ;true/false rule
-                                               (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-A* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-A* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-A* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-with-durations-offset-and-timepoint rule list-voices) list-with-engine-nrs)))
-                                                            (t
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-A* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-A* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-A* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-with-durations-offset-and-timepoint rule list-voices) list-with-engine-nrs))))
-                                                      )
-                                                     ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint rule list-voices 'get-all-beats) list-with-engine-nrs -1)))
-                                                            (t
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint
+								       rule list-voices 'get-all-beats)
+						      list-with-engine-nrs -1)))
+					  ))
+				   ((equal input-mode :1st-beat)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
 
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint rule list-voices 'get-all-beats) list-with-engine-nrs -1)))
-                                                            ))
-                                                     ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint
+								       rule list-voices 'get-1st-down-beats)
+						      list-with-engine-nrs -1)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
+									 'rule-n-engines-with-meter3)    ;next pitch engine
+									((= *bktr-ppNv-B* 2)
+									 'rule-n-engines-with-meter4)    ;next rhythm engine
+									((= *bktr-ppNv-B* 3)
+									 'rule-n-engines-with-meter5)    ;this pitch engine
+									((= *bktr-ppNv-B* 4)
+									 'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
 
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1)))
-                                                            (t
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
-                                                                                           'rule-n-engines-with-meter3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-B* 2)
-                                                                                           'rule-n-engines-with-meter4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-B* 3)
-                                                                                           'rule-n-engines-with-meter5)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-B* 4)
-                                                                                           'rule-n-engines-with-meter6)))) ;this rhythm engine (or next if current engine is pitch engine)
-
-             ; -1 is the flag to be replaced with the number for the metric engine
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1))))
-                                                      )
-                                                     ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-C* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-C* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-C* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-offset-and-timepoint rule list-voices) list-with-engine-nrs)))
-                                                            (t
-
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-C* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-C* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-C* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-offset-and-timepoint rule list-voices) list-with-engine-nrs))))
-                                                      )
-                                                     ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes) 
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-D* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-D* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-D* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-offset-and-timepoint rule timepoints list-voices) list-with-engine-nrs)))
-                                                            (t
-
-                                                             (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
-                                                                                           'rule-n-engines3)    ;next pitch engine
-                                                                                          ((= *bktr-ppNv-D* 2)
-                                                                                           'rule-n-engines4)    ;next rhythm engine
-                                                                                          ((= *bktr-ppNv-D* 3)
-                                                                                           'rule-n-engines4)    ;this pitch engine
-                                                                                          ((= *bktr-ppNv-D* 4)
-                                                                                           'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
-                                                               (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints-with-durations-offset-and-timepoint rule timepoints list-voices) list-with-engine-nrs))))
-                                                      )))))))))
+					; -1 is the flag to be replaced with the number for the metric engine
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint
+								       rule list-voices 'get-1st-down-beats)
+						      list-with-engine-nrs -1))))
+				    )
+				   ((equal input-mode :1st-voice)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-C* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-C* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-C* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route
+						      (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-offset-and-timepoint
+						       rule list-voices)
+						      list-with-engine-nrs)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-C* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-C* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-C* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-offset-and-timepoint
+								       rule list-voices)
+						      list-with-engine-nrs))))
+				    )
+				   ((equal input-mode :at-timepoints)
+				    (cond ((equal gracenotes? :gracenotes) 
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-D* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-D* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-D* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route
+						      (rule-n-engines-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-offset-and-timepoint
+						       rule timepoints list-voices)
+						      list-with-engine-nrs)))
+					  (t
+					   (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
+									 'rule-n-engines3)    ;next pitch engine
+									((= *bktr-ppNv-D* 2)
+									 'rule-n-engines4)    ;next rhythm engine
+									((= *bktr-ppNv-D* 3)
+									 'rule-n-engines4)    ;this pitch engine
+									((= *bktr-ppNv-D* 4)
+									 'rule-n-engines4)))) ;this rhythm engine (or next if current engine is pitch engine)
+					     (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints-with-durations-offset-and-timepoint
+								       rule timepoints list-voices)
+						      list-with-engine-nrs))))
+				    )))))))))
 
 
 
