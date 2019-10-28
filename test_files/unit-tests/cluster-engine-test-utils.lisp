@@ -259,6 +259,7 @@ Utility functions for defining Cluster Engine tests
 ; (get-pitch NIL) ; => NIL
 
 
+;; BUG: Grace notes that happen exactly at time-point currently not handled properly -- they would be returned and notes following them would be ignored, because always one event per time-point is returned
 (defun get-events-time-points (keyword-voice time-points)
   "Return list with the notes/chords/rests in KEYWORD-VOICE (notes in the format returned by GET-KEYWORD-VOICES) that sound at TIME-POINTS (list of reals);  events either started exactly at time point or started before."
   (loop for time-point in time-points
@@ -302,12 +303,16 @@ Utility functions for defining Cluster Engine tests
 				     :elements (gen-select-one :candidates
 							       (list *rhythm-domain-template*
 								     *even-rhythm-domain-template*
-								     *even-rhythm-domain-template-with-gracenotes*
+								     ;; TMP: For Aiva I currently don't test grace notes
+								     ;; *even-rhythm-domain-template-with-gracenotes*
 								     ;; *1/4-rhythm-domain-template*
 								     *simple-rhythm-domain-template*))))
-				   (pitch-domain (gen-selection :length (gen-integer :min 2
+				   (pitch-domain (gen-selection :length (gen-integer :min 5
 										     :max (length *pitch-domain-template*))
-								:elements *pitch-domain-template*)))
+								:elements *pitch-domain-template*))
+				   (stop-time (gen-ratio :numerator (gen-integer :min 0 :max 8)
+							 :denominator (gen-select-one :candidates '(1 2 4))))
+				   (harmony-domains NIL))
   "Set up FiveAM test (still to be wrapped in a TEST call) for harmonic constraint in a randomised CSP.
 
 * Arguments:
@@ -317,8 +322,12 @@ Utility functions for defining Cluster Engine tests
   - VOICE-NUMBER (integer): number of voices in the CSP.
   - RHYTHM-DOMAIN (generator): a rhythm domain for all voices of the CSP.
   - PITCH-DOMAIN (generator): a pitch domain for all voices of the CSP.
+  - STOP-TIME (generator): time at which to stop the search.
+  - HARMONY-DOMAINS (domain specs): if non-NIL, the first voice of the CSP is a sequence of scales and the second voice a sequence of chords, which together represent the underlying harmony. HARMONY-DOMAINS contains the rhythm and pitch domain of these voices in the form (<scales-rhythm-domain> <scales-pitch-domain> <chords-rhythm-domain> <chords-pitch-domain>).
+
+BUG: Grace notes not handled properly yet.
 "
-  (for-all ((no-of-variables (gen-integer :min 1 :max 15))
+  (for-all ((stop-time stop-time)
 	    (rhythm-dom rhythm-domain
 			;; Not only rests in the rhythm domain
 			(some #'plusp (tu:flat rhythm-dom)))
@@ -327,19 +336,32 @@ Utility functions for defining Cluster Engine tests
 			;; 	     (some #'plusp motif)))
 			;;        rhythm-dom))
 	    (pitch-dom pitch-domain))
-    (let* ((voices-solution
-	    (get-keyword-voices
-	     (cluster-shorthand no-of-variables
-				constraints
-				(tu:one-level-flat
-				 (make-list voice-number
-					    :initial-element (list rhythm-dom pitch-dom))))))
-	   ;; Start times of all harmonic slices
-	   (all-start-times (remove-duplicates
-			     (tu:flat (loop for voice in voices-solution
-					 collect (mapcar #'get-start voice)))))
-	   (sim-pitches (tu:mat-trans (loop for voice in voices-solution
+    (let* ((no-of-variables 1000)
+	   (voices-domains (tu:one-level-flat
+			    (make-list voice-number
+				       :initial-element (list rhythm-dom pitch-dom))))
+	   (solution (cluster-shorthand no-of-variables
+					(rules->cluster
+					 (stop-rule-time (tu:arithmeric-series 1 0 voice-number) stop-time :and)
+					 constraints)
+					(if harmony-domains
+					    (append harmony-domains voices-domains)
+					    voices-domains)))
+	   (voices (get-keyword-voices solution))
+	   ;; Start times of all harmonic slices up to stop-time
+	   (all-start-times (sort (remove-duplicates
+				   (tu:flat (loop for voice in voices
+					       collect (remove-if (lambda (time) (>= time stop-time))
+							(mapcar #'get-start voice)))))
+				  #'<))
+	   ;; BUG: grace notes note handled properly -- see comment at get-events-time-points def.
+	   (sim-pitches (tu:mat-trans (loop for voice in voices
 					 collect (mapcar #'get-pitch
 							 (get-events-time-points voice all-start-times)))))
 	   )
-      (is (every test-condition sim-pitches)))))
+      (is (every test-condition sim-pitches)
+	  ;; TMP: For debugging print a bit more in case of errors.
+	  "For Cluster Engine solution~%  ~A~%and voices~%  ~A~%sim-pitches is~%  ~A~%where some sim pitches list violates given test~%  ~A~%stop-time was~%  ~A~%."
+	  solution voices sim-pitches test-condition stop-time))))
+
+
