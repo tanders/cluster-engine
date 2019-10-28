@@ -1322,6 +1322,28 @@ in a lambda expression within CLUSTER-ENGINE::TEST-RULES (but the offending lamb
 |#
 
 
+
+(defun rule_pitches-are-equal (pitches)
+  (let ((unique-pitches (remove-duplicates (remove NIL pitches))))
+    (if unique-pitches
+	(= (length unique-pitches) 1)
+	T)))
+(test equal-sim-pitches
+  "Testing r-pitch-pitch with test-harmonic-constraint: for three voices, all simultaneous pitches are always equal (less likely than unequal pitches, so a simple test for how well harmonic constraint is hold)."
+  (test-harmonic-constraint 
+      (ce:r-pitch-pitch #'rule_pitches-are-equal
+			'(0 1 2) '(0) :all :gracenotes :pitch)
+    #'rule_pitches-are-equal
+    :voice-number 3
+    ;; reduce pitch domain, otherwise search can take ages
+    :pitch-domain (gen-selection :length (gen-integer :min 3
+						      :max 6)
+				 :elements *pitch-domain-template*)
+    :rhythm-domain (gen-selection :length (gen-integer :min 2 :max 10)
+				  :elements *rhythm-domain-template*)))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; Polyphonic rhythm constraints tests
