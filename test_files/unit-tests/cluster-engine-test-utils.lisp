@@ -125,6 +125,24 @@ Utility functions for defining Cluster Engine tests
     (sort motifs #'< :key (lambda (motif) (apply #'+ (mapcar #'abs motif)))))
   "A range of randomised standard rhythmic domain values to select from (individual rests, notes or rhythmic motifs), where the duration of each domain value is one of the possible values set.")
 
+(defparameter *even-rhythm-domain-template-with-gracenotes*
+  (let ((motif-no 0)
+	(motifs ())
+	(motif-gen (gen-list :length (gen-integer :min 1 :max 5)
+			     :elements (gen-ratio :numerator (gen-integer :min -6 :max 7)))))
+    (loop while (< motif-no 100)
+       for motif = (funcall motif-gen)
+       when (let ((motif-dur (apply #'+ (mapcar #'abs motif))))
+	      (and
+	       ;; Possible duration values
+	       (member motif-dur '(1 1/2 1/4 1/8 1/16))
+	       (not (member motif motifs :test #'equal))))
+       do (progn
+	    (setf motifs (cons motif motifs))
+	    (setf motif-no (1+ motif-no))))
+    (sort motifs #'< :key (lambda (motif) (apply #'+ (mapcar #'abs motif)))))
+  "A range of randomised standard rhythmic domain values to select from (individual rests, notes or rhythmic motifs), where the duration of each domain value is one of the possible values set.")
+
 (defparameter *1/4-rhythm-domain-template*
   (let ((motif-no 0)
 	(motifs ())
