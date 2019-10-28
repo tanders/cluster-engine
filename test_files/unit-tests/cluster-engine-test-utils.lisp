@@ -43,6 +43,9 @@ Utility functions for defining Cluster Engine tests
 	  (elements-copy (if (functionp elements)
 			     (copy-list (funcall elements))
 			     (copy-list elements))))
+      (assert (<= length* (length elements-copy))
+	      (length elements)
+	      "Cannot pick ~A different elements from ~A." length* elements)
       (loop for i from length* downto 1
 	 for pos = (random (length elements-copy))
 	 collect (tu:pop-nth elements-copy pos)))))
