@@ -35,10 +35,15 @@ Utility functions for defining Cluster Engine tests
 
 (defun gen-selection (&key (length (gen-integer :min 0 :max 10))
 			elements)
-  "Return a generator that picks LENGTH values from ELEMENTS without repeating them. Must be called less often than length of ELEMENTS."
+  "Return a generator that picks LENGTH values (int or generator) from ELEMENTS (list of ints or generator) without repeating them. Must be called less often than length of ELEMENTS."
   (lambda ()
-    (let ((elements-copy (copy-list elements)))
-      (loop for i from (funcall length) downto 1
+    (let ((length* (if (functionp length)
+		       (funcall length)
+		       length))
+	  (elements-copy (if (functionp elements)
+			     (copy-list (funcall elements))
+			     (copy-list elements))))
+      (loop for i from length* downto 1
 	 for pos = (random (length elements-copy))
 	 collect (tu:pop-nth elements-copy pos)))))
 #|
