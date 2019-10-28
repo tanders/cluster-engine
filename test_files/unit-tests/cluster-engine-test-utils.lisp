@@ -54,7 +54,7 @@ Utility functions for defining Cluster Engine tests
 (defun gen-ratio (&key
 		    ;; (numerator (gen-integer :min -7 :max 7))
 		    ;; no grace-notes for now
-		    (numerator (gen-select-one :candidates '(-5 -4 -3 -2 -1 1 2 3 4 5 6 6))) 
+		    (numerator (gen-select-one :candidates '(-5 -4 -3 -2 -1 1 2 3 4 5 6))) 
 		    (denominator (gen-select-one :candidates '(1 2 4 8 16))))
   "Return a generator that produces a ratio. NUMERATOR and DENOMINATOR are both integer generators with default values suitable for standard Cluster Engine rhythmic values."
   (lambda ()
