@@ -293,10 +293,17 @@ Utility functions for defining Cluster Engine tests
 ;; OK: Turn rhythm-domain and pitch-domain into optional args?
 (defun test-harmonic-constraint (constraints test-condition
 				 &key (voice-number 2)
-				   ;; NOTE: With complex rhythm domains,  r-pitch-pitch *can* result in Cluster Engine internal error (even with a rule always returning T). Therefore *rhythm-domain-template* and *even-rhythm-domain-template* and *simple-rhythm-domain-template* replaced below with *1/4-rhythm-domain-template*
-				   (rhythm-domain (gen-selection :length (gen-integer :min 2 :max 10)
-								 :elements *1/4-rhythm-domain-template*))
-				   (pitch-domain (gen-selection :length (gen-integer :min 2 :max (length *pitch-domain-template*))
+				   (rhythm-domain
+				    (gen-selection
+				     :length (gen-integer :min 2 :max 10)
+				     :elements (gen-select-one :candidates
+							       (list *rhythm-domain-template*
+								     *even-rhythm-domain-template*
+								     *even-rhythm-domain-template-with-gracenotes*
+								     ;; *1/4-rhythm-domain-template*
+								     *simple-rhythm-domain-template*))))
+				   (pitch-domain (gen-selection :length (gen-integer :min 2
+										     :max (length *pitch-domain-template*))
 								:elements *pitch-domain-template*)))
   "Set up FiveAM test (still to be wrapped in a TEST call) for harmonic constraint in a randomised CSP.
 
