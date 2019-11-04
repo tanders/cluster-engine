@@ -889,6 +889,12 @@ get-time-signatures
 (in-suite polyphonic-pitch-rules-tests)
 
 #|
+;; TMP: TODO: Find which code generates rule by stepping
+(ce:r-pitch-pitch (lambda (ignore) T)
+		  '(0 1) '(0) :all :gracenotes :pitch)
+; => runs rule-n-engines-pitch-and-pitch-include-gracenotes
+
+
 ;; BUG: With complex rhythm domains, r-pitch-pitch *can* result in Cluster Engine internal error even with a rule always returning T.
 ;; Try evaluating the example multiple times to see the problem...
 ;; Seemingly, this bug did not exist in PWGL version. Perhaps, PWGL (CCL) ignored certain type declarations, which SBCL now uses and which cause this error (NIL not of type number).
