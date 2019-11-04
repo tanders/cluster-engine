@@ -315,18 +315,20 @@ Utility functions for defining Cluster Engine tests
 								:elements *pitch-domain-template*))
 				   (stop-time (gen-ratio :numerator (gen-integer :min 0 :max 8)
 							 :denominator (gen-select-one :candidates '(1 2 4))))
-				   (harmony-domains NIL))
+				   (harmony-domains NIL)
+				   (test-parameter :pitch))
   "Set up FiveAM test (still to be wrapped in a TEST call) for harmonic constraint in a randomised CSP.
 
 * Arguments:
   - CONSTRAINTS (list of functions): Cluster engine rule(s) to test.
   - TEST-CONDITION (unary Boolean function): Applied  to every simultaneous pitch-pair. All must return T for test to succeed.
   Keyword args
-  - VOICE-NUMBER (integer): number of voices in the CSP.
+  - VOICE-NUMBER (integer): number of voices in the CSP (without scales and chords, if HARMONY-DOMAINS is non-NIL).
   - RHYTHM-DOMAIN (generator): a rhythm domain for all voices of the CSP.
   - PITCH-DOMAIN (generator): a pitch domain for all voices of the CSP.
   - STOP-TIME (generator): time at which to stop the search.
   - HARMONY-DOMAINS (domain specs): if non-NIL, the first voice of the CSP is a sequence of scales and the second voice a sequence of chords, which together represent the underlying harmony. HARMONY-DOMAINS contains the rhythm and pitch domain of these voices in the form (<scales-rhythm-domain> <scales-pitch-domain> <chords-rhythm-domain> <chords-pitch-domain>).
+  - TEST-PARAMETER (keyword; either :pitch, or :all): which parameter values to hand to TEST-CONDITION. If :pitch, it will receive a list of pitches, if :all a list of note lists of the form (:start <start-time> :duration <duration> :pitch <pitch>), i.e. as returned by GET-KEYWORD-VOICES.
 
 BUG: Grace notes not handled properly yet.
 "
@@ -358,13 +360,14 @@ BUG: Grace notes not handled properly yet.
 							(mapcar #'get-start voice)))))
 				  #'<))
 	   ;; BUG: grace notes note handled properly -- see comment at get-events-time-points def.
-	   (sim-pitches (tu:mat-trans (loop for voice in voices
-					 collect (mapcar #'get-pitch
+	   (sim-params (tu:mat-trans (loop for voice in voices
+					 collect (mapcar (ecase test-parameter
+							   (:pitch #'get-pitch)
+							   (:all #'identity))
 							 (get-events-time-points voice all-start-times)))))
 	   )
-      (is (every test-condition sim-pitches)
+      (is (every test-condition sim-params)
 	  ;; TMP: For debugging print a bit more in case of errors.
-	  "For Cluster Engine solution~%  ~A~%and voices~%  ~A~%sim-pitches is~%  ~A~%where some sim pitches list violates given test~%  ~A~%stop-time was~%  ~A~%."
-	  solution voices sim-pitches test-condition stop-time))))
-
+	  "For Cluster Engine solution~%  ~S~%and voices~%  ~S~%sim-params is~%  ~S~%where some sim params list violates given test~%  ~S~%stop-time was~%  ~S~%."
+	  solution voices sim-params test-condition stop-time))))
 
