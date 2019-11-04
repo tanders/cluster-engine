@@ -462,6 +462,74 @@ which voice to search next."
         finally (return nil))) ;this means that all pitch engines are OK
 
 
+#| ;; TMP:
+vsolution example value at index. Looks like durations (neg for rest), start times (neg for rest) and number of notes (excluding rests) so far. First start time is 1 instead of 0 for some strange reason and then durations are added accumulatively.
+(((3/8 3/8 1/8 -1/4 1/8 1/8 1/8 3/8 3/8 1/8 -1/4 1/8 1/8 1/8) 
+  (1 11/8 7/4 -15/8 17/8 9/4 19/8 5/2 23/8 13/4 -27/8 29/8 15/4 31/8 4) 
+  (1 2 3 3 4 5 6 7 8 9 9 10 11 12)))
+|#
+
+;; ? TODO: Handle also motifs
+;; TODO: Why is first endtime 1 and not 0??
+(defun get-start-time-at-note-position (engine vindex vsolution note-position)
+  "Return start time of note at NOTE-POSITION.
+
+If the engine has no assigned events, the end time will be 1 (i.e. the minimum time).
+Engine has to be a rhythm engine."
+  (declare (type array vsolution vindex))
+  (declare (type fixnum engine))
+  (if (engine-set? engine vindex)
+      ;; TODO: Optimisation: only skip rests up to nr-of-pitches -- perhaps replace with loop that returns once index is reached.
+      (let ((starts (remove-if #'minusp ;; remove rests 
+				 (cadar (aref (aref vsolution engine) (aref vindex engine))))))
+	(nth note-position starts))
+      1))
+
+
+(defun get-end-times-all-pitch-engines (vsolution vindex vdefault-engine-order)
+  "For each pitch engine, return the end time of the last note to which a pitch has been assigned (list of numbers)."
+  (declare (type array vsolution vindex vdefault-engine-order))
+  (loop for rhythm-engine in (get-rhythm-engine-indices vdefault-engine-order)
+     collect (let* ((pitch-engine (1+ rhythm-engine))
+		    (nr-of-pitches (if (engine-set? pitch-engine vindex)
+				       (get-current-index-total-pitchcount pitch-engine vindex vsolution)
+				       0))
+		    (end-time (if (engine-set? rhythm-engine vindex)
+				    (get-start-time-at-note-position rhythm-engine vindex vsolution nr-of-pitches)
+				    0)))
+	       end-time)))
+
+
+#|
+;; BUG: In case nr-of-pitches and nr-of-notes are both 0, these are not taken, but some voice with higher end time for pitches but less pitches than nr-of-notes is taken, and that might then be only candidate.  
+;; TODO: Can I reduce loop somehow, e.g., when nr-of-pitches is 0, this is already minimal.
+(defun find-pitch-engine-with-earliest-missing-pitch (vsolution vindex vdefault-engine-order)
+  "Return the pitch engine with the smallest end time of its corresponding rhythm engine out of those that is shorter than their corresponding rhythm engine. Result NIL means that no pitch engine is shorter than its corresponding rhythm engine."
+  (declare (type array vsolution vindex vdefault-engine-order))
+  (let (candidates)
+    (loop for rhythm-engine in (get-rhythm-engine-indices vdefault-engine-order)
+       do (let ((rhythm-engine-set? (engine-set? rhythm-engine vindex))
+		(pitch-engine (1+ rhythm-engine)))
+	    (when (member pitch-engine (get-pitch-engine-indices vdefault-engine-order))
+	      (let* ((nr-of-pitches (if (engine-set? pitch-engine vindex)
+					(get-current-index-total-pitchcount pitch-engine vindex vsolution)
+					0))
+		     (nr-of-notes (if rhythm-engine-set?
+				      (get-current-index-total-notecount rhythm-engine vindex vsolution)
+				      0))
+		     (start-time (if rhythm-engine-set?
+				     (get-start-time-at-note-position rhythm-engine vindex vsolution nr-of-pitches)
+				     0)))
+		;; (break)
+		(when (> nr-of-notes nr-of-pitches)
+		  (push (list pitch-engine start-time) candidates))
+		))))
+    ;; TMP: tu-dependency -- remove!
+    (first (tu:best-if candidates #'< :key #'second))
+    ))
+|#
+
+
 (defun find-shortest-rhythm-engine (min-voice-length all-voices-total-length vdefault-engine-order)
   (declare (type number min-voice-length))
 
