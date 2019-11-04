@@ -248,10 +248,13 @@ Utility functions for defining Cluster Engine tests
 
 (defun get-start (event)
   (getf event :start))
+;; (get-start '(:START 0 :DURATION 1 :PITCH '(60 64 67)))
+;; (get-start '(:START 0 :DURATION -1/8 :PITCH NIL))
 
-
-(defun get-duration (event)
-  (getf event :duration))
+(defun get-duration (event &optional (abs? T))
+  "Return duration of event. Rests are represented with a negative duration, but by default always a positive duration is returned by this function, which can be switched of with ABS?."
+  (let ((dur (getf event :duration)))
+    (if abs? (abs dur) dur)))
 
 
 (defun get-pitch (event)
