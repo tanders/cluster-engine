@@ -19,6 +19,88 @@
             finally (return engine)))))
 
 
+;; TODO: Rename function suitably
+;; TODO: Documentation
+;; TODO: Refactoring -- can I leave some things out?
+;; TODO: Discuss with Orjan whether to use find-pitch-engine-with-earliest-missing-pitch also in other forward engines
+(defun fwd-rule-indep-TA-variation (vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines)
+  "Return index of engine where next variable should be visited.
+
+Backtrack route is poped just to keep the list short. This could be removed.
+
+1. Metric structure has to be longest.
+2. Fill out pitches (for durations without pitches) in all voices - start with the voice with highest priority.
+3. Search for rhythm in the voice that is most behind. If two or more are equal, the default search order determines 
+which voice to search next."
+  ;; TODO: check what of this is needed
+  ;; (declare (type array vsolution vindex vbacktrack-history vdefault-engine-order))
+  ;; (declare (type fixnum number-of-engines))
+  (declare (ignore number-of-engines))
+
+  ;; TODO: Move into separate function
+  (when (aref vbacktrack-history 0)
+    (progn (pop (aref vbacktrack-history 3))
+	   (pop (aref vbacktrack-history 2))
+	   (pop (aref vbacktrack-history 1))
+	   (pop (aref vbacktrack-history 0)))) ;pop backtracked engine just to make the list shorter..
+
+  ;; TODO: Remove dependency to tu library
+  (let* ((metric-engine (get-metric-engine-index vdefault-engine-order))
+	 (metric-engine-endtime (if (engine-set? metric-engine vindex) ;; (/= (aref vindex metric-engine) -1)
+				    (get-current-index-endtime metric-engine vindex vsolution)
+				    0))
+	 ;; Each spec is a triple (<type-priority> <engine-index> <current-endtime>)
+	 ;; Type priorities: meter = 3, rhythm = 2, pitch = 1.
+	 ;; In case of ties, the engine with the higher type priority is visited.
+	 (metric-engine-spec (list 3 metric-engine metric-engine-endtime))
+	 (rhythm-engine-specs
+	  (mapcar (lambda (partial-spec) (cons 2 partial-spec))
+		  (tu:mat-trans
+		   (list (get-rhythm-engine-indices vdefault-engine-order)
+			 (get-total-duration-all-rhythm-engines vsolution vindex vdefault-engine-order)))))
+	 (pitch-engine-specs
+	  (mapcar (lambda (partial-spec) (cons 1 partial-spec))
+		  (tu:mat-trans
+		   (list (get-pitch-engine-indices vdefault-engine-order)
+			 (get-end-times-all-pitch-engines vsolution vindex vdefault-engine-order)))))
+	 (all-specs (append (list metric-engine-spec)
+			    rhythm-engine-specs
+			    pitch-engine-specs)))
+    ;; (break)
+    ;; TODO: No preferred order of voices 
+    (second ;; return engine index
+     (tu:best-if all-specs (lambda (spec1 spec2)
+			     (let ((start1 (third spec1))
+				   (start2 (third spec2)))
+			       (cond (;; Main condition: smallest start time
+				      (< start1 start2)
+				      T)
+				     (;; Tie break: higher type priority
+				      (= start1 start2)
+				      (>= (first spec1) (first spec2)))
+				     (T NIL))))))))
+  
+#|  
+  (let* ((metric-engine (get-metric-engine-index vdefault-engine-order))
+	 (length-metric-engine (if (engine-set? metric-engine vindex) ;; (/= (aref vindex metric-engine) -1)
+                                   (get-current-index-endtime metric-engine vindex vsolution)
+				   0))
+         (all-voices-total-length (get-total-duration-all-rhythm-engines vsolution vindex vdefault-engine-order))
+         (max-voice-length (apply 'max all-voices-total-length))
+         (min-voice-length (apply 'min all-voices-total-length)))
+    ;; (declare (type number max-voice-length min-voice-length)) ;  length-metric-engin
+    ;; (declare (type list all-voices-total-length))
+    ;; (break)
+    (if (<= length-metric-engine max-voice-length)
+	metric-engine
+	(let ((pitch-engine (find-pitch-engine-with-earliest-missing-pitch vsolution vindex vdefault-engine-order)))
+	  (if pitch-engine
+	      pitch-engine
+	      (find-shortest-rhythm-engine min-voice-length all-voices-total-length vdefault-engine-order))))
+    )
+|#
+
+
 ;;;;;;;;;;;;;;;;;
 ;Fwd-rule-indep does not take backtrack history into consideration.
 (defun fwd-rule-indep (vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines)
