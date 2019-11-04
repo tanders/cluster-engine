@@ -37,8 +37,9 @@ which voice to search next."
       (pop (aref vbacktrack-history 1))
       (pop (aref vbacktrack-history 0)))) ;pop backtracked engine just to make the list shorter..
 
-  (let* ((length-metric-engine (if (/= (aref vindex (car (aref vdefault-engine-order 3))) -1) 
-                                   (get-current-index-endtime (car (aref vdefault-engine-order 3)) vindex vsolution) 0))
+  (let* ((length-metric-engine (if (/= (aref vindex (car (aref vdefault-engine-order 3))) -1)
+                                   (get-current-index-endtime (car (aref vdefault-engine-order 3)) vindex vsolution)
+				   0))
          (all-voices-total-length (get-total-duration-all-rhythm-engines vsolution vindex vdefault-engine-order))
          (max-voice-length (apply 'max all-voices-total-length))
          (min-voice-length (apply 'min all-voices-total-length))
@@ -456,9 +457,12 @@ which voice to search next."
   (loop for rhythm-engine in (aref vdefault-engine-order 1)
         do (let ((pitch-engine (1+ rhythm-engine)))
              (when (member pitch-engine (aref vdefault-engine-order 2))
-               (let ((nr-of-pitches (if (/= (aref vindex pitch-engine) -1) (get-current-index-total-pitchcount pitch-engine vindex vsolution) 0))
-                     (nr-of-notes (if (/= (aref vindex rhythm-engine) -1) (get-current-index-total-notecount rhythm-engine vindex vsolution) 0)))
-                 (when (> nr-of-notes nr-of-pitches) (return pitch-engine)))))
+               (let ((nr-of-pitches (if (/= (aref vindex pitch-engine) -1)
+					(get-current-index-total-pitchcount pitch-engine vindex vsolution) 0))
+                     (nr-of-notes (if (/= (aref vindex rhythm-engine) -1)
+				      (get-current-index-total-notecount rhythm-engine vindex vsolution) 0)))
+                 (when (> nr-of-notes nr-of-pitches)
+		   (return pitch-engine)))))
         finally (return nil))) ;this means that all pitch engines are OK
 
 
