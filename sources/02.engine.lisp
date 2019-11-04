@@ -360,7 +360,19 @@ Empty sublists will be added for additional information (onsets, number of pitch
   )
 
 
+(defun get-rhythm-engine-indices (vdefault-engine-order)
+  "Return indices of rhythm engines (list of ints) from VDEFAULT-ENGINE-ORDER initialised with SET-DEFAULT-ENGINEORDER."
+  (aref vdefault-engine-order 1))
+(defun get-pitch-engine-indices (vdefault-engine-order)
+  "Return indices of pitch engines (list of ints) from VDEFAULT-ENGINE-ORDER initialised with SET-DEFAULT-ENGINEORDER."
+  (aref vdefault-engine-order 2))
+(defun get-metric-engine-index (vdefault-engine-order)
+  "Return index of metric engine (int) from VDEFAULT-ENGINE-ORDER initialised with SET-DEFAULT-ENGINEORDER."
+  (car (aref vdefault-engine-order 3)))
 
+(defun engine-set? (engine vindex)
+    "Return Boolean whether a first value for ENGINE has been set."
+    (/= (aref vindex engine) -1))
 
 ;;;;;;;;;;;;;;;;;;;INITIATE NEW VARIABLE / FAIL;;;;;;;;;;;;;;;;;;;;;;
 
