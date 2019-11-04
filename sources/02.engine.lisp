@@ -99,7 +99,7 @@ Locked engines cannot be backtracked."
     (declare (type array vsolution vlinear-solution vsolution-for-backjump vbackjump-indexes vindex vmax-index vdomain vbacktrack-history vcurrent-engine vdefault-engine-order vbacktrack-engines vrules vheuristic-rules vflag-changed-engine vnumber-of-candidates))
     (declare (type fixnum max-index nr-of-voices nr-of-engines loop-counter)) ; master-index
     (declare (type boolean rnd? debug?))
-    (declare (type symbol forwardrule))
+    ;; (declare (type symbol forwardrule))
     (declare (type symbol backtrackrule))
 
 
