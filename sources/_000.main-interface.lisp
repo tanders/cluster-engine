@@ -111,7 +111,8 @@ Ex. (group-list '(1 2 3 4) '(1 2 3) 'circular)  => ((1) (2 3) (4 1 2))
                       debug?
                       rules
                       metric-domain
-                      list-of-domains)
+                      list-of-domains
+		      &key (forward-rule :fwd-rule6B))
   "The Cluster Engine - the main function of this library. 
 
 Pitch domains cannot exist without at least one duration in the rhythm domain. Domains with only one value will not use up any time in the search process.
@@ -121,7 +122,7 @@ See the PWGL tutorials of this library for a detailed discussion of this functio
   (cluster-conv-nil-rests
 
    (let ((bktr-rule :bktr-rule1) ;This is set in a menu in the ClusterEngine2
-	 (fwd-rule :fwd-rule6B))
+	 )
      
      (when (not metric-domain) (setf metric-domain (create-metric-domain-vector '((4 4)) '((3 4)) '(nil))))
      (when (typep metric-domain 'list) (setf metric-domain (create-metric-domain-vector metric-domain 
@@ -160,27 +161,27 @@ See the PWGL tutorials of this library for a detailed discussion of this functio
 				  ((equal bktr-rule :bktr-rule3)
 				   'backtrack-rule3)
 				  (t nil)))
-	    (forward-rule (cond ((equal fwd-rule :fwd-indep)
-				 'fwd-rule-indep)
-				((equal fwd-rule :fwd-rule2)
-				 'fwd-rule2)
-				((equal fwd-rule :fwd-rule3)
-				 'fwd-rule3)
-				((equal fwd-rule :fwd-rule4)
-				 'fwd-rule4)
-				((equal fwd-rule :fwd-rule5)
-				 'fwd-rule5)
-				((equal fwd-rule :fwd-rule6)
-				 'fwd-rule6)
-				((equal fwd-rule :fwd-rule6B)
-				 'fwd-rule6B)
-				(t nil))))
+	    (fwd-rule (cond ((equal forward-rule :fwd-indep)
+			     'fwd-rule-indep)
+			    ((equal forward-rule :fwd-rule2)
+			     'fwd-rule2)
+			    ((equal forward-rule :fwd-rule3)
+			     'fwd-rule3)
+			    ((equal forward-rule :fwd-rule4)
+			     'fwd-rule4)
+			    ((equal forward-rule :fwd-rule5)
+			     'fwd-rule5)
+			    ((equal forward-rule :fwd-rule6)
+			     'fwd-rule6)
+			    ((equal forward-rule :fwd-rule6B)
+			     'fwd-rule6B)
+			    (t nil))))
 
 
        (setf *always-lock-meter?* nil)  ;;;added july 2012
 
 
-       (poly-engine no-of-variables domains metric-domain no-of-voices locked-engines forward-rule backtrack-rule rnd? vrules vheuristic-rules debug?)
+       (poly-engine no-of-variables domains metric-domain no-of-voices locked-engines fwd-rule backtrack-rule rnd? vrules vheuristic-rules debug?)
        
        ))))
 
