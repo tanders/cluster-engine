@@ -84,11 +84,11 @@ Locked engines cannot be backtracked."
 	 ;; (master-index 0)
          (meter-beatstructures '(((4 4) 0 -1/4 -1/2 -3/4 1)((3 4) 0 -1/4 -1/2 3/4)));;;;;;start for next step to develop
          (meter-onsetgrids '(((4 4) 0 1/8 1/4 3/8 1/2 5/8 3/4 7/8 1)((3 4) 0 1/4 1/2 3/4)));;;;;;start for next step to develop
-         (vdefault-engine-order (make-array '(6) :element-type 'list));this is a vector with lists with all information about used engines and search order
+         (vdefault-engine-order (make-array '(6) :initial-element nil :element-type 'list));this is a vector with lists with all information about used engines and search order
          (vcurrent-engine (make-array '(1) :element-type 'fixnum))
          (vbacktrack-history (make-array '(4) :initial-element nil :element-type 'list));this is a list with the number of the search engines, the index, the count value and the time position in the reversed order from where backtracking occured (it is used when the solution is rebuilt in the forward rules).
-         (vbacktrack-engines (make-array '(1) :element-type 'list));this is a list of the engines (in order of preference) that should be backtracked (if backtracking is necessary)
-         (vflag-changed-engine (make-array '(1) :element-type 'list));this is a list of engines that has been changed since last rule check
+         (vbacktrack-engines (make-array '(1) :initial-element nil :element-type 'list));this is a list of the engines (in order of preference) that should be backtracked (if backtracking is necessary)
+         (vflag-changed-engine (make-array '(1) :initial-element nil :element-type 'list));this is a list of engines that has been changed since last rule check
          (loop-counter 0);this is to count how many times the system steped forward
          )
     ;; (declare (optimize (speed 3) (safety 0)))
