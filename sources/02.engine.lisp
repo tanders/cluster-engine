@@ -261,7 +261,7 @@ Locked engines cannot be backtracked."
 
 
 
-
+;; Perhaps an outdated function, not used anymore (not called by compiled code).
 (defun print-and-update-maxindex (vindex vmax-index current-engine)
   "This function stores the highest index so far for each engine, and prints the
 vector of highest indexes everytime it exceeds the previous maximum.
@@ -288,9 +288,9 @@ among the variables."
   (declare (type fixnum current-engine nr-of-engines))
   (when (> (aref vindex current-engine) (aref vmax-index current-engine))
     (progn (setf (aref vmax-index current-engine) (aref vindex current-engine))
-      (store-temp-solution-to-debug-vector2 (get-all-engines vsolution vindex nr-of-engines))
-      (when *verbose-i/o?*
-	(print (format nil "Highest indexes during this search: ~S" vmax-index) *cluster-engine-log-output*)))))
+	   (store-temp-solution-to-debug-vector2 (get-all-engines vsolution vindex nr-of-engines))
+	   (when *verbose-i/o?*
+	     (print (format nil "Highest indexes during this search: ~S" vmax-index) *cluster-engine-log-output*)))))
 
 (defun store-temp-solution-for-maxindex-to-debug-vector2  (vindex vmax-index vsolution current-engine nr-of-engines)
   "This function stores the temporary solution when an index exceeds its previous maximum."
