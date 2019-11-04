@@ -169,7 +169,7 @@ Locked engines cannot be backtracked."
     ;;*****************************
     ;;Main loop
     (when *verbose-i/o?*
-      (print (format nil "Search running..." vindex) *cluster-engine-log-output*))
+      (print (format nil "Search running...  ~A" vindex) *cluster-engine-log-output*))
 
     (loop for n from 0 to *max-nr-of-loops*
        do (progn
