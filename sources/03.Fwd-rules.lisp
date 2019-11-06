@@ -18,37 +18,25 @@
             while (/= (aref vindex engine) min-index)
             finally (return engine)))))
 
+(defun fwd-rule_left-to-right_type-tie-breaking (vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines)
+  "A forward rule (dynamic variable ordering) for CLUSTERENGINE. A forward rule returns the index of the engine where next variable should be visited.
 
-;; TODO: Rename function suitably
-;; TODO: Documentation
-;; TODO: Refactoring -- can I leave some things out?
-;; TODO: Discuss with Orjan whether to use find-pitch-engine-with-earliest-missing-pitch also in other forward engines
-(defun fwd-rule-indep-TA-variation (vsolution vindex vbacktrack-history vdefault-engine-order number-of-engines)
-  "Return index of engine where next variable should be visited.
+This variable ordering always visit next the engine where the solution is most behind in score time in the search, but in case of ties, the meter engine is visited first, and all rhythm engines before any pitch engine (engine type priorities). In case of ties on engine type priority, the engine with lowest engine index is visited first.
 
-Backtrack route is poped just to keep the list short. This could be removed.
-
-1. Metric structure has to be longest.
-2. Fill out pitches (for durations without pitches) in all voices - start with the voice with highest priority.
-3. Search for rhythm in the voice that is most behind. If two or more are equal, the default search order determines 
-which voice to search next."
-  ;; TODO: check what of this is needed
+This variable ordering is suitable for polyphonic CSPs in general, including for CSPs where the rhythm is fixed in the CSP definition (by a single rhythm motif in the rhythm domain), and only the pitches are searched for (other forward rules are less suitable for this case)."
+  ;; TODO: check what of these commented declarations is useful -- and if used, then also add suitable compile declaration
   ;; (declare (type array vsolution vindex vbacktrack-history vdefault-engine-order))
   ;; (declare (type fixnum number-of-engines))
   (declare (ignore number-of-engines))
 
-  ;; TODO: Move into separate function
-  (when (aref vbacktrack-history 0)
-    (progn (pop (aref vbacktrack-history 3))
-	   (pop (aref vbacktrack-history 2))
-	   (pop (aref vbacktrack-history 1))
-	   (pop (aref vbacktrack-history 0)))) ;pop backtracked engine just to make the list shorter..
+  (pop-backtrack-history vbacktrack-history)
 
-  ;; TODO: Remove dependency to tu library
   (let* ((metric-engine (get-metric-engine-index vdefault-engine-order))
 	 (metric-engine-endtime (if (engine-set? metric-engine vindex) ;; (/= (aref vindex metric-engine) -1)
 				    (get-current-index-endtime metric-engine vindex vsolution)
 				    0))
+	 ;; ? TODO: Refactoring -- can I somehow reduce the computations here (e.g., by memoization -- somehow store intermediate results perhaps)? E.g., with one of the libraries at https://www.cliki.net/memoization
+	 ;;
 	 ;; Each spec is a triple (<type-priority> <engine-index> <current-endtime>)
 	 ;; Type priorities: meter = 3, rhythm = 2, pitch = 1.
 	 ;; In case of ties, the engine with the higher type priority is visited.
@@ -67,18 +55,25 @@ which voice to search next."
 			    rhythm-engine-specs
 			    pitch-engine-specs)))
     ;; (break)
-    ;; TODO: No preferred order of voices 
     (second ;; return engine index
-     (tu:best-if all-specs (lambda (spec1 spec2)
-			     (let ((start1 (third spec1))
-				   (start2 (third spec2)))
-			       (cond (;; Main condition: smallest start time
-				      (< start1 start2)
-				      T)
-				     (;; Tie break: higher type priority
-				      (= start1 start2)
-				      (>= (first spec1) (first spec2)))
-				     (T NIL))))))))
+     (best-if all-specs (lambda (spec1 spec2)
+			  (let ((start1 (third spec1))
+				(start2 (third spec2)))
+			    (cond (;; Main condition: smallest start time
+				   (< start1 start2)
+				   T)
+				  (;; Tie break
+				   (= start1 start2)
+				   (cond (;; First visit variable with higher type priority
+					  (> (first spec1) (first spec2))
+					  T)
+					 (;; Tie break again
+					  ;; Prefer variables with lower engine number
+					  ;; ? TODO: Make this perhaps dependent on an argument? Perhaps sometimes I want to start search with lowest pitches on highest voice index?
+					  (= (first spec1) (first spec2))
+					  (< (second spec1) (second spec2)))
+					 (T NIL)))
+				  (T NIL))))))))
   
 #|  
   (let* ((metric-engine (get-metric-engine-index vdefault-engine-order))
@@ -532,6 +527,14 @@ which voice to search next."
 
 ;;;---
 
+(defun pop-backtrack-history (vbacktrack-history)
+  "pop backtracked engine just to make the list shorter.."
+  (when (aref vbacktrack-history 0)
+    (progn (pop (aref vbacktrack-history 3))
+	   (pop (aref vbacktrack-history 2))
+	   (pop (aref vbacktrack-history 1))
+	   (pop (aref vbacktrack-history 0)))))
+ 
 
 (defun find-pitch-engine-with-missing-pitches (vsolution vindex vdefault-engine-order)
   (declare (type array vsolution vindex vdefault-engine-order))
@@ -587,6 +590,7 @@ Engine has to be a rhythm engine."
 
 
 #|
+;; TODO: Discuss with Orjan whether to use find-pitch-engine-with-earliest-missing-pitch in some other forward engines
 ;; BUG: In case nr-of-pitches and nr-of-notes are both 0, these are not taken, but some voice with higher end time for pitches but less pitches than nr-of-notes is taken, and that might then be only candidate.  
 ;; TODO: Can I reduce loop somehow, e.g., when nr-of-pitches is 0, this is already minimal.
 (defun find-pitch-engine-with-earliest-missing-pitch (vsolution vindex vdefault-engine-order)
