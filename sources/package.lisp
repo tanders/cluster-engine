@@ -16,6 +16,9 @@
 	   #:R-pitch-pitch #:R-chords #:R-list-all-events #:HR-pitch-pitch #:HR-list-all-events
 	   ;; utilities
 	   #:apply-and #:apply-minus #:first-n #:test-seq-follows-markov-chain? #:test-seq-follows-energy-profile?
-	   #:*verbose-i/o?* #:*cluster-engine-log-output*)
+	   #:*verbose-i/o?* #:*cluster-engine-log-output*
+	   ;; forward rules
+	   #:fwd-rule_left-to-right_type-tie-breaking #:fwd-rule6B
+	   )
   )
 
