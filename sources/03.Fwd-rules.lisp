@@ -561,9 +561,9 @@ vsolution example value at index. Looks like durations (neg for rest), start tim
 ;; ? TODO: Handle also motifs
 ;; TODO: Why is first endtime 1 and not 0??
 (defun get-start-time-at-note-position (engine vindex vsolution note-position)
-  "Return start time of note at NOTE-POSITION.
+  "Return start time of note at NOTE-POSITION. Rests are skipped (e.g., if voice of ENGINE starts with rests, then the start time at NOTE-POSITION = 0 is greater than 0).
 
-If the engine has no assigned events, the end time will be 1 (i.e. the minimum time).
+If the engine has no assigned events, the time will be 1 (i.e. the minimum time).
 Engine has to be a rhythm engine."
   (declare (type array vsolution vindex))
   (declare (type fixnum engine))
