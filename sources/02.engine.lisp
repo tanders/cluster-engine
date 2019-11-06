@@ -233,7 +233,7 @@ Locked engines cannot be backtracked."
 			  (print (format nil "Backjumping was on.") *cluster-engine-log-output*)
 			  (print "Backjumping was off." *cluster-engine-log-output*))
 		      (when debug? (print (format nil "The engine needed to backtrack ~D times." *debug-count-backtrack*) *cluster-engine-log-output*))
-		      (when locked-engines (print (format nil "The following engines were locked and never backtracked: ~S" locked-engines) *cluster-engine-log-output*))
+		      (when locked-engines (print (format nil "The following engines were locked and never backtracked: ~S~%" locked-engines) *cluster-engine-log-output*))
 		      (print "Unable to find a solution." *cluster-engine-log-output*))
 		    (return-from poly-engine :no-solution)
 		    ;; (return nil)
