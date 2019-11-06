@@ -2139,3 +2139,30 @@ This will correct the notecount list to mark where the rests are."
     (loop for x in list
           collect (if x (- x point) nil)
           )))
+
+
+;; Copied from ta-utilities
+(defun best-if (xs comparison &key (key #'identity))
+  "Return the best of XS with respect to COMPARISON (binary Boolean function). In case of ties, the first best is returned."
+  (let ((x1 (first xs)))
+    (loop for x2 in (rest xs)
+       when (funcall comparison (funcall key x2) (funcall key x1))
+       do (setf x1 x2))
+    x1))
+#|
+(best-if '(3 5 2 4 1 7 4) #'<)
+(best-if '(3 5 2 4 1 7 4) #'>)
+(best-if '(3 5 2 4 1 7 4) #'=)
+(best-if '((3) (5) (2)) #'< :key #'first)
+(best-if () #'< :key #'first)
+;; with tie-break
+(best-if '((3 1) (1 2) (4 3) (1 4) (2 5)) 
+	 #'(lambda (x y) 
+	     (let ((x1 (first x))
+		   (y1 (first y)))
+	       (cond ((< x1 y1) T)
+		     ((= x1 y1)
+		      ;; tie
+		      (> (second x) (second y)))
+		     (T NIL)))))
+|#
