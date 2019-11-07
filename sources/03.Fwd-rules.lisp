@@ -43,12 +43,12 @@ This variable ordering is suitable for polyphonic CSPs in general, including for
 	 (metric-engine-spec (list 3 metric-engine metric-engine-endtime))
 	 (rhythm-engine-specs
 	  (mapcar (lambda (partial-spec) (cons 2 partial-spec))
-		  (tu:mat-trans
+		  (matrix-trans
 		   (list (get-rhythm-engine-indices vdefault-engine-order)
 			 (get-total-duration-all-rhythm-engines vsolution vindex vdefault-engine-order)))))
 	 (pitch-engine-specs
 	  (mapcar (lambda (partial-spec) (cons 1 partial-spec))
-		  (tu:mat-trans
+		  (matrix-trans
 		   (list (get-pitch-engine-indices vdefault-engine-order)
 			 (get-end-times-all-pitch-engines vsolution vindex vdefault-engine-order)))))
 	 (all-specs (append (list metric-engine-spec)
@@ -615,7 +615,7 @@ Engine has to be a rhythm engine."
 		  (push (list pitch-engine start-time) candidates))
 		))))
     ;; TMP: tu-dependency -- remove!
-    (first (tu:best-if candidates #'< :key #'second))
+    (first (best-if candidates #'< :key #'second))
     ))
 |#
 
