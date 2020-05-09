@@ -1,4 +1,4 @@
- (in-package cluster-engine)
+(in-package cluster-engine)
 
 (defun p-test-if-all-elements-are-true (list)
   "Predicate to test if all elements in a list are true. The purpose is to find a nil."
@@ -819,7 +819,7 @@ Notecount HAS to exist."
        finally (return (1- count)))))
 
 
-
+;; TODO: Optimise this function
 (defun get-notecount-at-timepoint (engine vlinear-solution timepoint)
   "If timepoint is a rest, return nil. If timepoint is beyond solution, return nil.
 Gracenotes will not be found, only notes with durations."
@@ -830,7 +830,9 @@ Gracenotes will not be found, only notes with durations."
     (declare (type number endtime-engine))
     (when (>= timepoint endtime-engine) (return-from get-notecount-at-timepoint nil))
 
-    (let* ((position-in-list (position timepoint (aref vlinear-solution engine 1) :test #'(lambda (a b) (>= a (abs b))) :from-end t))
+    (let* ((position-in-list (position timepoint (aref vlinear-solution engine 1)
+				       ;; TODO: Optimise this lambda with type declarations etc, it contributes considerably to overall runtime 
+				       :test #'(lambda (a b) (>= a (abs b))) :from-end t))
            (duration-at-timepoint (nth position-in-list (aref vlinear-solution engine 0))))
       (declare (type fixnum position-in-list))
       (declare (type number duration-at-timepoint))
