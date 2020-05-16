@@ -1596,7 +1596,7 @@ on the candidate)."
 
 (defun HR-rhythm-pitch-one-voice (rule ;;;; nil 
                                   voices  ;;;; 0
-                                  input-mode ;;;; '(":rhythm/pitch" ":include-rests" ":rhythm/pitch-segments" ":rhythm/time/pitch" ":rhythm/pitch-list-ALL")
+                                  input-mode ;;;; '(":rhythm/pitch" ":include-rests" ":rhythm/pitch-segment" ":rhythm/time/pitch" ":rhythm/pitch-list-ALL")
                                   gracenotes?) ;;;; '(":normal" ":exclude-gracenotes")
                  "
 Heuristic rule for rhythm-pitch pairs in one voice. 
@@ -1661,13 +1661,13 @@ heuristic rule:
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :include-rests) (equal gracenotes? :normal))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-include-rests rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
-                               ((and (equal input-mode :rhythm/pitch-segments) (equal gracenotes? :normal))
+                               ((and (equal input-mode :rhythm/pitch-segment) (equal gracenotes? :normal))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-segment-at-rests rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :rhythm/pitch) (equal gracenotes? :exclude-gracenotes))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-exclude-gracenotes rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :include-rests) (equal gracenotes? :exclude-gracenotes))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-incl-rests-exclude-gracenotes rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
-                               ((and (equal input-mode :rhythm/pitch-segments) (equal gracenotes? :exclude-gracenotes))
+                               ((and (equal input-mode :rhythm/pitch-segment) (equal gracenotes? :exclude-gracenotes))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-segments-at-rests-exclude-gracenotes rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :rhythm/time/pitch) (equal gracenotes? :normal))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-with-time rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
