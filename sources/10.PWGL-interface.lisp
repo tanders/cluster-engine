@@ -1453,7 +1453,7 @@ its inputs:
  - rhythm/pitch: The rule will receive rhythm-pitch pairs excluding (i.e. 
                  skipping) rests.
  - include-rests: The rule will receive rhythm-pitch pairs including rests.
- - rhythm/pitch-segments: For rules with one input, this setting is  
+ - rhythm/pitch-segment: For rules with one input, this setting is  
                   identical to the rhythm/pitch setting. For rules with
                   more than one input, the rule will receive consecutive
                   pitch/rhythm pairs between rests. The rule does not
@@ -1649,7 +1649,7 @@ its inputs:
                  excluding (i.e. skipping) rests.
  - include-rests: The heuristic rule will receive rhythm-pitch pairs 
                   including rests.
- - rhythm/pitch-segments: For heuristic rules with one input, this setting  
+ - rhythm/pitch-segment: For heuristic rules with one input, this setting  
                           is identical to the rhythm/pitch setting. For 
                           heuristic rules with more than one input, the rule  
                           will receive consecutive pitch/rhythm pairs between 
