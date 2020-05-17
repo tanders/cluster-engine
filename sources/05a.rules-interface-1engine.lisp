@@ -104,7 +104,7 @@ The rule should be compiled before used."
           '(declare (type fixnum engine))
           (list 'progn 'vlinear-solution 'vsolution-for-backjump 'vbackjump-indexes ;this is just to take away error message for unused variables
                 (list 'let* (list '(current-index-starttime (get-current-index-starttime engine vindex vsolution))
-                                  (list 'nth-1st-timepoint (list 'position 'current-index-starttime (list 'quote timepoints) ':test ''> ':from-end 't)))
+                                  (list 'nth-1st-timepoint (list 'position 'current-index-starttime (list 'quote timepoints) ':test ''>= ':from-end 't))) ;May 2020: changed > to >=
                       '(declare (type number current-index-starttime))
                       '(declare (type t nth-1st-timepoint))
 

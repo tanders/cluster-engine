@@ -120,12 +120,12 @@ Locked engines cannot be backtracked."
 
 
     ;;;;print some default settings
-(if *backjump?*
-    (when *verbose-i/o?*
-      (print (format nil "Initiate search with ~D engines: backjumping is on." nr-of-engines)
-	     *cluster-engine-log-output*)
-      (print (format nil "Initiate search with ~D engines: backjumping is off." nr-of-engines)
-	     *cluster-engine-log-output*)))
+(when *verbose-i/o?* 
+    (if *backjump?*
+        (print (format nil "Initiate search with ~D engines: backjumping is on." nr-of-engines)
+  	     *cluster-engine-log-output*)
+        (print (format nil "Initiate search with ~D engines: backjumping is off." nr-of-engines)
+    	     *cluster-engine-log-output*)))
     ;(print (format nil "Some engines are locked and cannot be backtracked (maybe because they are pre-defined): ~S" locked-engines) *cluster-engine-log-output*)
 
     ;;;;set metric grid, beatstructure and time sign from vector in metric domain (in the box-function any input will be transformed into a vector
@@ -268,7 +268,7 @@ Locked engines cannot be backtracked."
     (get-all-engines vsolution vindex nr-of-engines)
     ;(format nil "~S" (get-all-engines vsolution vindex nr-of-engines))
 
-    ))
+))
 
 
 

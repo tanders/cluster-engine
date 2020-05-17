@@ -1421,7 +1421,7 @@ its inputs:
  - rhythm/pitch: The rule will receive rhythm-pitch pairs excluding (i.e. 
                  skipping) rests.
  - include-rests: The rule will receive rhythm-pitch pairs including rests.
- - rhythm/pitch-segments: For rules with one input, this setting is  
+ - rhythm/pitch-segment: For rules with one input, this setting is  
                   identical to the rhythm/pitch setting. For rules with
                   more than one input, the rule will receive consecutive
                   pitch/rhythm pairs between rests. The rule does not
@@ -1596,7 +1596,7 @@ on the candidate)."
 
 (defun HR-rhythm-pitch-one-voice (rule ;;;; nil 
                                   voices  ;;;; 0
-                                  input-mode ;;;; '(":rhythm/pitch" ":include-rests" ":rhythm/pitch-segments" ":rhythm/time/pitch" ":rhythm/pitch-list-ALL")
+                                  input-mode ;;;; '(":rhythm/pitch" ":include-rests" ":rhythm/pitch-segment" ":rhythm/time/pitch" ":rhythm/pitch-list-ALL")
                                   gracenotes?) ;;;; '(":normal" ":exclude-gracenotes")
                  "
 Heuristic rule for rhythm-pitch pairs in one voice. 
@@ -1623,7 +1623,7 @@ its inputs:
                  excluding (i.e. skipping) rests.
  - include-rests: The heuristic rule will receive rhythm-pitch pairs 
                   including rests.
- - rhythm/pitch-segments: For heuristic rules with one input, this setting  
+ - rhythm/pitch-segment: For heuristic rules with one input, this setting  
                           is identical to the rhythm/pitch setting. For 
                           heuristic rules with more than one input, the rule  
                           will receive consecutive pitch/rhythm pairs between 
@@ -1661,13 +1661,13 @@ heuristic rule:
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :include-rests) (equal gracenotes? :normal))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-include-rests rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
-                               ((and (equal input-mode :rhythm/pitch-segments) (equal gracenotes? :normal))
+                               ((and (equal input-mode :rhythm/pitch-segment) (equal gracenotes? :normal))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-segment-at-rests rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :rhythm/pitch) (equal gracenotes? :exclude-gracenotes))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-exclude-gracenotes rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :include-rests) (equal gracenotes? :exclude-gracenotes))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-incl-rests-exclude-gracenotes rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
-                               ((and (equal input-mode :rhythm/pitch-segments) (equal gracenotes? :exclude-gracenotes))
+                               ((and (equal input-mode :rhythm/pitch-segment) (equal gracenotes? :exclude-gracenotes))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-segments-at-rests-exclude-gracenotes rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :rhythm/time/pitch) (equal gracenotes? :normal))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-with-time rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
@@ -4185,7 +4185,7 @@ Pitches may exist in any octave.
 - at-timepoints: The rule will be checked at the timepoints in the 
                timepoints input.
 
-[Backtracking behaves the same as fro the R-pitch-pitch rule.]
+[Backtracking behaves the same as for the R-pitch-pitch rule.]
 "
               ;   (:groupings '(2 2 1) :extension-pattern '(2) :x-proportions '((0.2 0.2)(0.1 0.3)(0.4)(0.25 0.15)) :w 0.5)
 
@@ -4525,7 +4525,10 @@ Note that the use of grace notes immediately preceeding rests (duration 0 before
 (defun R-rhythms-one-voice-at-timepoints (rule ;;;; nil
                                           voice ;;;; 0
                                           timepoints ;;;; '(0)
-                                          input-mode) ;;;; '(":motifs-start" ":motifs-end" ":dur-start")
+                                          input-mode ;;;; '(":motifs-start" ":motifs-end" ":dur-start")
+                                          &optional
+                                          rule-type ;;;; '(":true/false" ":heur-switch")
+                                          weight) ;;;; 1
                  "Rule for rhythms that exist at timepoints in one voice.
 
 <rule> is a logic statement in he form of a function. The output of the 
@@ -4565,14 +4568,88 @@ This rule always prefer to backtrack the rhythm engine that it belongs to."
           ;       (:groupings '(2 2)  :x-proportions '((0.2 0.2)(0.1 0.3)) :w 0.5)
 
                  (when (numberp voice) (setf voice (list voice)))
-                 (loop for v in voice
-                       collect
-                       (cond ((equal input-mode :motifs-start)
-                              (rule-one-engine (rule-1-engine-cells-at-timepoints rule (* 2 v) timepoints) (* 2 v)))
-                             ((equal input-mode :motifs-end)
-                              (rule-one-engine (rule-1-engine-cells-end-at-timepoints rule (* 2 v) timepoints) (* 2 v)))
-                             ((equal input-mode :dur-start)
-                              (rule-one-engine (rule-1-engine-rhythm-at-timepoints rule (* 2 v) timepoints) (* 2 v))))))
+
+                 (cond ((equal rule-type :heur-switch) 
+                        (loop for v in voice
+                              collect
+                               (cond ((equal input-mode :motifs-start)
+                                      (heuristic-rule-one-engine (heuristic-switch-rule-1-engine-cells-at-timepoints rule (* 2 v) timepoints weight) (* 2 v)))
+                                     ((equal input-mode :motifs-end)
+                                      (heuristic-rule-one-engine (heuristic-switch-rule-1-engine-cells-end-at-timepoints rule (* 2 v) timepoints weight) (* 2 v)))
+                                     ((equal input-mode :dur-start)
+                                      (heuristic-rule-one-engine (heuristic-switch-rule-1-engine-rhythm-at-timepoints rule (* 2 v) timepoints weight) (* 2 v)))))
+
+                        )
+                      (t
+                        (loop for v in voice
+                              collect
+                               (cond ((equal input-mode :motifs-start)
+                                      (rule-one-engine (rule-1-engine-cells-at-timepoints rule (* 2 v) timepoints) (* 2 v)))
+                                     ((equal input-mode :motifs-end)
+                                      (rule-one-engine (rule-1-engine-cells-end-at-timepoints rule (* 2 v) timepoints) (* 2 v)))
+                                     ((equal input-mode :dur-start)
+                                      (rule-one-engine (rule-1-engine-rhythm-at-timepoints rule (* 2 v) timepoints) (* 2 v)))))))
+                 )
+
+
+(defun HR-rhythms-one-voice-at-timepoints (rule ;;;; nil
+                                          voice ;;;; 0
+                                          timepoints ;;;; '(0)
+                                          input-mode) ;;;; '(":motifs-start" ":motifs-end" ":dur-start")
+
+                 "Heuristic rule for rhythms that exist at timepoints in one voice.
+Heuristic rules sort the candidates locally according to weights. 
+
+<rule> is a heuristic rule in he form of a function. The output of the 
+function has to be a weight. If there are more than one 
+input to the function, they will receive the information for consecutive
+timepoints.
+
+<voices> is the number for the voice (starting at 0) that the rule affects. 
+It is possible to give a list of several voice numbers: The rule will then 
+be applied to every voice in the list (independant of each other).
+
+<timepoints> is a list of timepoints (starting from 0) counted from the 
+beginning of the score where the rule will be checked. For example
+the timepoint 15/4 will be 15 quarter notes from the beginning of the 
+score. 
+
+<input-mode>              
+- motifs-start: The start time for motifs will be compared to the given 
+                timepoint. An input receives the as 
+                '(offset-to-timepoint (motif)). Offset is the duration 
+                between the startingpoint of the motif and given timepoint. 
+                Ex. (-1/4 (1/8 -1/8 1/16 1/16))
+- motifs-end:   The end time for motifs will be compared to the given 
+                timepoint. An input receives the as 
+                '(offset-to-timepoint (motif)). Offset is the duration 
+                between the endingpoint of the motif and given timepoint. 
+                Ex. (1/8 (1/8 -1/8 1/16 1/16))
+- dur-start:    The start time for durations and rests will be compared to 
+                the given timepoint. An input receives the as 
+                '(offset-to-timepoint duration). Offset is the duration 
+                between the startingpoint of the event and given timepoint. 
+                Ex. (-1/16 1/4)
+
+
+
+This rule always prefer to backtrack the rhythm engine that it belongs to."
+          ;       (:groupings '(2 2)  :x-proportions '((0.2 0.2)(0.1 0.3)) :w 0.5)
+
+                 (when (numberp voice) (setf voice (list voice)))
+
+
+                        (loop for v in voice
+                              collect
+                               (cond ((equal input-mode :motifs-start)
+                                      (heuristic-rule-one-engine (heuristic-rule-1-engine-cells-at-timepoints rule (* 2 v) timepoints) (* 2 v)))
+                                     ((equal input-mode :motifs-end)
+                                      (heuristic-rule-one-engine (heuristic-rule-1-engine-cells-end-at-timepoints rule (* 2 v) timepoints) (* 2 v)))
+                                     ((equal input-mode :dur-start)
+                                      (heuristic-rule-one-engine (heuristic-rule-1-engine-rhythm-at-timepoints rule (* 2 v) timepoints) (* 2 v)))))
+
+                        )
+
 
 
 

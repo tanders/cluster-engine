@@ -643,7 +643,223 @@ The rule includes rests as negative durations."
               0)
         ))
 
-;;;
+;;;;Added May 2020
+
+(defun heuristic-switch-rule-1-engine-cells-at-timepoints (simple-rule engine timepoints weight)
+  "Formats a rule for rhythm motifs which startpoint exist at a given timepoint.  The rule should be compiled before used."
+  (let* ((no-of-args (length (function-lambda-list simple-rule)))
+         (nth-timepoint (1- no-of-args)))
+
+    (setf timepoints (mapcar '1+ timepoints))
+
+
+    (list 'lambda '(vsolution vlinear-solution vindex engine nth-h)
+          '(declare (type array vsolution vlinear-solution vindex))
+          '(declare (type fixnum engine nth-h))
+
+          (list 'progn 'vlinear-solution  ;this is just to take away error message for unused variables
+                (list 'let* (list '(current-index-starttime (get-current-index-starttime-nth engine vindex vsolution nth-h))
+                                  (list 'nth-1st-timepoint (list 'position 'current-index-starttime (list 'quote timepoints) ':test ''>= ':from-end 't)));;;;; '> changed to '>= 
+                      '(declare (type number current-index-starttime))
+                      '(declare (type t nth-1st-timepoint))
+
+                      (list 'if (list 'and 'nth-1st-timepoint (list '>= 'nth-1st-timepoint nth-timepoint))
+                            (list 'if (list 'apply (compile-if-not-compiled nil simple-rule) 
+                                            (list 'loop 'for 'nth 'from (list '- 'nth-1st-timepoint nth-timepoint) 'to 'nth-1st-timepoint 
+                                                  'collect (list 'let (list (list 'this-index (list 'the 'fixnum 
+                                                                                                    (list 'get-index-at-timepoint-nth 'engine 'vsolution 'vlinear-solution 'vindex (list 'nth 'nth (list 'quote timepoints)) 'nth-h))))
+                                                                 '(declare (type fixnum this-index))
+                                                                 (list 'list
+                                                                       (list '- (list 'get-index-starttime 'engine 'this-index 'vindex 'vsolution) (list 'nth 'nth (list 'quote timepoints)))
+                                                                       (list 'get-cell-at-timepoint-for-heuristic 'engine 'vsolution 'vlinear-solution 'vindex (list 'nth 'nth (list 'quote timepoints)) 'nth-h)))))
+                                  weight
+                                  0)
+                            0))))))
+
+
+
+(defun heuristic-rule-1-engine-cells-at-timepoints (simple-rule engine timepoints)
+  "Formats a rule for rhythm motifs which startpoint exist at a given timepoint.  The rule should be compiled before used."
+  (let* ((no-of-args (length (function-lambda-list simple-rule)))
+         (nth-timepoint (1- no-of-args)))
+
+    (setf timepoints (mapcar '1+ timepoints))
+
+
+    (list 'lambda '(vsolution vlinear-solution vindex engine nth-h)
+          '(declare (type array vsolution vlinear-solution vindex))
+          '(declare (type fixnum engine nth-h))
+
+          (list 'progn 'vlinear-solution  ;this is just to take away error message for unused variables
+                (list 'let* (list '(current-index-starttime (get-current-index-starttime-nth engine vindex vsolution nth-h))
+                                  (list 'nth-1st-timepoint (list 'position 'current-index-starttime (list 'quote timepoints) ':test ''>= ':from-end 't)));;;;; '> changed to '>= 
+                      '(declare (type number current-index-starttime))
+                      '(declare (type t nth-1st-timepoint))
+
+                      (list 'if (list 'and 'nth-1st-timepoint (list '>= 'nth-1st-timepoint nth-timepoint))
+                            (list 'apply (compile-if-not-compiled nil simple-rule) 
+                                  (list 'loop 'for 'nth 'from (list '- 'nth-1st-timepoint nth-timepoint) 'to 'nth-1st-timepoint 
+                                        'collect (list 'let (list (list 'this-index (list 'the 'fixnum 
+                                                                                          (list 'get-index-at-timepoint-nth 'engine 'vsolution 'vlinear-solution 'vindex (list 'nth 'nth (list 'quote timepoints)) 'nth-h))))
+                                                       '(declare (type fixnum this-index))
+                                                       (list 'list
+                                                             (list '- (list 'get-index-starttime 'engine 'this-index 'vindex 'vsolution) (list 'nth 'nth (list 'quote timepoints)))
+                                                             (list 'get-cell-at-timepoint-for-heuristic 'engine 'vsolution 'vlinear-solution 'vindex (list 'nth 'nth (list 'quote timepoints)) 'nth-h)))))
+
+                            0))))))
+
+
+
+(defun heuristic-switch-rule-1-engine-cells-end-at-timepoints (simple-rule engine timepoints weight)
+  "Formats a rule for rhythm motifs which endpoint exist at a given timepoint. The rule should be compiled before used."
+  (let* ((no-of-args (length (function-lambda-list simple-rule)))
+         (nth-timepoint (1- no-of-args)))
+
+    (setf timepoints (mapcar '1+ timepoints))
+
+
+    (list 'lambda '(vsolution vlinear-solution vindex engine nth-h)
+          '(declare (type array vsolution vlinear-solution vindex))
+          '(declare (type fixnum engine nth-h))
+
+
+
+          (list 'progn 'vlinear-solution ;this is just to take away error message for unused variables
+                (list 'let* (list '(current-index-endtime (get-current-index-endtime-nth engine vindex vsolution nth-h) )
+                                  (list 'nth-1st-timepoint (list 'position 'current-index-endtime (list 'quote timepoints) ':test ''>= ':from-end 't)))
+                      '(declare (type number current-index-starttime))
+                      '(declare (type t nth-1st-timepoint))
+
+
+
+                      (list 'if (list 'and 'nth-1st-timepoint (list '>= 'nth-1st-timepoint nth-timepoint))
+                            (list 'if (list 'apply (compile-if-not-compiled nil simple-rule) 
+
+
+                                  (list 'loop 'for 'nth 'from (list '- 'nth-1st-timepoint nth-timepoint) 'to 'nth-1st-timepoint 
+                                        'collect (list 'let* (list (list 'this-index (list 'the 'fixnum 
+                                                                                           (list 'get-index-at-timepoint-nth engine 'vsolution 'vlinear-solution 'vindex (list '- (list 'nth 'nth (list 'quote timepoints)) 1/16) 'nth-h)))
+                                                                   (list 'this-cell (list 'get-cell-at-index-for-heuristic engine 'this-index 'vindex 'vsolution 'nth-h))
+                                                                   '(length-this-cell (apply '+ (mapcar 'abs this-cell))))
+                                                       '(declare (type fixnum this-index))
+                                                       '(declare (type list this-cell))
+
+
+
+                                                       (list 'list
+                                                             (list '- (list '+ (list 'get-index-starttime engine 'this-index 'vindex 'vsolution) 'length-this-cell)
+                                                                   (list 'nth 'nth (list 'quote timepoints)))
+                                                             'this-cell))))
+                                  weight
+                                  0)
+                            0))))))
+
+
+
+(defun heuristic-rule-1-engine-cells-end-at-timepoints (simple-rule engine timepoints)
+  "Formats a rule for rhythm motifs which endpoint exist at a given timepoint. The rule should be compiled before used."
+  (let* ((no-of-args (length (function-lambda-list simple-rule)))
+         (nth-timepoint (1- no-of-args)))
+
+    (setf timepoints (mapcar '1+ timepoints))
+
+
+    (list 'lambda '(vsolution vlinear-solution vindex engine nth-h)
+          '(declare (type array vsolution vlinear-solution vindex))
+          '(declare (type fixnum engine nth-h))
+
+
+          (list 'progn 'vlinear-solution ;this is just to take away error message for unused variables
+                (list 'let* (list '(current-index-endtime (get-current-index-endtime-nth engine vindex vsolution nth-h) )
+                                  (list 'nth-1st-timepoint (list 'position 'current-index-endtime (list 'quote timepoints) ':test ''>= ':from-end 't)))
+                      '(declare (type number current-index-starttime))
+                      '(declare (type t nth-1st-timepoint))
+
+
+
+                      (list 'if (list 'and 'nth-1st-timepoint (list '>= 'nth-1st-timepoint nth-timepoint))
+                            (list 'apply (compile-if-not-compiled nil simple-rule) 
+
+
+                                  (list 'loop 'for 'nth 'from (list '- 'nth-1st-timepoint nth-timepoint) 'to 'nth-1st-timepoint 
+                                        'collect (list 'let* (list (list 'this-index (list 'the 'fixnum 
+                                                                                           (list 'get-index-at-timepoint-nth engine 'vsolution 'vlinear-solution 'vindex (list '- (list 'nth 'nth (list 'quote timepoints)) 1/16) 'nth-h)))
+                                                                   (list 'this-cell (list 'get-cell-at-index-for-heuristic engine 'this-index 'vindex 'vsolution 'nth-h))
+                                                                   '(length-this-cell (apply '+ (mapcar 'abs this-cell))))
+                                                       '(declare (type fixnum this-index))
+                                                       '(declare (type list this-cell))
+
+
+
+                                                       (list 'list
+                                                             (list '- (list '+ (list 'get-index-starttime engine 'this-index 'vindex 'vsolution) 'length-this-cell)
+                                                                   (list 'nth 'nth (list 'quote timepoints)))
+                                                             'this-cell))))
+                            0))))))
+
+
+
+(defun heuristic-switch-rule-1-engine-rhythm-at-timepoints (simple-rule engine timepoints weight)
+  "Formats a rule for rhythm that exist at a give time point. The rule should be compiled before used."
+  (let* ((no-of-args (length (function-lambda-list simple-rule)))
+         (nth-timepoint (1- no-of-args)))
+
+    (setf timepoints (mapcar '1+ timepoints))
+
+
+    (list 'lambda '(vsolution vlinear-solution vindex engine nth-h)
+          '(declare (type array vsolution vlinear-solution vindex))
+          '(declare (type fixnum engine nth-h))
+
+          (list 'progn 'vlinear-solution  ;this is just to take away error message for unused variables
+                (list 'let* (list '(current-index-endtime (get-current-index-endtime-nth engine vindex vsolution nth-h) )
+
+                                  (list 'nth-1st-timepoint (list 'position 'current-index-endtime (list 'quote timepoints) ':test ''> ':from-end 't))) ;;;;check this
+                      '(declare (type number current-index-starttime))
+                      '(declare (type t nth-1st-timepoint))
+
+                      (list 'if (list 'and 'nth-1st-timepoint (list '>= 'nth-1st-timepoint nth-timepoint))
+                            (list 'if (list 'apply (compile-if-not-compiled nil simple-rule) 
+                                  (list 'loop 'for 'nth 'from (list '- 'nth-1st-timepoint nth-timepoint) 'to 'nth-1st-timepoint 
+                                        'collect (list 'list (list '- (list 'get-starttime-for-duration-existing-at-timepoint engine 'vlinear-solution (list 'nth 'nth (list 'quote timepoints)))
+                                                                   (list 'nth 'nth (list 'quote timepoints)))
+                                                       (list 'get-duration-existing-at-timepoint engine 'vlinear-solution (list 'nth 'nth (list 'quote timepoints))))))
+                                  weight
+                                  0)
+                            0))))))
+
+
+
+(defun heuristic-rule-1-engine-rhythm-at-timepoints (simple-rule engine timepoints)
+  "Formats a rule for rhythm that exist at a give time point. The rule should be compiled before used."
+  (let* ((no-of-args (length (function-lambda-list simple-rule)))
+         (nth-timepoint (1- no-of-args)))
+
+    (setf timepoints (mapcar '1+ timepoints))
+
+
+    (list 'lambda '(vsolution vlinear-solution vindex engine nth-h)
+          '(declare (type array vsolution vlinear-solution vindex))
+          '(declare (type fixnum engine nth-h))
+
+          (list 'progn 'vlinear-solution  ;this is just to take away error message for unused variables
+                (list 'let* (list '(current-index-endtime (get-current-index-endtime-nth engine vindex vsolution nth-h) )
+
+                                  (list 'nth-1st-timepoint (list 'position 'current-index-endtime (list 'quote timepoints) ':test ''> ':from-end 't))) ;;;;check this
+                      '(declare (type number current-index-starttime))
+                      '(declare (type t nth-1st-timepoint))
+
+                      (list 'if (list 'and 'nth-1st-timepoint (list '>= 'nth-1st-timepoint nth-timepoint))
+                            (list 'apply (compile-if-not-compiled nil simple-rule) 
+                                  (list 'loop 'for 'nth 'from (list '- 'nth-1st-timepoint nth-timepoint) 'to 'nth-1st-timepoint 
+                                        'collect (list 'list (list '- (list 'get-starttime-for-duration-existing-at-timepoint engine 'vlinear-solution (list 'nth 'nth (list 'quote timepoints)))
+                                                                   (list 'nth 'nth (list 'quote timepoints)))
+                                                       (list 'get-duration-existing-at-timepoint engine 'vlinear-solution (list 'nth 'nth (list 'quote timepoints))))))
+                            0))))))
+
+
+
+
 
 (defun heuristic-rule-one-engine (rule engine)
   "Wraps a rule in a small array together with information regarding what engine it is valid for, and its backtracking route."

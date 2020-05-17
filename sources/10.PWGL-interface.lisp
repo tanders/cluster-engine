@@ -1453,7 +1453,7 @@ its inputs:
  - rhythm/pitch: The rule will receive rhythm-pitch pairs excluding (i.e. 
                  skipping) rests.
  - include-rests: The rule will receive rhythm-pitch pairs including rests.
- - rhythm/pitch-segments: For rules with one input, this setting is  
+ - rhythm/pitch-segment: For rules with one input, this setting is  
                   identical to the rhythm/pitch setting. For rules with
                   more than one input, the rule will receive consecutive
                   pitch/rhythm pairs between rests. The rule does not
@@ -1622,7 +1622,7 @@ on the candidate)."
 
 (system::PWGLDef HR-rhythm-pitch-one-voice ((rule nil)
                                             (voices 0)
-                                            (input-mode  10 (ccl::mk-menu-subview :menu-list '(":rhythm/pitch" ":include-rests" ":rhythm/pitch-segments" ":rhythm/time/pitch" ":rhythm/pitch-list-ALL")))
+                                            (input-mode  10 (ccl::mk-menu-subview :menu-list '(":rhythm/pitch" ":include-rests" ":rhythm/pitch-segment" ":rhythm/time/pitch" ":rhythm/pitch-list-ALL")))
                                             (gracenotes?  10 (ccl::mk-menu-subview :menu-list '(":normal" ":exclude-gracenotes"))))
                  "
 Heuristic rule for rhythm-pitch pairs in one voice. 
@@ -1649,7 +1649,7 @@ its inputs:
                  excluding (i.e. skipping) rests.
  - include-rests: The heuristic rule will receive rhythm-pitch pairs 
                   including rests.
- - rhythm/pitch-segments: For heuristic rules with one input, this setting  
+ - rhythm/pitch-segment: For heuristic rules with one input, this setting  
                           is identical to the rhythm/pitch setting. For 
                           heuristic rules with more than one input, the rule  
                           will receive consecutive pitch/rhythm pairs between 
@@ -1687,13 +1687,13 @@ heuristic rule:
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :include-rests) (equal gracenotes? :normal))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-include-rests rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
-                               ((and (equal input-mode :rhythm/pitch-segments) (equal gracenotes? :normal))
+                               ((and (equal input-mode :rhythm/pitch-segment) (equal gracenotes? :normal))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-segment-at-rests rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :rhythm/pitch) (equal gracenotes? :exclude-gracenotes))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-exclude-gracenotes rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :include-rests) (equal gracenotes? :exclude-gracenotes))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-incl-rests-exclude-gracenotes rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
-                               ((and (equal input-mode :rhythm/pitch-segments) (equal gracenotes? :exclude-gracenotes))
+                               ((and (equal input-mode :rhythm/pitch-segment) (equal gracenotes? :exclude-gracenotes))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-segments-at-rests-exclude-gracenotes rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
                                ((and (equal input-mode :rhythm/time/pitch) (equal gracenotes? :normal))
                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-pitches-on-rhythm-with-time rule rhythm-engine pitch-engine) rhythm-engine pitch-engine))
