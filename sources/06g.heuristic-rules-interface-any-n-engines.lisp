@@ -129,9 +129,9 @@ If duration is not assigned, nil will be returned. Also works for he metric engi
                                                                                    collect (loop for pitches in all-pitches-for-notecounts
                                                                                                  collect (nth i pitches)))))
 
-                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches))
+                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices)) ; pitches
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -178,9 +178,9 @@ The rule is checked at the onsets of the first voice in the list."
                                                                                    collect (loop for pitches in all-pitches-for-notecounts
                                                                                                  collect (nth i pitches)))))
 
-                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches))
+                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices)) ; pitches
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -226,9 +226,9 @@ The rule is checked at the onsets of the first voice in the list."
                                                                                    collect (loop for pitches in all-pitches-for-notecounts
                                                                                                  collect (nth i pitches)))))
 
-                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches))
+                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices)) ; pitches
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -277,9 +277,9 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats"
                                                                                    collect (loop for pitches in all-pitches-for-notecounts
                                                                                                  collect (nth i pitches)))))
 
-                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches))
+                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices)) ; pitches
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
                                         ;;;;;;;;;;;;test rule
                                         (list 'average (list 'loop 'for 'n 'from 0
@@ -689,9 +689,9 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats"
                                                                                    collect (loop for pitches in all-pitches-for-notecounts
                                                                                                  collect (nth i pitches)))))
 
-                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches))
+                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices)) ; pitches
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -735,9 +735,9 @@ The rule is checked at the onsets of the first voice in the list."
                                                                                    collect (loop for pitches in all-pitches-for-notecounts
                                                                                                  collect (nth i pitches)))))
 
-                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches))
+                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices)) ; pitches
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -781,9 +781,9 @@ The rule is checked at the onsets of the first voice in the list."
                                                                                    collect (loop for pitches in all-pitches-for-notecounts
                                                                                                  collect (nth i pitches)))))
 
-                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches))
+                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices)) ; pitches
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -829,9 +829,9 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats"
                                                                                    collect (loop for pitches in all-pitches-for-notecounts
                                                                                                  collect (nth i pitches)))))
 
-                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches))
+                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices)) ; pitches
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
                                         ;;;;;;;;;;;;test rule
                                         (list 'average (list 'loop 'for 'n 'from 0
@@ -1086,7 +1086,7 @@ The rule should be compiled before used."
                                         '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches all-durations-for-notecounts 
                                                         all-duration-slices durations all-timepoints-for-notecounts all-timepoint-slices timepoints offsets))
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -1155,7 +1155,7 @@ The rule should be compiled before used."
                                         '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches all-durations-for-notecounts 
                                                         all-duration-slices durations all-timepoints-for-notecounts all-timepoint-slices timepoints offsets))
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -1225,7 +1225,7 @@ The rule should be compiled before used."
                                         '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches
                                                         all-durations-for-notecounts all-duration-slices durations all-timepoints-for-notecounts all-timepoint-slices timepoints offsets))
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -1297,7 +1297,7 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
                                         '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches 
                                                         all-durations-for-notecounts all-duration-slices durations all-timepoints-for-notecounts all-timepoint-slices timepoints offsets))
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
                                         ;;;;;;;;;;;;test rule
                                         (list 'average (list 'loop 'for 'n 'from 0
@@ -1367,7 +1367,7 @@ The rule should be compiled before used."
                                         '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches all-durations-for-notecounts 
                                                         all-duration-slices durations all-timepoints-for-notecounts all-timepoint-slices timepoints offsets))
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -1438,7 +1438,7 @@ The rule should be compiled before used."
                                         '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches all-durations-for-notecounts 
                                                         all-duration-slices durations all-timepoints-for-notecounts all-timepoint-slices timepoints offsets))
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -1510,7 +1510,7 @@ The rule should be compiled before used."
                                         '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches
                                                         all-durations-for-notecounts all-duration-slices durations all-timepoints-for-notecounts all-timepoint-slices timepoints offsets))
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
 
                                         ;;;;;;;;;;;;test rule
@@ -1581,10 +1581,10 @@ fn-beat is either 'get-all-beats or 'get-1st-down-beats
                                                                           for timepoint in filtered-timepoints
                                                                           collect (distances-to-point timepoint timepoint-slice))))
 
-                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices pitches 
-                                                        all-durations-for-notecounts all-duration-slices durations all-timepoints-for-notecounts all-timepoint-slices timepoints offsets))
+                                        '(declare (type list all-timepoints filtered-timepoints all-pitches-for-notecounts notecounts-all-voice all-pitch-slices  
+                                                        all-durations-for-notecounts all-duration-slices durations all-timepoints-for-notecounts all-timepoint-slices timepoints offsets)) ; pitches
                                         '(declare (type number start-time-include-earlier-variables))
-                                        '(declare (type fixnum i))
+                                        ;; '(declare (type fixnum i))
 
                                         ;;;;;;;;;;;;test rule
                                         (list 'average (list 'loop 'for 'n 'from 0
