@@ -2523,6 +2523,7 @@ voice in the list.
                The time signature is given for the measure where the events
                onset exist (it may be sustained into another measure). 
                ONLY ISE THIS SETTING IF YOU NEED TO KNOW THE TIME SIGNATURE.
+               Note than this setting is not very efficient for heuristic rules.
                Example: '(1/4 -1/8 (3 4))
  - d_offs_m_n: An input will receive a list with the duration of the 
                event, the offset to the following beat (i.e. the duration 
@@ -2831,6 +2832,183 @@ on the candidate).
                           ))))
 
 
+
+(defun HR-note-meter (rule ;;;; nil
+                     voices ;;;; 0
+                     format ;;;; '(":offs" ":d_offs" ":d_offs_m" ":d_offs_m_n")
+                     metric-structure ;;;; '(":beats" ":1st-beat")
+                     rest-mode ;;;; '(":incl-rests" ":durations")
+                     gracenote-mode ;;;; '(":normal" ":excl-gracenotes")
+                     )
+                 "
+Heuristic-rule for the metric position of notes and rests. The rule checks all 
+events in one voice.
+
+<rule> is a function that outputs a weight.  A candidate that receive a 
+high weight will have a higher priority for being picked. Each input will receive the 
+information on regarding an events offset to its beat or the first beat of 
+its measure. If the rule has more than one input it will receive information 
+for consecutive events. The exact information and format of an input depends 
+on settings (see below).
+
+<voices> is the number for the voice (starting at 0) that the rule 
+affects. A list of numbers indicate that the rule is valid for every
+voice in the list.
+
+<format> sets how the information for an input is formated. 
+ - offs:       An input will receive the offset to the following beat 
+               (i.e. the duration until the following beat). Offset 0 
+               indicates that the event is synchronized with the beat.
+               If the duration of an event is not necessary to know, this
+               setting should be chosen.
+ - d_offs:     An input will receive a list with the duration of the 
+               event and the offset to the following beat (i.e. the duration 
+               until the following beat). Offset 0 indicates that the event
+               is synchronized with the beat. Example: '(1/4 -1/8)
+ - d_offs_m:   An input will receive a list with the duration of the 
+               event, the offset to the following beat (i.e. the duration 
+               until the following beat) and the time signature. 
+               The time signature is given for the measure where the events
+               onset exist (it may be sustained into another measure). 
+               ONLY ISE THIS SETTING IF YOU NEED TO KNOW THE TIME SIGNATURE.
+               Note than this setting is not very efficient for heuristic rules
+               and will have little impact on the solution.
+               Example: '(1/4 -1/8 (3 4))
+ - d_offs_m_n: An input will receive a list with the duration of the 
+               event, the offset to the following beat (i.e. the duration 
+               until the following beat), the time signature and the pitch. 
+               The time signature is given for the measure where the events
+               onset exist (it may be sustained into another measure). 
+               ONLY ISE THIS SETTING IF YOU NEED TO KNOW THE PITCH.
+               Example: '(1/4 -1/8 (3 4) 60)
+
+<metric-structure> 
+ - beats: The offsets will relate to the following beat.
+ - 1st-beat:  The offset will relate to the following 1st beat in the 
+              next measure.
+
+<rest-mode>
+ - incl.rests: The rule will be checked for durations and rests (rests are
+              indicated as negative durations). If rests are not included
+              in the domain, this setting should be chosen.
+ - durations: The rule will not be checked for rests (if the rule has
+              more than one input, rests will be skipped).
+
+<gracenote-mode>
+ - normal:    The rule will include grace notes as separate events. If
+              grace notes are not included in the domain, this setting 
+              should be chosen.
+ - excl-gracenotes: The rule will not be checkes for grace notes (if 
+              the rule has more than one input, grace notes will be 
+              skipped).
+
+Efficiency: The most efficient setting is <offs>, <incl.rests>, since
+it the rule can assume that an offset always is a new onset and it can 
+check the rule before the next event is assigned. Least efficient is the
+<d_offs_m> setting, since the rule cannot be checked until the time 
+signature is known for a metric point. 
+
+
+"
+            ;     (:groupings '(3 1 2)  :extension-pattern '(2) :x-proportions '((0.1 0.1 0.2) (0.4)(0.2 0.2)(0.3 0.1)) :w 0.5)
+
+                 (when (typep voices 'number) (setf voices (list voices)))
+
+                 (let ((rhythm-engines (mapcar #'(lambda (voice) (* 2 voice)) voices))
+                       (pitch-engines (mapcar #'(lambda (voice) (1+ (* 2 voice))) voices))
+                       (metric-structure-flag (if (equal metric-structure :beats) 1 2)))
+                 ; -1 is the flag to be replaced with the number for the metric engine
+
+                   
+                          (cond ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-offset-to-metric-structure-include-rests 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-offset-to-metric-structure-ignor-rests 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-offset-to-metric-structure-include-rests-ignor-gracenotes 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-offset-to-metric-structure-ignor-rests-and-gracenotes 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-indicate-timesignature 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       for pitch-engine in pitch-engines
+                                       collect (heuristic-rule-three-engines (heuristic-rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-indicate-timesignature 
+                                                                            rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))
+                                 )
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       for pitch-engine in pitch-engines
+                                       collect (heuristic-rule-three-engines (heuristic-rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature 
+                                                                            rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))
+                                 )
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       for pitch-engine in pitch-engines
+                                       collect (heuristic-rule-three-engines (heuristic-rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature 
+                                                                            rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))
+                                 )
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       for pitch-engine in pitch-engines
+                                       collect (heuristic-rule-three-engines (heuristic-rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature 
+                                                                            rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))
+                                 )
+
+                                (t
+                                 (error "Not implemented in the R-note-meter.")
+                                 ))
+                          ))
 
 
 
@@ -3337,6 +3515,165 @@ on the candidate).
 
                           ))))
 
+
+
+(defun HR-meter-note (rule ;;;; nil
+                     voices ;;;; 0
+                     metric-structure ;;;; '(":beats" ":1st-beat")
+                     input-mode1 ;;;; '(":offset" ":offset_dur" ":offset_dur_meter" ":offset_dur_pitch" ":offset_dur_pitch_meter" ":offset_motif" ":offset_motif_meter")
+                     input-mode2) ;;;; '(":norm" ":list")) 
+                 "
+Heuristic-rule for the metric timepoints. 
+
+The heuristic rule will check all metric timepoints (see the setting for 
+the metric structure). Grace notes are ignored by the rule.
+
+<rule> is a function that outputs a weight.  A candidate that receive a 
+high weight will have a higher priority for being picked. Each input 
+will receive the information on regarding the offset to the onset for 
+the note that coinside with a metric time point (i.e. every beat or only 
+the first beat of every measure). If the rule has more than one input 
+it will receive information for consecutive metric timepoints. The exact 
+information and format of an input depends on settings (see below).
+
+<voices> is the number for the voice (starting at 0) that the rule 
+affects. A list of numbers indicate that the rule is valid for every
+voice in the list.
+
+<input-mode1> sets how the information for an input is formated. 
+ - offset:     An input will receive the offset to the onset for the 
+               event that coinside with the metric timepoint. Offset 0 
+               indicates that the event is synchronized with the beat.
+               If the duration of a note is not necessary to know, this
+               setting should be chosen. Example: '(-1/8)
+ - offset_dur: An input will receive a list with the duration of the 
+               event and its offset to the beat that is checked. 
+               Offset 0 indicates that the event is synchronized with 
+               the beat. If the pitch of a note is not necessary to 
+               know, this setting should be chosen. Example: '(-1/8 1/4)
+ - offset_dur_pitch: An input will receive a list with the duration and
+               pitch of the note and its offset to the beat that is 
+               checked. Offset 0 indicates that the note is synchronized 
+               with the beat. Example: '(-1/8 1/4 60)
+ - offset_dur_pitch_meter: As the previous option, but also accesses the
+               time signature. Example: '(-1/8 1/4 60 (3 4))
+ - offset_motif: An input will receive the offset to the onset for the 
+               rhytm motif that coinside with the metric timepoint. Offset 
+               0 indicates that the motif is synchronized with the beat.
+               The motif will also be accessed. If the meter is not
+               necessary to know, use this mode (and noot the following).
+               Example: '(-1/8 (1/8 1/16 1/16))
+ - offset_motif_meter: As the previous input mode, but also the time 
+               signature will be accessed.
+               Example: '(-1/8 (1/8 1/16 1/16) (3 4))
+
+<input-mode2>
+ - norm: This setting is the normal behaviour of the box. An input receives
+              the information for one time point. More than one input  
+              will receive information for consecutive timepoints.
+ - list: The rule must have exactly one input. The input will receive a 
+              list of all time points that are known when the rule is
+              checked. 
+
+
+<metric-structure> 
+ - beats: The rule will be applied at every beat.
+ - 1st-beat:  The rule will be applied at the first beat of every measure.
+
+
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the <weight> input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. 
+
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate).
+"
+              ;   (:groupings '(3 2)  :extension-pattern '(2) :x-proportions '((0.1 0.1 0.2)(0.3 0.1)(0.25 0.15)) :w 0.5)
+
+                 (when (typep voices 'number) (setf voices (list voices)))
+
+                 (let ((rhythm-engines (mapcar #'(lambda (voice) (* 2 voice)) voices))
+                       (pitch-engines (mapcar #'(lambda (voice) (1+ (* 2 voice))) voices))
+                       (metric-structure-flag (if (equal metric-structure :beats) 1 2)))
+                 ; -1 is the flag to be replaced with the number for the metric engine
+
+
+                          (cond ((and (equal input-mode1 :offset) (equal input-mode2 :norm))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-metric-timepoints-and-events-include-rests 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal input-mode1 :offset_dur) (equal input-mode2 :norm))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-metric-timepoints-and-events-include-rests-indicate-duration 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal input-mode1 :offset_dur_meter) (equal input-mode2 :norm))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-metric-timepoints-and-events-include-rests-indicate-duration-and-meter 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal input-mode1 :offset_motif) (equal input-mode2 :norm))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-metric-timepoints-and-rhythmcells-include-rests-indicate-cell 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal input-mode1 :offset_motif_meter) (equal input-mode2 :norm))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-metric-timepoints-and-rhythmcells-include-rests-indicate-cell-and-timesign 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal input-mode1 :offset_dur_pitch) (equal input-mode2 :norm))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       for pitch-engine in pitch-engines
+                                       collect (heuristic-rule-three-engines (heuristic-rule-3-engines-metric-timepoints-events-and-pitch-include-rests-indicate-duration 
+                                                                              rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))
+                                 )
+                                ((and (equal input-mode1 :offset_dur_pitch_meter) (equal input-mode2 :norm))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       for pitch-engine in pitch-engines
+                                       collect (heuristic-rule-three-engines (heuristic-rule-3-engines-metric-timepoints-events-and-pitch-include-rests-indicate-duration-and-meter 
+                                                                              rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))
+                                 )
+                                ((and (equal input-mode1 :offset) (equal input-mode2 :list))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-metric-timepoints-and-events-include-rests-list-all 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal input-mode1 :offset_dur) (equal input-mode2 :list))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       collect (heuristic-rule-two-engines (heuristic-rule-2-engines-metric-timepoints-and-events-include-rests-indicate-duration-list-all 
+                                                                            rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
+                                 )
+                                ((and (equal input-mode1 :offset_dur_pitch) (equal input-mode2 :list))
+                                 (loop for rhythm-engine in rhythm-engines
+                                       for pitch-engine in pitch-engines
+                                       collect (heuristic-rule-three-engines (heuristic-rule-3-engines-metric-timepoints-events-and-pitch-include-rests-indicate-duration-list-all 
+                                                                              rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))
+                                 )
+                                ((and (equal input-mode1 :offset_motif) (equal input-mode2 :list))
+                                 (error "The list mode is not yet implemented for the offset_motif setting on the R-meter-note.")
+                                 )
+                                ((and (equal input-mode1 :offset_motif_meter) (equal input-mode2 :list))
+                                 (error "The list mode is not yet implemented for the offset_motif_meter setting on the R-meter-note.")
+                                 )
+                                ((and (equal input-mode1 :offset_dur_pitch_meter) (equal input-mode2 :list))
+                                 (error "The list mode is not yet implemented for the offset_dur_pitch_meter setting on the R-meter-note.")
+                                 )
+                                ((and (equal input-mode1 :offset_dur_meter) (equal input-mode2 :list))
+                                 (error "The list mode is not yet implemented for the offset_dur_meter setting on the R-meter-note.")
+                                 ))
+                          )
+                         )
 
 
 
