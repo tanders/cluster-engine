@@ -2488,7 +2488,7 @@ on the candidate).
                      format ;;;; '(":offs" ":d_offs" ":d_offs_m" ":d_offs_m_n")
                      metric-structure ;;;; '(":beats" ":1st-beat")
                      rest-mode ;;;; '(":incl-rests" ":durations")
-                     gracenote-mode ;;;; '(":normal" ":excl-gracenotes")
+                     gracenotes? ;;;; '(":normal" ":exclude-gracenotes")
                      &optional
                      rule-type ;;;; '(":true/false" ":heur-switch")
                      weight) ;;;; 1
@@ -2544,11 +2544,11 @@ voice in the list.
  - durations: The rule will not be checked for rests (if the rule has
               more than one input, rests will be skipped).
 
-<gracenote-mode>
+<gracenotes?>
  - normal:    The rule will include grace notes as separate events. If
               grace notes are not included in the domain, this setting 
               should be chosen.
- - excl-gracenotes: The rule will not be checkes for grace notes (if 
+ - exclude-gracenotes: The rule will not be checkes for grace notes (if 
               the rule has more than one input, grace notes will be 
               skipped).
 
@@ -2584,85 +2584,85 @@ on the candidate).
                  ; -1 is the flag to be replaced with the number for the metric engine
 
                    (cond ((equal rule-type :heur-switch)
-                          (cond ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                          (cond ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-events-offset-to-metric-structure-include-rests 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenotes? :normal))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-durations-offset-to-metric-structure-ignor-rests 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-events-offset-to-metric-structure-include-rests-ignor-gracenotes 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-durations-offset-to-metric-structure-ignor-rests-and-gracenotes 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenotes? :normal))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-indicate-timesignature 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenotes? :normal))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                                  (loop for rhythm-engine in rhythm-engines
                                        collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature 
                                                                             rule rhythm-engine metric-structure-flag weight) -1 rhythm-engine))
                                  )
-                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
                                  (loop for rhythm-engine in rhythm-engines
                                        for pitch-engine in pitch-engines
                                        collect (heuristic-rule-three-engines (heuristic-switch-rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-indicate-timesignature 
                                                                             rule rhythm-engine pitch-engine metric-structure-flag weight) -1 rhythm-engine pitch-engine))
                                  )
-                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
                                  (loop for rhythm-engine in rhythm-engines
                                        for pitch-engine in pitch-engines
                                        collect (heuristic-rule-three-engines (heuristic-switch-rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature 
                                                                             rule rhythm-engine pitch-engine metric-structure-flag weight) -1 rhythm-engine pitch-engine))
                                  )
-                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenotes? :normal))
                                  (loop for rhythm-engine in rhythm-engines
                                        for pitch-engine in pitch-engines
                                        collect (heuristic-rule-three-engines (heuristic-switch-rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature 
                                                                             rule rhythm-engine pitch-engine metric-structure-flag weight) -1 rhythm-engine pitch-engine))
                                  )
-                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                                  (loop for rhythm-engine in rhythm-engines
                                        for pitch-engine in pitch-engines
                                        collect (heuristic-rule-three-engines (heuristic-switch-rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature 
@@ -2674,7 +2674,7 @@ on the candidate).
                                  ))
                           )
                          (t
-                          (cond ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                          (cond ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-events-offset-to-metric-structure-include-rests rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2682,7 +2682,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-events-offset-to-metric-beat-include-rests rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenotes? :normal))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-durations-offset-to-metric-structure-ignor-rests rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2690,7 +2690,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-durations-offset-to-metric-structure-ignor-rests rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :offs) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-events-offset-to-metric-structure-include-rests-ignor-gracenotes rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2698,7 +2698,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-events-offset-to-metric-structure-include-rests-ignor-gracenotes rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :offs) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-durations-offset-to-metric-structure-ignor-rests-and-gracenotes rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2706,7 +2706,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-durations-offset-to-metric-structure-ignor-rests-and-gracenotes rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-events-and-their-offset-to-metric-structure-include-rests rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2714,7 +2714,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-events-and-their-offset-to-metric-structure-include-rests rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenotes? :normal))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2722,7 +2722,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2730,7 +2730,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2738,7 +2738,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-indicate-timesignature rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2746,7 +2746,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-indicate-timesignature rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenotes? :normal))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2754,7 +2754,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs_m) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2762,7 +2762,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs_m) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                                  (cond ((= *bktr-dm1v* 3)
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines3 (rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature rule rhythm-engine metric-structure-flag) rhythm-engine -1)))
@@ -2770,7 +2770,7 @@ on the candidate).
                                         (loop for rhythm-engine in rhythm-engines
                                               collect (rule-two-engines4 (rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes-indicate-timesignature rule rhythm-engine metric-structure-flag) rhythm-engine -1))))
                                  )
-                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
                                  (cond ((= *bktr-nm1v* 1)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
@@ -2784,7 +2784,7 @@ on the candidate).
                                               for pitch-engine in pitch-engines
                                               collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))))
                                  )
-                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenotes? :normal))
                                  (cond ((= *bktr-nm1v* 1)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
@@ -2798,7 +2798,7 @@ on the candidate).
                                               for pitch-engine in pitch-engines
                                               collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-ignor-rests-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))))
                                  )
-                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
                                  (cond ((= *bktr-nm1v* 1)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
@@ -2812,7 +2812,7 @@ on the candidate).
                                               for pitch-engine in pitch-engines
                                               collect (rule-three-engines3 (rule-3-engines-notes-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes-indicate-timesignature rule rhythm-engine pitch-engine metric-structure-flag) -1 rhythm-engine pitch-engine))))
                                  )
-                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                                ((and (equal format :d_offs_m_n) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                                  (cond ((= *bktr-nm1v* 1)
                                         (loop for rhythm-engine in rhythm-engines
                                               for pitch-engine in pitch-engines
@@ -2844,7 +2844,7 @@ on the candidate).
                           format ;;;; '(":dur_offset" ":offset")
                           metric-structure ;;;; '(":beats" ":1st-beat")
                           rest-mode ;;;; '(":incl-rests" ":durations")
-                          gracenote-mode) ;;;; '(":normal" ":excl-gracenotes")
+                          gracenotes?) ;;;; '(":normal" ":exclude-gracenotes")
                  "
 
 Heuristic rule for the metric position of durations and rests. The rule 
@@ -2889,11 +2889,11 @@ voice in the list.
  - durations: The rule will not be checked for rests (if the rule has
               more than one input, rests will be skipped).
 
-<gracenote-mode>
+<gracenotes?>
  - normal:    The rule will include grace notes as separate events. If
               grace notes are not included in the domain, this setting 
               should be chosen.
- - excl-gracenotes: The rule will not be checkes for grace notes (if 
+ - exclude-gracenotes: The rule will not be checkes for grace notes (if 
               the rule has more than one input, grace notes will be 
               skipped).
 
@@ -2907,42 +2907,42 @@ voice in the list.
         (metric-structure-flag (if (equal metric-structure :beats) 1 2)))
     ; -1 is the flag to be replaced with the number for the metric engine
     
-    (cond ((and (equal format :offset) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+    (cond ((and (equal format :offset) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
            (loop for rhythm-engine in rhythm-engines
              collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-offset-to-metric-structure-include-rests 
                                                   rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
            )
-          ((and (equal format :offset) (equal rest-mode :durations) (equal gracenote-mode :normal))
+          ((and (equal format :offset) (equal rest-mode :durations) (equal gracenotes? :normal))
            (loop for rhythm-engine in rhythm-engines
              collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-offset-to-metric-structure-ignor-rests 
                                                   rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
            )
-          ((and (equal format :offset) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+          ((and (equal format :offset) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
            (loop for rhythm-engine in rhythm-engines
              collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-offset-to-metric-structure-include-rests-ignor-gracenotes 
                                                   rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
            )
-          ((and (equal format :offset) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+          ((and (equal format :offset) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                           (loop for rhythm-engine in rhythm-engines
                                 collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-offset-to-metric-structure-ignor-rests-and-gracenotes 
                                                                      rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
                           )
-                         ((and (equal format :dur_offset) (equal rest-mode :incl-rests) (equal gracenote-mode :normal))
+                         ((and (equal format :dur_offset) (equal rest-mode :incl-rests) (equal gracenotes? :normal))
                           (loop for rhythm-engine in rhythm-engines
                                 collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests 
                                                                      rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
                           )
-                         ((and (equal format :dur_offset) (equal rest-mode :durations) (equal gracenote-mode :normal))
+                         ((and (equal format :dur_offset) (equal rest-mode :durations) (equal gracenotes? :normal))
                           (loop for rhythm-engine in rhythm-engines
                                 collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests 
                                                                      rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
                           )
-                         ((and (equal format :dur_offset) (equal rest-mode :incl-rests) (equal gracenote-mode :excl-gracenotes))
+                         ((and (equal format :dur_offset) (equal rest-mode :incl-rests) (equal gracenotes? :exclude-gracenotes))
                           (loop for rhythm-engine in rhythm-engines
                                 collect (heuristic-rule-two-engines (heuristic-rule-2-engines-events-and-their-offset-to-metric-structure-include-rests-ignor-gracenotes 
                                                                      rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
                           )
-                         ((and (equal format :dur_offset) (equal rest-mode :durations) (equal gracenote-mode :excl-gracenotes))
+                         ((and (equal format :dur_offset) (equal rest-mode :durations) (equal gracenotes? :exclude-gracenotes))
                           (loop for rhythm-engine in rhythm-engines
                                 collect (heuristic-rule-two-engines (heuristic-rule-2-engines-durations-and-their-offset-to-metric-structure-ignor-rests-and-gracenotes 
                                                                      rule rhythm-engine metric-structure-flag) -1 rhythm-engine))
