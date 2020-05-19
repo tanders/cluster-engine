@@ -4021,7 +4021,7 @@ on the candidate).
                                  (list-voices '(0 1))
                                  (timepoints '(0))
                                  (input-mode  10 (ccl::mk-menu-subview :menu-list '(":all" ":beat" ":1st-beat" ":1st-voice" ":at-timepoints")))
-                                 (gracenotes?  10 (ccl::mk-menu-subview :menu-list '(":exclude-gracenotes" ":include-gracenotes"))))
+                                 (gracenotes?  10 (ccl::mk-menu-subview :menu-list '(":exclude-gracenotes" ":normal"))))
     "Heuristic rule that accesses simultaneous pitches in 2 or more voices. 
 
 <rule> is a function that outputs a numerical weight.  Each input will 
@@ -4055,8 +4055,8 @@ backtracking.
                timepoints input.
 
 <gracenotes?>  
-- exclud-gracenotese: Pitches that relate to grace notes will be ignored.
-- include-gracenotes: Grace notes are also checked by the rule:
+- exclude-gracenotes: Pitches that relate to grace notes will be ignored.
+- normal: Grace notes are also checked by the rule:
                they are related to the regular notes in the other
                voices.
                
@@ -4068,27 +4068,27 @@ and rhythm domain.
     (:groupings '(2 2 1)  :x-proportions '((0.2 0.2)(0.1 0.3)(0.4)) :w 0.5)
   (let ((list-with-engine-nrs (apply 'append (loop for voice in list-voices collect (list (* 2 voice) (1+ (* 2 voice)))))))
     (cond ((equal input-mode :all)
-           (cond ((equal gracenotes? :include-gracenotes)
+           (cond ((equal gracenotes? :normal)
                   (heuristic-rule-pitch-and-pitch-include-gracenotes-in-n-voices rule list-voices))
                  (t
                   (heuristic-rule-pitch-and-pitch-in-n-voices rule list-voices))))
           ((equal input-mode :beat)
-           (cond ((equal gracenotes? :include-gracenotes)
+           (cond ((equal gracenotes? :normal)
                   (heuristic-rule-pitch-and-pitch-include-gracenotes-on-beat-in-n-voices rule list-voices 'get-all-beats))
                  (t
                   (heuristic-rule-pitch-and-pitch-on-beat-in-n-voices rule list-voices 'get-all-beats))))
           ((equal input-mode :1st-beat)
-           (cond ((equal gracenotes? :include-gracenotes)
+           (cond ((equal gracenotes? :normal)
                   (heuristic-rule-pitch-and-pitch-include-gracenotes-on-beat-in-n-voices rule list-voices 'get-1st-down-beats))
                  (t
                   (heuristic-rule-pitch-and-pitch-on-beat-in-n-voices rule list-voices 'get-1st-down-beats))))
           ((equal input-mode :1st-voice)
-           (cond ((equal gracenotes? :include-gracenotes)
+           (cond ((equal gracenotes? :normal)
                   (heuristic-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-in-n-voices rule list-voices))
                  (t
                   (heuristic-rule-pitch-and-pitch-at-1st-voice-onsets-in-n-voices rule list-voices))))
           ((equal input-mode :at-timepoints)
-           (cond ((equal gracenotes? :include-gracenotes)
+           (cond ((equal gracenotes? :normal)
                   (heuristic-rule-pitch-and-pitch-at-timepoints-include-gracenotes-in-n-voices rule timepoints list-voices))
                  (t
                   (heuristic-rule-pitch-and-pitch-at-timepoints-in-n-voices rule timepoints list-voices)))
@@ -4104,7 +4104,7 @@ and rhythm domain.
                            (model '((4 7)(3 7)))
                            (timepoints '(0))
                            (input-mode  10 (ccl::mk-menu-subview :menu-list '(":all" ":beat" ":1st-beat" ":1st-voice" ":at-timepoints")))
-                           (gracenotes?  10 (ccl::mk-menu-subview :menu-list '(":exclude-gracenotes" ":include-gracenotes")))
+                           (gracenotes?  10 (ccl::mk-menu-subview :menu-list '(":exclude-gracenotes" ":normal")))
                            &optional
                            (rule-type  10 (ccl::mk-menu-subview :menu-list '(":true/false" ":heur-switch")))
                            (weight 1))
@@ -4163,7 +4163,7 @@ Pitches may exist in any octave.
                                          collect
                                          (let ((list-with-engine-nrs (apply 'append (loop for voice in voices-for-individual-rule collect (list (* 2 voice) (1+ (* 2 voice))))))) 
                                            (funcall backtrack-route (rule-n-engines-pitch-and-pitch rule voices-for-individual-rule) list-with-engine-nrs)))))
-                                ((equal gracenotes? :include-gracenotes)
+                                ((equal gracenotes? :normal)
                                  (let* ((backtrack-route (cond ((= *bktr-ppNv-A* 1)  ;;;Prefered backtrack routes.
                                                                 'rule-n-engines3)    ;next pitch engine
                                                                ((= *bktr-ppNv-A* 2)
@@ -4194,7 +4194,7 @@ Pitches may exist in any octave.
                                          collect
                                          (let ((list-with-engine-nrs (apply 'append (loop for voice in voices-for-individual-rule collect (list (* 2 voice) (1+ (* 2 voice))))))) 
                                            (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat rule list-voices 'get-all-beats) list-with-engine-nrs -1)))))
-                                ((equal gracenotes? :include-gracenotes)
+                                ((equal gracenotes? :normal)
                                  (let* ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
                                                                 'rule-n-engines-with-meter3)    ;next pitch engine
                                                                ((= *bktr-ppNv-B* 2)
@@ -4226,7 +4226,7 @@ Pitches may exist in any octave.
                                          collect
                                          (let ((list-with-engine-nrs (apply 'append (loop for voice in voices-for-individual-rule collect (list (* 2 voice) (1+ (* 2 voice))))))) 
                                            (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1)))))
-                                ((equal gracenotes? :include-gracenotes)
+                                ((equal gracenotes? :normal)
                                  (let* ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
                                                                 'rule-n-engines-with-meter3)    ;next pitch engine
                                                                ((= *bktr-ppNv-B* 2)
@@ -4259,7 +4259,7 @@ Pitches may exist in any octave.
                                          collect
                                          (let ((list-with-engine-nrs (apply 'append (loop for voice in voices-for-individual-rule collect (list (* 2 voice) (1+ (* 2 voice))))))) 
                                            (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets rule list-voices) list-with-engine-nrs)))))
-                                ((equal gracenotes? :include-gracenotes)
+                                ((equal gracenotes? :normal)
                                  (let* ((backtrack-route (cond ((= *bktr-ppNv-C* 1)  ;;;Prefered backtrack routes.
                                                                 'rule-n-engines3)    ;next pitch engine
                                                                ((= *bktr-ppNv-C* 2)
@@ -4295,7 +4295,7 @@ Pitches may exist in any octave.
                                          collect
                                          (let ((list-with-engine-nrs (apply 'append (loop for voice in voices-for-individual-rule collect (list (* 2 voice) (1+ (* 2 voice))))))) 
                                            (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-timepoints rule timepoints list-voices) list-with-engine-nrs)))))
-                                ((equal gracenotes? :include-gracenotes)
+                                ((equal gracenotes? :normal)
                                  (let* ((backtrack-route (cond ((= *bktr-ppNv-D* 1)  ;;;Prefered backtrack routes.
                                                                 'rule-n-engines3)    ;next pitch engine
                                                                ((= *bktr-ppNv-D* 2)
