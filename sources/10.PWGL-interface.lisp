@@ -3439,7 +3439,7 @@ an individual heuristic rule.
                                 (list-all-voices '(0 1))
                                 (timepoints '(0))
                                 (input-mode  10 (ccl::mk-menu-subview :menu-list '(":all" ":beat" ":1st-beat" ":1st-voice" ":at-timepoints")))
-                                (gracenotes?  10 (ccl::mk-menu-subview :menu-list '(":no_grace" ":gracenotes")))
+                                (gracenotes?  10 (ccl::mk-menu-subview :menu-list '(":exclude-gracenotes" ":normal")))
                                 (format  10 (ccl::mk-menu-subview :menu-list '(":pitch" ":p_d_offs" ":p_d_offs+timepoint")))
                                 &optional
                                 (rule-type  10 (ccl::mk-menu-subview :menu-list '(":true/false" ":heur-switch")))
@@ -3479,8 +3479,8 @@ caused backtracking.
 - at-timepoints:  The rule will be checked at the timepoints in the 
                timepoints input.
 <gracenotes?>  
-- no_grace:    Pitches that relate to grace notes will be ignored.
-- gracenotes:  Grace notes are also checked by the rule:
+- exclude-gracenotes:    Pitches that relate to grace notes will be ignored.
+- normal:  Grace notes are also checked by the rule:
                they are related to the regular notes in the other
                voices.
                
@@ -3542,30 +3542,30 @@ on the candidate).
                                  (cond ((equal format :pitch) ;rules for only pitch information (no duration)
                                         (cond ((equal rule-type :heur-switch) 
                                                (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-in-n-voices rule list-voices weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-in-n-voices rule list-voices weight))))
                                                      ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-in-n-voices rule list-voices 'get-all-beats weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-on-beat-in-n-voices rule list-voices 'get-all-beats weight)))
                                                       )
                                                      ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-in-n-voices rule list-voices 'get-1st-down-beats weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-on-beat-in-n-voices rule list-voices 'get-1st-down-beats weight)))
                                                       )
                                                      ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-in-n-voices rule list-voices weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-in-n-voices rule list-voices weight)))
                                                       )
                                                      ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-at-timepoints-include-gracenotes-in-n-voices rule timepoints list-voices weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-at-timepoints-in-n-voices rule timepoints list-voices weight)))
@@ -3575,7 +3575,7 @@ on the candidate).
 
                                               (t ;true/false rule
                                                (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
                                                                                            'rule-n-engines3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-A* 2)
@@ -3597,7 +3597,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch rule list-voices) list-with-engine-nrs))))
                                                       )
                                                      ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
                                                                                            'rule-n-engines-with-meter3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-B* 2)
@@ -3622,7 +3622,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat rule list-voices 'get-all-beats) list-with-engine-nrs -1)))
                                                             ))
                                                      ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
                                                                                            'rule-n-engines-with-meter3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-B* 2)
@@ -3648,7 +3648,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1))))
                                                       )
                                                      ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
                                                                                            'rule-n-engines3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-C* 2)
@@ -3671,7 +3671,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets rule list-voices) list-with-engine-nrs))))
                                                       )
                                                      ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
                                                                                            'rule-n-engines3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-D* 2)
@@ -3700,30 +3700,30 @@ on the candidate).
                                         (cond ((equal rule-type :heur-switch) 
 
                                                (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-with-durations-and-offset-in-n-voices rule list-voices weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-with-durations-and-offset-in-n-voices rule list-voices weight))))
                                                      ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset-in-n-voices rule list-voices 'get-all-beats weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-and-offset-in-n-voices rule list-voices 'get-all-beats weight)))
                                                       )
                                                      ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-and-offset-in-n-voices rule list-voices 'get-1st-down-beats weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-and-offset-in-n-voices rule list-voices 'get-1st-down-beats weight)))
                                                       )
                                                      ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-and-offset-in-n-voices rule list-voices weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-with-durations-and-offset-in-n-voices rule list-voices weight)))
                                                       )
                                                      ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-and-offset-in-n-voices rule timepoints list-voices weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-at-timepoints-with-durations-and-offset-in-n-voices rule timepoints list-voices weight)))
@@ -3734,7 +3734,7 @@ on the candidate).
                  
                                               (t ;true/false rule
                                                (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
                                                                                            'rule-n-engines3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-A* 2)
@@ -3756,7 +3756,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-with-durations-and-offset rule list-voices) list-with-engine-nrs))))
                                                       )
                                                      ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
                                                                                            'rule-n-engines-with-meter3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-B* 2)
@@ -3781,7 +3781,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-and-offset rule list-voices 'get-all-beats) list-with-engine-nrs -1)))
                                                             ))
                                                      ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
                                                                                            'rule-n-engines-with-meter3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-B* 2)
@@ -3807,7 +3807,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-and-offset rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1))))
                                                       )
                                                      ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
                                                                                            'rule-n-engines3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-C* 2)
@@ -3830,7 +3830,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-and-offset rule list-voices) list-with-engine-nrs))))
                                                       )
                                                      ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
                                                                                            'rule-n-engines3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-D* 2)
@@ -3859,30 +3859,30 @@ on the candidate).
                                         (cond ((equal rule-type :heur-switch) 
 
                                                (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-with-durations-offset-and-timepoint-in-n-voices rule list-voices weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-with-durations-offset-and-timepoint-in-n-voices rule list-voices weight))))
                                                      ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint-in-n-voices rule list-voices 'get-all-beats weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint-in-n-voices rule list-voices 'get-all-beats weight)))
                                                       )
                                                      ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-include-gracenotes-on-beat-with-durations-offset-and-timepoint-in-n-voices rule list-voices 'get-1st-down-beats weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint-in-n-voices rule list-voices 'get-1st-down-beats weight)))
                                                       )
                                                      ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-include-gracenotes-with-durations-offset-and-timepoint-in-n-voices rule list-voices weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-at-1st-voice-onsets-with-durations-offset-and-timepoint-in-n-voices rule list-voices weight)))
                                                       )
                                                      ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (heuristic-switch-rule-pitch-and-pitch-at-timepoints-include-gracenotes-with-durations-offset-and-timepoint-in-n-voices rule timepoints list-voices weight))
                                                             (t
                                                              (heuristic-switch-rule-pitch-and-pitch-at-timepoints-with-durations-offset-and-timepoint-in-n-voices rule timepoints list-voices weight)))
@@ -3893,7 +3893,7 @@ on the candidate).
                  
                                               (t ;true/false rule
                                                (cond ((equal input-mode :all)
-                                                      (cond ((equal gracenotes? :gracenotes)
+                                                      (cond ((equal gracenotes? :normal)
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-A* 1)
                                                                                            'rule-n-engines3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-A* 2)
@@ -3915,7 +3915,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-with-durations-offset-and-timepoint rule list-voices) list-with-engine-nrs))))
                                                       )
                                                      ((equal input-mode :beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
                                                                                            'rule-n-engines-with-meter3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-B* 2)
@@ -3940,7 +3940,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint rule list-voices 'get-all-beats) list-with-engine-nrs -1)))
                                                             ))
                                                      ((equal input-mode :1st-beat)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-B* 1)
                                                                                            'rule-n-engines-with-meter3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-B* 2)
@@ -3966,7 +3966,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-on-beat-with-durations-offset-and-timepoint rule list-voices 'get-1st-down-beats) list-with-engine-nrs -1))))
                                                       )
                                                      ((equal input-mode :1st-voice)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-C* 1)
                                                                                            'rule-n-engines3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-C* 2)
@@ -3989,7 +3989,7 @@ on the candidate).
                                                                (funcall backtrack-route (rule-n-engines-pitch-and-pitch-at-1st-voice-onsets-with-durations-offset-and-timepoint rule list-voices) list-with-engine-nrs))))
                                                       )
                                                      ((equal input-mode :at-timepoints)
-                                                      (cond ((equal gracenotes? :gracenotes) 
+                                                      (cond ((equal gracenotes? :normal) 
                                                              (let ((backtrack-route (cond ((= *bktr-ppNv-D* 1)
                                                                                            'rule-n-engines3)    ;next pitch engine
                                                                                           ((= *bktr-ppNv-D* 2)
