@@ -45,6 +45,7 @@
 (load-local "06e.heuristic-rules-interface-2engines")
 (load-local "06f.heuristic-rules-interface-3engines")
 (load-local "06g.heuristic-rules-interface-any-n-engines")
+(load-local "06h.heuristic-rules-interface-added2020")
 (load-local "07.backjumping")
 (load-local "08.decode")
 (load-local "09.utilities")
@@ -80,7 +81,8 @@
 ; 
 ;(save-lisp-and-die "/Users/orjansandred/Dropbox/cluster-to-Max-Orjan/cluster19.core")
 ;(save-lisp-and-die "/Users/julienvincenot/Dropbox/cluster-to-Max-Orjan/new-approach/cluster.core")
- (save-lisp-and-die "/Users/julienvincenot/Desktop/cluster-test.core")
+;(save-lisp-and-die "/Users/orjansandred/cluster-test.core")
+(save-lisp-and-die "/Users/julienvincenot/cluster-test.core")
 
 ;;;;;;;;;;;
 

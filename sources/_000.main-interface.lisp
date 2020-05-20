@@ -1257,9 +1257,8 @@ an input in the rule. See also input-mode below.
 
 (defun set-end (rule ;;;; nil 
                 end-point) ;;;; 12
-                 "This box will set the endpoint for a jbs or a pmc rule. The rule should
-pass through this box before going into the r-jbs-one-voice box (or the
-r-pmc-one-voice box). The end point is the position (i.e. not the index) for 
+                 "This box will set the endpoint for a jbs rule. The rule should
+pass through this box before going into the r-jbs-one-voice box. The end point is the position (i.e. not the index) for 
 the last value in a voice where the rule is checked. It also replaces 
 the '(cur-slen) expression by the end point.
 
@@ -1270,6 +1269,30 @@ how index numbers are counted in the PMC engine).
                ;  (:groupings '(2) :x-proportions '((0.1 0.2)) :w 0.25)
 
                  (rewrite-any-rule-with-stop rule end-point))
+
+
+(defun set-range (rule ;;;; nil 
+                  start-nth
+                  end-nth) ;;;; 12
+                 "This box will set the range where are a jbs or a pmc rule is valid. 
+                 The rule is only checked from the start-nth element to the end-nth 
+                 element.The rule should pass through this box before going into the 
+                 r-jbs-one-voice box (or the r-pmc-one-voice box). The end point is 
+                 the position (i.e. not the index) for the last value in a voice where 
+                 the rule is checked. It also replaces the '(cur-slen) expression by the 
+                 end point.
+
+                 Pmc formated rules are assumed to be strict (not heuristic). JBS-rules
+                 can either be strict or heuristic.
+
+Note that the first value has the position 1 (this is compatible with
+how index numbers are counted in the PMC engine).
+
+"
+               ;  (:groupings '(2) :x-proportions '((0.1 0.2)) :w 0.25)
+
+                 (rewrite-any-rule-with-index-range rule start-nth end-nth))
+
 
 
 
@@ -2174,15 +2197,12 @@ on the candidate)."
 
 
 
-
-
-
 (defun HR-rhythm-rhythm (rule ;;;; nil
                          voice1 ;;;; 0
                          voice2 ;;;; 1
                          input-mode1 ;;;; '(":d1_offs" ":d1_offs_d2")
                          input-mode2 ;;;; '(":norm" ":list")
-                         input-filter) ;;;; '(":at-durations-v1" ":break-at-rest-v1" ":break-at-rest-v1-v2")
+                         input-filter) ;;;; '(":at-durations-v1" ":at-events-v1" ":break-at-rest-v1" ":break-at-rest-v1-v2")
                  "
 Heuristic rule for the relation between durations in two voices. 
 
@@ -2227,6 +2247,8 @@ the rule affects.
 <input-filter> determines what information the rule will receive:
  - at-durations-v1: The rule will receive informaton for all durations  
               (grace notes and rests excluded) in voice 1.
+ - at-events-v1: The rule will receive informaton for all events  
+              (grace notes excluded) in voice 1. Rests are included.
  - break-at-rest-v1: This will only differ from the above setting for
               rules with more than one input. The rule will not not
               check durations that are separated by a rest in voice 1.
@@ -2272,6 +2294,19 @@ an effect for durations (not offsets).
                           (heuristic-rule-two-engines (heuristic-rule-2-engines-rhythm-and-rhythm-offset-between-voices-indicate-duration 
                                                        rule rhythm-engine1 rhythm-engine2) rhythm-engine1 rhythm-engine2)
                           )
+
+                         ;new 2020
+                         ((and (equal input-mode1 :d1_offs) (equal input-filter :at-events-v1) (equal input-mode2 :norm))
+                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-rhythm-and-rhythm-offset-between-voices 
+                                                              rule rhythm-engine1 rhythm-engine2) rhythm-engine1 rhythm-engine2)
+                          )
+                         ((and (equal input-mode1 :d1_offs_d2) (equal input-filter :at-events-v1) (equal input-mode2 :norm))
+                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-rhythm-and-rhythm-offset-between-voices-indicate-event 
+                                                              rule rhythm-engine1 rhythm-engine2 t) rhythm-engine1 rhythm-engine2)
+                          )
+                         ;end
+
+
                          ((and (equal input-mode1 :d1_offs) (equal input-filter :break-at-rest-v1) (equal input-mode2 :norm))
                           (heuristic-rule-two-engines (heuristic-rule-2-engines-rhythm-and-rhythm-offset-between-voices-break-at-rest-in-voice-1 
                                                        rule rhythm-engine1 rhythm-engine2) rhythm-engine1 rhythm-engine2)
@@ -2296,6 +2331,19 @@ an effect for durations (not offsets).
                           (heuristic-rule-two-engines (heuristic-rule-2-engines-rhythm-and-rhythm-offset-between-voices-indicate-duration-list-all 
                                                        rule rhythm-engine1 rhythm-engine2) rhythm-engine1 rhythm-engine2)
                           )
+
+                         ;new 2020
+                         ((and (equal input-mode1 :d1_offs) (equal input-filter :at-events-v1) (equal input-mode2 :list))
+                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-rhythm-and-rhythm-offset-between-voices-list-all 
+                                                              rule rhythm-engine1 rhythm-engine2) rhythm-engine1 rhythm-engine2)
+                          )
+                         ((and (equal input-mode1 :d1_offs_d2) (equal input-filter :at-events-v1) (equal input-mode2 :list))
+                                 (heuristic-rule-two-engines (heuristic-rule-2-engines-rhythm-and-rhythm-offset-between-voices-indicate-events-list-all 
+                                                              rule rhythm-engine1 rhythm-engine2 t) rhythm-engine1 rhythm-engine2)
+                          )
+                         ;end
+
+
                          ((and (equal input-mode1 :d1_offs) (equal input-filter :break-at-rest-v1) (equal input-mode2 :list))
                           (heuristic-rule-two-engines (heuristic-rule-2-engines-rhythm-and-rhythm-offset-between-voices-list-all-break-at-rest-in-voice-1 
                                                        rule rhythm-engine1 rhythm-engine2) rhythm-engine1 rhythm-engine2)
@@ -2315,8 +2363,6 @@ an effect for durations (not offsets).
                          (t (error "not implemented"))
                          )
                    ))
-
-
 
 
 

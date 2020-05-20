@@ -66,6 +66,8 @@
 ;;;
 ;;;    Since 2017 released via GitHub (https://github.com/tanders/cluster-engine) with a version git history since then
 ;;;
+;;; Winnipeg May 2020: added heuristic versions of rules for r-note-meter, r-meter-note, r-rhythm-rhythm
+;;;    Missing: PWGL interface adaption for these rules
 
 (in-package :asdf)
 
@@ -140,6 +142,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
    (:file "sources/06e.heuristic-rules-interface-2engines")
    (:file "sources/06f.heuristic-rules-interface-3engines")
    (:file "sources/06g.heuristic-rules-interface-any-n-engines")
+   (:file "sources/06h.heuristic-rules-interface-added2020")
    (:file "sources/07.backjumping")
    (:file "sources/08.decode")
    (:file "sources/09.utilities")

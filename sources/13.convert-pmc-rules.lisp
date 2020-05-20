@@ -578,3 +578,54 @@ will not be checked after this point."
         ((equal (car rule) :HEURISTIC)
          (rewrite-heuristic-rule-with-stop rule stop-nth))
         (t (error "Don't understand jbs-rule"))))
+
+
+
+;;;;ADDED May 20, 2020
+
+(in-package cluster-engine)
+
+(defun pmc-insert-index-range-for-rule (rule start-index end-index)
+  "This function inserts a stop point in a pmc formated rule (or a jbs formated rule).
+Max-length is the nth value (counting from 1 - as in PMC) where the rule is checked. After 
+this point the rule is bypassed."
+  (loop for item in rule
+        collect (if (listp item)
+                    (list '?if (append (list 'if (list 'and (list '<= 'len end-index) (list '>= 'len start-index)))
+                                            (cdr item)
+                                            '(t)))
+                  item)))
+                         
+(defun pmc-insert-index-range-for-heuristic-rule (rule start-index end-index)
+  "This function inserts a stop point in a pmc formated rule (or a jbs formated rule).
+Max-length is the nth value (counting from 1 - as in PMC) where the rule is checked. After 
+this point the rule is bypassed."
+  (loop for item in rule
+        collect (if (listp item)
+                    (list '?if (append (list 'if (list 'and (list '<= 'len end-index) (list '>= 'len start-index)))
+                                            (cdr item)
+                                            '(0)))
+                  item)))
+
+(defun rewrite-rule-with-index-range (rule start-index end-index)
+  "Rewrites a rule and relplaces '(cur-slen) with stop-nth. The rule
+will not be checked after this point."
+  (setf rule (polyengine-ify-a-symbol rule 'cur-slen))
+  (setf rule (substitute-in-tree end-index '(cur-slen) rule))
+  (pmc-insert-index-range-for-rule rule start-index end-index))
+
+(defun rewrite-heuristic-rule-with-index-range (rule start-index end-index)
+  "Rewrites a rule and relplaces '(cur-slen) with stop-nth. The rule
+will not be checked after this point."
+  (setf rule (polyengine-ify-a-symbol rule 'cur-slen))
+  (setf rule (substitute-in-tree end-index '(cur-slen) rule))
+  (pmc-insert-index-range-for-heuristic-rule rule start-index end-index))
+
+(defun rewrite-any-rule-with-index-range (rule start-nth end-nth)
+  (cond ((equal (car rule) :TRUE/FALSE)
+         (rewrite-rule-with-index-range rule start-nth end-nth))
+        ((equal (car rule) :HEURISTIC)
+         (rewrite-heuristic-rule-with-index-range rule start-nth end-nth))
+        ((equal (car rule) '*)   ;pmc rules are asssumed to be strict
+         (rewrite-rule-with-index-range rule start-nth end-nth))
+        (t (error "Don't understand jbs-rule"))))
