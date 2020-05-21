@@ -2193,6 +2193,196 @@ on the candidate)."
                                                             rule rhythm-engine1 rhythm-engine2) rhythm-engine1 rhythm-engine2))))
                                 ))))))
 
+;;;May 20, 2020 - new version that can define several rules with the identical rule statement
+(defun R-rhythms-rhythms (rule ;;;; nil
+                          list-all-voices
+                          input-mode1 ;;;; '(":d1_offs" ":d1_offs_d2")
+                          input-mode2 ;;;; '(":norm" ":list")
+                          input-filter ;;;; '(":at-durations-v1" ":at-events-v1" ":break-at-rest-v1" ":break-at-rest-v1-v2")
+                          &optional
+                          rule-type ;;;; '(":true/false" ":heur-switch")
+                          weight) ;;;; 1
+"Rule for the relation between durations in two voices. 
+
+<rule> is a logic statement in he form of a function. The output of the 
+function has to be either true or false. Each input will receive a list 
+with information regarding a timepoint in the score. If the rule has
+more than one input it will receive information for consecutive timepoints. 
+If the input-mode2 is set to list, the rule can only have one input.
+The exact information and format of the list depends on the selected input 
+mode (see below).
+
+<list-all-voices> is a list with the numbers for the voices (starting at 0) that 
+the rule affects. Voices have to be defined as pairs:
+((0 1)(2 3)) means that the same rule restricts voice 0-1 and voice 2-3
+
+<input-mode1> determines what format for the variables:
+ - d1_offset: The rule will receive a list with a duration in voice 1 and 
+              the offset to the event in voice 2 that exist at the onset 
+              for the duration in voice 1. Rests and grace notes in voice 1 
+              are ignored. Grace notes are ignored in voice 2, but rests are
+              included. Format: '(duration offset), example: '(1/2 -1/8).
+ - d1_offset_d2: Identical to d1_offset but also returns the duration (or 
+              rest) in voice 2. Format: '(duration1 offset duration2), 
+              example: '(1/2 -1/8 1/4).
+
+<input-mode2>
+ - norm: This setting is the normal behaviour of the box. An input receives
+              the information for one time point. More than one input it 
+              will receive information for consecutive timepoints.
+ - list: The rule must have exactly one input. The input will receive a 
+              list of all time points that are known when the rule is
+              checked. If any of the break-at-rest settings are used, the
+              rule will check each segment at a time.
+
+<input-filter> determines what information the rule will receive:
+ - at-durations-v1: The rule will receive informaton for all durations  
+              (grace notes and rests excluded) in voice 1.
+ - at-events-v1: The rule will receive informaton for all events  
+              (grace notes excluded) in voice 1. Rests are included.
+ - break-at-rest-v1: This will only differ from the above setting for
+              rules with more than one input. The rule will not not
+              check durations that are separated by a rest in voice 1.
+              If the list setting is chosen above, the list will be
+              segmented at rests in voice 1.
+ - break-at-rest-v1-v2: The rule will not check points where voice 1 or
+              voice 2 (or both) have a rest. If the rule has more than 
+              one input, it will not check timepoints that are separated 
+              by a rest in voice 1 or timepoints that have rests in voice 2.
+              If the list setting is chosen above, the list will be
+              segmented at rests in voice 1 or 2.
+
+
+The latter 2 settings are useful for rules that are only valid within 
+a phrase.
+
+
+[Backtracking: By default this rule will trigger backtracking in the other
+               engine than the engine that failed. If this is not possible, 
+               it will trigger backtracking in its own engine.]
+
+A word on efficiency:
+The most efficient input mode is the d1_offset (if the input-filter is set
+to at-durations-v1): the system is able to check this type of rule earlier than rules 
+with other input modes. This is due to that it can consider the last endpoint
+as a new onset, without knowing the duration for this new event.
+
+
+Optional inputs:
+By expanding the box it is possible to use the rule as a heuristic switch 
+rule. A heuristic switch rule is still using a logic statement (that 
+outputs true or false), but the effect of the rule is different: If the rule 
+is true, the weight (given in the <weight> input) is passed to the engine. 
+If it is false, a weight of 0 will be passed. A candidate that receive a 
+high weight will have a higher priority for being picked when the true/false 
+rules are checked. A heuristic rule can never fail a candidate, nor can it 
+trigger backtracking of the engine. Heuristic rules only sort the 
+candidates locally before the strict rules are applied. Depending on the 
+context, heuristic rules might have more or less of an effect. 
+
+Heuristic switch rules differs slightly form regular heuristic rules (the 
+latter don't output true or false, but a weight that might vary depending
+on the candidate)."
+
+
+     (loop for list-voices in list-all-voices 
+      collect (progn (when (/= 2 (length list-voices)) (error "Error in the setting of r-rhythms-rhythms: Voices have to be defined as pairs. More than two voices can not be included in one single rule statement."))
+                      (if rule-type
+                          (R-rhythm-rhythm rule (first list-voices) (second list-voices) input-mode1 input-mode2 input-filter rule-type weight)
+                          (R-rhythm-rhythm rule (first list-voices) (second list-voices) input-mode1 input-mode2 input-filter)))
+))
+
+
+(defun HR-rhythms-rhythms (rule ;;;; nil
+                          list-all-voices
+                          input-mode1 ;;;; '(":d1_offs" ":d1_offs_d2")
+                          input-mode2 ;;;; '(":norm" ":list")
+                          input-filter ;;;; '(":at-durations-v1" ":at-events-v1" ":break-at-rest-v1" ":break-at-rest-v1-v2")
+                          ) 
+ "
+Heuristic rule for the relation between durations in two voices. 
+
+Heuristic rules sort the candidates locally according to weights. 
+The true/false rules will test candidates that receive high weights by
+the heuristic rules before other candidates (and in this way give them
+higher priority). A heuristic rule can never fail a candidate, nor 
+can it trigger backtracking of an engine. 
+
+NOTE that this heuristic rule will have most effect on durations: offsets
+will be very little affected (if any at all).
+
+<rule> is a function that outputs a numerical weight. Each input will 
+receive a list with information regarding a timepoint in the score. If the 
+rule has more than one input it will receive information for consecutive 
+timepoints. If the input-mode2 is set to list, the rule can only have one 
+input. The exact information and format of the list depends on the 
+selected input mode (see below).
+
+<list-all-voices> is a list with the numbers for the voices (starting at 0) that 
+the rule affects. Voices have to be defined as pairs:
+((0 1)(2 3)) means that the same rule restricts voice 0-1 and voice 2-3
+
+<input-mode1> determines what format for the variables:
+ - d1_offset: The rule will receive a list with a duration in voice 1 and 
+              the offset to the event in voice 2 that exist at the onset 
+              for the duration in voice 1. Rests and grace notes in voice 1 
+              are ignored. Grace notes are ignored in voice 2, but rests are
+              included. Format: '(duration offset), example: '(1/2 -1/8).
+ - d1_offset_d2: Identical to d1_offset but also returns the duration (or 
+              rest) in voice 2. Format: '(duration1 offset duration2), 
+              example: '(1/2 -1/8 1/4).
+
+<input-mode2>
+ - norm: This setting is the normal behaviour of the box. An input receives
+              the information for one time point. More than one input it 
+              will receive information for consecutive timepoints.
+ - list: The rule must have exactly one input. The input will receive a 
+              list of all time points that are known when the rule is
+              checked. If any of the break-at-rest settings are used, the
+              rule will check each segment at a time.
+
+<input-filter> determines what information the rule will receive:
+ - at-durations-v1: The rule will receive informaton for all durations  
+              (grace notes and rests excluded) in voice 1.
+ - at-events-v1: The rule will receive informaton for all events  
+              (grace notes excluded) in voice 1. Rests are included.
+ - break-at-rest-v1: This will only differ from the above setting for
+              rules with more than one input. The rule will not not
+              check durations that are separated by a rest in voice 1.
+              If the list setting is chosen above, the list will be
+              segmented at rests in voice 1.
+ - break-at-rest-v1-v2: The rule will not check points where voice 1 or
+              voice 2 (or both) have a rest. If the rule has more than 
+              one input, it will not check timepoints that are separated 
+              by a rest in voice 1 or timepoints that have rests in voice 2.
+              If the list setting is chosen above, the list will be
+              segmented at rests in voice 1 or 2.
+
+
+The latter 2 settings are useful for rules that are only valid within 
+a phrase.
+
+
+[Backtracking: By default this rule will trigger backtracking in the other
+               engine than the engine that failed. If this is not possible, 
+               it will trigger backtracking in its own engine.]
+
+A word on efficiency:
+The most efficient input mode is the d1_offset (if the input-filter is set
+to at-durations-v1): the system is able to check this type of rule earlier than 
+rules with other input modes. This is due to that it can consider the last endpoint
+as a new onset, without knowing the duration for this new event. This setting
+will have more of an impact than other settings. Other input modes will only have
+an effect for durations (not offsets).
+
+"
+
+
+     (loop for list-voices in list-all-voices 
+      collect (progn (when (/= 2 (length list-voices)) (error "Error in the setting of r-rhythms-rhythms: Voices have to be defined as pairs. More than two voices can not be included in one single rule statement."))
+                          (HR-rhythm-rhythm rule (first list-voices) (second list-voices) input-mode1 input-mode2 input-filter))
+))
+
 
 
 
