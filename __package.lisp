@@ -82,7 +82,7 @@
 ;(save-lisp-and-die "/Users/orjansandred/Dropbox/cluster-to-Max-Orjan/cluster19.core")
 ;(save-lisp-and-die "/Users/julienvincenot/Dropbox/cluster-to-Max-Orjan/new-approach/cluster.core")
 ;(save-lisp-and-die "/Users/orjansandred/cluster-test.core")
-(save-lisp-and-die "/Users/julienvincenot/cluster-test.core")
+;(save-lisp-and-die "/Users/julienvincenot/cluster-test.core")
 
 ;;;;;;;;;;;
 
