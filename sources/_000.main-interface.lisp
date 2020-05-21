@@ -2379,7 +2379,7 @@ an effect for durations (not offsets).
 
 
      (loop for list-voices in list-all-voices 
-      collect (progn (when (/= 2 (length list-voices)) (error "Error in the setting of r-rhythms-rhythms: Voices have to be defined as pairs. More than two voices can not be included in one single rule statement."))
+      collect (progn (when (/= 2 (length list-voices)) (error "Error in the setting of hr-rhythms-rhythms: Voices have to be defined as pairs. More than two voices can not be included in one single rule statement."))
                           (HR-rhythm-rhythm rule (first list-voices) (second list-voices) input-mode1 input-mode2 input-filter))
 ))
 
