@@ -1270,7 +1270,7 @@ how index numbers are counted in the PMC engine).
 
                  (rewrite-any-rule-with-stop rule end-point))
 
-
+;;;NEW MAY 21, 2020
 (defun set-range (rule ;;;; nil 
                   start-nth
                   end-nth) ;;;; 12
@@ -1293,15 +1293,38 @@ how index numbers are counted in the PMC engine).
 
                  (rewrite-any-rule-with-index-range rule start-nth end-nth))
 
+(defun set-range2 (rule ;;;; nil 
+                  list-all-indexpairs) ;;;; 12
+                 "This box will set the range where are a jbs or a pmc rule is valid. 
+                 The rule is only checked from the start-nth element to the end-nth 
+                 element.The rule should pass through this box before going into the 
+                 r-jbs-one-voice box (or the r-pmc-one-voice box). The end point is 
+                 the position (i.e. not the index) for the last value in a voice where 
+                 the rule is checked. It also replaces the '(cur-slen) expression by the 
+                 end point.
+
+                 Pmc formated rules are assumed to be strict (not heuristic). JBS-rules
+                 can either be strict or heuristic.
+
+Note that the first value has the position 1 (this is compatible with
+how index numbers are counted in the PMC engine).
+
+"
+               ;  (:groupings '(2) :x-proportions '((0.1 0.2)) :w 0.25)
+
+               (loop for indexpair in list-all-indexpairs
+                collect 
+                 (let ((start-nth (first indexpair))
+                       (end-nth (second indexpair)))
+                   (rewrite-any-rule-with-index-range rule start-nth end-nth))
+                ))
 
 
 
 
 
 
-
-
-(defun R-jbs-one-voice (jbsrule0 ;;;; nil 
+(defun R-jbs-one-voice-simple (jbsrule0 ;;;; nil 
                         ruletype0 ;;;; '(":pitches" ":durations")
                         voice0 ;;;; 0
                         &optional 
@@ -1356,8 +1379,90 @@ Score-PMC-rules are NOT supported.
                  )
 
 
+;;NEW MAY 21, 2020
+(defun R-jbs-one-voice (jbsrule0 ;;;; nil 
+                                 ruletype0 ;;;; '(":pitches" ":durations")
+                                 voice0 ;;;; 0
+                                 &optional 
+                                 jbsrule1 ruletype1 voice1
+                                 jbsrule2 ruletype2 voice2
+                                 jbsrule3 ruletype3 voice3
+                                 jbsrule4 ruletype4 voice4
+                                 jbsrule5 ruletype5 voice5
+                                 jbsrule6 ruletype6 voice6
+                                 jbsrule7 ruletype7 voice7
+                                 jbsrule8 ruletype8 voice8
+                                 jbsrule9 ruletype9 voice9)
+  "
+This box makes it possible to use rules from the JBS-constraint library. 
+The box can handle both true/false rules and heuristic rules.
 
+Rules that use the (cur-slen) function are not supported (it is possible 
+to use these rules by letting them pass the set-end box).
 
+The voice input can be a list with all voices that the rule should affect.
+
+Score-PMC-rules are NOT supported. 
+"
+  ;     (:groupings '(3)  :extension-pattern '(3) :x-proportions '((0.1 0.27 0.1)(0.1 0.27 0.1)(0.1 0.27 0.1)
+  ;                                                               (0.1 0.27 0.1)(0.1 0.27 0.1)(0.1 0.27 0.1)
+  ;                                                               (0.1 0.27 0.1)(0.1 0.27 0.1)(0.1 0.27 0.1)
+  ;                                                               (0.1 0.27 0.1)) :w 0.5)
+
+  (let ((jbsrules (list jbsrule0 jbsrule1 jbsrule2 jbsrule3 jbsrule4 jbsrule5 jbsrule6 jbsrule7 jbsrule8 jbsrule9))
+        (ruletypes (list ruletype0 ruletype1 ruletype2 ruletype3 ruletype4 ruletype5 ruletype6 ruletype7 ruletype8 ruletype9))
+        (voices (list voice0 voice1 voice2 voice3 voice4 voice5 voice6 voice7 voice8 voice9)))
+
+    (setf ruletypes
+          (apply 'append 
+                 (loop for rule in jbsrules
+                       for type in ruletypes
+                       collect (if (not (listp (first rule)))
+                                   (list type)
+                                 (make-list (length rule) :initial-element type)
+                                 ))))
+
+    (setf voices
+          (apply 'append 
+                 (loop for rule in jbsrules
+                       for voice in voices
+                       collect (if (not (listp (first rule)))
+                                   (list voice)
+                                 (make-list (length rule) :initial-element voice)
+                                 ))))
+
+    (setf   jbsrules   
+            (apply 'append 
+                   (loop for rule in jbsrules
+                         for type in ruletypes
+                         for voice in voices
+                         collect (if (not (listp (first rule)))
+                                     (list rule)
+                                   rule)
+                         )))
+
+                   
+    (remove nil
+            (apply 'append 
+                   (loop for jbsrule in jbsrules
+                         for ruletype in ruletypes
+                         for voice in voices
+                         collect (if jbsrule
+                                     (cond ((equal ruletype :durations)
+                                            (when (numberp voice) (setf voice (list voice)))
+                                            (loop for v in voice
+                                                  collect
+                                                  (let ((engine (* 2 v)))
+                                                    (jbs-rhythm-rule jbsrule engine))))
+                                           ((equal ruletype :pitches)
+                                            (when (numberp voice) (setf voice (list voice)))
+                                            (loop for v in voice
+                                                  collect
+                                                  (let ((engine (1+ (* 2 v))))
+                                                    (jbs-pitch-rule jbsrule engine))))
+                                           (t nil))
+                                   nil)))))
+  )
 
 
 
