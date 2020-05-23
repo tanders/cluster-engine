@@ -5,6 +5,7 @@
 (defvar *debug-index* 0)
 (defvar *debug-index2* 0)
 (defvar *debug-count-backtrack* 0)
+(defvar *debug-filename* nil)
 
 
 (defun store-temp-solution-to-debug-vector (temp-sol)
@@ -40,6 +41,22 @@
         do (progn
              (setf (aref *debug-vector* index) nil)
              (setf (aref *debug-vector2* index) nil))))
+
+
+;;;ADDED May 23, 2020 - write all debug information to a file that can be opened in another software
+(defun write-debugvectors-to-file
+       (progn ( with-open-file
+                  ( stream
+                    ( string
+                      *debug-filename*
+                      )
+                    :direction :output :if-exists :supersede )
+    ( format stream
+                         ( write-to-string
+                           (list *debug-index* *debug-vector* *debug-index2* *debug-vector2* ))))
+         ))
+
+
 
 
 ;;;;;PWGL box below

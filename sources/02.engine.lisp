@@ -209,7 +209,9 @@ Locked engines cannot be backtracked."
                    (progn  
                      ;set debug information and print indexes if they exceed previous max index
                      (if debug? (progn (debug-print-and-update-maxindex vindex vmax-index vsolution (aref vcurrent-engine 0) nr-of-engines)
-                                  (store-temp-solution-to-debug-vector (get-all-engines vsolution vindex nr-of-engines)))
+                                  (store-temp-solution-to-debug-vector (get-all-engines vsolution vindex nr-of-engines))
+                                  (when (and *debug-filename* (or (= (mod loop-counter 100) 0)  ;;;;;ADDED MAY 23, 2020 - store debug vectors to file every 100s loop or at record index
+                                                                  (> (aref vindex (aref vcurrent-engine 0)) (aref vmax-index (aref vcurrent-engine 0))))) (write-debugvectors-to-file)))
                       ; (print-and-update-maxindex vindex vmax-index (aref vcurrent-engine 0)) ;this would only print indexes, not store temporary solution
                        )
 
