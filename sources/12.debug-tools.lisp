@@ -44,7 +44,7 @@
 
 
 ;;;ADDED May 23, 2020 - write all debug information to a file that can be opened in another software
-(defun write-debugvectors-to-file
+(defun write-debugvectors-to-file ()
        (progn ( with-open-file
                   ( stream
                     ( string
