@@ -210,8 +210,8 @@ Locked engines cannot be backtracked."
                      ;set debug information and print indexes if they exceed previous max index
                      (if debug? (progn (debug-print-and-update-maxindex vindex vmax-index vsolution (aref vcurrent-engine 0) nr-of-engines)
                                   (store-temp-solution-to-debug-vector (get-all-engines vsolution vindex nr-of-engines))
-                                  (when (and *debug-filename* (or (= (mod loop-counter 100) 0)  ;;;;;ADDED MAY 23, 2020 - store debug vectors to file every 100s loop or at record index
-                                                                  (> (aref vindex (aref vcurrent-engine 0)) (aref vmax-index (aref vcurrent-engine 0))))) (write-debugvectors-to-file)))
+                                  ;;;;;ADDED MAY 23, 2020 - store debug vectors to file every 100s loop or at record index
+                                  (when (and *debug-filename* (= (mod loop-counter 100) 0)) (write-debugvectors-to-file)))  
                       ; (print-and-update-maxindex vindex vmax-index (aref vcurrent-engine 0)) ;this would only print indexes, not store temporary solution
                        )
 
@@ -305,6 +305,7 @@ among the variables."
   (when (> (aref vindex current-engine) (aref vmax-index current-engine))
     (progn (setf (aref vmax-index current-engine) (aref vindex current-engine))
       (store-temp-solution-to-debug-vector2 (get-all-engines vsolution vindex nr-of-engines))
+      (when *debug-filename* (write-debugvectors-to-file))  ;;;ADDED MAY 23,2020 - store vectors to file so they can be read by another software
       (when *verbose-i/o?*
 	(print (format nil "Highest indexes during this search: ~S" vmax-index) *cluster-engine-log-output*)))))
 
