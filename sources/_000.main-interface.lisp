@@ -5183,10 +5183,10 @@ Note that the use of grace notes immediately preceeding rests (duration 0 before
                               (voice1 (second voice-pair)))
                           (when (/= (length voice-pair) 2) (error "In R-canon, voices can only be given as pairs '(dux comes)."))
                           (cond ((equal parameter :rhythm)
-                                 (funcall backtrack-route (rule-rhythmcanon voice1 voice2 offset) (list (* 2 voice1) (* 2 voice2))) )
+                                 (rules-rhythm-canon voice2 voice1 offset) )
 
                                 ((equal parameter :rhythm&pitch)
-                                 (list (funcall backtrack-route (rule-rhythmcanon voice1 voice2 offset) (list (* 2 voice1) (* 2 voice2))) 
+                                 (list (rules-rhythm-canon voice2 voice1 offset) 
                                        (funcall backtrack-route (rule-pitchcanon2 voice1 voice2 interval offset) (list (1+ (* 2 voice1)) (1+ (* 2 voice2))))))
 
                                 ((equal parameter :pitch)

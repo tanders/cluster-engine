@@ -37,6 +37,7 @@
 (load-local "05h.rules-higher-level")
 (load-local "05i.rules-stop-search")
 (load-local "05n.rules-interface-nn-engines")
+(load-local "05o.rules-interface-nn-engines")
 (load-local "06.heuristic-rules-interface")
 (load-local "06a.heuristic-rules-interface-1engine")
 (load-local "06b.heuristic-rules-interface-2engines")
