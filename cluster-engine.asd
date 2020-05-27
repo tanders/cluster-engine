@@ -134,6 +134,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
    (:file "sources/05h.rules-higher-level") ;"ready made" rules
    (:file "sources/05i.rules-stop-search")
    (:file "sources/05n.rules-interface-nn-engines")
+   (:file "sources/05o.new-canon-rule")
    (:file "sources/06.heuristic-rules-interface")
    (:file "sources/06a.heuristic-rules-interface-1engine")
    (:file "sources/06b.heuristic-rules-interface-2engines")
