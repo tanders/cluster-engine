@@ -586,7 +586,7 @@ Gracenotes and rests are included. Pitch for a rest will be indicated as nil."
                                                      when (or pitches (minusp (the number (nth n durations)))) ;break if there is no more pitch to match
                                                      collect (if (minusp (the number (nth n durations)))
                                                                  (list (the number (nth n durations)) nil) ;rest
-                                                               (list (the number (nth n durations)) (the number (pop pitches)))))))
+                                                               (list (the number (nth n durations)) (pop pitches))))));;;FIXED BUG May 28, 2020
                             '(declare (type list pitches durations all-dur-pitch-pairs))
                       
                             (list 'if (list 'not (list 'funcall (compile-if-not-compiled nil simple-rule) 'all-dur-pitch-pairs)) ;duration
@@ -628,7 +628,7 @@ Rests are included, but grace notes are excluded. Pitch for a rest will be indic
                                                      when (or pitches (minusp (the number (nth n durations)))) ;break if there is no more pitch to match
                                                      collect (if (minusp (the number (nth n durations)))
                                                                  (list (the number (nth n durations)) nil) ;rest
-                                                               (list (the number (nth n durations)) (the number (pop pitches))))))
+                                                               (list (the number (nth n durations)) (pop pitches)))));;;FIXED BUG May 28, 2020
                                         (list 'all-dur-pitch-pairs-excl-gracenotes '(remove-if #'(lambda (dur-pitch) (zerop (first dur-pitch))) all-dur-pitch-pairs))
                                               )
                             '(declare (type list pitches durations all-dur-pitch-pairs all-dur-pitch-pairs-excl-gracenotes))
