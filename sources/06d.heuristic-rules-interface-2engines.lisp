@@ -108,8 +108,7 @@ in engine2.
           ;find the information to check
         (list 'block 'this-rule
               (list 'let '(list-of-offsets
-                           list-of-dur-engine2
-                           timepoints-for-backjump)
+                           )
                     '(declare (type list list-of-offsets list-of-dur-engine2 timepoints-for-backjump))
                 
                     (list 'cond (list (list '= 'engine rhythm-engine1)
@@ -131,7 +130,7 @@ in engine2.
                                             '(when (not matching-or-preceding-timepoints-engine1) (return-from this-rule 0))
 
                                             (list 'setf 'list-of-offsets '(the list (mapcar '- matching-or-preceding-timepoints-engine1 engine1-timepoints-to-check)))
-                                            '(setf timepoints-for-backjump engine1-timepoints-to-check)
+
                                             ))
 
                           (list (list '= 'engine rhythm-engine2)
@@ -161,7 +160,6 @@ in engine2.
 
                                       (list 'setf 'list-of-offsets '(the list (mapcar '- matching-or-preceding-timepoints-engine1 engine1-timepoints-to-check)))
                                                                                       
-                                      '(setf timepoints-for-backjump engine1-timepoints-to-check)
                                       )))
 
                       
