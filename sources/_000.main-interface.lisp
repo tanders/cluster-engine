@@ -2748,7 +2748,7 @@ on the candidate).
 ;;;New June 2020
 (defun R-rhythm-hierarchy-range (voices ;;;; '(0 1)
                               rule-mode ;;;; '(":dur->dur" ":include-rests"":cells->durations")
-                              range
+                              ranges
                               &optional
                               rule-type ;;;; '(":true/false" ":heur-switch")
                                weight) ;;;; 1
@@ -2798,9 +2798,12 @@ on the candidate).
          
   (let* ((all-voice-pairs (create-all-hierarchical-pairs voices))
          (rhythm-engine-pairs (mapcar #'(lambda (voice-pair) (mapcar #'(lambda (voice) (* 2 voice)) voice-pair)) all-voice-pairs))
-         (start (1+ (first range)))
-         (end (1+ (second range)))
          )
+
+  	(when (not (listp (first ranges))) (setf ranges (list ranges)))
+		(apply #'append
+			(loop for range in ranges
+      			collect (let ((start (1+ (first range))) (end (1+ (second range))))
 
                    (cond ((equal rule-type :heur-switch)
                           (cond ((equal rule-mode :dur->dur)
@@ -2833,7 +2836,7 @@ on the candidate).
                                               collect (rule-two-engines1 (rule-2-engines-rhythmic-hierarchy-cellstart-e1-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))
                                        ((= *bktr-rh2v-C* 2)
                                         (loop for engine-pair in rhythm-engine-pairs
-                                              collect (rule-two-engines2 (rule-2-engines-rhythmic-hierarchy-cellstart-e1-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair)))))))))))
+                                              collect (rule-two-engines2 (rule-2-engines-rhythmic-hierarchy-cellstart-e1-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))))))))))))
 
 
 

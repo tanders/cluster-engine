@@ -4669,12 +4669,12 @@ randomly.
 ;;;;;;;;;;;NEW VERSION OF THE RHYTHM HIERARCHY RULE - NOW WITH SETTINGS FOR THE RANGE WHERE IT IS APPLIED (START TIME AND END TIME)
 
 (system::PWGLDef R-rhythm-hierarchy-range ((voices '(0 1))
-                                     (rule-mode  10 (ccl::mk-menu-subview :menu-list '(":dur->dur" ":include-rests"":cells->durations")))
-                                     (range '(0 10))
-                                     &optional
-                                     (rule-type  10 (ccl::mk-menu-subview :menu-list '(":true/false" ":heur-switch")))
-                                     (weight 1))
-                 "
+                                           (rule-mode  10 (ccl::mk-menu-subview :menu-list '(":dur->dur" ":include-rests"":cells->durations")))
+                                           (ranges '(0 10))
+                                           &optional
+                                           (rule-type  10 (ccl::mk-menu-subview :menu-list '(":true/false" ":heur-switch")))
+                                           (weight 1))
+    "
 Rule for a hierarchic relation between onsets in two or more voices. 
 The range setting determines where in the score the rule is applied
 (the start and end points are included in teh range where the rule is 
@@ -4713,42 +4713,45 @@ Heuristic switch rules differs slightly form regular heuristic rules (the
 latter don't output true or false, but a weight that might vary depending
 on the candidate).
 "
-                 (:groupings '(3)  :extension-pattern '(2) :x-proportions '((0.15 0.25 0.2)(0.3 0.1)) :w 0.5)
-                 (let* ((all-voice-pairs (create-all-hierarchical-pairs voices))
-                        (rhythm-engine-pairs (mapcar #'(lambda (voice-pair) (mapcar #'(lambda (voice) (* 2 voice)) voice-pair)) all-voice-pairs))
-                        (start (1+ (first range)))
-                        (end (1+ (second range))))
+    (:groupings '(3)  :extension-pattern '(2) :x-proportions '((0.15 0.25 0.2)(0.3 0.1)) :w 0.5)
+  (let* ((all-voice-pairs (create-all-hierarchical-pairs voices))
+         (rhythm-engine-pairs (mapcar #'(lambda (voice-pair) (mapcar #'(lambda (voice) (* 2 voice)) voice-pair)) all-voice-pairs))
+                        
+         )
 
-                   (cond ((equal rule-type :heur-switch)
-                          (cond ((equal rule-mode :dur->dur)
-                                 (loop for engine-pair in rhythm-engine-pairs
-                                       collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-rhythmic-hierarchy-range (first engine-pair) (second engine-pair) weight start end) (first engine-pair) (second engine-pair))))
-                                ((equal rule-mode :include-rests)
-                                 (loop for engine-pair in rhythm-engine-pairs
-                                       collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-rhythmic-hierarchy-incl-rests-range (first engine-pair) (second engine-pair) weight start end) (first engine-pair) (second engine-pair))))
-                                ((equal rule-mode :cells->durations)
-                                 (loop for engine-pair in rhythm-engine-pairs
-                                       collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-rhythmic-hierarchy-cellstart-e1-range (first engine-pair) (second engine-pair) weight start end) (first engine-pair) (second engine-pair))))))
-                         (t
-                          (cond ((equal rule-mode :dur->dur)
-                                 (cond ((= *bktr-rh2v-A* 1)
-                                        (loop for engine-pair in rhythm-engine-pairs
-                                              collect (rule-two-engines1 (rule-2-engines-rhythmic-hierarchy-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))
-                                       ((= *bktr-rh2v-A* 2)
-                                        (loop for engine-pair in rhythm-engine-pairs
-                                              collect (rule-two-engines2 (rule-2-engines-rhythmic-hierarchy-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))))
-                                ((equal rule-mode :include-rests)
-                                 (cond ((= *bktr-rh2v-B* 1)
-                                        (loop for engine-pair in rhythm-engine-pairs
-                                              collect (rule-two-engines1 (rule-2-engines-rhythmic-hierarchy-incl-rests-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))
-                                       ((= *bktr-rh2v-B* 2)
-                                        (loop for engine-pair in rhythm-engine-pairs
-                                              collect (rule-two-engines2 (rule-2-engines-rhythmic-hierarchy-incl-rests-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))))
-                                ((equal rule-mode :cells->durations)
-                                 (cond ((= *bktr-rh2v-C* 1)
-                                        (loop for engine-pair in rhythm-engine-pairs
-                                              collect (rule-two-engines1 (rule-2-engines-rhythmic-hierarchy-cellstart-e1-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))
-                                       ((= *bktr-rh2v-C* 2)
-                                        (loop for engine-pair in rhythm-engine-pairs
-                                              collect (rule-two-engines2 (rule-2-engines-rhythmic-hierarchy-cellstart-e1-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair)))))))))))
-
+    (when (not (listp (first ranges))) (setf ranges (list ranges)))
+    (apply #'append
+           (loop for range in ranges
+                 collect (let ((start (1+ (first range))) (end (1+ (second range))))
+                           (cond ((equal rule-type :heur-switch)
+                                  (cond ((equal rule-mode :dur->dur)
+                                         (loop for engine-pair in rhythm-engine-pairs
+                                               collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-rhythmic-hierarchy-range (first engine-pair) (second engine-pair) weight start end) (first engine-pair) (second engine-pair))))
+                                        ((equal rule-mode :include-rests)
+                                         (loop for engine-pair in rhythm-engine-pairs
+                                               collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-rhythmic-hierarchy-incl-rests-range (first engine-pair) (second engine-pair) weight start end) (first engine-pair) (second engine-pair))))
+                                        ((equal rule-mode :cells->durations)
+                                         (loop for engine-pair in rhythm-engine-pairs
+                                               collect (heuristic-rule-two-engines (heuristic-switch-rule-2-engines-rhythmic-hierarchy-cellstart-e1-range (first engine-pair) (second engine-pair) weight start end) (first engine-pair) (second engine-pair))))))
+                                 (t
+                                  (cond ((equal rule-mode :dur->dur)
+                                         (cond ((= *bktr-rh2v-A* 1)
+                                                (loop for engine-pair in rhythm-engine-pairs
+                                                      collect (rule-two-engines1 (rule-2-engines-rhythmic-hierarchy-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))
+                                               ((= *bktr-rh2v-A* 2)
+                                                (loop for engine-pair in rhythm-engine-pairs
+                                                      collect (rule-two-engines2 (rule-2-engines-rhythmic-hierarchy-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))))
+                                        ((equal rule-mode :include-rests)
+                                         (cond ((= *bktr-rh2v-B* 1)
+                                                (loop for engine-pair in rhythm-engine-pairs
+                                                      collect (rule-two-engines1 (rule-2-engines-rhythmic-hierarchy-incl-rests-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))
+                                               ((= *bktr-rh2v-B* 2)
+                                                (loop for engine-pair in rhythm-engine-pairs
+                                                      collect (rule-two-engines2 (rule-2-engines-rhythmic-hierarchy-incl-rests-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))))
+                                        ((equal rule-mode :cells->durations)
+                                         (cond ((= *bktr-rh2v-C* 1)
+                                                (loop for engine-pair in rhythm-engine-pairs
+                                                      collect (rule-two-engines1 (rule-2-engines-rhythmic-hierarchy-cellstart-e1-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))
+                                               ((= *bktr-rh2v-C* 2)
+                                                (loop for engine-pair in rhythm-engine-pairs
+                                                      collect (rule-two-engines2 (rule-2-engines-rhythmic-hierarchy-cellstart-e1-range (first engine-pair) (second engine-pair) start end) (first engine-pair) (second engine-pair))))))))))))))
