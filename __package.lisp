@@ -31,6 +31,7 @@
 (load-local "05b.rules-interface-2engines")
 (load-local "05c.rules-interface-2engines")
 (load-local "05d.rules-interface-2engines")
+(load-local "05d-2.rules-interface-2engines")
 (load-local "05e.rules-interface-2engines")
 (load-local "05f.rules-interface-3engines")
 (load-local "05g.rules-interface-any-n-engines")
@@ -83,7 +84,7 @@
 ;(save-lisp-and-die "/Users/orjansandred/Dropbox/cluster-to-Max-Orjan/cluster19.core")
 ;(save-lisp-and-die "/Users/julienvincenot/Dropbox/cluster-to-Max-Orjan/new-approach/cluster.core")
 ;(save-lisp-and-die "/Users/orjansandred/cluster-test.core")
-;(save-lisp-and-die "/Users/julienvincenot/cluster-test.core")
+(save-lisp-and-die "/Users/orjansandred/cluster-test.core")
 
 ;;;;;;;;;;;
 

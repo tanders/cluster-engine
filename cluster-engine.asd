@@ -68,6 +68,7 @@
 ;;;
 ;;; Winnipeg May 2020: added heuristic versions of rules for r-note-meter, r-meter-note, r-rhythm-rhythm
 ;;;    Missing: PWGL interface adaption for these rules
+;;; Winnipeg June 2020: added a range setting for r-rhythm-hierachy-range (new)
 
 (in-package :asdf)
 
@@ -128,6 +129,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
    (:file "sources/05b.rules-interface-2engines") ;pitch and rhythm
    (:file "sources/05c.rules-interface-2engines") ;rhythm and rhythm
    (:file "sources/05d.rules-interface-2engines") ;hierarchy and metric rules
+   (:file "sources/05d-2.rules-interface-2engines") ;added range to the rhythm hierarchy rule
    (:file "sources/05e.rules-interface-2engines") ;metric rules and duration
    (:file "sources/05f.rules-interface-3engines") ;meter note
    (:file "sources/05g.rules-interface-any-n-engines") ;flexible number of layers, r-pitch-pitch
