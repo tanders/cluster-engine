@@ -397,7 +397,10 @@ The default settings can be found by opening a new preference box.
                  (setf *bktr-leNv-A* *bktr-leNv*)
                  (setf *bktr-leNv-B* *bktr-leNv*)
 
-                 (print-backtrack-preferences)
+                 ;;; (print-backtrack-preferences)
+                 
+                 (print "- - - Preferences have been successfully updated. - - -")
+                 
                  nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
