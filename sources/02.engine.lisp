@@ -114,7 +114,7 @@ Locked engines cannot be backtracked."
 (when *verbose-i/o?*
   (print (format nil "----")
 	 *cluster-engine-log-output*)
-  (print (format nil "Cluster Engine by Orjan Sandred (Studio FLAT, University of Manitoba). Transfered from PWGL to SBCL by Julien Vincenot and Orjan Sandred (Uppsala 2015).")
+  (print (format nil "Cluster-Engine by Orjan Sandred (Studio FLAT, University of Manitoba)")
 	 *cluster-engine-log-output*))
 ;;;;;;
 
