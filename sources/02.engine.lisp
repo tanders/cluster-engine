@@ -141,7 +141,12 @@ Locked engines cannot be backtracked."
     (loop for engine from 0 to (1- nr-of-engines)
           do (setf (aref vindex engine) -1))
 
-    (when debug? (clear-debug-vector))
+    (when debug? 
+      (clear-debug-vector) 
+
+      (if *debug-indexes-filename*            ;;; ADDED 17 Jan, 2021
+        (clear-debug-index-vectors-to-file)))
+        
 
     ;;;;put m symbols inside the poly-engine package, and put domains in vector
     (setf domains (polyengine-ify-symbols domains));this line is just to solve package problems
@@ -289,7 +294,9 @@ among the variables."
   (when (> (aref vindex current-engine) (aref vmax-index current-engine))
     (progn (setf (aref vmax-index current-engine) (aref vindex current-engine))
 	   (when *verbose-i/o?*
-	     (print (format nil "Highest indexes during this search: ~S" vmax-index) *cluster-engine-log-output*)))))
+	     (print (format nil "Highest indexes during this search: ~a" vmax-index) *cluster-engine-log-output*)
+       (if *debug-indexes-filename*
+           (append-debug-index-vectors-to-file vmax-index))))))     ;;; ADDED 17 Jan, 2021
 
 
 (defun debug-print-and-update-maxindex (vindex vmax-index vsolution current-engine nr-of-engines)
@@ -307,7 +314,10 @@ among the variables."
       (store-temp-solution-to-debug-vector2 (get-all-engines vsolution vindex nr-of-engines))
       (when *debug-filename* (write-debugvectors-to-file))  ;;;ADDED MAY 23,2020 - store vectors to file so they can be read by another software
       (when *verbose-i/o?*
-	(print (format nil "Highest indexes during this search: ~S" vmax-index) *cluster-engine-log-output*)))))
+	       (print (format nil "Highest indexes during this search: ~a" vmax-index) *cluster-engine-log-output*)
+         (if *debug-indexes-filename* (append-debug-index-vectors-to-file vmax-index))))))    ;;; ADDED 17 Jan, 2021
+        
+            
 
 (defun store-temp-solution-for-maxindex-to-debug-vector2  (vindex vmax-index vsolution current-engine nr-of-engines)
   "This function stores the temporary solution when an index exceeds its previous maximum."

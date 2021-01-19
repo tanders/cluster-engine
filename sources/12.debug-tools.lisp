@@ -6,6 +6,7 @@
 (defvar *debug-index2* 0)
 (defvar *debug-count-backtrack* 0)
 (defvar *debug-filename* nil)
+(defvar *debug-indexes-filename* nil)
 
 
 (defun store-temp-solution-to-debug-vector (temp-sol)
@@ -55,6 +56,35 @@
                          ( write-to-string
                            (list *debug-index* *debug-vector* *debug-index2* *debug-vector2* ))))
          ))
+
+
+;;;ADDED Jan 17, 2021
+;;;append successive debug index vectors (showing progression in solving) 
+;;;to a file that can be opened in another software
+;;;NOTE : the file must be cleared (see following function) before any evaluation 
+
+
+(defvar *debug-indexes-filename* nil)
+
+(defun append-debug-index-vectors-to-file (vector)
+  ( with-open-file
+    ( stream
+      ( string *debug-indexes-filename* )
+        :direction :output :if-exists :append )
+    ( format stream "~a~%"
+      ( write-to-string vector ) 
+    )
+  )
+)
+
+(defun clear-debug-index-vectors-to-file ()
+  ( with-open-file
+    ( stream 
+      ( string *debug-indexes-filename* )
+         :direction :output :if-exists :supersede )
+    ( format stream ""))
+)
+
 
 
 
