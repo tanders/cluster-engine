@@ -70,12 +70,23 @@
   ( with-open-file
     ( stream
       ( string *debug-indexes-filename* )
-        :direction :output :if-exists :append )
+        :direction :output :if-exists :supersede )
     ( format stream "~a~%"
       ( write-to-string vector ) 
     )
   )
 )
+      ;;;; REAL APPEND
+; (defun append-debug-index-vectors-to-file (vector)
+;   ( with-open-file
+;     ( stream
+;       ( string *debug-indexes-filename* )
+;         :direction :output :if-exists :append )
+;     ( format stream "~a~%"
+;       ( write-to-string vector ) 
+;     )
+;   )
+; )
 
 (defun clear-debug-index-vectors-to-file ()
   ( with-open-file
