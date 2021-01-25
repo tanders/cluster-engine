@@ -296,7 +296,9 @@ among the variables."
 	   (when *verbose-i/o?*
 	     (print (format nil "Highest indexes during this search: ~a" vmax-index) *cluster-engine-log-output*)
        (if *debug-indexes-filename*
-           (append-debug-index-vectors-to-file vmax-index))))))     ;;; ADDED 17 Jan, 2021
+            (write-debug-index-vectors-to-file) ;;; ADDED 17 Jan, 2021
+          )
+       ))))     
 
 
 (defun debug-print-and-update-maxindex (vindex vmax-index vsolution current-engine nr-of-engines)
@@ -315,7 +317,10 @@ among the variables."
       (when *debug-filename* (write-debugvectors-to-file))  ;;;ADDED MAY 23,2020 - store vectors to file so they can be read by another software
       (when *verbose-i/o?*
 	       (print (format nil "Highest indexes during this search: ~a" vmax-index) *cluster-engine-log-output*)
-         (if *debug-indexes-filename* (append-debug-index-vectors-to-file vmax-index))))))    ;;; ADDED 17 Jan, 2021
+         (if *debug-indexes-filename* 
+              (write-debug-index-vectors-to-file)
+             )         
+         ))))    ;;; ADDED 17 Jan, 2021
         
             
 

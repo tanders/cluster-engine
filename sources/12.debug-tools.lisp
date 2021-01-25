@@ -46,16 +46,15 @@
 
 ;;;ADDED May 23, 2020 - write all debug information to a file that can be opened in another software
 (defun write-debugvectors-to-file ()
-       (progn ( with-open-file
-                  ( stream
-                    ( string
-                      *debug-filename*
-                      )
-                    :direction :output :if-exists :supersede )
+  (progn ( with-open-file
+    ( stream
+      ( string
+        *debug-filename* )
+      :direction :output :if-exists :supersede )
     ( format stream
-                         ( write-to-string
-                           (list *debug-index* *debug-vector* *debug-index2* *debug-vector2* ))))
-         ))
+     ( write-to-string
+       (list *debug-index* *debug-vector* *debug-index2* *debug-vector2* ))))
+  ))
 
 
 ;;;ADDED Jan 17, 2021
@@ -66,27 +65,32 @@
 
 (defvar *debug-indexes-filename* nil)
 
-(defun append-debug-index-vectors-to-file (vector)
+(defun write-debug-index-vectors-to-file ()
   ( with-open-file
     ( stream
       ( string *debug-indexes-filename* )
-        :direction :output :if-exists :supersede )
+      :direction :output :if-exists :supersede )
     ( format stream "~a~%"
-      ( write-to-string vector ) 
+      ( write-to-string 
+        (list    
+          (coerce 
+            (mapcar #'length 
+              (nth 0 (coerce 
+                (reverse 
+                  (remove-if #'null *debug-vector*)) 
+                'list))) 'vector)
+          (coerce 
+            (mapcar #'length 
+              (nth 0 (coerce 
+                (reverse 
+                  (remove-if #'null *debug-vector2*)) 
+                'list))) 'vector)
+          )  
+        )
+      )
     )
   )
-)
-      ;;;; REAL APPEND
-; (defun append-debug-index-vectors-to-file (vector)
-;   ( with-open-file
-;     ( stream
-;       ( string *debug-indexes-filename* )
-;         :direction :output :if-exists :append )
-;     ( format stream "~a~%"
-;       ( write-to-string vector ) 
-;     )
-;   )
-; )
+
 
 (defun clear-debug-index-vectors-to-file ()
   ( with-open-file
