@@ -2058,7 +2058,8 @@ Timepoints have to exist in the rhythm-engine. Grace notes are skipped - insetad
   (declare (type list timepoints))
   (declare (type array vlinear-solution))
 
-  (the list (mapcar #'(lambda (timepoint) (the fixnum (get-notecount-at-timepoint-skip-gracenote rhythm-engine vlinear-solution timepoint))) timepoints)))
+  (the list (mapcar #'(lambda (timepoint) (get-notecount-at-timepoint-skip-gracenote rhythm-engine vlinear-solution timepoint)) timepoints)) ;removed typedeclaraion fixnum Feb 2021
+  )
 
 
 (defun get-notecount-at-timepoint-also-for-rest-skip-gracenote (rhythm-engine vlinear-solution timepoint)
@@ -2081,14 +2082,19 @@ This function is used in routines for backjumping."
   (declare (type list timepoints))
   (declare (type array vlinear-solution))
 
-  (let ((notecounts (get-notecounts-at-timepoints-skip-gracenotes rhythm-engine vlinear-solution timepoints)))
 
+  (let ((notecounts (get-notecounts-at-timepoints-skip-gracenotes rhythm-engine vlinear-solution timepoints)))
     (declare (type list notecounts))
+
     (loop for notecount in notecounts
           while (or (not notecount) (<= notecount last-pitchcount)) ;nil = rest
           collect (if notecount
-                      (the number (get-pitch-at-pitchcount pitch-engine vlinear-solution notecount))
+                       (get-pitch-at-pitchcount pitch-engine vlinear-solution notecount) ;removed type declaration number Feb 2021
+
                     nil)))) ;this indicates rest
+
+
+
 
 
 (defun get-pitches-at-notecounts (pitch-engine vlinear-solution notecounts last-pitchcount)

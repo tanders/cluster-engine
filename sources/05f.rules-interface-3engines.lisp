@@ -214,6 +214,7 @@ If the pitch information is not used: use the rule that only checks two engiens 
                       '(declare (type fixnum metric-engine1))
                 
                       (list 'cond (list (list '= 'engine 'metric-engine1)
+                        
                                         (list 'when (list 'not (list 'aref 'vlinear-solution rhythm-engine2 1)) '(return-from this-rule t))
                                         (list 'let* (list (list 'this-cell-metric-timepoints-plus-preceding-for-extra-args 
                                                                 (list 'the 'list (list metric-timepoints1 ;this is set as an input option (see above)
@@ -245,6 +246,7 @@ If the pitch information is not used: use the rule that only checks two engiens 
                                               ))
 
                             (list (list '= 'engine rhythm-engine2)
+                              
                                   (list 'when (list 'not (list 'aref 'vlinear-solution 'metric-engine1 1)) '(return-from this-rule t))
                                   (list 'let* (list (list 'this-cell-starttime (list 'get-current-index-starttime rhythm-engine2 'vindex 'vsolution))
                                                     (list 'metric-timepoints-plus-preceding-for-extra-args-engine1
@@ -272,14 +274,17 @@ If the pitch information is not used: use the rule that only checks two engiens 
                                         (list 'setf 'list-of-offsets '(the list (mapcar '- matching-or-preceding-timepoints-engine2 metric-timepoints-to-check)))
                                         (list 'setf 'durations-plus-preceding-for-extra-args-engine2 
                                               (list 'the 'list (list 'get-durations-at-timepoints-skip-gracenotes rhythm-engine2 'vlinear-solution 'matching-or-preceding-timepoints-engine2)))
+                                 ;'(print "error here")
                                         (list 'setf 'pitches-plus-preceding-for-extra-args-engine3 
                                                     (list 'the 'list (list 'get-pitches-at-timepoints-skip-gracenotes rhythm-engine2 pitch-engine3 'vlinear-solution 'matching-or-preceding-timepoints-engine2 'total-pitchcount)))
+
                                         (list 'setf 'list-of-timesigns '(the list (remove nil (get-time-signature-at-timepoints metric-engine1 vsolution vlinear-solution metric-timepoints-to-check))))
-                                      
+                                                                    
                                         '(setf timepoints-for-backjump metric-timepoints-to-check)
                                         ))
 
                             (list (list '= 'engine pitch-engine3) 
+                              
                                   (list 'when (list 'not (list 'aref 'vlinear-solution 'metric-engine1 1)) '(return-from this-rule t))
                                   (list 'when (list 'not (list 'aref 'vlinear-solution rhythm-engine2 1)) '(return-from this-rule t))
                                   (list 'let* (list (list 'first-pitchcount-this-cell (list 'get-current-index-first-pitchcount pitch-engine3 'vindex 'vsolution))
@@ -328,6 +333,7 @@ If the pitch information is not used: use the rule that only checks two engiens 
                       ;Special case: last durations might be grace notes. Remove these:
                       '(setf durations-plus-preceding-for-extra-args-engine2 (remove-if 'zerop durations-plus-preceding-for-extra-args-engine2))
                       ;here is the rule test
+
                       (list 'loop 'for 'nth-variable 'from 0 
                             'to (list 'the 'fixnum (list '- '(min (1- (length durations-plus-preceding-for-extra-args-engine2)) 
                                                                   (1- (length pitches-plus-preceding-for-extra-args-engine3))
@@ -335,9 +341,9 @@ If the pitch information is not used: use the rule that only checks two engiens 
                                                          (1- no-of-args)))
                             'do (list 'when (list 'not (list 'apply (compile-if-not-compiled nil simple-rule) 
                                                              (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
-                                                                   'collect '(list (the number (nth (+ n nth-variable) list-of-offsets))
-                                                                                   (the number (nth (+ n nth-variable) durations-plus-preceding-for-extra-args-engine2))
-                                                                                   (the number (nth (+ n nth-variable) pitches-plus-preceding-for-extra-args-engine3))
+                                                                   'collect '(list (nth (+ n nth-variable) list-of-offsets) ;removed type declaration number Feb 2021
+                                                                                   (nth (+ n nth-variable) durations-plus-preceding-for-extra-args-engine2) ;removed type declaration number Feb 2021
+                                                                                   (nth (+ n nth-variable) pitches-plus-preceding-for-extra-args-engine3) ;removed type declaration number Feb 2021
                                                                                    (the list (nth (+ n nth-variable) list-of-timesigns)))))) ;changed from type number to list - 2015
                                       (list 'progn 
                                             ;backjump
