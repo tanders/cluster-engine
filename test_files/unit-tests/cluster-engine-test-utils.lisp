@@ -54,6 +54,7 @@ Utility functions for defining Cluster Engine tests
 (funcall my-gen)
 |#
 
+;; BUG: Always returns the same ratio?
 (defun gen-ratio (&key
 		    ;; (numerator (gen-integer :min -7 :max 7))
 		    ;; no grace-notes for now
@@ -63,6 +64,9 @@ Utility functions for defining Cluster Engine tests
   (lambda ()
     (/ (funcall numerator) (funcall denominator))))
 #|
+;; BUG: Always returns the same value
+(funcall (gen-select-one :candidates '(-5 -4 -3 -2 -1 1 2 3 4 5 6)))
+
 (setf my-gen (gen-ratio))
 (funcall my-gen)
 
