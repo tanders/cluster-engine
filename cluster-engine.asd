@@ -116,10 +116,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
   #+PWGL :default-component-class #+PWGL ccl::pwgl-source-file
   :serial t
   :components
-  ((:file "sources/package")
+  (
+
+   (:file "sources/iter") ; added for MOZ'Lib
+
+   (:file "sources/package")
+
+   (:file "sources/iter-forwind") ; add-on to Iter also for MOZ'Lib
+
    (:file "sources/from-studio-flat")
    (:file "sources/12.debug-tools")
    ;; (:file "sources/000.box-ptr-for-orjan") ; likely obsolete 
+   
    (:file "sources/01.domain")
    (:file "sources/02.engine")
    (:file "sources/03.Fwd-rules")
@@ -151,6 +159,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
    (:file "sources/09.utilities")
    (:file "sources/09b.markov-tools")
    (:file "sources/09c.cluster-energy-profile")
+   
    #+PWGL (:file "sources/10.PWGL-interface")
    #+PWGL (:file "sources/11.simple-tree")
    (:file "sources/13.convert-pmc-rules")
@@ -161,4 +170,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
    ;;; TMP comment -- dependency on two PW functions
    ;; (:file "sources/_001.gen_domains")
    (:file "sources/export")
+
 ))

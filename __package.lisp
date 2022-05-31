@@ -2,9 +2,9 @@
 
 (defpackage cluster-engine
   #+SBCL
-  (:use :common-lisp :sb-ext)
+  (:use :common-lisp :sb-ext :iterate)
   #-SBCL
-  (:use :common-lisp)
+  (:use :common-lisp :iterate)
   (:nicknames :ce))
 
 
