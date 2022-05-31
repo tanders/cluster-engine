@@ -4,7 +4,7 @@ Cluster Engine is a constraint solver for solving polyphonic constraint satisfac
 
 Cluster Engine is the successor of PWMC (Sandred, 2010). It was originally developed as a library for the free composition environment [[http://www2.siba.fi/pwgl][PWGL]]. 
 
-The present version still runs in PWGL, but also on plain Common Lisp in order to make it useable within [[http://opusmodus.com][Opusmodus]] and -- via a [[http://www.sbcl.org][SBCL]] interface -- in the music and media programming environment [[https://cycling74.com/products/max][Max]] (Vincenot, 2017).
+The present version still runs in PWGL, but also on plain Common Lisp in order to make it useable within [[http://opusmodus.com][Opusmodus]] and -- via a [[http://www.sbcl.org][SBCL]] interface -- in the music and media programming environment [[https://cycling74.com/products/max][Max]] (Vincenot, 2017) within the [[https://github.com/JulienVincenot/MOZLib][MOZ'Lib]] package.
 
 Cluster Engine has been successfully tested on PWGL (based on Lispworks), SBCL and Opusmodus ([[http://ccl.clozure.com][Clozure CL]]).
 
