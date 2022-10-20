@@ -69,6 +69,11 @@
 ;;; Winnipeg May 2020: added heuristic versions of rules for r-note-meter, r-meter-note, r-rhythm-rhythm
 ;;;    Missing: PWGL interface adaption for these rules
 ;;; Winnipeg June 2020: added a range setting for r-rhythm-hierachy-range (new)
+;;;
+;;; version 0.159 (Winnipeg October 20 2022)
+;;;   Fixed 2 bugs in r-note-meter: the format offs setting (list declared for a number, which caused the search to generate 
+;;;   an error message) and the d-offs-m-n setting (chords were not accepted). The bugs were in the 
+;;;   rule-2-engines-events-offset-to-metric-structure-include-rests function and the get-pitches-at-notecounts (it did not accept chords).
 
 (in-package :asdf)
 
@@ -81,7 +86,7 @@
 
 
 (defsystem cluster-engine
-  :version "0.158"
+  :version "0.159"
   :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torstenanders@gmx.de>"
   :licence "Simplified BSD License"
   :description "This is not an official release - use this at your own risk.

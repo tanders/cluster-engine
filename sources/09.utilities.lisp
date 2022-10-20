@@ -2106,7 +2106,7 @@ This function is used in routines for backjumping."
   (loop for notecount in notecounts
         while (or (not notecount) (<= notecount last-pitchcount)) ;nil = rest
         collect (if notecount
-                    (the number (get-pitch-at-pitchcount pitch-engine vlinear-solution notecount))
+                    (get-pitch-at-pitchcount pitch-engine vlinear-solution notecount)
                   nil)))
 
 

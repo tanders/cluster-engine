@@ -84,7 +84,7 @@ If rests are not used in the domain, this rule is to prefer for this reason.
                             'to (list 'the 'fixnum (list '- '(1- (length list-of-offsets)) (1- no-of-args)))
                             'do (list 'when (list 'not (list 'apply (compile-if-not-compiled nil simple-rule) 
                                                              (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
-                                                                   'collect (list 'the 'list (list 'nth '(+ n nth-variable) 'list-of-offsets)))))  ;;;change here
+                                                                   'collect (list 'nth '(+ n nth-variable) 'list-of-offsets))))  ;;;BUG FIXED HERE
                                       (list 'progn 
                                             ;backjump
                                             (list 'set-vbackjump-indexes-from-failed-timepoint-duration 
