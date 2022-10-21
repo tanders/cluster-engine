@@ -74,6 +74,14 @@
 ;;;   Fixed 2 bugs in r-note-meter: the format offs setting (list declared for a number, which caused the search to generate 
 ;;;   an error message) and the d-offs-m-n setting (chords were not accepted). The bugs were in the 
 ;;;   rule-2-engines-events-offset-to-metric-structure-include-rests function and the get-pitches-at-notecounts (it did not accept chords).
+;;;version 0.16 (Winnipeg October 20 2022)
+;;;   Fixed a bug in r-meter-note: the format setting offset_duration_pitch (chords  created error messages) and the offset_duration_meter 
+;;;   (timesignatures created error messages). The bugs were in 
+;;;   rule-3-engines-metric-timepoints-events-and-pitch-include-rests-indicate-duration and
+;;;   rule-2-engines-metric-timepoints-and-events-include-rests-indicate-duration-and-meter
+;;;  
+;;;   Fixed the above bugs (v.0.159 andf 0.16) for heuristic and heuristic switch rules as well
+
 
 (in-package :asdf)
 
@@ -86,7 +94,7 @@
 
 
 (defsystem cluster-engine
-  :version "0.159"
+  :version "0.16"
   :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torstenanders@gmx.de>"
   :licence "Simplified BSD License"
   :description "This is not an official release - use this at your own risk.

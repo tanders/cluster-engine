@@ -276,7 +276,7 @@ Grace notes are ignored (they will be skipped: the rule will not know that they 
                             'to (list 'the 'fixnum (list '- '(1- (length list-of-offsets)) (1- no-of-args)))
                             'do (list 'when (list 'not (list 'apply (compile-if-not-compiled nil simple-rule) 
                                                              (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
-                                                                   'collect (list 'the 'list (list 'nth '(+ n nth-variable) 'list-of-offsets)))))
+                                                                   'collect (list 'nth '(+ n nth-variable) 'list-of-offsets)))) ;FIXED A BUG HERER OCTOBER 2022
                                       (list 'progn 
                                             ;backjump
                                             (list 'set-vbackjump-indexes-from-failed-timepoint-duration 
@@ -1594,7 +1594,7 @@ The logic statement will receive '(offset duration).
                                                              (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
                                                                    'collect '(list (the number (nth (+ n nth-variable) list-of-offsets))
                                                                                    (the number (nth (+ n nth-variable) durations-plus-preceding-for-extra-args-engine2))
-                                                                                   (the number (nth (+ n nth-variable) list-of-timesigns))))))  ;;;change here
+                                                                                   (nth (+ n nth-variable) list-of-timesigns)))))  ;;;BUG FIXED HERE OCTOBER 2022
                                       (list 'progn 
                                             ;backjump
                                             (list 'set-vbackjump-indexes-from-failed-timepoint-duration 

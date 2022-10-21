@@ -2206,7 +2206,7 @@ The logic statement will receive '(offset duration).
                                                                     (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
                                                                           'collect '(list (the number (nth (+ n nth-variable) list-of-offsets))
                                                                                           (the number (nth (+ n nth-variable) durations-plus-preceding-for-extra-args-engine2))
-                                                                                          (the number (nth (+ n nth-variable) list-of-timesigns)))))
+                                                                                          (nth (+ n nth-variable) list-of-timesigns)))) ;BUG FIXED OCTOBER 2022
                                                           weight
                                                           0)))
                       )))
@@ -3502,7 +3502,7 @@ The rule statement will receive '(offset duration).
                                                                     (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
                                                                           'collect '(list (the number (nth (+ n nth-variable) list-of-offsets))
                                                                                           (the number (nth (+ n nth-variable) durations-plus-preceding-for-extra-args-engine2))
-                                                                                          (the number (nth (+ n nth-variable) list-of-timesigns)))))
+                                                                                          (nth (+ n nth-variable) list-of-timesigns)))) ;BUG FIXED OCTOBER 2022
                                                           ))
                       )))
     ))

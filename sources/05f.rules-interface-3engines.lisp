@@ -163,7 +163,7 @@ If the pitch information is not used: use the rule that only checks two engiens 
                                                              (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
                                                                    'collect '(list (the number (nth (+ n nth-variable) list-of-offsets))
                                                                                    (the number (nth (+ n nth-variable) durations-plus-preceding-for-extra-args-engine2))
-                                                                                   (the number (nth (+ n nth-variable) pitches-plus-preceding-for-extra-args-engine3)))))) 
+                                                                                   (nth (+ n nth-variable) pitches-plus-preceding-for-extra-args-engine3))))) ;FIXED A BUG HERE OCTOBER 2022
                                       (list 'progn 
                                             ;backjump
                                             (list 'set-vbackjump-indexes-from-failed-timepoint-meter-duration-pitch 

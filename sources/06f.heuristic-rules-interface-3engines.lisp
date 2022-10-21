@@ -154,7 +154,7 @@ The logic statement will receive '(offset duration pitch).
                                                                     (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
                                                                           'collect '(list (the number (nth (+ n nth-variable) list-of-offsets))
                                                                                           (the number (nth (+ n nth-variable) durations-plus-preceding-for-extra-args-engine2))
-                                                                                          (the number (nth (+ n nth-variable) pitches-plus-preceding-for-extra-args-engine3)))))
+                                                                                          (nth (+ n nth-variable) pitches-plus-preceding-for-extra-args-engine3)))) ;BUG FIXED OCTOBER 2022
                                                           weight
                                                           0)
                                            ))
@@ -315,7 +315,7 @@ The logic statement will receive '(offset duration pitch meter).
                                                                           'collect '(list (the number (nth (+ n nth-variable) list-of-offsets))
                                                                                           (the number (nth (+ n nth-variable) durations-plus-preceding-for-extra-args-engine2))
                                                                                           (the number (nth (+ n nth-variable) pitches-plus-preceding-for-extra-args-engine3))
-                                                                                          (the number (nth (+ n nth-variable) list-of-timesigns)))))
+                                                                                          (nth (+ n nth-variable) list-of-timesigns)))) ;BUG FIXED OCTOBER 2022
                                                           weight
                                                           0)
                                            ))
