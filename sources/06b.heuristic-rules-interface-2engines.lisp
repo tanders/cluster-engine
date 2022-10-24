@@ -156,7 +156,7 @@ Gracenotes and rests are included."
                                         '(declare (type fixnum length-this-variable total-no-of-dur total-notecount total-pitchcount))
                                         ;probably it is not necessary to check if there are pitches, since the loop will stop if there are not any pitches
                                         (list 'average (list 'loop 'for 'nth-duration 'from (list 'max (list '- 'total-no-of-dur 'length-this-variable (1- no-of-args)) 0)
-                                                             'to (list '- (list 'get-position-for-duration-at-notecount+following-rests rhythm-engine 'vlinear-solution 'last-note-pitch-and-duration 'total-no-of-dur) (1- no-of-args))
+                                                             'to (list '- (list 'get-position-for-duration-at-notecount-incl-following-rests rhythm-engine 'vlinear-solution 'last-note-pitch-and-duration) (1- no-of-args))  ;CHANGED HERE
                                                              'collect (list 'if (list 'apply (compile-if-not-compiled nil simple-rule) 
                                                                                       (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
                                                                                             'collect (list 'let (list (list 'this-duration (list 'nth '(+ nth-duration n) (list 'aref 'vlinear-solution rhythm-engine 0))))
@@ -187,8 +187,8 @@ Gracenotes and rests are included."
 
                                   (list 'let (list (list 'start-nth-duration (list 'get-position-for-duration-at-notecount-minus-preceeding-rests rhythm-engine 'vlinear-solution 
                                                                                    '(- total-pitchcount (1- length-this-variable))))
-                                                   (list 'end-nth-duration (list 'get-position-for-duration-at-notecount+following-rests rhythm-engine 'vlinear-solution 
-                                                                                 'last-note-pitch-and-duration 'total-no-of-dur)))
+                                                   (list 'end-nth-duration (list 'get-position-for-duration-at-notecount-incl-following-rests rhythm-engine 'vlinear-solution 
+                                                                                 'last-note-pitch-and-duration)))  ;CHANGED HERE
                                         '(declare (type fixnum start-nth-duration end-nth-duration))
 
 
@@ -233,7 +233,7 @@ Gracenotes and rests are included."
                                         '(declare (type fixnum length-this-variable total-no-of-dur total-notecount total-pitchcount))
                                         ;probably it is not necessary to check if there are pitches, since the loop will stop if there are not any pitches
                                         (list 'average (list 'loop 'for 'nth-duration 'from (list 'max (list '- 'total-no-of-dur 'length-this-variable (1- no-of-args)) 0)
-                                                             'to (list '- (list 'get-position-for-duration-at-notecount+following-rests rhythm-engine 'vlinear-solution 'last-note-pitch-and-duration 'total-no-of-dur) (1- no-of-args))
+                                                             'to (list '- (list 'get-position-for-duration-at-notecount-incl-following-rests rhythm-engine 'vlinear-solution 'last-note-pitch-and-duration) (1- no-of-args)) ;CHANGED HERE
                                                              'collect (list 'apply (compile-if-not-compiled nil simple-rule) 
                                                                             (list 'loop 'for 'n 'from 0 'to (1- no-of-args)
                                                                                   'collect (list 'let (list (list 'this-duration (list 'nth '(+ nth-duration n) (list 'aref 'vlinear-solution rhythm-engine 0))))
@@ -263,8 +263,8 @@ Gracenotes and rests are included."
 
                                   (list 'let (list (list 'start-nth-duration (list 'get-position-for-duration-at-notecount-minus-preceeding-rests rhythm-engine 'vlinear-solution 
                                                                                    '(- total-pitchcount (1- length-this-variable))))
-                                                   (list 'end-nth-duration (list 'get-position-for-duration-at-notecount+following-rests rhythm-engine 'vlinear-solution 
-                                                                                 'last-note-pitch-and-duration 'total-no-of-dur)))
+                                                   (list 'end-nth-duration (list 'get-position-for-duration-at-notecount-incl-following-rests rhythm-engine 'vlinear-solution 
+                                                                                 'last-note-pitch-and-duration))) ;CHANGED HERE
                                         '(declare (type fixnum start-nth-duration end-nth-duration))
 
 
@@ -284,6 +284,7 @@ Gracenotes and rests are included."
 
                                                              )))))
                       )))))
+
 
 
 
@@ -529,7 +530,7 @@ This rule seems more succesful if it backtracks the same engine (you need to tak
                       (list 'setf 'start-nth-pointer-for-rulecheck (list 'get-start-nth-pointer-durations 'positions-for-durations-and-rests-no-gracenotes 'start-nth-this-variable no-of-args))
                       '(when (not start-nth-pointer-for-rulecheck) (return-from this-rule 0)) ;break rule if there is, because of rests and gracenotes, is not enough pairs to check rule
 
-                      (list 'setf 'end-nth-rhythm-pitch-pairs (list 'get-position-for-duration-at-notecount+following-rests rhythm-engine 'vlinear-solution 'total-pitchcount 'total-no-of-dur))
+                      (list 'setf 'end-nth-rhythm-pitch-pairs (list 'get-position-for-duration-at-notecount-incl-following-rests rhythm-engine 'vlinear-solution 'total-pitchcount)) ;CHANGED HERE
                       '(when (not end-nth-rhythm-pitch-pairs) (setf end-nth-rhythm-pitch-pairs (1- total-no-of-dur)))
 
                       (list 'setf 'end-nth-pointer-for-rulecheck (list 'get-end-nth-pointer-durations 'positions-for-durations-and-rests-no-gracenotes 'end-nth-rhythm-pitch-pairs no-of-args))
@@ -599,7 +600,7 @@ This rule seems more succesful if it backtracks the same engine (you need to tak
                       (list 'setf 'start-nth-pointer-for-rulecheck (list 'get-start-nth-pointer-durations 'positions-for-durations-and-rests-no-gracenotes 'start-nth-this-variable no-of-args))
                       '(when (not start-nth-pointer-for-rulecheck) (return-from this-rule 0)) ;break rule if there is, because of rests and gracenotes, is not enough pairs to check rule
 
-                      (list 'setf 'end-nth-rhythm-pitch-pairs (list 'get-position-for-duration-at-notecount+following-rests rhythm-engine 'vlinear-solution 'total-pitchcount 'total-no-of-dur))
+                      (list 'setf 'end-nth-rhythm-pitch-pairs (list 'get-position-for-duration-at-notecount-incl-following-rests rhythm-engine 'vlinear-solution 'total-pitchcount))  ;CHANGED HERE
                       '(when (not end-nth-rhythm-pitch-pairs) (setf end-nth-rhythm-pitch-pairs (1- total-no-of-dur)))
 
                       (list 'setf 'end-nth-pointer-for-rulecheck (list 'get-end-nth-pointer-durations 'positions-for-durations-and-rests-no-gracenotes 'end-nth-rhythm-pitch-pairs no-of-args))
@@ -952,7 +953,7 @@ Gracenotes and rests are included. Pitch for a rest will be indicated as nil."
                                                      when (or pitches (minusp (the number (nth n durations)))) ;break if there is no more pitch to match
                                                      collect (if (minusp (the number (nth n durations)))
                                                                  (list (the number (nth n durations)) nil) ;rest
-                                                               (list (the number (nth n durations)) (the number (pop pitches)))))))
+                                                               (list (the number (nth n durations))  (pop pitches)))))) ;FIXED BUG HERE OCTOBER 2022
                             '(declare (type list pitches durations all-dur-pitch-pairs))
                       
                             (list 'if (list 'funcall (compile-if-not-compiled nil simple-rule) 'all-dur-pitch-pairs) ;duration
@@ -983,7 +984,7 @@ Rests are included, but grace notes are excluded.  Pitch for a rest will be indi
                                                      when (or pitches (minusp (the number (nth n durations)))) ;break if there is no more pitch to match
                                                      collect (if (minusp (the number (nth n durations)))
                                                                  (list (the number (nth n durations)) nil) ;rest
-                                                               (list (the number (nth n durations)) (the number (pop pitches))))))
+                                                               (list (the number (nth n durations)) (pop pitches)))))  ;FIXED BUG HERE OCTOBER 2022
                                         (list 'all-dur-pitch-pairs-excl-gracenotes '(remove-if #'(lambda (dur-pitch) (zerop (first dur-pitch))) all-dur-pitch-pairs)))
                             '(declare (type list pitches durations all-dur-pitch-pairs all-dur-pitch-pairs-excl-gracenotes))
                       
@@ -1015,7 +1016,7 @@ Gracenotes and rests are included. Pitch for a rest will be indicated as nil."
                                                      when (or pitches (minusp (the number (nth n durations)))) ;break if there is no more pitch to match
                                                      collect (if (minusp (the number (nth n durations)))
                                                                  (list (the number (nth n durations)) nil) ;rest
-                                                               (list (the number (nth n durations)) (the number (pop pitches)))))))
+                                                               (list (the number (nth n durations)) (pop pitches)))))) ;FIXED BUG HERE OCTOBER 2022
                             '(declare (type list pitches durations all-dur-pitch-pairs))
                       
                             (list 'funcall (compile-if-not-compiled nil simple-rule) 'all-dur-pitch-pairs) ;duration
@@ -1044,7 +1045,7 @@ Rests are included, but grace notes are excluded.  Pitch for a rest will be indi
                                                      when (or pitches (minusp (the number (nth n durations)))) ;break if there is no more pitch to match
                                                      collect (if (minusp (the number (nth n durations)))
                                                                  (list (the number (nth n durations)) nil) ;rest
-                                                               (list (the number (nth n durations)) (the number (pop pitches))))))
+                                                               (list (the number (nth n durations)) (pop pitches)))))  ;FIXED BUG HERE OCTOBER 2022
                                         (list 'all-dur-pitch-pairs-excl-gracenotes '(remove-if #'(lambda (dur-pitch) (zerop (first dur-pitch))) all-dur-pitch-pairs)))
                             '(declare (type list pitches durations all-dur-pitch-pairs all-dur-pitch-pairs-excl-gracenotes))
                       
