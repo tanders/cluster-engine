@@ -81,6 +81,9 @@
 ;;;   rule-2-engines-metric-timepoints-and-events-include-rests-indicate-duration-and-meter
 ;;;  
 ;;;   Fixed the above bugs (v.0.159 andf 0.16) for heuristic and heuristic switch rules as well
+;;;
+;;; version 0.161 (Winnipeg October 24 2022)
+;;;   Fixed a but in r-rhythm-pitch-one-voice: the rule input setting include-rests created errors in teh jeuristic and switch heuristic settings (an old function that does not exist anymore was called)
 
 
 (in-package :asdf)
@@ -94,7 +97,7 @@
 
 
 (defsystem cluster-engine
-  :version "0.16"
+  :version "0.161"
   :author "Main author: Orjan Sandred <Orjan.Sandred@umanitoba.ca>; Contributions: Julien Vincenot <julien.vincenot@gmail.com>, Torsten Anders <torstenanders@gmx.de>"
   :licence "Simplified BSD License"
   :description "This is not an official release - use this at your own risk.
