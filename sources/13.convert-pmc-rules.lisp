@@ -194,7 +194,7 @@ By using the set-end box it is possible to redefine the '(cur-slen) to a given e
                                    'to (list '- (list '1- 'total-pitchcount) (1- no-of-args))
                                    'do (list 'when (list 'not (list 'apply (compile nil simple-rule) 
                                                                     (list 'append (list 'loop 'for 'n 'from 1 'to no-of-args
-                                                                                        'collect (list 'the 'number (list 'get-pitch-at-pitchcount this-engine 'vlinear-solution (list '+ 'notecount 'n))))
+                                                                                        'collect (list 'get-pitch-at-pitchcount this-engine 'vlinear-solution (list '+ 'notecount 'n))) ;BUG HERE FIXED OCTOBER 2022
                                                                           (list 'list (list 'butlast (list 'the 'list (list 'aref 'vlinear-solution this-engine 0)) (list '- 'total-pitchcount  (list '+ 'notecount no-of-args))));;changed here
                                                                      ;The butlast is to hide variables that occur after the one beeing checked. This solves errors when motofs are used
                                                                      ;since the pmc would not understand this concept
