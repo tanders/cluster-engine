@@ -709,7 +709,7 @@ for each gracenote (they are grouped with the main notes in the other voices)."
                                              (loop for gracenote in (butlast one-voice-notecount)
                                                    collect (let ((this-slice (copy-list basenotes-this-timepoint)))
                                                              (declare (type list this-slice))
-                                                             (declare (type fixnum gracenote))
+                                                             ;(declare (type fixnum gracenote)) ;;;;BUG FIX March 12 2023
                                                              (setf (nth n this-slice) gracenote)
                                                              this-slice))))))
             (list basenotes-this-timepoint))))
