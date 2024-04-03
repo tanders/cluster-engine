@@ -252,7 +252,7 @@ be output in the format of a list of individual rule arrays."
   (apply 'append (loop for index from 0 to (aref vindex engine)
         collect (caddar (aref (aref vsolution engine) index)))))
 
-;;convert-vsolution->linear ANVÄNDS EJ. Se convert-vsolution->linear-and-backjump i 06.backjumping.lisp
+;;convert-vsolution->linear Old. Se convert-vsolution->linear-and-backjump i 06.backjumping.lisp
 (defun convert-vsolution->linear (vsolution vindex vlinear-solution vflag-changed-engine nr-of-engines)
   (declare (type array vsolution vindex vlinear-solution vflag-changed-engine))
   (loop for engine in (remove-duplicates (aref vflag-changed-engine 0))
