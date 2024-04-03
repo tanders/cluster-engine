@@ -19,7 +19,7 @@
   ;; all rhythmic values are equal
   (ce::R-rhythms-one-voice #'(lambda (x y) (= x y)) 0 :durations)
   '((3 4)) 
-  '(((1/4) (1/8))
+  '(((1/4) (1/8) (1/16))
     ((60) (61))))
  )
 
@@ -30,11 +30,59 @@
   20 t nil
   (ce::R-rhythms-one-voice-at-timepoints 
    #'(lambda (x) (equal x '(0 1/4))) 
-   0 '(2) :dur-start) 
+   0 '(2) :dur-start)
   '((4 4)) 
   '(((1/4) (1/8) (1/16) (3/8)) 
     ((60) (m 7 -3) (m -7 3)))))
 
+;; TODO: TMP test
+(let* ((seed 1)
+       (*random-state* (ta-utils:read-random-state seed)))
+  (preview-cluster-engine-score
+   (ce::clusterengine 
+    20 t nil
+    (ce::R-rhythms-one-voice-at-timepoints 
+     #'(lambda (x)
+	 ;; (break)
+	 ;; (equal x '(-1/8 1/4))
+	 (equal x '(0 1/4))
+	 ) 
+     0 '(2) :dur-start)
+    '((4 4)) 
+    '(((1/4) (1/8) (1/16) (3/8)) 
+      ((60) (m 7 -3) (m -7 3))))))
+
+;; TODO: TMP test
+(defun motif-ends-at-stoptime (motifs-end)
+  (let ((motif-end-offset (first motifs-end))
+	(motif-rhythm (second motifs-end)))
+    (break)
+    (= motif-end-offset 0)
+    ))
+(let* ((seed 2)
+       (*random-state* (ta-utils:read-random-state seed)))
+  (preview-cluster-engine-score
+   (ce::clusterengine 
+    20 t nil
+    (ce::R-rhythms-one-voice-at-timepoints
+     ;; #'motif-ends-at-stoptime
+     #'(lambda (x)
+     	 (break)
+     	 ;; (equal x '(-1/8 1/4))
+     	 (equal (first x) 0)
+     	 ) 
+     0 '(2)
+     :dur-start
+     ;; Perhaps only used to pitch motifs??
+     ;; :motif-start
+     ;; :motif-end
+     )
+    '((4 4)) 
+    '(; ((1/4) (1/8) (1/16) (3/8))
+      ((1/4) (1/8) (-1/8))
+      ((60)
+       ;; (m 7 -3) (m -7 3)
+       )))))
 
 ;; Cluster Engine tutorial 7c
 (preview-cluster-engine-score
