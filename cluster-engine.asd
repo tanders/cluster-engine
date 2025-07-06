@@ -1,3 +1,5 @@
+;;; -*- Mode:Lisp; Syntax:ANSI-Common-Lisp; -*-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; ClusterEngine Library
@@ -137,11 +139,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
   :components
   (
 
-   (:file "sources/iter") ; added for MOZ'Lib
-
    (:file "sources/package")
-
-   (:file "sources/iter-forwind") ; add-on to Iter also for MOZ'Lib
 
    (:file "sources/from-studio-flat")
    (:file "sources/12.debug-tools")
